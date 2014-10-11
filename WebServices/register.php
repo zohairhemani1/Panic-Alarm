@@ -1,7 +1,7 @@
 <?php
  
 // Create connection
-$con=mysqli_connect("localhost","iospanic","Hemani786!","iospanic");
+include 'connect_to_mysql.php';
  
 // Check connection
 if (mysqli_connect_errno())

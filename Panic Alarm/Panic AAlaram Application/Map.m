@@ -10,6 +10,7 @@
 #import "Map.h"
 #import <CoreLocation/CoreLocation.h>
 #import "checkInternet.h"
+#import "Victims.h"
 
 @interface Map (){
     checkInternet *c;
@@ -46,7 +47,18 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-    //[self.navigationController popViewControllerAnimated:YES];
+    
+    if(self.panicPersonType == 0){
+        destLat = [[[[Victims getPanicToArray] valueForKey:@"latitude"] objectAtIndex:self.panicPersonId]floatValue];
+        
+        destLon = [[[[Victims getPanicToArray] valueForKey:@"longitude"] objectAtIndex:self.panicPersonId]floatValue];
+    }
+    else{
+        destLat = [[[[Victims getPanicFromArray] valueForKey:@"latitude"] objectAtIndex:self.panicPersonId]floatValue];
+        
+        destLon = [[[[Victims getPanicFromArray] valueForKey:@"longitude"] objectAtIndex:self.panicPersonId]floatValue];
+    }
+
 }
 
 //- (IBAction)zoomToCurrentLocation:(id)sender {

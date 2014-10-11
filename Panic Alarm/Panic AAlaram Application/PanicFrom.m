@@ -9,15 +9,20 @@
 #import "PanicFrom.h"
 #import "checkInternet.h"
 #import "Map.h"
+#import "Victims.h"
 
 @interface PanicFrom (){
 checkInternet *c;
+    UIImage *img;
+    NSString *profilePic ;
+    NSString *imagePathString ;
+    NSURL *imagePathUrl;
+    NSData *data ;
 }
 @end
 @implementation PanicFrom
 
 @synthesize panicPersonName;
-@synthesize personName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,12 +40,29 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-	// Do any additional setup after loading the view.
-    panicPersonName.text = personName;
+    
+    
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
+    if(self.panicPersonType == 0){
+        panicPersonName.text = [[[Victims getPanicToArray] valueForKey:@"username"] objectAtIndex:self.panicPersonId];
+        
+        profilePic = [[[Victims getPanicToArray] valueForKey:@"pic"] objectAtIndex:self.panicPersonId];
+    }
+    else{
+        panicPersonName.text = [[[Victims getPanicFromArray] valueForKey:@"username"] objectAtIndex:self.panicPersonId];
+        
+        profilePic = [[[Victims getPanicFromArray] valueForKey:@"pic"] objectAtIndex:self.panicPersonId];
+    }
+    
+    imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+    imagePathString = [imagePathString stringByAppendingString:profilePic];
+    imagePathUrl = [NSURL URLWithString:imagePathString];
+    data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
+    img = [[UIImage alloc]initWithData:data ];
+    [self.panicPersonImage setImage:img];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,4 +70,20 @@ checkInternet *c;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)findLocation:(id)sender {
+    [self performSegueWithIdentifier:@"goToMap" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    Map *map = segue.destinationViewController;
+    
+    if ([segue.identifier isEqualToString:@"goToMap"]) {
+        
+        map.panicPersonId = self.panicPersonId;
+        map.panicPersonType = self.panicPersonType;
+    }
+    
+}
+
 @end

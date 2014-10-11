@@ -2,7 +2,7 @@
 
 $friendsArray = array();
 
-$con=mysqli_connect("localhost","iospanic","Hemani786!","iospanic");
+include 'connect_to_mysql.php';
  
 // Check connection
 if (mysqli_connect_errno())
@@ -14,13 +14,14 @@ if (mysqli_connect_errno())
 
 $username = $_POST['parameterOne'];
 $password = $_POST['parameterTwo'];
-$number = $_POST['username'];
+$storedNumber = $_POST['username'];
 
 
-$query = "SELECT DISTINCT mynumber, friendsnumber, activate
-			FROM friends
-			WHERE activate =0
-			AND (mynumber =  '$number' || friendsnumber =  '$number')
+$query = "SELECT friends.mynumber, friends.friendsnumber, friends.activate , registeration.pic,registeration.password,registeration.username
+			FROM friends, registeration 
+			WHERE friends.activate = 0
+			AND (friends.mynumber =  '$storedNumber' || friends.friendsnumber =  '$storedNumber') 
+			AND (friends.mynumber = registeration.password || friends.friendsnumber = registeration.password ) group by friends.friendsnumber
 			";
 $result = mysqli_query($con,$query);
 

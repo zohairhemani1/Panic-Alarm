@@ -2,7 +2,7 @@
 
 	$favouritesArray = array();
 	
-	$con=mysqli_connect("localhost","iospanic","Hemani786!","iospanic");
+	include 'connect_to_mysql.php';
  
 	// Check connection
 	if (mysqli_connect_errno())
@@ -12,7 +12,7 @@
 	
 	$myNumber = $_POST['parameterOne'];
 	
-	$query = "SELECT DISTINCT f.mynumber, f.friendsnumber, f.activate, r.username
+	$query = "SELECT DISTINCT f.mynumber, f.friendsnumber, f.activate, r.username, r.pic
 				FROM friends f, registeration r
 				WHERE f.friendsnumber = r.password
 				AND f.mynumber LIKE  '$myNumber'

@@ -12,13 +12,5 @@
 		echo "Stored in: " . "/assets/upload/" . $_FILES["file"]["name"] . "<br>";
 		$profilePic = $_FILES['file']['name'];
 		echo "ProfilePicture: " . $profilePic;
-		//$query = "INSERT INTO pixrate(name,likes) VALUES('$profilePic','0')";
-		//$result = mysqli_query($con,$query);
-		
-		//if($result)
-			//echo "Inserted.";
-		//else
-			//echo "Error in Insertion.";
 	}
-    
 ?>

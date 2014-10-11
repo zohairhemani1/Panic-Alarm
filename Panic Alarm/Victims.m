@@ -15,15 +15,17 @@
 @end
 
 @implementation Victims{
-    NSArray *PanicFromArray;
-    NSArray *PanicToArray;
-    NSString *testing1;
-    NSString *testing2;
-    NSString *testing3;
-    NSString *testing4;
+
     NSString *nameToAdd;
-    
+    UIImage *img;
+    NSString *profilePic ;
+    NSString *imagePathString ;
+    NSURL *imagePathUrl;
+    NSData *data ;
+    UIImageView *imageView;
 }
+static NSArray *PanicFromArray;
+static NSArray *PanicToArray;
 
 @synthesize mytable = _tableView;
 
@@ -87,46 +89,52 @@
     static NSString *simple = @"second";
     UITableViewCell *cell;
     
-    UILabel *name;
-    UILabel *message;
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 6, 150, 20)];
+    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
+    
+    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 150, 20)];
+    [message setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+    message.textColor = [UIColor grayColor];
+
+    UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(210, 29, 50, 13)];
+    [timestamp setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+
     
     
     if(self.segments.selectedSegmentIndex == 0)
     {
+        // Panic From table view
+        
         if (cell == nil) {
             cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
             
         }
         
-        NSString *profilePic = [[PanicFromArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
-        NSString *imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+        profilePic = [[PanicFromArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
+        imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
         imagePathString = [imagePathString stringByAppendingString:profilePic];
         
-        NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
-        NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-        UIImage *img = [[UIImage alloc]initWithData:data ];
+        imagePathUrl = [NSURL URLWithString:imagePathString];
+        data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
+        img = [[UIImage alloc]initWithData:data ];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+        imageView = [[UIImageView alloc] initWithImage:img];
         imageView.frame = CGRectMake(10, 5, 40, 40);
         imageView.layer.cornerRadius = 20;
         [imageView setClipsToBounds:YES];
         [cell addSubview:imageView];
         
-        name = [[UILabel alloc]initWithFrame:CGRectMake(60, 6, 150, 20)];
-        message = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 150, 20)];
         
         name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
-        [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
-        
         message.text = @"This is a dummy message";
-        [message setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
-        message.textColor = [UIColor grayColor];
-        [cell addSubview:name];
-        [cell addSubview:message];
-
+        timestamp.text = [[PanicFromArray valueForKey:@"timestamp"]objectAtIndex:indexPath.row];
+        
     }
     else
     {
+        
+        //PanicTo Table View
+        
         if (cell == nil) {
             cell = [tableView dequeueReusableCellWithIdentifier:simple];
 
@@ -137,25 +145,22 @@
 //        [imageView setClipsToBounds:YES];
 //        [cell addSubview:imageView];
         
-        name = [[UILabel alloc]initWithFrame:CGRectMake(60, 6, 150, 20)];
-        message = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 150, 20)];
-        
         name.text = [[PanicToArray valueForKey:@"friendsnumber" ] objectAtIndex:indexPath.row];
-        [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
         
         message.text = @"This is a dummy message";
-        [message setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
-        message.textColor = [UIColor grayColor];
-        
-        [cell addSubview:name];
-        [cell addSubview:message];
+        timestamp.text = [[PanicToArray valueForKey:@"timestamp"]objectAtIndex:indexPath.row];
        
     }
-    UIButton *test = [[UIButton alloc]initWithFrame:CGRectMake(200,10,50,20)];
-    test.backgroundColor=[UIColor blackColor];
-    [test setTitle:@"Pend" forState:UIControlStateNormal];
-    [test addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
-    [cell addSubview:test];
+    UIButton *status_button = [[UIButton alloc]initWithFrame:CGRectMake(210,7,50,20)];
+    status_button.backgroundColor=[UIColor blackColor];
+    [status_button setTitle:@"Pend" forState:UIControlStateNormal];
+    [status_button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell addSubview:status_button];
+    [cell addSubview:name];
+    [cell addSubview:message];
+    [cell addSubview:timestamp];
+    
     return cell;
 }
 
@@ -164,18 +169,31 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     NSIndexPath *indexPath = [self.mytable indexPathForSelectedRow];
-    PanicFrom *destViewController = segue.destinationViewController;
+    PanicFrom *panic = segue.destinationViewController;
+    
     if ([segue.identifier isEqualToString:@"FromSegue"]) {
-        destViewController.personName = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
+        
+        panic.panicPersonId = indexPath.row;
+        panic.panicPersonType = 1; // 1 means Panic From Tab
     }
     else if([segue.identifier isEqualToString:@"ToSegue"]){
-    
-        destViewController.personName = [[PanicToArray valueForKey:@"friendsnumber" ] objectAtIndex:indexPath.row];
+        panic.panicPersonId = indexPath.row;
+        panic.panicPersonType = 0; // 0 means Panic To Tab
+        
     }
         // Hide bottom tab bar in the detail view
         //   destViewController.hidesBottomBarWhenPushed = YES;
     
+}
+
++(NSArray *)getPanicFromArray{
+    return PanicFromArray;
+}
+
++(NSArray *)getPanicToArray{
+    return PanicToArray;
 }
 
 @end

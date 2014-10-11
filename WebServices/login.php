@@ -1,20 +1,14 @@
 <?php
  
 // Create connection
-$con=mysqli_connect("localhost","iospanic","Hemani786!","iospanic");
- 
-// Check connection
-if (mysqli_connect_errno())
-{
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
-
+include 'connect_to_mysql.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+$pic = $_POST['pic'];
 
 // This SQL statement selects ALL from the table 'Locations'
-$query = "SELECT * FROM registeration WHERE username like '$username' AND password like '$password'";
+$query = "SELECT * FROM registeration WHERE password like '$password'";
 $result = mysqli_query($con,$query);
 $count = mysqli_num_rows($result);
 $row = $result->fetch_object();
@@ -29,7 +23,7 @@ if($count == 1)
 }
 else
 {
-	$query = "INSERT INTO registeration(username,password) VALUES('$username','$password')";
+	$query = "INSERT INTO registeration(username,password,pic) VALUES('$username','$password','$pic')";
 	$result = mysqli_query($con,$query);
 }
 // Close connections

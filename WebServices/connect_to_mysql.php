@@ -1,6 +1,6 @@
 <?php
 
-$db_host = "localhost"; 
+$db_host = "iospanic.db.11683817.hostedresource.com"; 
 
 $db_username = "iospanic";  
 

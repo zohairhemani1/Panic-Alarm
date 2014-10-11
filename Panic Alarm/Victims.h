@@ -13,4 +13,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segments;
 - (IBAction)SegmentAction:(id)sender;
 
++(NSArray *)getPanicFromArray;
+
++(NSArray *)getPanicToArray;
 @end
