@@ -1,0 +1,10 @@
+
+RewriteEngine on
+
+memory_limit = 20M
+max_execution_time = 9000
+
+RewriteCond %{HTTP_HOST} ^fajjemobile\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.fajjemobile\.com$
+RewriteRule ^/?$ "http\:\/\/fajjemobile\.info\/fajjelectronics\.com" [R=301,L]
+
