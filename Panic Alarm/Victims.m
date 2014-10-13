@@ -126,7 +126,7 @@ static NSArray *PanicToArray;
         
         
         name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
-        message.text = @"This is a dummy message";
+        message.text = [[PanicFromArray valueForKey:@"panicMessage" ] objectAtIndex:indexPath.row];
         timestamp.text = [[PanicFromArray valueForKey:@"timestamp"]objectAtIndex:indexPath.row];
         
     }
@@ -147,7 +147,7 @@ static NSArray *PanicToArray;
         
         name.text = [[PanicToArray valueForKey:@"friendsnumber" ] objectAtIndex:indexPath.row];
         
-        message.text = @"This is a dummy message";
+        //message.text = [[PanicToArray valueForKey:@"panicMessage" ] objectAtIndex:indexPath.row];
         timestamp.text = [[PanicToArray valueForKey:@"timestamp"]objectAtIndex:indexPath.row];
        
     }

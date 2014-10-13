@@ -34,7 +34,7 @@
     else{
         return;
     }
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
     
 }
 

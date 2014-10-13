@@ -7,10 +7,12 @@
 //
 
 #import "profile.h"
+#import "WebService.h"
 
 @implementation profile{
     UIImage *uploadedimage;
     UIView *lineView;
+    UIAlertView *statusAlert;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -59,7 +61,7 @@
     else{
         return;
     }
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
     
 }
 
@@ -95,7 +97,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (void) animateTextView: (UITextView*) textView up: (BOOL) up
 {
-    const int movementDistance = 50; // tweak as needed
+    const int movementDistance = 80; // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
     
     int movement = (up ? -movementDistance : movementDistance);
@@ -108,5 +110,25 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 - (IBAction)save_action:(id)sender {
+    
+    WebService *updateMessage = [[WebService alloc] init];
+     NSArray *result = [updateMessage FilePath:@"http://bizsocialcard.com/iospanic/panicMessage.php" parameterOne:self.messageText.text];
+     NSString *status = [result valueForKey:@"success"];
+    
+    if([status isEqualToString:@"OK"]){
+        statusAlert = [[UIAlertView alloc]initWithTitle:@"Status" message:@" Your Panic message has been updated" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
+        [statusAlert show];
+    }
+    else{
+        statusAlert = [[UIAlertView alloc]initWithTitle:@"Status" message:@"Your Panic message could not be updated." delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
+        [statusAlert show];
+
+    }
+    
+}
+
+-(BOOL) textViewShouldReturn:(UITextView *)textView{
+    [textView resignFirstResponder];
+    return YES;
 }
 @end
