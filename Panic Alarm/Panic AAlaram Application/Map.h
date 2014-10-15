@@ -17,6 +17,5 @@
 @property(strong,nonatomic) IBOutlet MKMapView *mapView;
 - (IBAction)route:(id)sender;
 @property int panicPersonId;
-@property int panicPersonType;
 
 @end

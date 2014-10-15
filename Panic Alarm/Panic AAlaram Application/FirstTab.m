@@ -97,10 +97,8 @@ bool condition=NO;
      userInfo:nil
      repeats:YES]; */
     
-    
-    
     Favorites *favObj = [[Favorites alloc] init];
-    NSMutableArray* list = [favObj favouritesList];
+    NSMutableArray* list = [Favorites favouritesList];
     victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
     victimNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     
@@ -123,7 +121,6 @@ bool condition=NO;
         [push setData:data];
         [push sendPushInBackground];
         
-        
     }
     [self locationManager:self.locationManager];
 
@@ -137,14 +134,15 @@ bool condition=NO;
     float latitude =  self.location.coordinate.latitude;
     
     NSLog(@"longitude is: %f",longitude);
-        NSLog(@"latitude is: %f",latitude);
+    NSLog(@"latitude is: %f",latitude);
+    
     NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
     [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
     [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
     [panic_victim_data setValue:victimName forKey:@"name"];
     [panic_victim_data setValue:victimNumber forKey:@"password"];
     
-    [favouritesObj favouritesArray];
+    //[favouritesObj favouritesArray];
     
     NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
     

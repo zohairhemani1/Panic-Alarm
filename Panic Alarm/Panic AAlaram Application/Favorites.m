@@ -14,10 +14,12 @@
 @interface Favorites (){
     checkInternet *c;
     NSString *storedNumber;
+    
 }
 @end
 
 @implementation Favorites
+static NSMutableArray* favouritesArray;
 @synthesize favoritesTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,7 +33,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_favouritesArray count];
+    return [favouritesArray count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -55,17 +57,17 @@
     storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     NSString *number;
     
-    if(![[[_favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row] isEqualToString:storedNumber])
-        number = [[_favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row];
-    else if (![[[_favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] isEqualToString:storedNumber])
-        number = [[_favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row];
+    if(![[[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row] isEqualToString:storedNumber])
+        number = [[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row];
+    else if (![[[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] isEqualToString:storedNumber])
+        number = [[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row];
     else
         NSLog(@"No Number.");
     
-    NSString *fullName = [[_favouritesArray valueForKey:@"username"] objectAtIndex:indexPath.row];
-    NSString *pic = [[_favouritesArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
+    NSString *fullName = [[favouritesArray valueForKey:@"username"] objectAtIndex:indexPath.row];
+    NSString *pic = [[favouritesArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
     
-    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 80, 13)];
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 120, 13)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
     if(fullName !=nil){
         
@@ -126,8 +128,9 @@
     //TODO: refresh your data
     
     [self.refresh endRefreshing];
-    [self favouritesList];
+    [Favorites favouritesList];
     [self.favoritesTable reloadData];
+    
 }
 
 - (void)viewDidLoad
@@ -149,7 +152,7 @@
     //UIImage *backgroundImage = [UIImage imageNamed:@"background"];
     //self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     [self.view setBackgroundColor:[UIColor blackColor]];
-    [self favouritesList];
+    [Favorites favouritesList];
     
 }
 
@@ -163,26 +166,29 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        [_favouritesArray removeObjectAtIndex:indexPath.row];
+        [favouritesArray removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
     }
 }
 
-- (NSMutableArray*)favouritesList
++ (NSMutableArray*)favouritesList
 {
     WebService *favouritesService = [[WebService alloc] init];
     NSArray * favJson = [[NSArray alloc] init];
     NSString *storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    
+    if(favouritesArray == nil){
     favJson = [favouritesService FilePath:@"http://bizsocialcard.com/iospanic/favourites.php" parameterOne:storedNumber];
-    _favouritesArray = [[NSMutableArray alloc] init];
-    for(NSDictionary *item in favJson)
-    {
+    favouritesArray = [[NSMutableArray alloc] init];
+        for(NSDictionary *item in favJson)
+        {
         
-        [_favouritesArray addObject:item];
-        NSLog(@" favouritesArray: %@", _favouritesArray);
+            [favouritesArray addObject:item];
+            NSLog(@" favouritesArray: %@", favouritesArray);
         
+        }
     }
-    return  _favouritesArray;
+    return favouritesArray;
 }
 
 - (void)didReceiveMemoryWarning

@@ -21,15 +21,17 @@
     
     self.messageText.delegate = self;
     
-    self.personName.text = @"Zohair Hemani";
+    self.personName.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+    self.personName.delegate = self;
+    
     self.personImage.layer.cornerRadius = 40;
     [self.personImage setClipsToBounds:YES];
     
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, self.view.bounds.size.width, 1)];
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(20, self.personName.frame.origin.y, self.view.bounds.size.width, 1)];
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:lineView];
     
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(20, 238, self.view.bounds.size.width, 1)];
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(20, self.personName.frame.origin.y+25, self.view.bounds.size.width, 1)];
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:lineView];
     
@@ -39,12 +41,16 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    UITouch *touch = [[event allTouches] anyObject];
-    if ([self.messageText isFirstResponder] && [touch view] != self.messageText) {
-        [self.messageText resignFirstResponder];
+    for (UIView * txt in self.view.subviews){
+        if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
+            [txt resignFirstResponder];
+        }
+        
+        else if ([txt isKindOfClass:[UITextView class]] && [txt isFirstResponder]) {
+            [txt resignFirstResponder];
+        }
+        
     }
-    [super touchesBegan:touches withEvent:event];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -112,11 +118,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (IBAction)save_action:(id)sender {
     
     WebService *updateMessage = [[WebService alloc] init];
-     NSArray *result = [updateMessage FilePath:@"http://bizsocialcard.com/iospanic/panicMessage.php" parameterOne:self.messageText.text];
+     NSArray *result = [updateMessage FilePath:@"http://bizsocialcard.com/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
      NSString *status = [result valueForKey:@"success"];
     
     if([status isEqualToString:@"OK"]){
         statusAlert = [[UIAlertView alloc]initWithTitle:@"Status" message:@" Your Panic message has been updated" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
+        
+        [[NSUserDefaults standardUserDefaults ] setObject:self.personName.text forKey:@"name"];
+        
         [statusAlert show];
     }
     else{
@@ -127,8 +136,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
 }
 
--(BOOL) textViewShouldReturn:(UITextView *)textView{
-    [textView resignFirstResponder];
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
     return YES;
 }
 @end

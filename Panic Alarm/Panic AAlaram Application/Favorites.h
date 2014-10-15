@@ -12,8 +12,7 @@
 
 @interface Favorites : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource>
 @property UIRefreshControl *refresh;
-@property NSMutableArray* favouritesArray;
 @property (strong, nonatomic) IBOutlet UITableView *favoritesTable;
-- (NSMutableArray*)favouritesList;
++ (NSMutableArray*)favouritesList;
 
 @end

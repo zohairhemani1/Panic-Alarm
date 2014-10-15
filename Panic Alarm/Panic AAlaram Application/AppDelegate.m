@@ -33,7 +33,7 @@
     NSString *victimNumber = [notificationPayload objectForKey:@"number"];
     NSString *msg = [notificationPayload objectForKey:@"alert"];
     UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:msg message:victinName delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-    [myAlert show];
+   // [myAlert show];
     
    // [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

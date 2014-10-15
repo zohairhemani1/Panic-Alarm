@@ -20,6 +20,12 @@
     float destLon;
     NSString *srcText;
     NSString *destText;
+    
+    UIImage *img;
+    NSString *profilePic ;
+    NSString *imagePathString ;
+    NSURL *imagePathUrl;
+    NSData *data ;
 }
 
 @end
@@ -42,22 +48,13 @@
     srcLon = 107.586838;
     destLat = -6.888918;
     destLon = 107.596173;
-    srcText = @"Here is source";
-    destText = @"Here is Victim";
+//    srcText = @"Here is source";
+//    destText = @"Here is Victim";
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-    
-    if(self.panicPersonType == 0){
-        destLat = [[[[Victims getPanicToArray] valueForKey:@"latitude"] objectAtIndex:self.panicPersonId]floatValue];
-        
-        destLon = [[[[Victims getPanicToArray] valueForKey:@"longitude"] objectAtIndex:self.panicPersonId]floatValue];
-    }
-    else{
         destLat = [[[[Victims getPanicFromArray] valueForKey:@"latitude"] objectAtIndex:self.panicPersonId]floatValue];
-        
         destLon = [[[[Victims getPanicFromArray] valueForKey:@"longitude"] objectAtIndex:self.panicPersonId]floatValue];
-    }
 
 }
 
@@ -109,17 +106,12 @@
     
     NSLog(@"map is routing");
     
-//    MKPlacemark *source = [[MKPlacemark alloc]initWithCoordinate:CLLocationCoordinate2DMake(24.867308, 67.024779) addressDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"",@"", nil] ];
-    
     MKPlacemark *myplace= [[MKPlacemark alloc]initWithCoordinate:CLLocationCoordinate2DMake(srcLat,srcLon) addressDictionary:nil];
-    //CLLocationCoordinate2DMake(2,4);
     
     MKMapItem *srcMapItem = [[MKMapItem alloc]initWithPlacemark:myplace];
     [srcMapItem setName:@""];
     
     MKPlacemark *destplace= [[MKPlacemark alloc]initWithCoordinate:CLLocationCoordinate2DMake(destLat, destLon) addressDictionary:nil];
-    
-//    MKPlacemark *destination = [[MKPlacemark alloc]initWithCoordinate:CLLocationCoordinate2DMake(28.276358200000000000, 68.443052399999940000) addressDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"",@"", nil] ];
     
     MKMapItem *distMapItem = [[MKMapItem alloc]initWithPlacemark:destplace];
     [distMapItem setName:@""];
@@ -140,6 +132,47 @@
   
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    static NSString *SFAnnotationIdentifier = @"SFAnnotationIdentifier";
+    MKPinAnnotationView *pinView =
+    (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
+    if (!pinView)
+    {
+        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                                         reuseIdentifier:SFAnnotationIdentifier] ;
+        
+        profilePic = [[[Victims getPanicFromArray] valueForKey:@"pic"] objectAtIndex:self.panicPersonId];
+        imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+        imagePathString = [imagePathString stringByAppendingString:profilePic];
+        imagePathUrl = [NSURL URLWithString:imagePathString];
+        data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
+        
+        img = [[UIImage alloc]initWithData:data];
+        
+        annotationView.image = [self resizeUIImage:img giveRectangle:CGRectMake(0,0,30,30)];
+        
+        return annotationView;
+    }
+    else
+    {
+        pinView.annotation = annotation;
+    }
+    return pinView;
+}
+
+-(UIImage *)resizeUIImage: (UIImage *)providedImage giveRectangle:(CGRect)rectangle
+{
+    UIGraphicsBeginImageContext( rectangle.size );
+    [providedImage drawInRect:rectangle];
+    UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    NSData *imageData = UIImagePNGRepresentation(picture1);
+    UIImage *img2=[UIImage imageWithData:imageData];
+    return img2;
+}
+
 - (void)showDirections:(MKDirectionsResponse *)response
 {
     for (MKRoute *route in response.routes) {
@@ -150,8 +183,6 @@
 - (void)findDirectionsFrom:(MKMapItem *)source
                         to:(MKMapItem *)destination
 {
-    
-    //[self.mapView setUserTrackingMode:MKUserTrackingModeNone];
     
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;

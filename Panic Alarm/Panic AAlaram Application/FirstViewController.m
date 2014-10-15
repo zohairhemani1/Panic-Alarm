@@ -250,7 +250,7 @@ UIActivityIndicatorView *progress;
     [[NSUserDefaults standardUserDefaults ] setObject:usernameEditText forKey:@"name"];
     [[NSUserDefaults standardUserDefaults ] setObject:passwordEditText forKey:@"password"];
     
-    NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+   // NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
         // getting code.
     storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     
@@ -274,8 +274,8 @@ UIActivityIndicatorView *progress;
     NSString * phone = @"X_";
     phone = [phone stringByAppendingString:[[self insertpassword] text]];
        [currentInstallation addUniqueObject:phone forKey:@"channels"];
-    [currentInstallation addUniqueObject:phone forKey:@"number"];
-    [currentInstallation saveInBackground];
+        [currentInstallation addUniqueObject:phone forKey:@"number"];
+        [currentInstallation saveInBackground];
     }
 }
 - (IBAction)upload:(id)sender {

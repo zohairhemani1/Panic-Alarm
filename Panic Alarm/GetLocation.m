@@ -38,8 +38,7 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    Favorites *myObj = [[Favorites alloc] init];
-    favArray = [[NSArray alloc] initWithArray:[myObj favouritesArray]];
+    favArray = [Favorites favouritesList];
     
     self.myContacts.delegate=self;
     self.myContacts.dataSource = self;
@@ -52,7 +51,7 @@ checkInternet *c;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [favArray count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -76,6 +75,7 @@ checkInternet *c;
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 120, 13)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
+    NSString *pic = [[favArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
     
     //name.textColor= [UIColor grayColor];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
@@ -85,6 +85,19 @@ checkInternet *c;
     phonenumber.textColor = [UIColor grayColor];
     phonenumber.text=[[favArray valueForKey:@"friendsnumber"]objectAtIndex:indexPath.row];
     [cell addSubview:phonenumber];
+    
+    NSString *imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+    imagePathString = [imagePathString stringByAppendingString:pic];
+    
+    NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
+    NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
+    UIImage *img = [[UIImage alloc]initWithData:data ];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+    imageView.frame = CGRectMake(10,5,40,40); //set these variables as you want
+    imageView.layer.cornerRadius = 20;
+    [imageView setClipsToBounds:YES];
+    [cell addSubview:imageView];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     //set the position of the button
