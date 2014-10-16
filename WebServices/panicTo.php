@@ -3,14 +3,16 @@
 	include 'connect_to_mysql.php';
 	$PanicTo = array();
 	
-	$query = "SELECT * from `panic_friends` pf, `panic_victim` pv WHERE pv.id = pf.panicvictim_id AND pv.mynumber = '090078601' group by pf.friendsnumber";
+	$storedNumber = $_POST['username'];
+	
+	$query = "SELECT * from `panic_friends` pf, `panic_victim` pv, `registeration` r WHERE pv.id = pf.panicvictim_id AND pv.mynumber = '{$storedNumber}' AND r.password = pf.friendsnumber group by pf.friendsnumber";
 	$result = mysqli_query($con,$query);
 	
 	while($row=mysqli_fetch_assoc($result))
 	{
 
 		$panicToNumber = $row['friendsnumber'];
-		$query_detail = "SELECT * from `panic_victim` pv , `panic_friends` pf WHERE pf.friendsnumber = '{$panicToNumber}' AND pf.panicvictim_id = pv.id ";
+		$query_detail = "SELECT * from `panic_victim` pv , `panic_friends` pf WHERE pf.friendsnumber = '{$panicToNumber}' AND pf.panicvictim_id = pv.id AND pv.mynumber = '{$storedNumber}' ";
 		$result_detail = mysqli_query($con,$query_detail);
 		
 		$personLog = array();

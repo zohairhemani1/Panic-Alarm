@@ -15,17 +15,19 @@
 			$number = $jsonArray['password'];
 			$longitude = $jsonArray['longitude'];
 			$latitude = $jsonArray['latitude'];
+			$panicMessage = $jsonArray['panicMessage'];
+			$type = $jsonArray['type'];
 	}
 	
 	/* Getting Favourites  */
 	
 	$query_favourites = "SELECT f.mynumber, f.friendsnumber, f.activate, r.username, r.pic
-				FROM friends f, registeration r
-				WHERE f.friendsnumber = r.password
-				AND f.mynumber LIKE  '$number'
-				AND f.activate LIKE  '1' OR f.mynumber = r.password
-				AND f.friendsnumber LIKE  '$number'
-				AND f.activate LIKE  '1'";
+							FROM friends f, registeration r
+							WHERE f.friendsnumber = r.password
+							AND f.mynumber LIKE  '$number'
+							AND f.activate LIKE  '1' OR f.mynumber = r.password
+							AND f.friendsnumber LIKE  '$number'
+							AND f.activate LIKE  '1'";
 				
 	$result_favourites = mysqli_query($con,$query_favourites);
 	$count = mysqli_num_rows($result_favourites);
@@ -33,8 +35,8 @@
 	if($count>0)	
 	{
 		/* Insertion of Panic  Victim's Information */	
-		$query = "INSERT INTO panic_victim(mynumber,timestamp,latitude,longitude) 
-							  VALUES('$number',sysdate(),'$latitude','$longitude')";
+		$query = "INSERT INTO panic_victim(mynumber,timestamp,latitude,longitude,type,panicMessage) 
+							  VALUES('$number',sysdate(),'$latitude','$longitude','$type','$panicMessage')";
 		mysqli_query($con,$query);
 		
 		/* Getting MAX ID i.e Last Panic Victim's Information. */

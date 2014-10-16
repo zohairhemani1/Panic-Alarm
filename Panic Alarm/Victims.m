@@ -152,7 +152,7 @@ static NSArray *PanicToArray;
 
         }
         
-        name.text = [[PanicToArray valueForKey:@"friendsnumber" ] objectAtIndex:indexPath.row];
+        name.text = [[PanicToArray valueForKey:@"username" ] objectAtIndex:indexPath.row];
         //profilePic = [[PanicToArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
        // message.text = [[PanicToArray valueForKey:@"panicMessage" ] objectAtIndex:indexPath.row];
         
@@ -171,7 +171,7 @@ static NSArray *PanicToArray;
     }
     UIButton *status_button = [[UIButton alloc]initWithFrame:CGRectMake(210,7,50,20)];
     status_button.backgroundColor=[UIColor blackColor];
-    [status_button setTitle:@"Pend" forState:UIControlStateNormal];
+    [status_button setTitle:@"Pending" forState:UIControlStateNormal];
     [status_button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     
     imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";

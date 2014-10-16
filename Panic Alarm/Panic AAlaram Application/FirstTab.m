@@ -129,7 +129,6 @@ bool condition=NO;
 
 -(void)PanicVictimRest{
     
-    NSLog(@"honey singh");
     float longitude = self.location.coordinate.longitude;
     float latitude =  self.location.coordinate.latitude;
     
@@ -141,6 +140,8 @@ bool condition=NO;
     [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
     [panic_victim_data setValue:victimName forKey:@"name"];
     [panic_victim_data setValue:victimNumber forKey:@"password"];
+    [panic_victim_data setValue:@"P" forKey:@"type"];
+    [panic_victim_data setValue:@"Generated From Code. I need help. Please follow my location." forKey:@"panicMessage"];
     
     //[favouritesObj favouritesArray];
     
@@ -166,7 +167,6 @@ bool condition=NO;
 
 -(void)locationManager:(CLLocationManager *)manager{
     
-    NSLog(@"location manager function");
    // self.location = locations.lastObject;
     if(first_time_on_database)
     {

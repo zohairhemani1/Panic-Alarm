@@ -1,0 +1,4711 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.11.3
+-- http://www.phpmyadmin.net
+--
+-- Host: 68.178.217.16
+-- Generation Time: Oct 16, 2014 at 08:07 AM
+-- Server version: 5.5.37
+-- PHP Version: 5.1.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `information_schema`
+--
+CREATE DATABASE `information_schema` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `information_schema`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CHARACTER_SETS`
+--
+
+CREATE TEMPORARY TABLE `CHARACTER_SETS` (
+  `CHARACTER_SET_NAME` varchar(32) NOT NULL DEFAULT '',
+  `DEFAULT_COLLATE_NAME` varchar(32) NOT NULL DEFAULT '',
+  `DESCRIPTION` varchar(60) NOT NULL DEFAULT '',
+  `MAXLEN` bigint(3) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `CHARACTER_SETS`
+--
+
+INSERT INTO `CHARACTER_SETS` VALUES('big5', 'big5_chinese_ci', 'Big5 Traditional Chinese', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('dec8', 'dec8_swedish_ci', 'DEC West European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('cp850', 'cp850_general_ci', 'DOS West European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('hp8', 'hp8_english_ci', 'HP West European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('koi8r', 'koi8r_general_ci', 'KOI8-R Relcom Russian', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('latin1', 'latin1_swedish_ci', 'cp1252 West European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('latin2', 'latin2_general_ci', 'ISO 8859-2 Central European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('swe7', 'swe7_swedish_ci', '7bit Swedish', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('ascii', 'ascii_general_ci', 'US ASCII', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('ujis', 'ujis_japanese_ci', 'EUC-JP Japanese', 3);
+INSERT INTO `CHARACTER_SETS` VALUES('sjis', 'sjis_japanese_ci', 'Shift-JIS Japanese', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('hebrew', 'hebrew_general_ci', 'ISO 8859-8 Hebrew', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('tis620', 'tis620_thai_ci', 'TIS620 Thai', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('euckr', 'euckr_korean_ci', 'EUC-KR Korean', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('koi8u', 'koi8u_general_ci', 'KOI8-U Ukrainian', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('gb2312', 'gb2312_chinese_ci', 'GB2312 Simplified Chinese', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('greek', 'greek_general_ci', 'ISO 8859-7 Greek', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('cp1250', 'cp1250_general_ci', 'Windows Central European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('gbk', 'gbk_chinese_ci', 'GBK Simplified Chinese', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('latin5', 'latin5_turkish_ci', 'ISO 8859-9 Turkish', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('armscii8', 'armscii8_general_ci', 'ARMSCII-8 Armenian', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('utf8', 'utf8_general_ci', 'UTF-8 Unicode', 3);
+INSERT INTO `CHARACTER_SETS` VALUES('ucs2', 'ucs2_general_ci', 'UCS-2 Unicode', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('cp866', 'cp866_general_ci', 'DOS Russian', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('keybcs2', 'keybcs2_general_ci', 'DOS Kamenicky Czech-Slovak', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('macce', 'macce_general_ci', 'Mac Central European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('macroman', 'macroman_general_ci', 'Mac West European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('cp852', 'cp852_general_ci', 'DOS Central European', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('latin7', 'latin7_general_ci', 'ISO 8859-13 Baltic', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('utf8mb4', 'utf8mb4_general_ci', 'UTF-8 Unicode', 4);
+INSERT INTO `CHARACTER_SETS` VALUES('cp1251', 'cp1251_general_ci', 'Windows Cyrillic', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('utf16', 'utf16_general_ci', 'UTF-16 Unicode', 4);
+INSERT INTO `CHARACTER_SETS` VALUES('cp1256', 'cp1256_general_ci', 'Windows Arabic', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('cp1257', 'cp1257_general_ci', 'Windows Baltic', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('utf32', 'utf32_general_ci', 'UTF-32 Unicode', 4);
+INSERT INTO `CHARACTER_SETS` VALUES('binary', 'binary', 'Binary pseudo charset', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('geostd8', 'geostd8_general_ci', 'GEOSTD8 Georgian', 1);
+INSERT INTO `CHARACTER_SETS` VALUES('cp932', 'cp932_japanese_ci', 'SJIS for Windows Japanese', 2);
+INSERT INTO `CHARACTER_SETS` VALUES('eucjpms', 'eucjpms_japanese_ci', 'UJIS for Windows Japanese', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CLIENT_STATISTICS`
+--
+
+CREATE TEMPORARY TABLE `CLIENT_STATISTICS` (
+  `CLIENT` varchar(64) NOT NULL DEFAULT '',
+  `TOTAL_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CONCURRENT_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CONNECTED_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BUSY_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CPU_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BYTES_RECEIVED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BYTES_SENT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BINLOG_BYTES_WRITTEN` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_FETCHED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_UPDATED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TABLE_ROWS_READ` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SELECT_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `UPDATE_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OTHER_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COMMIT_TRANSACTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROLLBACK_TRANSACTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DENIED_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `LOST_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ACCESS_DENIED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `EMPTY_QUERIES` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TOTAL_SSL_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `CLIENT_STATISTICS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS,SUPER privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `COLLATIONS`
+--
+
+CREATE TEMPORARY TABLE `COLLATIONS` (
+  `COLLATION_NAME` varchar(32) NOT NULL DEFAULT '',
+  `CHARACTER_SET_NAME` varchar(32) NOT NULL DEFAULT '',
+  `ID` bigint(11) NOT NULL DEFAULT '0',
+  `IS_DEFAULT` varchar(3) NOT NULL DEFAULT '',
+  `IS_COMPILED` varchar(3) NOT NULL DEFAULT '',
+  `SORTLEN` bigint(3) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `COLLATIONS`
+--
+
+INSERT INTO `COLLATIONS` VALUES('big5_chinese_ci', 'big5', 1, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('big5_bin', 'big5', 84, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('dec8_swedish_ci', 'dec8', 3, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('dec8_bin', 'dec8', 69, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp850_general_ci', 'cp850', 4, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp850_bin', 'cp850', 80, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('hp8_english_ci', 'hp8', 6, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('hp8_bin', 'hp8', 72, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('koi8r_general_ci', 'koi8r', 7, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('koi8r_bin', 'koi8r', 74, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_german1_ci', 'latin1', 5, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_swedish_ci', 'latin1', 8, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_danish_ci', 'latin1', 15, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_german2_ci', 'latin1', 31, '', 'Yes', 2);
+INSERT INTO `COLLATIONS` VALUES('latin1_bin', 'latin1', 47, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_general_ci', 'latin1', 48, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_general_cs', 'latin1', 49, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin1_spanish_ci', 'latin1', 94, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin2_czech_cs', 'latin2', 2, '', 'Yes', 4);
+INSERT INTO `COLLATIONS` VALUES('latin2_general_ci', 'latin2', 9, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin2_hungarian_ci', 'latin2', 21, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin2_croatian_ci', 'latin2', 27, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin2_bin', 'latin2', 77, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('swe7_swedish_ci', 'swe7', 10, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('swe7_bin', 'swe7', 82, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ascii_general_ci', 'ascii', 11, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ascii_bin', 'ascii', 65, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ujis_japanese_ci', 'ujis', 12, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ujis_bin', 'ujis', 91, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('sjis_japanese_ci', 'sjis', 13, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('sjis_bin', 'sjis', 88, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('hebrew_general_ci', 'hebrew', 16, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('hebrew_bin', 'hebrew', 71, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('tis620_thai_ci', 'tis620', 18, 'Yes', 'Yes', 4);
+INSERT INTO `COLLATIONS` VALUES('tis620_bin', 'tis620', 89, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('euckr_korean_ci', 'euckr', 19, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('euckr_bin', 'euckr', 85, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('koi8u_general_ci', 'koi8u', 22, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('koi8u_bin', 'koi8u', 75, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('gb2312_chinese_ci', 'gb2312', 24, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('gb2312_bin', 'gb2312', 86, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('greek_general_ci', 'greek', 25, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('greek_bin', 'greek', 70, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1250_general_ci', 'cp1250', 26, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1250_czech_cs', 'cp1250', 34, '', 'Yes', 2);
+INSERT INTO `COLLATIONS` VALUES('cp1250_croatian_ci', 'cp1250', 44, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1250_bin', 'cp1250', 66, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1250_polish_ci', 'cp1250', 99, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('gbk_chinese_ci', 'gbk', 28, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('gbk_bin', 'gbk', 87, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin5_turkish_ci', 'latin5', 30, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin5_bin', 'latin5', 78, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('armscii8_general_ci', 'armscii8', 32, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('armscii8_bin', 'armscii8', 64, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8_general_ci', 'utf8', 33, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8_bin', 'utf8', 83, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8_unicode_ci', 'utf8', 192, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_icelandic_ci', 'utf8', 193, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_latvian_ci', 'utf8', 194, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_romanian_ci', 'utf8', 195, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_slovenian_ci', 'utf8', 196, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_polish_ci', 'utf8', 197, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_estonian_ci', 'utf8', 198, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_spanish_ci', 'utf8', 199, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_swedish_ci', 'utf8', 200, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_turkish_ci', 'utf8', 201, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_czech_ci', 'utf8', 202, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_danish_ci', 'utf8', 203, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_lithuanian_ci', 'utf8', 204, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_slovak_ci', 'utf8', 205, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_spanish2_ci', 'utf8', 206, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_roman_ci', 'utf8', 207, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_persian_ci', 'utf8', 208, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_esperanto_ci', 'utf8', 209, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_hungarian_ci', 'utf8', 210, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_sinhala_ci', 'utf8', 211, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8_general_mysql500_ci', 'utf8', 223, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8_general50_ci', 'utf8', 253, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ucs2_general_ci', 'ucs2', 35, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ucs2_bin', 'ucs2', 90, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('ucs2_unicode_ci', 'ucs2', 128, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_icelandic_ci', 'ucs2', 129, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_latvian_ci', 'ucs2', 130, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_romanian_ci', 'ucs2', 131, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_slovenian_ci', 'ucs2', 132, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_polish_ci', 'ucs2', 133, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_estonian_ci', 'ucs2', 134, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_spanish_ci', 'ucs2', 135, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_swedish_ci', 'ucs2', 136, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_turkish_ci', 'ucs2', 137, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_czech_ci', 'ucs2', 138, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_danish_ci', 'ucs2', 139, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_lithuanian_ci', 'ucs2', 140, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_slovak_ci', 'ucs2', 141, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_spanish2_ci', 'ucs2', 142, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_roman_ci', 'ucs2', 143, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_persian_ci', 'ucs2', 144, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_esperanto_ci', 'ucs2', 145, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_hungarian_ci', 'ucs2', 146, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_sinhala_ci', 'ucs2', 147, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('ucs2_general50_ci', 'ucs2', 159, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp866_general_ci', 'cp866', 36, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp866_bin', 'cp866', 68, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('keybcs2_general_ci', 'keybcs2', 37, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('keybcs2_bin', 'keybcs2', 73, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('macce_general_ci', 'macce', 38, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('macce_bin', 'macce', 43, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('macroman_general_ci', 'macroman', 39, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('macroman_bin', 'macroman', 53, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp852_general_ci', 'cp852', 40, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp852_bin', 'cp852', 81, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin7_estonian_cs', 'latin7', 20, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin7_general_ci', 'latin7', 41, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin7_general_cs', 'latin7', 42, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('latin7_bin', 'latin7', 79, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_general_ci', 'utf8mb4', 45, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_bin', 'utf8mb4', 46, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_unicode_ci', 'utf8mb4', 224, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_icelandic_ci', 'utf8mb4', 225, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_latvian_ci', 'utf8mb4', 226, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_romanian_ci', 'utf8mb4', 227, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_slovenian_ci', 'utf8mb4', 228, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_polish_ci', 'utf8mb4', 229, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_estonian_ci', 'utf8mb4', 230, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_spanish_ci', 'utf8mb4', 231, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_swedish_ci', 'utf8mb4', 232, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_turkish_ci', 'utf8mb4', 233, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_czech_ci', 'utf8mb4', 234, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_danish_ci', 'utf8mb4', 235, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_lithuanian_ci', 'utf8mb4', 236, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_slovak_ci', 'utf8mb4', 237, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_spanish2_ci', 'utf8mb4', 238, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_roman_ci', 'utf8mb4', 239, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_persian_ci', 'utf8mb4', 240, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_esperanto_ci', 'utf8mb4', 241, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_hungarian_ci', 'utf8mb4', 242, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf8mb4_sinhala_ci', 'utf8mb4', 243, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('cp1251_bulgarian_ci', 'cp1251', 14, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1251_ukrainian_ci', 'cp1251', 23, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1251_bin', 'cp1251', 50, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1251_general_ci', 'cp1251', 51, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1251_general_cs', 'cp1251', 52, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf16_general_ci', 'utf16', 54, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf16_bin', 'utf16', 55, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf16_unicode_ci', 'utf16', 101, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_icelandic_ci', 'utf16', 102, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_latvian_ci', 'utf16', 103, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_romanian_ci', 'utf16', 104, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_slovenian_ci', 'utf16', 105, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_polish_ci', 'utf16', 106, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_estonian_ci', 'utf16', 107, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_spanish_ci', 'utf16', 108, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_swedish_ci', 'utf16', 109, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_turkish_ci', 'utf16', 110, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_czech_ci', 'utf16', 111, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_danish_ci', 'utf16', 112, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_lithuanian_ci', 'utf16', 113, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_slovak_ci', 'utf16', 114, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_spanish2_ci', 'utf16', 115, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_roman_ci', 'utf16', 116, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_persian_ci', 'utf16', 117, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_esperanto_ci', 'utf16', 118, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_hungarian_ci', 'utf16', 119, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf16_sinhala_ci', 'utf16', 120, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('cp1256_general_ci', 'cp1256', 57, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1256_bin', 'cp1256', 67, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1257_lithuanian_ci', 'cp1257', 29, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1257_bin', 'cp1257', 58, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp1257_general_ci', 'cp1257', 59, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf32_general_ci', 'utf32', 60, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf32_bin', 'utf32', 61, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('utf32_unicode_ci', 'utf32', 160, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_icelandic_ci', 'utf32', 161, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_latvian_ci', 'utf32', 162, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_romanian_ci', 'utf32', 163, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_slovenian_ci', 'utf32', 164, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_polish_ci', 'utf32', 165, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_estonian_ci', 'utf32', 166, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_spanish_ci', 'utf32', 167, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_swedish_ci', 'utf32', 168, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_turkish_ci', 'utf32', 169, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_czech_ci', 'utf32', 170, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_danish_ci', 'utf32', 171, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_lithuanian_ci', 'utf32', 172, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_slovak_ci', 'utf32', 173, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_spanish2_ci', 'utf32', 174, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_roman_ci', 'utf32', 175, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_persian_ci', 'utf32', 176, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_esperanto_ci', 'utf32', 177, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_hungarian_ci', 'utf32', 178, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('utf32_sinhala_ci', 'utf32', 179, '', 'Yes', 8);
+INSERT INTO `COLLATIONS` VALUES('binary', 'binary', 63, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('geostd8_general_ci', 'geostd8', 92, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('geostd8_bin', 'geostd8', 93, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp932_japanese_ci', 'cp932', 95, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('cp932_bin', 'cp932', 96, '', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('eucjpms_japanese_ci', 'eucjpms', 97, 'Yes', 'Yes', 1);
+INSERT INTO `COLLATIONS` VALUES('eucjpms_bin', 'eucjpms', 98, '', 'Yes', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `COLLATION_CHARACTER_SET_APPLICABILITY`
+--
+
+CREATE TEMPORARY TABLE `COLLATION_CHARACTER_SET_APPLICABILITY` (
+  `COLLATION_NAME` varchar(32) NOT NULL DEFAULT '',
+  `CHARACTER_SET_NAME` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `COLLATION_CHARACTER_SET_APPLICABILITY`
+--
+
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('big5_chinese_ci', 'big5');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('big5_bin', 'big5');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('dec8_swedish_ci', 'dec8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('dec8_bin', 'dec8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp850_general_ci', 'cp850');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp850_bin', 'cp850');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('hp8_english_ci', 'hp8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('hp8_bin', 'hp8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('koi8r_general_ci', 'koi8r');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('koi8r_bin', 'koi8r');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_german1_ci', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_swedish_ci', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_danish_ci', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_german2_ci', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_bin', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_general_ci', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_general_cs', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin1_spanish_ci', 'latin1');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin2_czech_cs', 'latin2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin2_general_ci', 'latin2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin2_hungarian_ci', 'latin2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin2_croatian_ci', 'latin2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin2_bin', 'latin2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('swe7_swedish_ci', 'swe7');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('swe7_bin', 'swe7');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ascii_general_ci', 'ascii');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ascii_bin', 'ascii');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ujis_japanese_ci', 'ujis');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ujis_bin', 'ujis');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('sjis_japanese_ci', 'sjis');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('sjis_bin', 'sjis');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('hebrew_general_ci', 'hebrew');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('hebrew_bin', 'hebrew');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('tis620_thai_ci', 'tis620');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('tis620_bin', 'tis620');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('euckr_korean_ci', 'euckr');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('euckr_bin', 'euckr');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('koi8u_general_ci', 'koi8u');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('koi8u_bin', 'koi8u');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('gb2312_chinese_ci', 'gb2312');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('gb2312_bin', 'gb2312');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('greek_general_ci', 'greek');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('greek_bin', 'greek');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1250_general_ci', 'cp1250');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1250_czech_cs', 'cp1250');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1250_croatian_ci', 'cp1250');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1250_bin', 'cp1250');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1250_polish_ci', 'cp1250');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('gbk_chinese_ci', 'gbk');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('gbk_bin', 'gbk');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin5_turkish_ci', 'latin5');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin5_bin', 'latin5');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('armscii8_general_ci', 'armscii8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('armscii8_bin', 'armscii8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_general_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_bin', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_unicode_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_icelandic_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_latvian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_romanian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_slovenian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_polish_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_estonian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_spanish_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_swedish_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_turkish_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_czech_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_danish_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_lithuanian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_slovak_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_spanish2_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_roman_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_persian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_esperanto_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_hungarian_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_sinhala_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_general_mysql500_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8_general50_ci', 'utf8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_general_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_bin', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_unicode_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_icelandic_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_latvian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_romanian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_slovenian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_polish_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_estonian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_spanish_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_swedish_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_turkish_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_czech_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_danish_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_lithuanian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_slovak_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_spanish2_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_roman_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_persian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_esperanto_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_hungarian_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_sinhala_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('ucs2_general50_ci', 'ucs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp866_general_ci', 'cp866');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp866_bin', 'cp866');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('keybcs2_general_ci', 'keybcs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('keybcs2_bin', 'keybcs2');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('macce_general_ci', 'macce');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('macce_bin', 'macce');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('macroman_general_ci', 'macroman');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('macroman_bin', 'macroman');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp852_general_ci', 'cp852');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp852_bin', 'cp852');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin7_estonian_cs', 'latin7');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin7_general_ci', 'latin7');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin7_general_cs', 'latin7');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('latin7_bin', 'latin7');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_general_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_bin', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_unicode_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_icelandic_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_latvian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_romanian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_slovenian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_polish_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_estonian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_spanish_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_swedish_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_turkish_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_czech_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_danish_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_lithuanian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_slovak_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_spanish2_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_roman_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_persian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_esperanto_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_hungarian_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf8mb4_sinhala_ci', 'utf8mb4');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1251_bulgarian_ci', 'cp1251');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1251_ukrainian_ci', 'cp1251');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1251_bin', 'cp1251');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1251_general_ci', 'cp1251');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1251_general_cs', 'cp1251');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_general_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_bin', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_unicode_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_icelandic_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_latvian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_romanian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_slovenian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_polish_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_estonian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_spanish_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_swedish_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_turkish_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_czech_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_danish_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_lithuanian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_slovak_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_spanish2_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_roman_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_persian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_esperanto_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_hungarian_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf16_sinhala_ci', 'utf16');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1256_general_ci', 'cp1256');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1256_bin', 'cp1256');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1257_lithuanian_ci', 'cp1257');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1257_bin', 'cp1257');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp1257_general_ci', 'cp1257');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_general_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_bin', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_unicode_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_icelandic_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_latvian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_romanian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_slovenian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_polish_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_estonian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_spanish_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_swedish_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_turkish_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_czech_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_danish_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_lithuanian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_slovak_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_spanish2_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_roman_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_persian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_esperanto_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_hungarian_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('utf32_sinhala_ci', 'utf32');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('binary', 'binary');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('geostd8_general_ci', 'geostd8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('geostd8_bin', 'geostd8');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp932_japanese_ci', 'cp932');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('cp932_bin', 'cp932');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('eucjpms_japanese_ci', 'eucjpms');
+INSERT INTO `COLLATION_CHARACTER_SET_APPLICABILITY` VALUES('eucjpms_bin', 'eucjpms');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `COLUMNS`
+--
+
+CREATE TEMPORARY TABLE `COLUMNS` (
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `COLUMN_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ORDINAL_POSITION` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COLUMN_DEFAULT` longtext,
+  `IS_NULLABLE` varchar(3) NOT NULL DEFAULT '',
+  `DATA_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `CHARACTER_MAXIMUM_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `CHARACTER_OCTET_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `NUMERIC_PRECISION` bigint(21) unsigned DEFAULT NULL,
+  `NUMERIC_SCALE` bigint(21) unsigned DEFAULT NULL,
+  `CHARACTER_SET_NAME` varchar(32) DEFAULT NULL,
+  `COLLATION_NAME` varchar(32) DEFAULT NULL,
+  `COLUMN_TYPE` longtext NOT NULL,
+  `COLUMN_KEY` varchar(3) NOT NULL DEFAULT '',
+  `EXTRA` varchar(27) NOT NULL DEFAULT '',
+  `PRIVILEGES` varchar(80) NOT NULL DEFAULT '',
+  `COLUMN_COMMENT` varchar(1024) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `COLUMNS`
+--
+
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CHARACTER_SETS', 'CHARACTER_SET_NAME', 1, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CHARACTER_SETS', 'DEFAULT_COLLATE_NAME', 2, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CHARACTER_SETS', 'DESCRIPTION', 3, '', 'NO', 'varchar', 60, 180, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(60)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CHARACTER_SETS', 'MAXLEN', 4, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'CLIENT', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'TOTAL_CONNECTIONS', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'CONCURRENT_CONNECTIONS', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'CONNECTED_TIME', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'BUSY_TIME', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'CPU_TIME', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'BYTES_RECEIVED', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'BYTES_SENT', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'BINLOG_BYTES_WRITTEN', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'ROWS_FETCHED', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'ROWS_UPDATED', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'TABLE_ROWS_READ', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'SELECT_COMMANDS', 13, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'UPDATE_COMMANDS', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'OTHER_COMMANDS', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'COMMIT_TRANSACTIONS', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'ROLLBACK_TRANSACTIONS', 17, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'DENIED_CONNECTIONS', 18, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'LOST_CONNECTIONS', 19, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'ACCESS_DENIED', 20, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'EMPTY_QUERIES', 21, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'TOTAL_SSL_CONNECTIONS', 22, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATIONS', 'COLLATION_NAME', 1, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATIONS', 'CHARACTER_SET_NAME', 2, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATIONS', 'ID', 3, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATIONS', 'IS_DEFAULT', 4, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATIONS', 'IS_COMPILED', 5, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATIONS', 'SORTLEN', 6, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATION_CHARACTER_SET_APPLICABILITY', 'COLLATION_NAME', 1, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLLATION_CHARACTER_SET_APPLICABILITY', 'CHARACTER_SET_NAME', 2, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'TABLE_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'COLUMN_NAME', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'ORDINAL_POSITION', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'COLUMN_DEFAULT', 6, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'IS_NULLABLE', 7, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'DATA_TYPE', 8, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'CHARACTER_MAXIMUM_LENGTH', 9, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'CHARACTER_OCTET_LENGTH', 10, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'NUMERIC_PRECISION', 11, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'NUMERIC_SCALE', 12, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'CHARACTER_SET_NAME', 13, NULL, 'YES', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'COLLATION_NAME', 14, NULL, 'YES', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'COLUMN_TYPE', 15, NULL, 'NO', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'COLUMN_KEY', 16, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'EXTRA', 17, '', 'NO', 'varchar', 27, 81, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(27)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'PRIVILEGES', 18, '', 'NO', 'varchar', 80, 240, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(80)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMNS', 'COLUMN_COMMENT', 19, '', 'NO', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'GRANTEE', 1, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'TABLE_CATALOG', 2, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'TABLE_SCHEMA', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'TABLE_NAME', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'COLUMN_NAME', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'PRIVILEGE_TYPE', 6, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'IS_GRANTABLE', 7, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INDEX_STATISTICS', 'TABLE_SCHEMA', 1, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INDEX_STATISTICS', 'TABLE_NAME', 2, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INDEX_STATISTICS', 'INDEX_NAME', 3, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INDEX_STATISTICS', 'ROWS_READ', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ENGINES', 'ENGINE', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ENGINES', 'SUPPORT', 2, '', 'NO', 'varchar', 8, 24, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ENGINES', 'COMMENT', 3, '', 'NO', 'varchar', 80, 240, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(80)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ENGINES', 'TRANSACTIONS', 4, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ENGINES', 'XA', 5, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ENGINES', 'SAVEPOINTS', 6, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_CATALOG', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'DEFINER', 4, '', 'NO', 'varchar', 77, 231, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(77)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'TIME_ZONE', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_BODY', 6, '', 'NO', 'varchar', 8, 24, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_DEFINITION', 7, NULL, 'NO', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_TYPE', 8, '', 'NO', 'varchar', 9, 27, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(9)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EXECUTE_AT', 9, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'INTERVAL_VALUE', 10, NULL, 'YES', 'varchar', 256, 768, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(256)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'INTERVAL_FIELD', 11, NULL, 'YES', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'SQL_MODE', 12, '', 'NO', 'varchar', 8192, 24576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'STARTS', 13, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'ENDS', 14, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'STATUS', 15, '', 'NO', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'ON_COMPLETION', 16, '', 'NO', 'varchar', 12, 36, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(12)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'CREATED', 17, '0000-00-00 00:00:00', 'NO', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'LAST_ALTERED', 18, '0000-00-00 00:00:00', 'NO', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'LAST_EXECUTED', 19, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'EVENT_COMMENT', 20, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'ORIGINATOR', 21, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'CHARACTER_SET_CLIENT', 22, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'COLLATION_CONNECTION', 23, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'EVENTS', 'DATABASE_COLLATION', 24, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'FILE_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'FILE_NAME', 2, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'FILE_TYPE', 3, '', 'NO', 'varchar', 20, 60, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TABLESPACE_NAME', 4, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TABLE_CATALOG', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TABLE_SCHEMA', 6, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TABLE_NAME', 7, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'LOGFILE_GROUP_NAME', 8, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'LOGFILE_GROUP_NUMBER', 9, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'ENGINE', 10, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'FULLTEXT_KEYS', 11, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'DELETED_ROWS', 12, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'UPDATE_COUNT', 13, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'FREE_EXTENTS', 14, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TOTAL_EXTENTS', 15, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'EXTENT_SIZE', 16, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'INITIAL_SIZE', 17, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'MAXIMUM_SIZE', 18, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'AUTOEXTEND_SIZE', 19, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'CREATION_TIME', 20, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'LAST_UPDATE_TIME', 21, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'LAST_ACCESS_TIME', 22, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'RECOVER_TIME', 23, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TRANSACTION_COUNTER', 24, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'VERSION', 25, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'ROW_FORMAT', 26, NULL, 'YES', 'varchar', 10, 30, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'TABLE_ROWS', 27, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'AVG_ROW_LENGTH', 28, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'DATA_LENGTH', 29, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'MAX_DATA_LENGTH', 30, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'INDEX_LENGTH', 31, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'DATA_FREE', 32, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'CREATE_TIME', 33, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'UPDATE_TIME', 34, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'CHECK_TIME', 35, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'CHECKSUM', 36, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'STATUS', 37, '', 'NO', 'varchar', 20, 60, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'FILES', 'EXTRA', 38, NULL, 'YES', 'varchar', 255, 765, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(255)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_STATUS', 'VARIABLE_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_STATUS', 'VARIABLE_VALUE', 2, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'SESSION_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'ENGINE', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'NAME', 5, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'TABLE_ROWS', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'AVG_ROW_LENGTH', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'DATA_LENGTH', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'INDEX_LENGTH', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'CREATE_TIME', 10, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'UPDATE_TIME', 11, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_VARIABLES', 'VARIABLE_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'GLOBAL_VARIABLES', 'VARIABLE_VALUE', 2, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'CONSTRAINT_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'CONSTRAINT_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'CONSTRAINT_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'TABLE_CATALOG', 4, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'TABLE_SCHEMA', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'TABLE_NAME', 6, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'COLUMN_NAME', 7, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'ORDINAL_POSITION', 8, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'POSITION_IN_UNIQUE_CONSTRAINT', 9, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'REFERENCED_TABLE_SCHEMA', 10, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'REFERENCED_TABLE_NAME', 11, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'REFERENCED_COLUMN_NAME', 12, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'SPECIFIC_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'SPECIFIC_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'SPECIFIC_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'ORDINAL_POSITION', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'PARAMETER_MODE', 5, NULL, 'YES', 'varchar', 5, 15, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(5)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'PARAMETER_NAME', 6, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'DATA_TYPE', 7, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'CHARACTER_MAXIMUM_LENGTH', 8, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'CHARACTER_OCTET_LENGTH', 9, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'NUMERIC_PRECISION', 10, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'NUMERIC_SCALE', 11, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'CHARACTER_SET_NAME', 12, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'COLLATION_NAME', 13, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'DTD_IDENTIFIER', 14, NULL, 'NO', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARAMETERS', 'ROUTINE_TYPE', 15, '', 'NO', 'varchar', 9, 27, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(9)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'TABLE_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'PARTITION_NAME', 4, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'SUBPARTITION_NAME', 5, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'PARTITION_ORDINAL_POSITION', 6, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'SUBPARTITION_ORDINAL_POSITION', 7, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'PARTITION_METHOD', 8, NULL, 'YES', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'SUBPARTITION_METHOD', 9, NULL, 'YES', 'varchar', 12, 36, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(12)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'PARTITION_EXPRESSION', 10, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'SUBPARTITION_EXPRESSION', 11, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'PARTITION_DESCRIPTION', 12, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'TABLE_ROWS', 13, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'AVG_ROW_LENGTH', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'DATA_LENGTH', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'MAX_DATA_LENGTH', 16, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'INDEX_LENGTH', 17, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'DATA_FREE', 18, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'CREATE_TIME', 19, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'UPDATE_TIME', 20, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'CHECK_TIME', 21, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'CHECKSUM', 22, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'PARTITION_COMMENT', 23, '', 'NO', 'varchar', 80, 240, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(80)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'NODEGROUP', 24, '', 'NO', 'varchar', 12, 36, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(12)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PARTITIONS', 'TABLESPACE_NAME', 25, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_VERSION', 2, '', 'NO', 'varchar', 20, 60, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_STATUS', 3, '', 'NO', 'varchar', 10, 30, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_TYPE', 4, '', 'NO', 'varchar', 80, 240, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(80)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_TYPE_VERSION', 5, '', 'NO', 'varchar', 20, 60, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_LIBRARY', 6, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_LIBRARY_VERSION', 7, NULL, 'YES', 'varchar', 20, 60, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_AUTHOR', 8, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_DESCRIPTION', 9, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'PLUGIN_LICENSE', 10, NULL, 'YES', 'varchar', 80, 240, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(80)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PLUGINS', 'LOAD_OPTION', 11, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'ID', 1, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'USER', 2, '', 'NO', 'varchar', 16, 48, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(16)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'HOST', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'DB', 4, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'COMMAND', 5, '', 'NO', 'varchar', 16, 48, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(16)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'TIME', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(7)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'STATE', 7, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'INFO', 8, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'TIME_MS', 9, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'ROWS_SENT', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'ROWS_EXAMINED', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROCESSLIST', 'ROWS_READ', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'QUERY_ID', 1, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'SEQ', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'STATE', 3, '', 'NO', 'varchar', 30, 90, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(30)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'DURATION', 4, '0.000000', 'NO', 'decimal', NULL, NULL, 9, 6, NULL, NULL, 'decimal(9,6)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'CPU_USER', 5, NULL, 'YES', 'decimal', NULL, NULL, 9, 6, NULL, NULL, 'decimal(9,6)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'CPU_SYSTEM', 6, NULL, 'YES', 'decimal', NULL, NULL, 9, 6, NULL, NULL, 'decimal(9,6)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'CONTEXT_VOLUNTARY', 7, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'CONTEXT_INVOLUNTARY', 8, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'BLOCK_OPS_IN', 9, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'BLOCK_OPS_OUT', 10, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'MESSAGES_SENT', 11, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'MESSAGES_RECEIVED', 12, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'PAGE_FAULTS_MAJOR', 13, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'PAGE_FAULTS_MINOR', 14, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'SWAPS', 15, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'SOURCE_FUNCTION', 16, NULL, 'YES', 'varchar', 30, 90, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(30)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'SOURCE_FILE', 17, NULL, 'YES', 'varchar', 20, 60, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'PROFILING', 'SOURCE_LINE', 18, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(20)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'CONSTRAINT_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'CONSTRAINT_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'CONSTRAINT_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'UNIQUE_CONSTRAINT_CATALOG', 4, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'UNIQUE_CONSTRAINT_SCHEMA', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'UNIQUE_CONSTRAINT_NAME', 6, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'MATCH_OPTION', 7, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'UPDATE_RULE', 8, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'DELETE_RULE', 9, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'TABLE_NAME', 10, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'REFERENCED_TABLE_NAME', 11, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'SPECIFIC_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_CATALOG', 2, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_SCHEMA', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_NAME', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_TYPE', 5, '', 'NO', 'varchar', 9, 27, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(9)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'DATA_TYPE', 6, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'CHARACTER_MAXIMUM_LENGTH', 7, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'CHARACTER_OCTET_LENGTH', 8, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'NUMERIC_PRECISION', 9, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'NUMERIC_SCALE', 10, NULL, 'YES', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'CHARACTER_SET_NAME', 11, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'COLLATION_NAME', 12, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'DTD_IDENTIFIER', 13, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_BODY', 14, '', 'NO', 'varchar', 8, 24, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_DEFINITION', 15, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'EXTERNAL_NAME', 16, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'EXTERNAL_LANGUAGE', 17, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'PARAMETER_STYLE', 18, '', 'NO', 'varchar', 8, 24, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'IS_DETERMINISTIC', 19, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'SQL_DATA_ACCESS', 20, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'SQL_PATH', 21, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'SECURITY_TYPE', 22, '', 'NO', 'varchar', 7, 21, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(7)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'CREATED', 23, '0000-00-00 00:00:00', 'NO', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'LAST_ALTERED', 24, '0000-00-00 00:00:00', 'NO', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'SQL_MODE', 25, '', 'NO', 'varchar', 8192, 24576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'ROUTINE_COMMENT', 26, NULL, 'NO', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'DEFINER', 27, '', 'NO', 'varchar', 77, 231, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(77)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'CHARACTER_SET_CLIENT', 28, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'COLLATION_CONNECTION', 29, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'ROUTINES', 'DATABASE_COLLATION', 30, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'QUERY_RESPONSE_TIME', 'time', 1, '', 'NO', 'varchar', 14, 42, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(14)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'QUERY_RESPONSE_TIME', 'count', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'QUERY_RESPONSE_TIME', 'total', 3, '', 'NO', 'varchar', 14, 42, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(14)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMATA', 'CATALOG_NAME', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMATA', 'SCHEMA_NAME', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMATA', 'DEFAULT_CHARACTER_SET_NAME', 3, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMATA', 'DEFAULT_COLLATION_NAME', 4, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMATA', 'SQL_PATH', 5, NULL, 'YES', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', 'GRANTEE', 1, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', 'TABLE_CATALOG', 2, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', 'TABLE_SCHEMA', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', 'PRIVILEGE_TYPE', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', 'IS_GRANTABLE', 5, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SESSION_STATUS', 'VARIABLE_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SESSION_STATUS', 'VARIABLE_VALUE', 2, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SESSION_VARIABLES', 'VARIABLE_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'SESSION_VARIABLES', 'VARIABLE_VALUE', 2, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'TABLE_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'NON_UNIQUE', 4, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(1)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'INDEX_SCHEMA', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'INDEX_NAME', 6, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'SEQ_IN_INDEX', 7, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(2)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'COLUMN_NAME', 8, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'COLLATION', 9, NULL, 'YES', 'varchar', 1, 3, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'CARDINALITY', 10, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'SUB_PART', 11, NULL, 'YES', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'PACKED', 12, NULL, 'YES', 'varchar', 10, 30, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'NULLABLE', 13, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'INDEX_TYPE', 14, '', 'NO', 'varchar', 16, 48, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(16)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'COMMENT', 15, NULL, 'YES', 'varchar', 16, 48, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(16)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'STATISTICS', 'INDEX_COMMENT', 16, '', 'NO', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_TYPE', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'ENGINE', 5, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'VERSION', 6, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'ROW_FORMAT', 7, NULL, 'YES', 'varchar', 10, 30, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(10)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_ROWS', 8, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'AVG_ROW_LENGTH', 9, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'DATA_LENGTH', 10, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'MAX_DATA_LENGTH', 11, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'INDEX_LENGTH', 12, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'DATA_FREE', 13, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'AUTO_INCREMENT', 14, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'CREATE_TIME', 15, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'UPDATE_TIME', 16, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'CHECK_TIME', 17, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_COLLATION', 18, NULL, 'YES', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'CHECKSUM', 19, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'CREATE_OPTIONS', 20, NULL, 'YES', 'varchar', 255, 765, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(255)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLES', 'TABLE_COMMENT', 21, '', 'NO', 'varchar', 2048, 6144, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(2048)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'TABLESPACE_NAME', 1, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'ENGINE', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'TABLESPACE_TYPE', 3, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'LOGFILE_GROUP_NAME', 4, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'EXTENT_SIZE', 5, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'AUTOEXTEND_SIZE', 6, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'MAXIMUM_SIZE', 7, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'NODEGROUP_ID', 8, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLESPACES', 'TABLESPACE_COMMENT', 9, NULL, 'YES', 'varchar', 2048, 6144, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(2048)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'CONSTRAINT_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'CONSTRAINT_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'CONSTRAINT_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'TABLE_SCHEMA', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'TABLE_NAME', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'CONSTRAINT_TYPE', 6, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'GRANTEE', 1, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'TABLE_CATALOG', 2, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'TABLE_SCHEMA', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'TABLE_NAME', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'PRIVILEGE_TYPE', 5, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'IS_GRANTABLE', 6, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_STATISTICS', 'TABLE_SCHEMA', 1, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_STATISTICS', 'TABLE_NAME', 2, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_STATISTICS', 'ROWS_READ', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_STATISTICS', 'ROWS_CHANGED', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TABLE_STATISTICS', 'ROWS_CHANGED_X_INDEXES', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'SESSION_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'ENGINE', 4, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'NAME', 5, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'TABLE_ROWS', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'AVG_ROW_LENGTH', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'DATA_LENGTH', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'INDEX_LENGTH', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'CREATE_TIME', 10, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'UPDATE_TIME', 11, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'THREAD_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'TOTAL_CONNECTIONS', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'CONCURRENT_CONNECTIONS', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'CONNECTED_TIME', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'BUSY_TIME', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'CPU_TIME', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'BYTES_RECEIVED', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'BYTES_SENT', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'BINLOG_BYTES_WRITTEN', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'ROWS_FETCHED', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'ROWS_UPDATED', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'TABLE_ROWS_READ', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'SELECT_COMMANDS', 13, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'UPDATE_COMMANDS', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'OTHER_COMMANDS', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'COMMIT_TRANSACTIONS', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'ROLLBACK_TRANSACTIONS', 17, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'DENIED_CONNECTIONS', 18, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'LOST_CONNECTIONS', 19, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'ACCESS_DENIED', 20, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'EMPTY_QUERIES', 21, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'TOTAL_SSL_CONNECTIONS', 22, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'TRIGGER_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'TRIGGER_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'TRIGGER_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'EVENT_MANIPULATION', 4, '', 'NO', 'varchar', 6, 18, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(6)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'EVENT_OBJECT_CATALOG', 5, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'EVENT_OBJECT_SCHEMA', 6, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'EVENT_OBJECT_TABLE', 7, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_ORDER', 8, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(4)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_CONDITION', 9, NULL, 'YES', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_STATEMENT', 10, NULL, 'NO', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_ORIENTATION', 11, '', 'NO', 'varchar', 9, 27, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(9)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_TIMING', 12, '', 'NO', 'varchar', 6, 18, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(6)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_REFERENCE_OLD_TABLE', 13, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_REFERENCE_NEW_TABLE', 14, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_REFERENCE_OLD_ROW', 15, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'ACTION_REFERENCE_NEW_ROW', 16, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'CREATED', 17, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'SQL_MODE', 18, '', 'NO', 'varchar', 8192, 24576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'DEFINER', 19, '', 'NO', 'varchar', 77, 231, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(77)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'CHARACTER_SET_CLIENT', 20, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'COLLATION_CONNECTION', 21, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'TRIGGERS', 'DATABASE_COLLATION', 22, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_PRIVILEGES', 'GRANTEE', 1, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_PRIVILEGES', 'TABLE_CATALOG', 2, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_PRIVILEGES', 'PRIVILEGE_TYPE', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_PRIVILEGES', 'IS_GRANTABLE', 4, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'USER', 1, '', 'NO', 'varchar', 48, 144, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(48)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'TOTAL_CONNECTIONS', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'CONCURRENT_CONNECTIONS', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'CONNECTED_TIME', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'BUSY_TIME', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'CPU_TIME', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'BYTES_RECEIVED', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'BYTES_SENT', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'BINLOG_BYTES_WRITTEN', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'ROWS_FETCHED', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'ROWS_UPDATED', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'TABLE_ROWS_READ', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'SELECT_COMMANDS', 13, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'UPDATE_COMMANDS', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'OTHER_COMMANDS', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'COMMIT_TRANSACTIONS', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'ROLLBACK_TRANSACTIONS', 17, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'DENIED_CONNECTIONS', 18, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'LOST_CONNECTIONS', 19, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'ACCESS_DENIED', 20, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'EMPTY_QUERIES', 21, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'USER_STATISTICS', 'TOTAL_SSL_CONNECTIONS', 22, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'TABLE_CATALOG', 1, '', 'NO', 'varchar', 512, 1536, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(512)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'TABLE_SCHEMA', 2, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'TABLE_NAME', 3, '', 'NO', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'VIEW_DEFINITION', 4, NULL, 'NO', 'longtext', 4294967295, 4294967295, NULL, NULL, 'utf8', 'utf8_general_ci', 'longtext', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'CHECK_OPTION', 5, '', 'NO', 'varchar', 8, 24, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'IS_UPDATABLE', 6, '', 'NO', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'DEFINER', 7, '', 'NO', 'varchar', 77, 231, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(77)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'SECURITY_TYPE', 8, '', 'NO', 'varchar', 7, 21, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(7)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'CHARACTER_SET_CLIENT', 9, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'VIEWS', 'COLLATION_CONNECTION', 10, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'page_size', 1, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'buffer_pool_instance', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'pages_used', 3, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'pages_free', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'relocation_ops', 5, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'relocation_time', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_RSEG', 'rseg_id', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_RSEG', 'space_id', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_RSEG', 'zip_size', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_RSEG', 'page_no', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_RSEG', 'max_size', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_RSEG', 'curr_size', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'trx_id', 1, '', 'NO', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'rseg_id', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'useg_id', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'type', 4, '', 'NO', 'varchar', 256, 768, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(256)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'state', 5, '', 'NO', 'varchar', 256, 768, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(256)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'size', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'page_size', 1, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'buffer_pool_instance', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'pages_used', 3, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'pages_free', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'relocation_ops', 5, '0', 'NO', 'bigint', NULL, NULL, 19, 0, NULL, NULL, 'bigint(21)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'relocation_time', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'TABLE_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'SCHEMA', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'NAME', 3, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'STATS_INITIALIZED', 4, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'NUM_ROWS', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'CLUST_INDEX_SIZE', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'OTHER_INDEX_SIZE', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'MODIFIED_COUNTER', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'AUTOINC', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'MYSQL_HANDLES_OPENED', 10, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCK_WAITS', 'requesting_trx_id', 1, '', 'NO', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCK_WAITS', 'requested_lock_id', 2, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCK_WAITS', 'blocking_trx_id', 3, '', 'NO', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCK_WAITS', 'blocking_lock_id', 4, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'table_schema', 1, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'table_name', 2, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'index_name', 3, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'fields', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'rows_per_key', 5, '', 'NO', 'varchar', 256, 768, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(256)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'index_total_pages', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'index_leaf_pages', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP', 'page_size', 1, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP', 'compress_ops', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP', 'compress_ops_ok', 3, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP', 'compress_time', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP', 'uncompress_ops', 5, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP', 'uncompress_time', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'page_size', 1, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'compress_ops', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'compress_ops_ok', 3, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'compress_time', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'uncompress_ops', 5, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'uncompress_time', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CHANGED_PAGES', 'space_id', 1, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CHANGED_PAGES', 'page_id', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CHANGED_PAGES', 'start_lsn', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_CHANGED_PAGES', 'end_lsn', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'page_type', 1, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'space_id', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'page_no', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'lru_position', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'fix_count', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'flush_type', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_id', 1, '', 'NO', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_state', 2, '', 'NO', 'varchar', 13, 39, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(13)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_started', 3, '0000-00-00 00:00:00', 'NO', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_requested_lock_id', 4, NULL, 'YES', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_wait_started', 5, NULL, 'YES', 'datetime', NULL, NULL, NULL, NULL, NULL, NULL, 'datetime', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_weight', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_mysql_thread_id', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_query', 8, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_operation_state', 9, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_tables_in_use', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_tables_locked', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_lock_structs', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_lock_memory_bytes', 13, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_rows_locked', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_rows_modified', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_concurrency_tickets', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_isolation_level', 17, '', 'NO', 'varchar', 16, 48, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(16)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_unique_checks', 18, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(1)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_foreign_key_checks', 19, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(1)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_last_foreign_key_error', 20, NULL, 'YES', 'varchar', 256, 768, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(256)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_adaptive_hash_latched', 21, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(1)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TRX', 'trx_adaptive_hash_timeout', 22, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'index_id', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'space_id', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'page_no', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'n_recs', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'data_size', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'hashed', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'access_time', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'modified', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'dirty', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'old', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'lru_position', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'fix_count', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'flush_type', 13, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_id', 1, '', 'NO', 'varchar', 81, 243, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(81)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_trx_id', 2, '', 'NO', 'varchar', 18, 54, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(18)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_mode', 3, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_type', 4, '', 'NO', 'varchar', 32, 96, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(32)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_table', 5, '', 'NO', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_index', 6, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_space', 7, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_page', 8, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_rec', 9, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'lock_data', 10, NULL, 'YES', 'varchar', 8192, 24576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(8192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'space_id', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'page_no', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'compressed', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'part_len', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'next_page_no', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'lru_position', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'fix_count', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'flush_type', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'TABLE_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'SCHEMA', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'NAME', 3, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'FLAG', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'N_COLS', 5, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'SPACE', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FIELDS', 'INDEX_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FIELDS', 'NAME', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FIELDS', 'POS', 3, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'TABLE_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'NAME', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'POS', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'MTYPE', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'PRTYPE', 5, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'LEN', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'POOL_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'BLOCK_ID', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'SPACE', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'PAGE_NUMBER', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'PAGE_TYPE', 5, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'FLUSH_TYPE', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'FIX_COUNT', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'IS_HASHED', 8, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'NEWEST_MODIFICATION', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'OLDEST_MODIFICATION', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'ACCESS_TIME', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'TABLE_NAME', 12, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'INDEX_NAME', 13, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'NUMBER_RECORDS', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'DATA_SIZE', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'COMPRESSED_SIZE', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'PAGE_STATE', 17, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'IO_FIX', 18, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'IS_OLD', 19, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'FREE_PAGE_CLOCK', 20, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_STATS', 'INDEX_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_STATS', 'KEY_COLS', 2, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_STATS', 'DIFF_VALS', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_STATS', 'NON_NULL_VALS', 4, NULL, 'YES', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', 'ID', 1, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', 'FOR_NAME', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', 'REF_NAME', 3, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', 'N_COLS', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', 'TYPE', 5, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'INDEX_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'NAME', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'TABLE_ID', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'TYPE', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'N_FIELDS', 5, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'PAGE_NO', 6, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'SPACE', 7, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'XTRADB_ADMIN_COMMAND', 'result_message', 1, '', 'NO', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'table_schema', 1, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'table_name', 2, '', 'NO', 'varchar', 192, 576, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(192)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'rows', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'clust_size', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'other_size', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'modified', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN_COLS', 'ID', 1, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN_COLS', 'FOR_COL_NAME', 2, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN_COLS', 'REF_COL_NAME', 3, '', 'NO', 'varchar', 193, 579, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(193)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN_COLS', 'POS', 4, '0', 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(11) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'POOL_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'LRU_POSITION', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'SPACE', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'PAGE_NUMBER', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'PAGE_TYPE', 5, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'FLUSH_TYPE', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'FIX_COUNT', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'IS_HASHED', 8, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'NEWEST_MODIFICATION', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'OLDEST_MODIFICATION', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'ACCESS_TIME', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'TABLE_NAME', 12, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'INDEX_NAME', 13, NULL, 'YES', 'varchar', 1024, 3072, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(1024)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'NUMBER_RECORDS', 14, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'DATA_SIZE', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'COMPRESSED_SIZE', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'COMPRESSED', 17, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'IO_FIX', 18, NULL, 'YES', 'varchar', 64, 192, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(64)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'IS_OLD', 19, NULL, 'YES', 'varchar', 3, 9, NULL, NULL, 'utf8', 'utf8_general_ci', 'varchar(3)', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'FREE_PAGE_CLOCK', 20, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'POOL_ID', 1, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'POOL_SIZE', 2, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'FREE_BUFFERS', 3, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'DATABASE_PAGES', 4, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'OLD_DATABASE_PAGES', 5, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'MODIFIED_DATABASE_PAGES', 6, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PENDING_DECOMPRESS', 7, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PENDING_READS', 8, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PENDING_FLUSH_LRU', 9, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PENDING_FLUSH_LIST', 10, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_MADE_YOUNG', 11, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_NOT_MADE_YOUNG', 12, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_MADE_YOUNG_RATE', 13, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_MADE_NOT_YOUNG_RATE', 14, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NUMBER_PAGES_READ', 15, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NUMBER_PAGES_CREATED', 16, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NUMBER_PAGES_WRITTEN', 17, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_READ_RATE', 18, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_CREATE_RATE', 19, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'PAGES_WRITTEN_RATE', 20, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NUMBER_PAGES_GET', 21, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'HIT_RATE', 22, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'YOUNG_MAKE_PER_THOUSAND_GETS', 23, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NOT_YOUNG_MAKE_PER_THOUSAND_GETS', 24, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NUMBER_PAGES_READ_AHEAD', 25, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'NUMBER_READ_AHEAD_EVICTED', 26, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'READ_AHEAD_RATE', 27, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'READ_AHEAD_EVICTED_RATE', 28, '0', 'NO', 'double', NULL, NULL, 12, NULL, NULL, NULL, 'double', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'LRU_IO_TOTAL', 29, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'LRU_IO_CURRENT', 30, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'UNCOMPRESS_TOTAL', 31, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'UNCOMPRESS_CURRENT', 32, '0', 'NO', 'bigint', NULL, NULL, 20, 0, NULL, NULL, 'bigint(21) unsigned', '', '', 'select', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'friends', 'id', 1, NULL, 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', 'PRI', 'auto_increment', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'friends', 'mynumber', 2, NULL, 'NO', 'varchar', 30, 30, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(30)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'friends', 'friendsnumber', 3, NULL, 'NO', 'varchar', 30, 30, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(30)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'friends', 'activate', 4, NULL, 'NO', 'varchar', 3, 3, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(3)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'geolocation', 'id', 1, NULL, 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', 'PRI', 'auto_increment', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'geolocation', 'latitude', 2, NULL, 'NO', 'float', NULL, NULL, 12, NULL, NULL, NULL, 'float', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'geolocation', 'longitude', 3, NULL, 'NO', 'float', NULL, NULL, 12, NULL, NULL, NULL, 'float', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'geolocation', 'username', 4, NULL, 'NO', 'varchar', 25, 25, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(25)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_friends', 'id', 1, NULL, 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', 'PRI', 'auto_increment', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_friends', 'panicvictim_id', 2, NULL, 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_friends', 'friendsnumber', 3, NULL, 'NO', 'varchar', 20, 20, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(20)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_friends', 'received', 4, NULL, 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(2)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_victim', 'id', 1, NULL, 'NO', 'int', NULL, NULL, 10, 0, NULL, NULL, 'int(5)', 'PRI', 'auto_increment', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_victim', 'mynumber', 2, NULL, 'NO', 'varchar', 20, 20, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(20)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_victim', 'timestamp', 3, 'CURRENT_TIMESTAMP', 'NO', 'timestamp', NULL, NULL, NULL, NULL, NULL, NULL, 'timestamp', '', 'on update CURRENT_TIMESTAMP', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_victim', 'latitude', 4, NULL, 'NO', 'varchar', 10, 10, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(10)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_victim', 'longitude', 5, NULL, 'NO', 'varchar', 10, 10, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(10)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'panic_victim', 'type', 6, NULL, 'NO', 'varchar', 2, 2, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(2)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'registeration', 'username', 1, NULL, 'NO', 'varchar', 20, 20, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(20)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'registeration', 'password', 2, NULL, 'NO', 'varchar', 20, 20, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(20)', 'PRI', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'registeration', 'pic', 3, 'profile.png', 'NO', 'varchar', 12, 12, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(12)', '', '', 'select,insert,update', '');
+INSERT INTO `COLUMNS` VALUES('def', 'iospanic', 'registeration', 'panicMessage', 4, NULL, 'NO', 'varchar', 1000, 1000, NULL, NULL, 'latin1', 'latin1_swedish_ci', 'varchar(1000)', '', '', 'select,insert,update', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `COLUMN_PRIVILEGES`
+--
+
+CREATE TEMPORARY TABLE `COLUMN_PRIVILEGES` (
+  `GRANTEE` varchar(81) NOT NULL DEFAULT '',
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `COLUMN_NAME` varchar(64) NOT NULL DEFAULT '',
+  `PRIVILEGE_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `IS_GRANTABLE` varchar(3) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `COLUMN_PRIVILEGES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INDEX_STATISTICS`
+--
+
+CREATE TEMPORARY TABLE `INDEX_STATISTICS` (
+  `TABLE_SCHEMA` varchar(192) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(192) NOT NULL DEFAULT '',
+  `INDEX_NAME` varchar(192) NOT NULL DEFAULT '',
+  `ROWS_READ` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INDEX_STATISTICS`
+--
+
+INSERT INTO `INDEX_STATISTICS` VALUES('iospanic', 'registeration', 'PRIMARY', 3);
+INSERT INTO `INDEX_STATISTICS` VALUES('iospanic', 'friends', 'PRIMARY', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ENGINES`
+--
+
+CREATE TEMPORARY TABLE `ENGINES` (
+  `ENGINE` varchar(64) NOT NULL DEFAULT '',
+  `SUPPORT` varchar(8) NOT NULL DEFAULT '',
+  `COMMENT` varchar(80) NOT NULL DEFAULT '',
+  `TRANSACTIONS` varchar(3) DEFAULT NULL,
+  `XA` varchar(3) DEFAULT NULL,
+  `SAVEPOINTS` varchar(3) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ENGINES`
+--
+
+INSERT INTO `ENGINES` VALUES('MRG_MYISAM', 'YES', 'Collection of identical MyISAM tables', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('CSV', 'YES', 'CSV storage engine', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('MEMORY', 'YES', 'Hash based, stored in memory, useful for temporary tables', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('BLACKHOLE', 'YES', '/dev/null storage engine (anything you write to it disappears)', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('MyISAM', 'DEFAULT', 'MyISAM storage engine', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('FEDERATED', 'NO', 'Federated MySQL storage engine', NULL, NULL, NULL);
+INSERT INTO `ENGINES` VALUES('ARCHIVE', 'YES', 'Archive storage engine', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('PERFORMANCE_SCHEMA', 'YES', 'Performance Schema', 'NO', 'NO', 'NO');
+INSERT INTO `ENGINES` VALUES('InnoDB', 'YES', 'Percona-XtraDB, Supports transactions, row-level locking, and foreign keys', 'YES', 'YES', 'YES');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EVENTS`
+--
+
+CREATE TEMPORARY TABLE `EVENTS` (
+  `EVENT_CATALOG` varchar(64) NOT NULL DEFAULT '',
+  `EVENT_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `EVENT_NAME` varchar(64) NOT NULL DEFAULT '',
+  `DEFINER` varchar(77) NOT NULL DEFAULT '',
+  `TIME_ZONE` varchar(64) NOT NULL DEFAULT '',
+  `EVENT_BODY` varchar(8) NOT NULL DEFAULT '',
+  `EVENT_DEFINITION` longtext NOT NULL,
+  `EVENT_TYPE` varchar(9) NOT NULL DEFAULT '',
+  `EXECUTE_AT` datetime DEFAULT NULL,
+  `INTERVAL_VALUE` varchar(256) DEFAULT NULL,
+  `INTERVAL_FIELD` varchar(18) DEFAULT NULL,
+  `SQL_MODE` varchar(8192) NOT NULL DEFAULT '',
+  `STARTS` datetime DEFAULT NULL,
+  `ENDS` datetime DEFAULT NULL,
+  `STATUS` varchar(18) NOT NULL DEFAULT '',
+  `ON_COMPLETION` varchar(12) NOT NULL DEFAULT '',
+  `CREATED` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `LAST_ALTERED` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `LAST_EXECUTED` datetime DEFAULT NULL,
+  `EVENT_COMMENT` varchar(64) NOT NULL DEFAULT '',
+  `ORIGINATOR` bigint(10) NOT NULL DEFAULT '0',
+  `CHARACTER_SET_CLIENT` varchar(32) NOT NULL DEFAULT '',
+  `COLLATION_CONNECTION` varchar(32) NOT NULL DEFAULT '',
+  `DATABASE_COLLATION` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `EVENTS`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FILES`
+--
+
+CREATE TEMPORARY TABLE `FILES` (
+  `FILE_ID` bigint(4) NOT NULL DEFAULT '0',
+  `FILE_NAME` varchar(64) DEFAULT NULL,
+  `FILE_TYPE` varchar(20) NOT NULL DEFAULT '',
+  `TABLESPACE_NAME` varchar(64) DEFAULT NULL,
+  `TABLE_CATALOG` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) DEFAULT NULL,
+  `TABLE_NAME` varchar(64) DEFAULT NULL,
+  `LOGFILE_GROUP_NAME` varchar(64) DEFAULT NULL,
+  `LOGFILE_GROUP_NUMBER` bigint(4) DEFAULT NULL,
+  `ENGINE` varchar(64) NOT NULL DEFAULT '',
+  `FULLTEXT_KEYS` varchar(64) DEFAULT NULL,
+  `DELETED_ROWS` bigint(4) DEFAULT NULL,
+  `UPDATE_COUNT` bigint(4) DEFAULT NULL,
+  `FREE_EXTENTS` bigint(4) DEFAULT NULL,
+  `TOTAL_EXTENTS` bigint(4) DEFAULT NULL,
+  `EXTENT_SIZE` bigint(4) NOT NULL DEFAULT '0',
+  `INITIAL_SIZE` bigint(21) unsigned DEFAULT NULL,
+  `MAXIMUM_SIZE` bigint(21) unsigned DEFAULT NULL,
+  `AUTOEXTEND_SIZE` bigint(21) unsigned DEFAULT NULL,
+  `CREATION_TIME` datetime DEFAULT NULL,
+  `LAST_UPDATE_TIME` datetime DEFAULT NULL,
+  `LAST_ACCESS_TIME` datetime DEFAULT NULL,
+  `RECOVER_TIME` bigint(4) DEFAULT NULL,
+  `TRANSACTION_COUNTER` bigint(4) DEFAULT NULL,
+  `VERSION` bigint(21) unsigned DEFAULT NULL,
+  `ROW_FORMAT` varchar(10) DEFAULT NULL,
+  `TABLE_ROWS` bigint(21) unsigned DEFAULT NULL,
+  `AVG_ROW_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `DATA_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `MAX_DATA_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `INDEX_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `DATA_FREE` bigint(21) unsigned DEFAULT NULL,
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `UPDATE_TIME` datetime DEFAULT NULL,
+  `CHECK_TIME` datetime DEFAULT NULL,
+  `CHECKSUM` bigint(21) unsigned DEFAULT NULL,
+  `STATUS` varchar(20) NOT NULL DEFAULT '',
+  `EXTRA` varchar(255) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `FILES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `GLOBAL_STATUS`
+--
+
+CREATE TEMPORARY TABLE `GLOBAL_STATUS` (
+  `VARIABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `VARIABLE_VALUE` varchar(1024) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `GLOBAL_STATUS`
+--
+
+INSERT INTO `GLOBAL_STATUS` VALUES('ABORTED_CLIENTS', '347');
+INSERT INTO `GLOBAL_STATUS` VALUES('ABORTED_CONNECTS', '65');
+INSERT INTO `GLOBAL_STATUS` VALUES('BINLOG_CACHE_DISK_USE', '1244');
+INSERT INTO `GLOBAL_STATUS` VALUES('BINLOG_CACHE_USE', '60418');
+INSERT INTO `GLOBAL_STATUS` VALUES('BINLOG_STMT_CACHE_DISK_USE', '5621');
+INSERT INTO `GLOBAL_STATUS` VALUES('BINLOG_STMT_CACHE_USE', '608407');
+INSERT INTO `GLOBAL_STATUS` VALUES('BYTES_RECEIVED', '2990153873');
+INSERT INTO `GLOBAL_STATUS` VALUES('BYTES_SENT', '62941897699');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ADMIN_COMMANDS', '3688');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ASSIGN_TO_KEYCACHE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_DB', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_DB_UPGRADE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_EVENT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_FUNCTION', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_PROCEDURE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_SERVER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_TABLE', '1891');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ALTER_TABLESPACE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ANALYZE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_BEGIN', '14718');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_BINLOG', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CALL_PROCEDURE', '9');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CHANGE_DB', '145017');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CHANGE_MASTER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CHECK', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CHECKSUM', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_COMMIT', '14719');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_DB', '83');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_EVENT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_FUNCTION', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_INDEX', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_PROCEDURE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_SERVER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_TABLE', '2030');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_TRIGGER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_UDF', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_USER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_CREATE_VIEW', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DEALLOC_SQL', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DELETE', '57999');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DELETE_MULTI', '566');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DO', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_DB', '2');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_EVENT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_FUNCTION', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_INDEX', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_PROCEDURE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_SERVER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_TABLE', '51');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_TRIGGER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_USER', '2');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_DROP_VIEW', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_EMPTY_QUERY', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_EXECUTE_SQL', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_FLUSH', '2');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_GRANT', '3');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_HA_CLOSE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_HA_OPEN', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_HA_READ', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_HELP', '2');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_INSERT', '359880');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_INSERT_SELECT', '43');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_INSTALL_PLUGIN', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_KILL', '10');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_LOAD', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_LOCK_TABLES', '22');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_OPTIMIZE', '74');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_PRELOAD_KEYS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_PREPARE_SQL', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_PURGE', '6');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_PURGE_BEFORE_DATE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_RELEASE_SAVEPOINT', '5');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_RENAME_TABLE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_RENAME_USER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_REPAIR', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_REPLACE', '873');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_REPLACE_SELECT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_RESET', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_RESIGNAL', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_REVOKE', '2');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_REVOKE_ALL', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ROLLBACK', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_ROLLBACK_TO_SAVEPOINT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SAVEPOINT', '5');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SELECT', '4468599');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SET_OPTION', '233859');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SIGNAL', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_AUTHORS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_BINLOG_EVENTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_BINLOGS', '24');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CHARSETS', '641');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CLIENT_STATISTICS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_COLLATIONS', '672');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CONTRIBUTORS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CREATE_DB', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CREATE_EVENT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CREATE_FUNC', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CREATE_PROC', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CREATE_TABLE', '739');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_CREATE_TRIGGER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_DATABASES', '663');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_ENGINE_LOGS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_ENGINE_MUTEX', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_ENGINE_STATUS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_EVENTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_ERRORS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_FIELDS', '33260');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_FUNCTION_STATUS', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_GRANTS', '356');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_INDEX_STATISTICS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_KEYS', '2353');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_MASTER_STATUS', '6');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_OPEN_TABLES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_PLUGINS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_PRIVILEGES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_PROCEDURE_STATUS', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_PROCESSLIST', '1560');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_PROFILE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_PROFILES', '9');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_RELAYLOG_EVENTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_SLAVE_HOSTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_SLAVE_STATUS', '1204');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_SLAVE_STATUS_NOLOCK', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_STATUS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_STORAGE_ENGINES', '3');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_TABLE_STATISTICS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_TABLE_STATUS', '4274');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_TABLES', '49343');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_TEMPORARY_TABLES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_THREAD_STATISTICS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_TRIGGERS', '124');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_USER_STATISTICS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_VARIABLES', '4183');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SHOW_WARNINGS', '143');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SLAVE_START', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_SLAVE_STOP', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_CLOSE', '658537');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_EXECUTE', '1080333');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_FETCH', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_PREPARE', '1080334');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_REPREPARE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_RESET', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_STMT_SEND_LONG_DATA', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_TRUNCATE', '549');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_UNINSTALL_PLUGIN', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_UNLOCK_TABLES', '24');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_UPDATE', '400780');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_UPDATE_MULTI', '634');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_XA_COMMIT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_XA_END', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_XA_PREPARE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_XA_RECOVER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_XA_ROLLBACK', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COM_XA_START', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('COMPRESSION', 'OFF');
+INSERT INTO `GLOBAL_STATUS` VALUES('CONNECTIONS', '573359');
+INSERT INTO `GLOBAL_STATUS` VALUES('CREATED_TMP_DISK_TABLES', '144929');
+INSERT INTO `GLOBAL_STATUS` VALUES('CREATED_TMP_FILES', '2562');
+INSERT INTO `GLOBAL_STATUS` VALUES('CREATED_TMP_TABLES', '283691');
+INSERT INTO `GLOBAL_STATUS` VALUES('DELAYED_ERRORS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('DELAYED_INSERT_THREADS', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('DELAYED_WRITES', '35');
+INSERT INTO `GLOBAL_STATUS` VALUES('FLASHCACHE_ENABLED', 'OFF');
+INSERT INTO `GLOBAL_STATUS` VALUES('FLUSH_COMMANDS', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_COMMIT', '1246877');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_DELETE', '66790');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_DISCOVER', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_PREPARE', '123626');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_FIRST', '4242354');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_KEY', '85816660');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_LAST', '5979');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_NEXT', '333572373');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_PREV', '4538373');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_RND', '23627076');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_READ_RND_NEXT', '4717699668');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_ROLLBACK', '108');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_SAVEPOINT', '8');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_SAVEPOINT_ROLLBACK', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_UPDATE', '33923933');
+INSERT INTO `GLOBAL_STATUS` VALUES('HANDLER_WRITE', '155830907');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ADAPTIVE_HASH_CELLS', '276671');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ADAPTIVE_HASH_HEAP_BUFFERS', '174');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ADAPTIVE_HASH_HASH_SEARCHES', '3632431');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ADAPTIVE_HASH_NON_HASH_SEARCHES', '1702535');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BACKGROUND_LOG_SYNC', '22439');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_DATA', '8016');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_BYTES_DATA', '131334144');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_DIRTY', '14');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_BYTES_DIRTY', '229376');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_FLUSHED', '126429');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_LRU_FLUSHED', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_FREE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_MADE_NOT_YOUNG', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_MADE_YOUNG', '237000');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_MISC', '175');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_OLD', '2939');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_TOTAL', '8191');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_READ_AHEAD_RND', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_READ_AHEAD', '2080');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_READ_AHEAD_EVICTED', '508');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_READ_REQUESTS', '389325828');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_READS', '96440');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_WAIT_FREE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_BUFFER_POOL_WRITE_REQUESTS', '526121');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_CHECKPOINT_AGE', '12455');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_CHECKPOINT_MAX_AGE', '108005254');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_CHECKPOINT_TARGET_AGE', '104630090');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_FSYNCS', '35432');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_PENDING_FSYNCS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_PENDING_READS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_PENDING_WRITES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_READ', '1622740992');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_READS', '101443');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_WRITES', '148811');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DATA_WRITTEN', '4216625664');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DBLWR_PAGES_WRITTEN', '126429');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DBLWR_WRITES', '2554');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DEADLOCKS', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DICT_TABLES', '2812');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_HAVE_ATOMIC_BUILTINS', 'ON');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_HISTORY_LIST_LENGTH', '3972');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_DISCARDED_DELETE_MARKS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_DISCARDED_DELETES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_DISCARDED_INSERTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_FREE_LIST', '26');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_MERGED_DELETE_MARKS', '846');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_MERGED_DELETES', '223');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_MERGED_INSERTS', '787');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_MERGES', '472');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_SEGMENT_SIZE', '28');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_IBUF_SIZE', '1');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_LOG_WAITS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_LOG_WRITE_REQUESTS', '152462');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_LOG_WRITES', '16410');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_LSN_CURRENT', '29818116939');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_LSN_FLUSHED', '29818116939');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_LSN_LAST_CHECKPOINT', '29818104484');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MASTER_THREAD_1_SECOND_LOOPS', '22018');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MASTER_THREAD_10_SECOND_LOOPS', '2161');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MASTER_THREAD_BACKGROUND_LOOPS', '448');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MASTER_THREAD_MAIN_FLUSH_LOOPS', '448');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MASTER_THREAD_SLEEPS', '22017');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MAX_TRX_ID', '131691403');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MEM_ADAPTIVE_HASH', '5084784');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MEM_DICTIONARY', '25090826');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MEM_TOTAL', '137756672');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MUTEX_OS_WAITS', '307');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MUTEX_SPIN_ROUNDS', '35390');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_MUTEX_SPIN_WAITS', '76523');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_OLDEST_VIEW_LOW_LIMIT_TRX_ID', '131691401');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_OS_LOG_FSYNCS', '18605');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_OS_LOG_PENDING_FSYNCS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_OS_LOG_PENDING_WRITES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_OS_LOG_WRITTEN', '72675840');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_PAGE_SIZE', '16384');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_PAGES_CREATED', '2503');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_PAGES_READ', '98910');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_PAGES_WRITTEN', '126429');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_PURGE_TRX_ID', '131691386');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_PURGE_UNDO_NO', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROW_LOCK_CURRENT_WAITS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_CURRENT_ROW_LOCKS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROW_LOCK_TIME', '3');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROW_LOCK_TIME_AVG', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROW_LOCK_TIME_MAX', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROW_LOCK_WAITS', '22');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROWS_DELETED', '8714');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROWS_INSERTED', '27717');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROWS_READ', '289187817');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_ROWS_UPDATED', '42145');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_READ_VIEWS_MEMORY', '208');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_DESCRIPTORS_MEMORY', '8000');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_S_LOCK_OS_WAITS', '3314');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_S_LOCK_SPIN_ROUNDS', '102564');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_S_LOCK_SPIN_WAITS', '4833');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_TRUNCATED_STATUS_WRITES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_X_LOCK_OS_WAITS', '170');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_X_LOCK_SPIN_ROUNDS', '10168');
+INSERT INTO `GLOBAL_STATUS` VALUES('INNODB_X_LOCK_SPIN_WAITS', '676');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_BLOCKS_NOT_FLUSHED', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_BLOCKS_UNUSED', '330693');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_BLOCKS_USED', '102964');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_READ_REQUESTS', '159475541');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_READS', '132858');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_WRITE_REQUESTS', '2979192');
+INSERT INTO `GLOBAL_STATUS` VALUES('KEY_WRITES', '1430141');
+INSERT INTO `GLOBAL_STATUS` VALUES('LAST_QUERY_COST', '0.000000');
+INSERT INTO `GLOBAL_STATUS` VALUES('MAX_USED_CONNECTIONS', '52');
+INSERT INTO `GLOBAL_STATUS` VALUES('NOT_FLUSHED_DELAYED_ROWS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPEN_FILES', '15679');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPEN_STREAMS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPEN_TABLE_DEFINITIONS', '8971');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPEN_TABLES', '10000');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPENED_FILES', '650210');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPENED_TABLE_DEFINITIONS', '21700');
+INSERT INTO `GLOBAL_STATUS` VALUES('OPENED_TABLES', '24397');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_COND_CLASSES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_COND_INSTANCES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_FILE_CLASSES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_FILE_HANDLES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_FILE_INSTANCES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_LOCKER_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_MUTEX_CLASSES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_MUTEX_INSTANCES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_RWLOCK_CLASSES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_RWLOCK_INSTANCES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_TABLE_HANDLES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_TABLE_INSTANCES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_THREAD_CLASSES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PERFORMANCE_SCHEMA_THREAD_INSTANCES_LOST', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('PREPARED_STMT_COUNT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_FREE_BLOCKS', '6059');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_FREE_MEMORY', '17677512');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_HITS', '7011024');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_INSERTS', '4195413');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_LOWMEM_PRUNES', '2163467');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_NOT_CACHED', '273384');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_QUERIES_IN_CACHE', '14870');
+INSERT INTO `GLOBAL_STATUS` VALUES('QCACHE_TOTAL_BLOCKS', '40063');
+INSERT INTO `GLOBAL_STATUS` VALUES('QUERIES', '15130555');
+INSERT INTO `GLOBAL_STATUS` VALUES('QUESTIONS', '13387941');
+INSERT INTO `GLOBAL_STATUS` VALUES('RPL_STATUS', 'AUTH_MASTER');
+INSERT INTO `GLOBAL_STATUS` VALUES('SELECT_FULL_JOIN', '30161');
+INSERT INTO `GLOBAL_STATUS` VALUES('SELECT_FULL_RANGE_JOIN', '527');
+INSERT INTO `GLOBAL_STATUS` VALUES('SELECT_RANGE', '197184');
+INSERT INTO `GLOBAL_STATUS` VALUES('SELECT_RANGE_CHECK', '430');
+INSERT INTO `GLOBAL_STATUS` VALUES('SELECT_SCAN', '390649');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLAVE_HEARTBEAT_PERIOD', '0.000');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLAVE_OPEN_TEMP_TABLES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLAVE_RECEIVED_HEARTBEATS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLAVE_RETRIED_TRANSACTIONS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLAVE_RUNNING', 'OFF');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLOW_LAUNCH_THREADS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SLOW_QUERIES', '5');
+INSERT INTO `GLOBAL_STATUS` VALUES('SORT_MERGE_PASSES', '84');
+INSERT INTO `GLOBAL_STATUS` VALUES('SORT_RANGE', '518731');
+INSERT INTO `GLOBAL_STATUS` VALUES('SORT_ROWS', '161931716');
+INSERT INTO `GLOBAL_STATUS` VALUES('SORT_SCAN', '327036');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_ACCEPT_RENEGOTIATES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_ACCEPTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CALLBACK_CACHE_HITS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CIPHER', '');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CIPHER_LIST', '');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CLIENT_CONNECTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CONNECT_RENEGOTIATES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CTX_VERIFY_DEPTH', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_CTX_VERIFY_MODE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_DEFAULT_TIMEOUT', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_FINISHED_ACCEPTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_FINISHED_CONNECTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSION_CACHE_HITS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSION_CACHE_MISSES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSION_CACHE_MODE', 'NONE');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSION_CACHE_OVERFLOWS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSION_CACHE_SIZE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSION_CACHE_TIMEOUTS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_SESSIONS_REUSED', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_USED_SESSION_CACHE_ENTRIES', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_VERIFY_DEPTH', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_VERIFY_MODE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('SSL_VERSION', '');
+INSERT INTO `GLOBAL_STATUS` VALUES('TABLE_LOCKS_IMMEDIATE', '5823786');
+INSERT INTO `GLOBAL_STATUS` VALUES('TABLE_LOCKS_WAITED', '531');
+INSERT INTO `GLOBAL_STATUS` VALUES('TC_LOG_MAX_PAGES_USED', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('TC_LOG_PAGE_SIZE', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('TC_LOG_PAGE_WAITS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('THREADPOOL_IDLE_THREADS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('THREADPOOL_THREADS', '0');
+INSERT INTO `GLOBAL_STATUS` VALUES('THREADS_CACHED', '42');
+INSERT INTO `GLOBAL_STATUS` VALUES('THREADS_CONNECTED', '10');
+INSERT INTO `GLOBAL_STATUS` VALUES('THREADS_CREATED', '52');
+INSERT INTO `GLOBAL_STATUS` VALUES('THREADS_RUNNING', '2');
+INSERT INTO `GLOBAL_STATUS` VALUES('UPTIME', '22559');
+INSERT INTO `GLOBAL_STATUS` VALUES('UPTIME_SINCE_FLUSH_STATUS', '22559');
+INSERT INTO `GLOBAL_STATUS` VALUES('BINLOG_COMMITS', '668825');
+INSERT INTO `GLOBAL_STATUS` VALUES('BINLOG_GROUP_COMMITS', '668798');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `GLOBAL_TEMPORARY_TABLES`
+--
+
+CREATE TEMPORARY TABLE `GLOBAL_TEMPORARY_TABLES` (
+  `SESSION_ID` bigint(4) NOT NULL DEFAULT '0',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ENGINE` varchar(64) NOT NULL DEFAULT '',
+  `NAME` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_ROWS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `AVG_ROW_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATA_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `INDEX_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `UPDATE_TIME` datetime DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `GLOBAL_TEMPORARY_TABLES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `GLOBAL_VARIABLES`
+--
+
+CREATE TEMPORARY TABLE `GLOBAL_VARIABLES` (
+  `VARIABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `VARIABLE_VALUE` varchar(1024) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `GLOBAL_VARIABLES`
+--
+
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_PREPARED_STMT_COUNT', '16382');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('EXPIRE_LOGS_DAYS', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_CRYPT', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_EVENTS_WAITS_HISTORY_LONG_SIZE', '10000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_VERSION', '5.5.37-35.0-35.0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_SORT_LENGTH', '1024');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_SLOWLOG_FILES', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_COND_INSTANCES', '1000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PROFILING_HISTORY_SIZE', '15');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_SLOWLOG_SIZE', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LONG_QUERY_TIME', '10.000000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_STACK', '262144');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DELAYED_INSERT_TIMEOUT', '300');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LAZY_DROP_TABLE', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DATETIME_FORMAT', '%Y-%m-%d %H:%i:%s');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_RWLOCK_INSTANCES', '1000000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FOREIGN_KEY_CHECKS', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_RWLOCK_CLASSES', '30');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BASEDIR', '/usr/local/mysql-5.5.37');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_MUTEX_CLASSES', '200');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('UPDATABLE_VIEWS_WITH_LIMIT', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BACK_LOG', '50');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_LAUNCH_TIME', '2');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_FILE_HANDLES', '32768');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_USER_CONNECTIONS', '200');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SYNC_MASTER_INFO', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RELAY_LOG_INDEX', '/var/lib/mysql_logs/5/p3nlhdb5502-02-relay-bin.index');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOWER_CASE_TABLE_NAMES', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_QUOTE_SHOW_CREATE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_REPAIR_THREADS', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_PREALLOC_SIZE', '8192');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OLD_PASSWORDS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('WAIT_TIMEOUT', '60');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FT_STOPWORD_FILE', '(built-in)');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_TABLE_HANDLES', '100000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SETS_DIR', '/usr/local/mysql-5.5.37/share/mysql/charsets/');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_RESPONSE_TIME_STATS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CONCURRENT_INSERT', 'AUTO');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_SP_STATEMENTS', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_RESULTS', 'latin1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_SORT_BUFFER_SIZE', '134217728');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_CONNECTION', 'latin1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ROLLBACK_SEGMENTS', '128');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPORT_USER', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LARGE_FILES_SUPPORT', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SYSTEM_TIME_ZONE', 'MST');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_SAFE_UPDATES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('EVENT_SCHEDULER', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('NET_BUFFER_LENGTH', '8192');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SKIP_SHOW_DATABASE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_BINLOG_CACHE_SIZE', '18446744073709547520');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('GROUP_CONCAT_MAX_LEN', '1024');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SSL_CAPATH', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RANGE_ALLOC_BLOCK_SIZE', '4096');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FT_MAX_WORD_LEN', '84');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TMPDIR', '/tmp/mysqltmp/');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LC_MESSAGES_DIR', '/usr/local/mysql-5.5.37/share/mysql/');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOG_FILE_SIZE', '67108864');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPORT_HOST', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TRANSACTION_PREALLOC_SIZE', '4096');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_GEOMETRY', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_RECOVER_OPTIONS', 'FORCE');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_QUERIES_NOT_USING_INDEXES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_STATISTICS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PLUGIN_DIR', '/usr/local/mysql-5.5.37/lib64/mysql/plugin/');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOW_PRIORITY_UPDATES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('AUTOMATIC_SP_PRIVILEGES', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPORT_PASSWORD', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DELAYED_INSERT_LIMIT', '100');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_INSERT_DELAYED_THREADS', '20');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('COMPLETION_TYPE', 'NO_CHAIN');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_BIG_SELECTS', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('ENFORCE_STORAGE_ENGINE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TRANSACTION_ALLOC_BLOCK_SIZE', '8192');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_THREAD_CLASSES', '50');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_QUERY_LOG_TIMESTAMP_ALWAYS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('AUTO_INCREMENT_OFFSET', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_THREAD_CONCURRENCY_TIMER_BASED', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('JOIN_BUFFER_SIZE', '4194304');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PID_FILE', '/var/run/mysql/5.pid');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CONNECT_TIMEOUT', '60');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_RATE_LIMIT', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_LOW_PRIORITY_UPDATES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_RECOVERY_STATS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INIT_FILE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_IO_CAPACITY', '200');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LARGE_PAGES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PROTOCOL_VERSION', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LARGE_PAGE_SIZE', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_SYMLINK', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INIT_SLAVE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOCKS_UNSAFE_FOR_BINLOG', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('EXPAND_FAST_INDEX_CREATION', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_TABLE_LOCKS', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_BINLOG_SIZE', '1073741824');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_AUTOEXTEND_INCREMENT', '8');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SOCKET', '/var/run/mysql/5.sock');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_DATA_POINTER_SIZE', '6');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_CONNECTIONS', '1000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_THREAD_SLEEP_DELAY', '10000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_WARNINGS_SUPPRESS', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_READ_AHEAD', 'linear');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('READ_BUFFER_SIZE', '4194304');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_TRANSACTION_RETRIES', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_THREAD_INSTANCES', '1000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('GENERAL_LOG', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOWER_CASE_FILE_SYSTEM', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_REPLICATION_DELAY', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_RELAY_LOG_SIZE', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_CACHE_MIN_RES_UNIT', '4096');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OPTIMIZER_SEARCH_DEPTH', '62');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SORT_BUFFER_SIZE', '4194304');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INIT_CONNECT', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ROLLBACK_ON_TIMEOUT', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('KEY_CACHE_AGE_THRESHOLD', '300');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_USE_GLOBAL_FLUSH_LOG_AT_TRX_COMMIT', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('NET_RETRY_COUNT', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ADDITIONAL_MEM_POOL_SIZE', '10485760');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_LONG_DATA_SIZE', '33554432');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('READ_RND_BUFFER_SIZE', '4194304');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_MAX_ALLOWED_PACKET', '1073741824');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FILE_FORMAT', 'Antelope');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FT_QUERY_EXPANSION_LIMIT', '20');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BIG_TABLES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_FILE_CLASSES', '50');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPLICATE_WILD_DO_TABLE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('VERSION_COMPILE_OS', 'Linux');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DATE_FORMAT', '%Y-%m-%d');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_RESPONSE_TIME_DISTRIBUTION', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('READ_ONLY', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_LENGTH_FOR_SORT_DATA', '1024');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OPTIMIZER_SWITCH', 'index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,engine_condition_pushdown=on');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_DATA_FILE_PATH', 'ibdata1:10M:autoextend');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FLUSH', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPLICATE_IGNORE_TABLE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_SHOW_VERBOSE_LOCKS', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BINLOG_DIRECT_NON_TRANSACTIONAL_UPDATES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_HEAP_TABLE_SIZE', '16777216');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_STRICT_MODE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BUFFER_POOL_SHM_CHECKSUM', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_MAX_JOIN_SIZE', '18446744073709551615');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_LOG_BIN', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SKIP_NAME_RESOLVE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_COND_CLASSES', '80');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DELAY_KEY_WRITE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_VERBOSITY', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BINLOG_CACHE_SIZE', '32768');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPLICATE_DO_DB', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('COLLATION_SERVER', 'latin1_swedish_ci');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_BINLOG_FILES', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FLUSH_TIME', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_PARTITIONING', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('NET_WRITE_TIMEOUT', '60');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_RATE_TYPE', 'session');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_CACHE_LIMIT', '1048576');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_KILL_IDLE_TRANSACTION', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_BIN', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_AUTOINC_LOCK_MODE', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_EVENTS_WAITS_HISTORY_SIZE', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_COMMIT_CONCURRENCY', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_SEEKS_FOR_KEY', '18446744073709551615');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_MIRRORED_LOG_GROUPS', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('METADATA_LOCKS_CACHE_SIZE', '1024');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_PURGE_BATCH_SIZE', '20');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BULK_INSERT_BUFFER_SIZE', '8388608');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('VERSION', '5.5.37-35.0-log');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_CACHE_SIZE', '67108864');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_SUPPORT_XA', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('AUTOCOMMIT', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_SYNC_SPIN_LOOPS', '30');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('VERSION_COMMENT', 'Percona Server (GPL), Release rel30.2, Revision 36.0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BLOCKING_BUFFER_POOL_RESTORE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DELAYED_QUEUE_SIZE', '1000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_SHOW_LOCKS_HELD', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_STALL_LIMIT', '500');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ADAPTIVE_HASH_INDEX', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_ALLOC_BLOCK_SIZE', '8192');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_IBUF_ACCEL_RATE', '100');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MIN_EXAMINED_ROW_LIMIT', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DIV_PRECISION_INCREMENT', '4');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LICENSE', 'GPL');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_IBUF_MAX_SIZE', '67092480');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_CACHE_WLOCK_INVALIDATE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_DATA_HOME_DIR', '/var/lib/mysql_data/5');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_CACHE_STRIP_COMMENTS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_READ_IO_THREADS', '4');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_MAX_THREADS', '100000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_MAX_BITMAP_FILE_SIZE', '104857600');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_COMPRESSED_PROTOCOL', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BUFFER_POOL_INSTANCES', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_QUERY_LOG_FILE', '/var/lib/mysql_data/5/p3nlhdb5502-02-slow.log');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FORCE_RECOVERY', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPLICATE_WILD_IGNORE_TABLE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOG_FILES_IN_GROUP', '2');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SKIP_NETWORKING', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FT_BOOLEAN_SYNTAX', '+ -><()~*:""&|');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_DYNAMIC_LOADING', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_CONNECT_ERRORS', '10000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SYNC_BINLOG', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FILE_FORMAT_CHECK', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_PRINT_ALL_DEADLOCKS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OPTIMIZER_PRUNE_LEVEL', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_OPEN_FILES', '300');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TABLE_OPEN_CACHE', '10000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_IMPORT_TABLE_FROM_XTRABACKUP', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TIMED_MUTEXES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_READ_AHEAD_THRESHOLD', '56');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ADAPTIVE_FLUSHING_METHOD', 'estimate');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FAST_CHECKSUM', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('KEY_BUFFER_SIZE', '536870912');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_DATABASE', 'latin1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_NDBCLUSTER', 'NO');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_OVERSUBSCRIBE', '3');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('VERSION_COMPILE_MACHINE', 'x86_64');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_STATS_METHOD', 'nulls_equal');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TABLE_DEFINITION_CACHE', '400');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FAST_SHUTDOWN', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OPTIMIZER_FIX', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_RECOVERY_UPDATE_RELAY_LOG', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_WARNINGS', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_THREAD_CONCURRENCY', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TMP_TABLE_SIZE', '8388608');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_NET_TIMEOUT', '3600');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_HANDLING', 'one-thread-per-connection');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_STATS_SAMPLE_PAGES', '8');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_CACHE_TYPE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOCAL_INFILE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_BIG_TABLES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_RTREE_KEYS', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOCK_WAIT_TIMEOUT', '31536000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BUFFER_POOL_RESTORE_AT_STARTUP', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_SP_RECURSION_DEPTH', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OLD_ALTER_TABLE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPORT_PORT', '3306');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_PAGE_SIZE', '16384');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SSL_CIPHER', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('EXTRA_MAX_CONNECTIONS', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_EXEC_MODE', 'STRICT');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RELAY_LOG_RECOVERY', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('NEW', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_DELAYED_THREADS', '20');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_MODE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_QUERY_LOG_USE_GLOBAL_CONTROL', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DATADIR', '/var/lib/mysql_data/5/');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FLUSH_LOG_AT_TRX_COMMIT', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BINLOG_FORMAT', 'MIXED');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_HIGH_PRIO_MODE', 'transactions');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HOSTNAME', 'p3nlhdb5502-02.shr.prod.phx3.secureserver.net');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_RANDOM_READ_AHEAD', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('KEEP_FILES_ON_CREATE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_INNODB', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SECURE_FILE_PRIV', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PORT', '3306');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('ENGINE_CONDITION_PUSHDOWN', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_CLIENT', 'latin1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SSL_CA', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_BIN_TRUST_FUNCTION_CREATORS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('AUTO_INCREMENT_INCREMENT', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_MAX_CHANGED_PAGES', '1000000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('NET_READ_TIMEOUT', '30');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_OPENSSL', 'DISABLED');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_SLAVE_SKIP_COUNTER', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_BINLOG_STMT_CACHE_SIZE', '18446744073709547520');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_LOG_OFF', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BUFFER_POOL_POPULATE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('KEY_CACHE_BLOCK_SIZE', '1024');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_SPIN_WAIT_DELAY', '6');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_CSV', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ADAPTIVE_HASH_INDEX_PARTITIONS', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FAST_INDEX_CREATION', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DEFAULT_STORAGE_ENGINE', 'MyISAM');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PRELOAD_BUFFER_SIZE', '32768');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOCK_WAIT_TIMEOUT', '50');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_IDLE_TIMEOUT', '60');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_OLD_BLOCKS_TIME', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('KEY_CACHE_DIVISION_LIMIT', '100');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RPL_RECOVERY_RANK', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_AUTO_IS_NULL', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('UNIQUE_CHECKS', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPLICATE_DO_TABLE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('USERSTAT', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TX_ISOLATION', 'READ-COMMITTED');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOCKED_IN_MEMORY', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_ERROR', '/var/lib/mysql_logs/5/error.log');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOCKING_FAKE_CHANGES', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FILE_FORMAT_MAX', 'Antelope');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_COMPRESS', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SSL_KEY', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('IGNORE_BUILTIN_INNODB', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OPEN_FILES_LIMIT', '65535');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_FILESYSTEM', 'binary');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_SKIP_ERRORS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_SYSTEM', 'utf8');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TIME_FORMAT', '%H:%i:%s');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RELAY_LOG_PURGE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_WRITE_IO_THREADS', '4');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_USE_SYS_STATS_TABLE', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_QUERY_CACHE', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FAKE_CHANGES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SYNC_RELAY_LOG', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOG_BUFFER_SIZE', '8388608');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SKIP_EXTERNAL_LOCKING', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_STATS_UPDATE_NEED_LOCK', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LC_TIME_NAMES', 'en_US');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_MAX_PURGE_LAG', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_FILE_INSTANCES', '10000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_MAX_SORT_FILE_SIZE', '9223372036853727232');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_QUERIES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_TYPE_CONVERSIONS', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BUFFER_POOL_SHM_KEY', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_NOTES', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LC_MESSAGES', 'en_US');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_TMP_TABLES', '32');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RELAY_LOG_INFO_FILE', '/var/lib/mysql_data/5/relay-log.info');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_CHECKPOINT_AGE_TARGET', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_IBUF_ACTIVE_CONTRACT', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_QUERY_LOG_TIMESTAMP_PRECISION', 'second');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_SLAVE_STATEMENTS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_ALLOWED_PACKET', '33554432');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_USE_ATOMIC_WRITES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('CHARACTER_SET_SERVER', 'latin1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_DICT_SIZE_LIMIT', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MULTI_RANGE_COUNT', '256');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_DOUBLEWRITE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('OLD', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_FLASHCACHE', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('DEFAULT_WEEK_FORMAT', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_STATS_METHOD', 'nulls_unequal');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_OUTPUT', 'FILE');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('BINLOG_STMT_CACHE_SIZE', '32768');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_TABLE_INSTANCES', '50000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FLUSH_METHOD', 'O_DIRECT');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_USE_NATIVE_AIO', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_MMAP_SIZE', '18446744073709551615');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_CHECKSUMS', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('STORAGE_ENGINE', 'MyISAM');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('TIME_ZONE', 'SYSTEM');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_SSL', 'DISABLED');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_TRACK_CHANGED_PAGES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INTERACTIVE_TIMEOUT', '60');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_CONCURRENCY_TICKETS', '500');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('QUERY_RESPONSE_TIME_RANGE_BASE', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('FT_MIN_WORD_LEN', '4');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLAVE_UPDATES', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_HIGH_PRIO_TICKETS', '4294967295');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_JOIN_SIZE', '18446744073709551615');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SERVER_ID', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('COLLATION_DATABASE', 'latin1_swedish_ci');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_BUFFER_RESULT', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_STATS_AUTO_UPDATE', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_BUFFER_POOL_SIZE', '134217728');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FILE_PER_TABLE', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SYNC_RELAY_LOG_INFO', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOG_GROUP_HOME_DIR', '/var/lib/mysql_data/5');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SSL_CERT', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LARGE_PREFIX', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_ERROR_COUNT', '64');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_FILTER', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_STATS_ON_METADATA', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MYISAM_USE_MMAP', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_LOG_BLOCK_SIZE', '512');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SYNC_FRM', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_QUERY_LOG_ALWAYS_WRITE_TIME', '10.000000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLAVE_LOAD_TMPDIR', '/tmp/mysqltmp/');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_CHANGE_BUFFERING', 'all');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_ADAPTIVE_FLUSHING', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('STORED_PROGRAM_CACHE', '256');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SECURE_AUTH', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('EXTRA_PORT', '0');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('MAX_WRITE_LOCK_COUNT', '18446744073709551615');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RELAY_LOG', '/var/lib/mysql_logs/5/p3nlhdb5502-02-relay-bin');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_SELECT_LIMIT', '18446744073709551615');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_POOL_SIZE', '24');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_CORRUPT_TABLE_ACTION', 'assert');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_CACHE_SIZE', '100');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FLUSH_NEIGHBOR_PAGES', 'area');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_DOUBLEWRITE_FILE', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_USE_SYS_MALLOC', 'ON');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('LOG_SLOW_ADMIN_STATEMENTS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_FORCE_LOAD_CORRUPTED', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_MERGE_SORT_BLOCK_SIZE', '1048576');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_MAX_DIRTY_PAGES_PCT', '75');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PROFILING', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('HAVE_PROFILING', 'YES');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('COLLATION_CONNECTION', 'latin1_swedish_ci');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('THREAD_CONCURRENCY', '10');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('REPLICATE_IGNORE_DB', '');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_OLD_BLOCKS_PCT', '37');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('GENERAL_LOG_FILE', '/var/lib/mysql_data/5/p3nlhdb5502-02.log');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('INNODB_PURGE_THREADS', '1');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SQL_WARNINGS', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('SLOW_QUERY_LOG', 'OFF');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_MUTEX_INSTANCES', '1000000');
+INSERT INTO `GLOBAL_VARIABLES` VALUES('RELAY_LOG_SPACE_LIMIT', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KEY_COLUMN_USAGE`
+--
+
+CREATE TEMPORARY TABLE `KEY_COLUMN_USAGE` (
+  `CONSTRAINT_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `CONSTRAINT_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `CONSTRAINT_NAME` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `COLUMN_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ORDINAL_POSITION` bigint(10) NOT NULL DEFAULT '0',
+  `POSITION_IN_UNIQUE_CONSTRAINT` bigint(10) DEFAULT NULL,
+  `REFERENCED_TABLE_SCHEMA` varchar(64) DEFAULT NULL,
+  `REFERENCED_TABLE_NAME` varchar(64) DEFAULT NULL,
+  `REFERENCED_COLUMN_NAME` varchar(64) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `KEY_COLUMN_USAGE`
+--
+
+INSERT INTO `KEY_COLUMN_USAGE` VALUES('def', 'iospanic', 'PRIMARY', 'def', 'iospanic', 'friends', 'id', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `KEY_COLUMN_USAGE` VALUES('def', 'iospanic', 'PRIMARY', 'def', 'iospanic', 'geolocation', 'id', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `KEY_COLUMN_USAGE` VALUES('def', 'iospanic', 'PRIMARY', 'def', 'iospanic', 'panic_friends', 'id', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `KEY_COLUMN_USAGE` VALUES('def', 'iospanic', 'PRIMARY', 'def', 'iospanic', 'panic_victim', 'id', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `KEY_COLUMN_USAGE` VALUES('def', 'iospanic', 'PRIMARY', 'def', 'iospanic', 'registeration', 'password', 1, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PARAMETERS`
+--
+
+CREATE TEMPORARY TABLE `PARAMETERS` (
+  `SPECIFIC_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `SPECIFIC_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `SPECIFIC_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ORDINAL_POSITION` int(21) NOT NULL DEFAULT '0',
+  `PARAMETER_MODE` varchar(5) DEFAULT NULL,
+  `PARAMETER_NAME` varchar(64) DEFAULT NULL,
+  `DATA_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `CHARACTER_MAXIMUM_LENGTH` int(21) DEFAULT NULL,
+  `CHARACTER_OCTET_LENGTH` int(21) DEFAULT NULL,
+  `NUMERIC_PRECISION` int(21) DEFAULT NULL,
+  `NUMERIC_SCALE` int(21) DEFAULT NULL,
+  `CHARACTER_SET_NAME` varchar(64) DEFAULT NULL,
+  `COLLATION_NAME` varchar(64) DEFAULT NULL,
+  `DTD_IDENTIFIER` longtext NOT NULL,
+  `ROUTINE_TYPE` varchar(9) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PARAMETERS`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PARTITIONS`
+--
+
+CREATE TEMPORARY TABLE `PARTITIONS` (
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `PARTITION_NAME` varchar(64) DEFAULT NULL,
+  `SUBPARTITION_NAME` varchar(64) DEFAULT NULL,
+  `PARTITION_ORDINAL_POSITION` bigint(21) unsigned DEFAULT NULL,
+  `SUBPARTITION_ORDINAL_POSITION` bigint(21) unsigned DEFAULT NULL,
+  `PARTITION_METHOD` varchar(18) DEFAULT NULL,
+  `SUBPARTITION_METHOD` varchar(12) DEFAULT NULL,
+  `PARTITION_EXPRESSION` longtext,
+  `SUBPARTITION_EXPRESSION` longtext,
+  `PARTITION_DESCRIPTION` longtext,
+  `TABLE_ROWS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `AVG_ROW_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATA_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `MAX_DATA_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `INDEX_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATA_FREE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `UPDATE_TIME` datetime DEFAULT NULL,
+  `CHECK_TIME` datetime DEFAULT NULL,
+  `CHECKSUM` bigint(21) unsigned DEFAULT NULL,
+  `PARTITION_COMMENT` varchar(80) NOT NULL DEFAULT '',
+  `NODEGROUP` varchar(12) NOT NULL DEFAULT '',
+  `TABLESPACE_NAME` varchar(64) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PARTITIONS`
+--
+
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'CHARACTER_SETS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 384, 0, 8388480, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 362, 0, 8388264, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'COLLATIONS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 231, 0, 8388534, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'COLLATION_CHARACTER_SET_APPLICABILITY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 195, 0, 8388510, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'COLUMNS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2565, 0, 8387550, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INDEX_STATISTICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1743, 0, 8387316, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'ENGINES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 490, 0, 8388310, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'EVENTS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'FILES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2677, 0, 8387041, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'GLOBAL_STATUS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3268, 0, 8385688, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2174, 0, 8387292, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'GLOBAL_VARIABLES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3268, 0, 8385688, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 4637, 0, 8388333, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'PARAMETERS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'PARTITIONS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'PLUGINS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'PROCESSLIST', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'PROFILING', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 308, 0, 8388380, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 4814, 0, 8385988, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'ROUTINES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'QUERY_RESPONSE_TIME', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 91, 0, 8388562, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'SCHEMATA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3464, 0, 8386344, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2179, 0, 8386971, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'SESSION_STATUS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3268, 0, 8385688, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'SESSION_VARIABLES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3268, 0, 8385688, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'STATISTICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 5753, 0, 8387874, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TABLES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 9450, 0, 8382150, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TABLESPACES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 6951, 0, 8382906, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2504, 0, 8388400, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2372, 0, 8387392, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TABLE_STATISTICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1181, 0, 8387462, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2174, 0, 8387292, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'THREAD_STATISTICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 177, 0, 8388561, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'TRIGGERS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'USER_PRIVILEGES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1986, 0, 8386878, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'USER_STATISTICS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 314, 0, 8388510, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'VIEWS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 281474976710655, 1024, 0, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 29, 0, 8388598, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_RSEG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 49, 0, 8388604, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1620, 0, 8388360, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_CMPMEM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 29, 0, 8388598, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1796, 0, 8387320, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_LOCK_WAITS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 599, 0, 8388396, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 2529, 0, 8386164, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_CMP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 25, 0, 8388600, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 25, 0, 8388600, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_CHANGED_PAGES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 25, 0, 8388600, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 234, 0, 8388432, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_TRX', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 4534, 0, 8387900, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 105, 0, 8388555, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_LOCKS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 31244, 0, 8373392, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 65, 0, 8388575, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1183, 0, 8387470, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_FIELDS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 594, 0, 8388468, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 610, 0, 8388110, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 6852, 0, 8386848, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_STATS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 29, 0, 8388598, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1752, 0, 8388576, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 614, 0, 8388468, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'XTRADB_ADMIN_COMMAND', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 3075, 0, 8388600, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1189, 0, 8388395, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN_COLS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1748, 0, 8386904, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 6669, 0, 8382933, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 257, 0, 8388480, 0, 0, '2014-10-16 08:07:13', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'iospanic', 'friends', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 5461, 16384, NULL, 0, 0, '2014-07-05 04:38:38', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'iospanic', 'geolocation', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 16384, NULL, 0, 0, '2014-07-05 04:38:38', NULL, NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'iospanic', 'panic_friends', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 11, 24, 312, 281474976710655, 2048, 48, '2014-08-23 03:28:50', '2014-10-15 08:05:57', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'iospanic', 'panic_victim', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, 52, 580, 281474976710655, 2048, 316, '2014-08-03 06:08:35', '2014-10-15 08:05:57', NULL, NULL, '', '', NULL);
+INSERT INTO `PARTITIONS` VALUES('def', 'iospanic', 'registeration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, 2730, 16384, NULL, 0, 0, '2014-10-11 10:06:50', NULL, NULL, NULL, '', '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PLUGINS`
+--
+
+CREATE TEMPORARY TABLE `PLUGINS` (
+  `PLUGIN_NAME` varchar(64) NOT NULL DEFAULT '',
+  `PLUGIN_VERSION` varchar(20) NOT NULL DEFAULT '',
+  `PLUGIN_STATUS` varchar(10) NOT NULL DEFAULT '',
+  `PLUGIN_TYPE` varchar(80) NOT NULL DEFAULT '',
+  `PLUGIN_TYPE_VERSION` varchar(20) NOT NULL DEFAULT '',
+  `PLUGIN_LIBRARY` varchar(64) DEFAULT NULL,
+  `PLUGIN_LIBRARY_VERSION` varchar(20) DEFAULT NULL,
+  `PLUGIN_AUTHOR` varchar(64) DEFAULT NULL,
+  `PLUGIN_DESCRIPTION` longtext,
+  `PLUGIN_LICENSE` varchar(80) DEFAULT NULL,
+  `LOAD_OPTION` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PLUGINS`
+--
+
+INSERT INTO `PLUGINS` VALUES('binlog', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'MySQL AB', 'This is a pseudo storage engine to represent the binlog in a transaction', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('mysql_native_password', '1.0', 'ACTIVE', 'AUTHENTICATION', '1.0', NULL, NULL, 'R.J.Silk, Sergei Golubchik', 'Native MySQL authentication', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('mysql_old_password', '1.0', 'ACTIVE', 'AUTHENTICATION', '1.0', NULL, NULL, 'R.J.Silk, Sergei Golubchik', 'Old MySQL-4.0 authentication', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('MRG_MYISAM', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'MySQL AB', 'Collection of identical MyISAM tables', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('MEMORY', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'MySQL AB', 'Hash based, stored in memory, useful for temporary tables', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('MyISAM', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'MySQL AB', 'MyISAM storage engine', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('CSV', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'Brian Aker, MySQL AB', 'CSV storage engine', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('BLACKHOLE', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'MySQL AB', '/dev/null storage engine (anything you write to it disappears)', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('FEDERATED', '1.0', 'DISABLED', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'Patrick Galbraith and Brian Aker, MySQL AB', 'Federated MySQL storage engine', 'GPL', 'OFF');
+INSERT INTO `PLUGINS` VALUES('PERFORMANCE_SCHEMA', '0.1', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'Marc Alff, Oracle', 'Performance Schema', 'GPL', 'FORCE');
+INSERT INTO `PLUGINS` VALUES('ARCHIVE', '3.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'Brian Aker, MySQL AB', 'Archive storage engine', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('InnoDB', '5.5', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'Oracle Corporation', 'Percona-XtraDB, Supports transactions, row-level locking, and foreign keys', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_RSEG', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB rollback segment information', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_UNDO_LOGS', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB rollback undo segment information', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_TRX', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'InnoDB transactions', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_LOCKS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'InnoDB conflicting locks', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_LOCK_WAITS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'InnoDB which lock is blocking which', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_CMP', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'Statistics for the InnoDB compression', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_CMP_RESET', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'Statistics for the InnoDB compression; reset cumulated counts', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_CMPMEM', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'Statistics for the InnoDB compressed buffer pool', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_CMPMEM_RESET', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'Statistics for the InnoDB compressed buffer pool; reset cumulated counts', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_TABLES', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_TABLES', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_TABLESTATS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_TABLESTATS', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_INDEXES', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_INDEXES', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_COLUMNS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_COLUMNS', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_FIELDS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_FIELDS', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_FOREIGN', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_FOREIGN', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_FOREIGN_COLS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB SYS_FOREIGN_COLS', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_SYS_STATS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'XtraDB SYS_STATS table', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_TABLE_STATS', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB table statistics in memory', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_INDEX_STATS', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB index statistics in memory', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_BUFFER_POOL_PAGES', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB buffer pool pages', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_BUFFER_POOL_PAGES_INDEX', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB buffer pool index pages', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_BUFFER_POOL_PAGES_BLOB', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB buffer pool blob pages', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('XTRADB_ADMIN_COMMAND', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'XtraDB specific command acceptor', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_CHANGED_PAGES', '1.0', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Percona', 'InnoDB CHANGED_PAGES table', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_BUFFER_PAGE', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'InnoDB Buffer Page Information', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_BUFFER_PAGE_LRU', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'InnoDB Buffer Page in LRU', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('INNODB_BUFFER_POOL_STATS', '5.5', 'ACTIVE', 'INFORMATION SCHEMA', '50537.0', NULL, NULL, 'Oracle Corporation', 'InnoDB Buffer Pool Statistics Information ', 'GPL', 'ON');
+INSERT INTO `PLUGINS` VALUES('partition', '1.0', 'ACTIVE', 'STORAGE ENGINE', '50537.0', NULL, NULL, 'Mikael Ronstrom, MySQL AB', 'Partition Storage Engine Helper', 'GPL', 'ON');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PROCESSLIST`
+--
+
+CREATE TEMPORARY TABLE `PROCESSLIST` (
+  `ID` bigint(4) NOT NULL DEFAULT '0',
+  `USER` varchar(16) NOT NULL DEFAULT '',
+  `HOST` varchar(64) NOT NULL DEFAULT '',
+  `DB` varchar(64) DEFAULT NULL,
+  `COMMAND` varchar(16) NOT NULL DEFAULT '',
+  `TIME` int(7) NOT NULL DEFAULT '0',
+  `STATE` varchar(64) DEFAULT NULL,
+  `INFO` longtext,
+  `TIME_MS` bigint(21) NOT NULL DEFAULT '0',
+  `ROWS_SENT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_EXAMINED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_READ` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PROCESSLIST`
+--
+
+INSERT INTO `PROCESSLIST` VALUES(573322, 'iospanic', '72.167.233.38:37177', NULL, 'Query', 0, 'executing', 'SELECT * FROM `information_schema`.`PROCESSLIST`', 0, 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PROFILING`
+--
+
+CREATE TEMPORARY TABLE `PROFILING` (
+  `QUERY_ID` int(20) NOT NULL DEFAULT '0',
+  `SEQ` int(20) NOT NULL DEFAULT '0',
+  `STATE` varchar(30) NOT NULL DEFAULT '',
+  `DURATION` decimal(9,6) NOT NULL DEFAULT '0.000000',
+  `CPU_USER` decimal(9,6) DEFAULT NULL,
+  `CPU_SYSTEM` decimal(9,6) DEFAULT NULL,
+  `CONTEXT_VOLUNTARY` int(20) DEFAULT NULL,
+  `CONTEXT_INVOLUNTARY` int(20) DEFAULT NULL,
+  `BLOCK_OPS_IN` int(20) DEFAULT NULL,
+  `BLOCK_OPS_OUT` int(20) DEFAULT NULL,
+  `MESSAGES_SENT` int(20) DEFAULT NULL,
+  `MESSAGES_RECEIVED` int(20) DEFAULT NULL,
+  `PAGE_FAULTS_MAJOR` int(20) DEFAULT NULL,
+  `PAGE_FAULTS_MINOR` int(20) DEFAULT NULL,
+  `SWAPS` int(20) DEFAULT NULL,
+  `SOURCE_FUNCTION` varchar(30) DEFAULT NULL,
+  `SOURCE_FILE` varchar(20) DEFAULT NULL,
+  `SOURCE_LINE` int(20) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `PROFILING`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `REFERENTIAL_CONSTRAINTS`
+--
+
+CREATE TEMPORARY TABLE `REFERENTIAL_CONSTRAINTS` (
+  `CONSTRAINT_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `CONSTRAINT_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `CONSTRAINT_NAME` varchar(64) NOT NULL DEFAULT '',
+  `UNIQUE_CONSTRAINT_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `UNIQUE_CONSTRAINT_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `UNIQUE_CONSTRAINT_NAME` varchar(64) DEFAULT NULL,
+  `MATCH_OPTION` varchar(64) NOT NULL DEFAULT '',
+  `UPDATE_RULE` varchar(64) NOT NULL DEFAULT '',
+  `DELETE_RULE` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `REFERENCED_TABLE_NAME` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `REFERENTIAL_CONSTRAINTS`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ROUTINES`
+--
+
+CREATE TEMPORARY TABLE `ROUTINES` (
+  `SPECIFIC_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ROUTINE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `ROUTINE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `ROUTINE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ROUTINE_TYPE` varchar(9) NOT NULL DEFAULT '',
+  `DATA_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `CHARACTER_MAXIMUM_LENGTH` int(21) DEFAULT NULL,
+  `CHARACTER_OCTET_LENGTH` int(21) DEFAULT NULL,
+  `NUMERIC_PRECISION` int(21) DEFAULT NULL,
+  `NUMERIC_SCALE` int(21) DEFAULT NULL,
+  `CHARACTER_SET_NAME` varchar(64) DEFAULT NULL,
+  `COLLATION_NAME` varchar(64) DEFAULT NULL,
+  `DTD_IDENTIFIER` longtext,
+  `ROUTINE_BODY` varchar(8) NOT NULL DEFAULT '',
+  `ROUTINE_DEFINITION` longtext,
+  `EXTERNAL_NAME` varchar(64) DEFAULT NULL,
+  `EXTERNAL_LANGUAGE` varchar(64) DEFAULT NULL,
+  `PARAMETER_STYLE` varchar(8) NOT NULL DEFAULT '',
+  `IS_DETERMINISTIC` varchar(3) NOT NULL DEFAULT '',
+  `SQL_DATA_ACCESS` varchar(64) NOT NULL DEFAULT '',
+  `SQL_PATH` varchar(64) DEFAULT NULL,
+  `SECURITY_TYPE` varchar(7) NOT NULL DEFAULT '',
+  `CREATED` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `LAST_ALTERED` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SQL_MODE` varchar(8192) NOT NULL DEFAULT '',
+  `ROUTINE_COMMENT` longtext NOT NULL,
+  `DEFINER` varchar(77) NOT NULL DEFAULT '',
+  `CHARACTER_SET_CLIENT` varchar(32) NOT NULL DEFAULT '',
+  `COLLATION_CONNECTION` varchar(32) NOT NULL DEFAULT '',
+  `DATABASE_COLLATION` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ROUTINES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `QUERY_RESPONSE_TIME`
+--
+
+CREATE TEMPORARY TABLE `QUERY_RESPONSE_TIME` (
+  `time` varchar(14) NOT NULL DEFAULT '',
+  `count` int(11) unsigned NOT NULL DEFAULT '0',
+  `total` varchar(14) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `QUERY_RESPONSE_TIME`
+--
+
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      0.000001', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      0.000010', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      0.000100', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      0.001000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      0.010000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      0.100000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('      1.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('     10.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('    100.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('   1000.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('  10000.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES(' 100000.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('1000000.000000', 0, '      0.000000');
+INSERT INTO `QUERY_RESPONSE_TIME` VALUES('TOO LONG', 0, 'TOO LONG');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SCHEMATA`
+--
+
+CREATE TEMPORARY TABLE `SCHEMATA` (
+  `CATALOG_NAME` varchar(512) NOT NULL DEFAULT '',
+  `SCHEMA_NAME` varchar(64) NOT NULL DEFAULT '',
+  `DEFAULT_CHARACTER_SET_NAME` varchar(32) NOT NULL DEFAULT '',
+  `DEFAULT_COLLATION_NAME` varchar(32) NOT NULL DEFAULT '',
+  `SQL_PATH` varchar(512) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `SCHEMATA`
+--
+
+INSERT INTO `SCHEMATA` VALUES('def', 'information_schema', 'utf8', 'utf8_general_ci', NULL);
+INSERT INTO `SCHEMATA` VALUES('def', 'iospanic', 'latin1', 'latin1_swedish_ci', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SCHEMA_PRIVILEGES`
+--
+
+CREATE TEMPORARY TABLE `SCHEMA_PRIVILEGES` (
+  `GRANTEE` varchar(81) NOT NULL DEFAULT '',
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `PRIVILEGE_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `IS_GRANTABLE` varchar(3) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `SCHEMA_PRIVILEGES`
+--
+
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'SELECT', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'INSERT', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'UPDATE', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'DELETE', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'CREATE', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'DROP', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'INDEX', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'ALTER', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'CREATE TEMPORARY TABLES', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'LOCK TABLES', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'EXECUTE', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'CREATE VIEW', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'SHOW VIEW', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'CREATE ROUTINE', 'NO');
+INSERT INTO `SCHEMA_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'iospanic', 'ALTER ROUTINE', 'NO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SESSION_STATUS`
+--
+
+CREATE TEMPORARY TABLE `SESSION_STATUS` (
+  `VARIABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `VARIABLE_VALUE` varchar(1024) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `SESSION_STATUS`
+--
+
+INSERT INTO `SESSION_STATUS` VALUES('ABORTED_CLIENTS', '347');
+INSERT INTO `SESSION_STATUS` VALUES('ABORTED_CONNECTS', '65');
+INSERT INTO `SESSION_STATUS` VALUES('BINLOG_CACHE_DISK_USE', '1244');
+INSERT INTO `SESSION_STATUS` VALUES('BINLOG_CACHE_USE', '60418');
+INSERT INTO `SESSION_STATUS` VALUES('BINLOG_STMT_CACHE_DISK_USE', '5621');
+INSERT INTO `SESSION_STATUS` VALUES('BINLOG_STMT_CACHE_USE', '608411');
+INSERT INTO `SESSION_STATUS` VALUES('BYTES_RECEIVED', '9508');
+INSERT INTO `SESSION_STATUS` VALUES('BYTES_SENT', '303805');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ADMIN_COMMANDS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ASSIGN_TO_KEYCACHE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_DB', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_DB_UPGRADE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_EVENT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_FUNCTION', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_PROCEDURE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_SERVER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_TABLE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ALTER_TABLESPACE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ANALYZE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_BEGIN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_BINLOG', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CALL_PROCEDURE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CHANGE_DB', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CHANGE_MASTER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CHECK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CHECKSUM', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_COMMIT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_DB', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_EVENT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_FUNCTION', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_INDEX', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_PROCEDURE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_SERVER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_TABLE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_TRIGGER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_UDF', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_USER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_CREATE_VIEW', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DEALLOC_SQL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DELETE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DELETE_MULTI', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DO', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_DB', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_EVENT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_FUNCTION', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_INDEX', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_PROCEDURE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_SERVER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_TABLE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_TRIGGER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_USER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_DROP_VIEW', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_EMPTY_QUERY', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_EXECUTE_SQL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_FLUSH', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_GRANT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_HA_CLOSE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_HA_OPEN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_HA_READ', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_HELP', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_INSERT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_INSERT_SELECT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_INSTALL_PLUGIN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_KILL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_LOAD', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_LOCK_TABLES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_OPTIMIZE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_PRELOAD_KEYS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_PREPARE_SQL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_PURGE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_PURGE_BEFORE_DATE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_RELEASE_SAVEPOINT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_RENAME_TABLE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_RENAME_USER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_REPAIR', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_REPLACE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_REPLACE_SELECT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_RESET', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_RESIGNAL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_REVOKE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_REVOKE_ALL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ROLLBACK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_ROLLBACK_TO_SAVEPOINT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SAVEPOINT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SELECT', '27');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SET_OPTION', '29');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SIGNAL', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_AUTHORS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_BINLOG_EVENTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_BINLOGS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CHARSETS', '1');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CLIENT_STATISTICS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_COLLATIONS', '1');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CONTRIBUTORS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CREATE_DB', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CREATE_EVENT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CREATE_FUNC', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CREATE_PROC', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CREATE_TABLE', '25');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_CREATE_TRIGGER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_DATABASES', '1');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_ENGINE_LOGS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_ENGINE_MUTEX', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_ENGINE_STATUS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_EVENTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_ERRORS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_FIELDS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_FUNCTION_STATUS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_GRANTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_INDEX_STATISTICS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_KEYS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_MASTER_STATUS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_OPEN_TABLES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_PLUGINS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_PRIVILEGES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_PROCEDURE_STATUS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_PROCESSLIST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_PROFILE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_PROFILES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_RELAYLOG_EVENTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_SLAVE_HOSTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_SLAVE_STATUS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_SLAVE_STATUS_NOLOCK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_STATUS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_STORAGE_ENGINES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_TABLE_STATISTICS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_TABLE_STATUS', '75');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_TABLES', '1');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_TEMPORARY_TABLES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_THREAD_STATISTICS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_TRIGGERS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_USER_STATISTICS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_VARIABLES', '4');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SHOW_WARNINGS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SLAVE_START', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_SLAVE_STOP', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_CLOSE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_EXECUTE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_FETCH', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_PREPARE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_REPREPARE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_RESET', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_STMT_SEND_LONG_DATA', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_TRUNCATE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_UNINSTALL_PLUGIN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_UNLOCK_TABLES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_UPDATE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_UPDATE_MULTI', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_XA_COMMIT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_XA_END', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_XA_PREPARE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_XA_RECOVER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_XA_ROLLBACK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COM_XA_START', '0');
+INSERT INTO `SESSION_STATUS` VALUES('COMPRESSION', 'OFF');
+INSERT INTO `SESSION_STATUS` VALUES('CONNECTIONS', '573362');
+INSERT INTO `SESSION_STATUS` VALUES('CREATED_TMP_DISK_TABLES', '71');
+INSERT INTO `SESSION_STATUS` VALUES('CREATED_TMP_FILES', '2562');
+INSERT INTO `SESSION_STATUS` VALUES('CREATED_TMP_TABLES', '468');
+INSERT INTO `SESSION_STATUS` VALUES('DELAYED_ERRORS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('DELAYED_INSERT_THREADS', '1');
+INSERT INTO `SESSION_STATUS` VALUES('DELAYED_WRITES', '35');
+INSERT INTO `SESSION_STATUS` VALUES('FLASHCACHE_ENABLED', 'OFF');
+INSERT INTO `SESSION_STATUS` VALUES('FLUSH_COMMANDS', '1');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_COMMIT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_DELETE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_DISCOVER', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_PREPARE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_FIRST', '2');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_KEY', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_LAST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_NEXT', '58');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_PREV', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_RND', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_READ_RND_NEXT', '2562');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_ROLLBACK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_SAVEPOINT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_SAVEPOINT_ROLLBACK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_UPDATE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('HANDLER_WRITE', '2634');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ADAPTIVE_HASH_CELLS', '276671');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ADAPTIVE_HASH_HEAP_BUFFERS', '174');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ADAPTIVE_HASH_HASH_SEARCHES', '3632431');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ADAPTIVE_HASH_NON_HASH_SEARCHES', '1702535');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BACKGROUND_LOG_SYNC', '22439');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_DATA', '8016');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_BYTES_DATA', '131334144');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_DIRTY', '14');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_BYTES_DIRTY', '229376');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_FLUSHED', '126429');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_LRU_FLUSHED', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_FREE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_MADE_NOT_YOUNG', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_MADE_YOUNG', '237000');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_MISC', '175');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_OLD', '2939');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_PAGES_TOTAL', '8191');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_READ_AHEAD_RND', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_READ_AHEAD', '2080');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_READ_AHEAD_EVICTED', '508');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_READ_REQUESTS', '389325909');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_READS', '96440');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_WAIT_FREE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_BUFFER_POOL_WRITE_REQUESTS', '526121');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_CHECKPOINT_AGE', '12455');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_CHECKPOINT_MAX_AGE', '108005254');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_CHECKPOINT_TARGET_AGE', '104630090');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_FSYNCS', '35432');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_PENDING_FSYNCS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_PENDING_READS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_PENDING_WRITES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_READ', '1622740992');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_READS', '101443');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_WRITES', '148811');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DATA_WRITTEN', '4216625664');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DBLWR_PAGES_WRITTEN', '126429');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DBLWR_WRITES', '2554');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DEADLOCKS', '1');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DICT_TABLES', '2812');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_HAVE_ATOMIC_BUILTINS', 'ON');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_HISTORY_LIST_LENGTH', '3972');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_DISCARDED_DELETE_MARKS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_DISCARDED_DELETES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_DISCARDED_INSERTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_FREE_LIST', '26');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_MERGED_DELETE_MARKS', '846');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_MERGED_DELETES', '223');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_MERGED_INSERTS', '787');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_MERGES', '472');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_SEGMENT_SIZE', '28');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_IBUF_SIZE', '1');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_LOG_WAITS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_LOG_WRITE_REQUESTS', '152462');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_LOG_WRITES', '16410');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_LSN_CURRENT', '29818116939');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_LSN_FLUSHED', '29818116939');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_LSN_LAST_CHECKPOINT', '29818104484');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MASTER_THREAD_1_SECOND_LOOPS', '22019');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MASTER_THREAD_10_SECOND_LOOPS', '2161');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MASTER_THREAD_BACKGROUND_LOOPS', '448');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MASTER_THREAD_MAIN_FLUSH_LOOPS', '448');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MASTER_THREAD_SLEEPS', '22018');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MAX_TRX_ID', '131691403');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MEM_ADAPTIVE_HASH', '5084784');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MEM_DICTIONARY', '25090826');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MEM_TOTAL', '137756672');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MUTEX_OS_WAITS', '307');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MUTEX_SPIN_ROUNDS', '35390');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_MUTEX_SPIN_WAITS', '76523');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_OLDEST_VIEW_LOW_LIMIT_TRX_ID', '131691401');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_OS_LOG_FSYNCS', '18605');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_OS_LOG_PENDING_FSYNCS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_OS_LOG_PENDING_WRITES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_OS_LOG_WRITTEN', '72675840');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_PAGE_SIZE', '16384');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_PAGES_CREATED', '2503');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_PAGES_READ', '98910');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_PAGES_WRITTEN', '126429');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_PURGE_TRX_ID', '131691386');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_PURGE_UNDO_NO', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROW_LOCK_CURRENT_WAITS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_CURRENT_ROW_LOCKS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROW_LOCK_TIME', '3');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROW_LOCK_TIME_AVG', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROW_LOCK_TIME_MAX', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROW_LOCK_WAITS', '22');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROWS_DELETED', '8714');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROWS_INSERTED', '27717');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROWS_READ', '289187817');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_ROWS_UPDATED', '42145');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_READ_VIEWS_MEMORY', '208');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_DESCRIPTORS_MEMORY', '8000');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_S_LOCK_OS_WAITS', '3314');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_S_LOCK_SPIN_ROUNDS', '102564');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_S_LOCK_SPIN_WAITS', '4833');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_TRUNCATED_STATUS_WRITES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_X_LOCK_OS_WAITS', '170');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_X_LOCK_SPIN_ROUNDS', '10168');
+INSERT INTO `SESSION_STATUS` VALUES('INNODB_X_LOCK_SPIN_WAITS', '676');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_BLOCKS_NOT_FLUSHED', '0');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_BLOCKS_UNUSED', '330693');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_BLOCKS_USED', '102964');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_READ_REQUESTS', '159475720');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_READS', '132858');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_WRITE_REQUESTS', '2979198');
+INSERT INTO `SESSION_STATUS` VALUES('KEY_WRITES', '1430147');
+INSERT INTO `SESSION_STATUS` VALUES('LAST_QUERY_COST', '10.499000');
+INSERT INTO `SESSION_STATUS` VALUES('MAX_USED_CONNECTIONS', '52');
+INSERT INTO `SESSION_STATUS` VALUES('NOT_FLUSHED_DELAYED_ROWS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('OPEN_FILES', '15679');
+INSERT INTO `SESSION_STATUS` VALUES('OPEN_STREAMS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('OPEN_TABLE_DEFINITIONS', '8971');
+INSERT INTO `SESSION_STATUS` VALUES('OPEN_TABLES', '10000');
+INSERT INTO `SESSION_STATUS` VALUES('OPENED_FILES', '650434');
+INSERT INTO `SESSION_STATUS` VALUES('OPENED_TABLE_DEFINITIONS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('OPENED_TABLES', '5');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_COND_CLASSES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_COND_INSTANCES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_FILE_CLASSES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_FILE_HANDLES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_FILE_INSTANCES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_LOCKER_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_MUTEX_CLASSES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_MUTEX_INSTANCES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_RWLOCK_CLASSES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_RWLOCK_INSTANCES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_TABLE_HANDLES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_TABLE_INSTANCES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_THREAD_CLASSES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PERFORMANCE_SCHEMA_THREAD_INSTANCES_LOST', '0');
+INSERT INTO `SESSION_STATUS` VALUES('PREPARED_STMT_COUNT', '2');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_FREE_BLOCKS', '6022');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_FREE_MEMORY', '17639728');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_HITS', '7011107');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_INSERTS', '4195462');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_LOWMEM_PRUNES', '2163467');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_NOT_CACHED', '273399');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_QUERIES_IN_CACHE', '14902');
+INSERT INTO `SESSION_STATUS` VALUES('QCACHE_TOTAL_BLOCKS', '40095');
+INSERT INTO `SESSION_STATUS` VALUES('QUERIES', '15130798');
+INSERT INTO `SESSION_STATUS` VALUES('QUESTIONS', '164');
+INSERT INTO `SESSION_STATUS` VALUES('RPL_STATUS', 'AUTH_MASTER');
+INSERT INTO `SESSION_STATUS` VALUES('SELECT_FULL_JOIN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SELECT_FULL_RANGE_JOIN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SELECT_RANGE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SELECT_RANGE_CHECK', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SELECT_SCAN', '108');
+INSERT INTO `SESSION_STATUS` VALUES('SLAVE_HEARTBEAT_PERIOD', '0.000');
+INSERT INTO `SESSION_STATUS` VALUES('SLAVE_OPEN_TEMP_TABLES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SLAVE_RECEIVED_HEARTBEATS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SLAVE_RETRIED_TRANSACTIONS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SLAVE_RUNNING', 'OFF');
+INSERT INTO `SESSION_STATUS` VALUES('SLOW_LAUNCH_THREADS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SLOW_QUERIES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SORT_MERGE_PASSES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SORT_RANGE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SORT_ROWS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SORT_SCAN', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_ACCEPT_RENEGOTIATES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_ACCEPTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CALLBACK_CACHE_HITS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CIPHER', '');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CIPHER_LIST', '');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CLIENT_CONNECTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CONNECT_RENEGOTIATES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CTX_VERIFY_DEPTH', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_CTX_VERIFY_MODE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_DEFAULT_TIMEOUT', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_FINISHED_ACCEPTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_FINISHED_CONNECTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSION_CACHE_HITS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSION_CACHE_MISSES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSION_CACHE_MODE', 'NONE');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSION_CACHE_OVERFLOWS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSION_CACHE_SIZE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSION_CACHE_TIMEOUTS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_SESSIONS_REUSED', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_USED_SESSION_CACHE_ENTRIES', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_VERIFY_DEPTH', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_VERIFY_MODE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('SSL_VERSION', '');
+INSERT INTO `SESSION_STATUS` VALUES('TABLE_LOCKS_IMMEDIATE', '5823842');
+INSERT INTO `SESSION_STATUS` VALUES('TABLE_LOCKS_WAITED', '531');
+INSERT INTO `SESSION_STATUS` VALUES('TC_LOG_MAX_PAGES_USED', '0');
+INSERT INTO `SESSION_STATUS` VALUES('TC_LOG_PAGE_SIZE', '0');
+INSERT INTO `SESSION_STATUS` VALUES('TC_LOG_PAGE_WAITS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('THREADPOOL_IDLE_THREADS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('THREADPOOL_THREADS', '0');
+INSERT INTO `SESSION_STATUS` VALUES('THREADS_CACHED', '42');
+INSERT INTO `SESSION_STATUS` VALUES('THREADS_CONNECTED', '10');
+INSERT INTO `SESSION_STATUS` VALUES('THREADS_CREATED', '52');
+INSERT INTO `SESSION_STATUS` VALUES('THREADS_RUNNING', '2');
+INSERT INTO `SESSION_STATUS` VALUES('UPTIME', '22559');
+INSERT INTO `SESSION_STATUS` VALUES('UPTIME_SINCE_FLUSH_STATUS', '22559');
+INSERT INTO `SESSION_STATUS` VALUES('BINLOG_COMMITS', '668829');
+INSERT INTO `SESSION_STATUS` VALUES('BINLOG_GROUP_COMMITS', '668802');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SESSION_VARIABLES`
+--
+
+CREATE TEMPORARY TABLE `SESSION_VARIABLES` (
+  `VARIABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `VARIABLE_VALUE` varchar(1024) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `SESSION_VARIABLES`
+--
+
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_PREPARED_STMT_COUNT', '16382');
+INSERT INTO `SESSION_VARIABLES` VALUES('EXPIRE_LOGS_DAYS', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_CRYPT', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_EVENTS_WAITS_HISTORY_LONG_SIZE', '10000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_VERSION', '5.5.37-35.0-35.0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_SORT_LENGTH', '1024');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_SLOWLOG_FILES', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_COND_INSTANCES', '1000');
+INSERT INTO `SESSION_VARIABLES` VALUES('PROFILING_HISTORY_SIZE', '15');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_SLOWLOG_SIZE', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('LONG_QUERY_TIME', '10.000000');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_STACK', '262144');
+INSERT INTO `SESSION_VARIABLES` VALUES('DELAYED_INSERT_TIMEOUT', '300');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LAZY_DROP_TABLE', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('DATETIME_FORMAT', '%Y-%m-%d %H:%i:%s');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_RWLOCK_INSTANCES', '1000000');
+INSERT INTO `SESSION_VARIABLES` VALUES('FOREIGN_KEY_CHECKS', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_RWLOCK_CLASSES', '30');
+INSERT INTO `SESSION_VARIABLES` VALUES('BASEDIR', '/usr/local/mysql-5.5.37');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_MUTEX_CLASSES', '200');
+INSERT INTO `SESSION_VARIABLES` VALUES('UPDATABLE_VIEWS_WITH_LIMIT', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('BACK_LOG', '50');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_LAUNCH_TIME', '2');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_FILE_HANDLES', '32768');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_USER_CONNECTIONS', '200');
+INSERT INTO `SESSION_VARIABLES` VALUES('SYNC_MASTER_INFO', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('RELAY_LOG_INDEX', '/var/lib/mysql_logs/5/p3nlhdb5502-02-relay-bin.index');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOWER_CASE_TABLE_NAMES', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_QUOTE_SHOW_CREATE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_REPAIR_THREADS', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_PREALLOC_SIZE', '8192');
+INSERT INTO `SESSION_VARIABLES` VALUES('OLD_PASSWORDS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('WAIT_TIMEOUT', '60');
+INSERT INTO `SESSION_VARIABLES` VALUES('FT_STOPWORD_FILE', '(built-in)');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_TABLE_HANDLES', '100000');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SETS_DIR', '/usr/local/mysql-5.5.37/share/mysql/charsets/');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_RESPONSE_TIME_STATS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('CONCURRENT_INSERT', 'AUTO');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_SP_STATEMENTS', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_RESULTS', 'utf8');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_SORT_BUFFER_SIZE', '134217728');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_CONNECTION', 'utf8');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ROLLBACK_SEGMENTS', '128');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPORT_USER', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('LARGE_FILES_SUPPORT', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('SYSTEM_TIME_ZONE', 'MST');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_SAFE_UPDATES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('EVENT_SCHEDULER', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('NET_BUFFER_LENGTH', '8192');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('SKIP_SHOW_DATABASE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_BINLOG_CACHE_SIZE', '18446744073709547520');
+INSERT INTO `SESSION_VARIABLES` VALUES('GROUP_CONCAT_MAX_LEN', '1024');
+INSERT INTO `SESSION_VARIABLES` VALUES('SSL_CAPATH', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('RANGE_ALLOC_BLOCK_SIZE', '4096');
+INSERT INTO `SESSION_VARIABLES` VALUES('FT_MAX_WORD_LEN', '84');
+INSERT INTO `SESSION_VARIABLES` VALUES('TMPDIR', '/tmp/mysqltmp/');
+INSERT INTO `SESSION_VARIABLES` VALUES('LC_MESSAGES_DIR', '/usr/local/mysql-5.5.37/share/mysql/');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOG_FILE_SIZE', '67108864');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPORT_HOST', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('TRANSACTION_PREALLOC_SIZE', '4096');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_GEOMETRY', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_RECOVER_OPTIONS', 'FORCE');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_QUERIES_NOT_USING_INDEXES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_STATISTICS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('PLUGIN_DIR', '/usr/local/mysql-5.5.37/lib64/mysql/plugin/');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOW_PRIORITY_UPDATES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('AUTOMATIC_SP_PRIVILEGES', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPORT_PASSWORD', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('DELAYED_INSERT_LIMIT', '100');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_INSERT_DELAYED_THREADS', '20');
+INSERT INTO `SESSION_VARIABLES` VALUES('COMPLETION_TYPE', 'NO_CHAIN');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_BIG_SELECTS', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('ENFORCE_STORAGE_ENGINE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('TRANSACTION_ALLOC_BLOCK_SIZE', '8192');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_THREAD_CLASSES', '50');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_QUERY_LOG_TIMESTAMP_ALWAYS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('AUTO_INCREMENT_OFFSET', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_THREAD_CONCURRENCY_TIMER_BASED', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('JOIN_BUFFER_SIZE', '4194304');
+INSERT INTO `SESSION_VARIABLES` VALUES('PID_FILE', '/var/run/mysql/5.pid');
+INSERT INTO `SESSION_VARIABLES` VALUES('CONNECT_TIMEOUT', '60');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_RATE_LIMIT', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_LOW_PRIORITY_UPDATES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_RECOVERY_STATS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INIT_FILE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_IO_CAPACITY', '200');
+INSERT INTO `SESSION_VARIABLES` VALUES('LARGE_PAGES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('PROTOCOL_VERSION', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('LARGE_PAGE_SIZE', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_SYMLINK', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('INIT_SLAVE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOCKS_UNSAFE_FOR_BINLOG', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('EXPAND_FAST_INDEX_CREATION', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_TABLE_LOCKS', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_BINLOG_SIZE', '1073741824');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_AUTOEXTEND_INCREMENT', '8');
+INSERT INTO `SESSION_VARIABLES` VALUES('SOCKET', '/var/run/mysql/5.sock');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_DATA_POINTER_SIZE', '6');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_CONNECTIONS', '1000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_THREAD_SLEEP_DELAY', '10000');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_WARNINGS_SUPPRESS', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_READ_AHEAD', 'linear');
+INSERT INTO `SESSION_VARIABLES` VALUES('READ_BUFFER_SIZE', '4194304');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_TRANSACTION_RETRIES', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('PSEUDO_THREAD_ID', '573322');
+INSERT INTO `SESSION_VARIABLES` VALUES('LAST_INSERT_ID', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_THREAD_INSTANCES', '1000');
+INSERT INTO `SESSION_VARIABLES` VALUES('GENERAL_LOG', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOWER_CASE_FILE_SYSTEM', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_REPLICATION_DELAY', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_RELAY_LOG_SIZE', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_CACHE_MIN_RES_UNIT', '4096');
+INSERT INTO `SESSION_VARIABLES` VALUES('OPTIMIZER_SEARCH_DEPTH', '62');
+INSERT INTO `SESSION_VARIABLES` VALUES('SORT_BUFFER_SIZE', '4194304');
+INSERT INTO `SESSION_VARIABLES` VALUES('INIT_CONNECT', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ROLLBACK_ON_TIMEOUT', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('KEY_CACHE_AGE_THRESHOLD', '300');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_USE_GLOBAL_FLUSH_LOG_AT_TRX_COMMIT', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('NET_RETRY_COUNT', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ADDITIONAL_MEM_POOL_SIZE', '10485760');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_LONG_DATA_SIZE', '33554432');
+INSERT INTO `SESSION_VARIABLES` VALUES('READ_RND_BUFFER_SIZE', '4194304');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_MAX_ALLOWED_PACKET', '1073741824');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FILE_FORMAT', 'Antelope');
+INSERT INTO `SESSION_VARIABLES` VALUES('FT_QUERY_EXPANSION_LIMIT', '20');
+INSERT INTO `SESSION_VARIABLES` VALUES('BIG_TABLES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_FILE_CLASSES', '50');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPLICATE_WILD_DO_TABLE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('VERSION_COMPILE_OS', 'Linux');
+INSERT INTO `SESSION_VARIABLES` VALUES('DATE_FORMAT', '%Y-%m-%d');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_RESPONSE_TIME_DISTRIBUTION', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('READ_ONLY', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_LENGTH_FOR_SORT_DATA', '1024');
+INSERT INTO `SESSION_VARIABLES` VALUES('RAND_SEED1', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('OPTIMIZER_SWITCH', 'index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,engine_condition_pushdown=on');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_DATA_FILE_PATH', 'ibdata1:10M:autoextend');
+INSERT INTO `SESSION_VARIABLES` VALUES('FLUSH', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPLICATE_IGNORE_TABLE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_SHOW_VERBOSE_LOCKS', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('BINLOG_DIRECT_NON_TRANSACTIONAL_UPDATES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_HEAP_TABLE_SIZE', '16777216');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_STRICT_MODE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('PROXY_USER', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BUFFER_POOL_SHM_CHECKSUM', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_MAX_JOIN_SIZE', '18446744073709551615');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_LOG_BIN', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('SKIP_NAME_RESOLVE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_COND_CLASSES', '80');
+INSERT INTO `SESSION_VARIABLES` VALUES('DELAY_KEY_WRITE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_VERBOSITY', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('BINLOG_CACHE_SIZE', '32768');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPLICATE_DO_DB', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('COLLATION_SERVER', 'latin1_swedish_ci');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_BINLOG_FILES', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('FLUSH_TIME', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_PARTITIONING', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('NET_WRITE_TIMEOUT', '60');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_RATE_TYPE', 'session');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_CACHE_LIMIT', '1048576');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_KILL_IDLE_TRANSACTION', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_BIN', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_AUTOINC_LOCK_MODE', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_EVENTS_WAITS_HISTORY_SIZE', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_COMMIT_CONCURRENCY', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_SEEKS_FOR_KEY', '18446744073709551615');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_MIRRORED_LOG_GROUPS', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('METADATA_LOCKS_CACHE_SIZE', '1024');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_PURGE_BATCH_SIZE', '20');
+INSERT INTO `SESSION_VARIABLES` VALUES('BULK_INSERT_BUFFER_SIZE', '8388608');
+INSERT INTO `SESSION_VARIABLES` VALUES('VERSION', '5.5.37-35.0-log');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_CACHE_SIZE', '67108864');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_SUPPORT_XA', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('AUTOCOMMIT', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_SYNC_SPIN_LOOPS', '30');
+INSERT INTO `SESSION_VARIABLES` VALUES('VERSION_COMMENT', 'Percona Server (GPL), Release rel30.2, Revision 36.0');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BLOCKING_BUFFER_POOL_RESTORE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('DELAYED_QUEUE_SIZE', '1000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_SHOW_LOCKS_HELD', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_STALL_LIMIT', '500');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ADAPTIVE_HASH_INDEX', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_ALLOC_BLOCK_SIZE', '8192');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_IBUF_ACCEL_RATE', '100');
+INSERT INTO `SESSION_VARIABLES` VALUES('MIN_EXAMINED_ROW_LIMIT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('DIV_PRECISION_INCREMENT', '4');
+INSERT INTO `SESSION_VARIABLES` VALUES('LICENSE', 'GPL');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_IBUF_MAX_SIZE', '67092480');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_CACHE_WLOCK_INVALIDATE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_DATA_HOME_DIR', '/var/lib/mysql_data/5');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_CACHE_STRIP_COMMENTS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_READ_IO_THREADS', '4');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_MAX_THREADS', '100000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_MAX_BITMAP_FILE_SIZE', '104857600');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_COMPRESSED_PROTOCOL', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BUFFER_POOL_INSTANCES', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_QUERY_LOG_FILE', '/var/lib/mysql_data/5/p3nlhdb5502-02-slow.log');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FORCE_RECOVERY', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPLICATE_WILD_IGNORE_TABLE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOG_FILES_IN_GROUP', '2');
+INSERT INTO `SESSION_VARIABLES` VALUES('SKIP_NETWORKING', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('ERROR_COUNT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('FT_BOOLEAN_SYNTAX', '+ -><()~*:""&|');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_DYNAMIC_LOADING', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_CONNECT_ERRORS', '10000');
+INSERT INTO `SESSION_VARIABLES` VALUES('SYNC_BINLOG', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FILE_FORMAT_CHECK', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_PRINT_ALL_DEADLOCKS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('OPTIMIZER_PRUNE_LEVEL', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_OPEN_FILES', '300');
+INSERT INTO `SESSION_VARIABLES` VALUES('TABLE_OPEN_CACHE', '10000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_IMPORT_TABLE_FROM_XTRABACKUP', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('TIMED_MUTEXES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_READ_AHEAD_THRESHOLD', '56');
+INSERT INTO `SESSION_VARIABLES` VALUES('EXTERNAL_USER', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ADAPTIVE_FLUSHING_METHOD', 'estimate');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FAST_CHECKSUM', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('KEY_BUFFER_SIZE', '536870912');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_DATABASE', 'latin1');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_NDBCLUSTER', 'NO');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_OVERSUBSCRIBE', '3');
+INSERT INTO `SESSION_VARIABLES` VALUES('PSEUDO_SLAVE_MODE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('VERSION_COMPILE_MACHINE', 'x86_64');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_STATS_METHOD', 'nulls_equal');
+INSERT INTO `SESSION_VARIABLES` VALUES('TABLE_DEFINITION_CACHE', '400');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FAST_SHUTDOWN', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('OPTIMIZER_FIX', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_RECOVERY_UPDATE_RELAY_LOG', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_WARNINGS', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_THREAD_CONCURRENCY', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('TMP_TABLE_SIZE', '8388608');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_NET_TIMEOUT', '3600');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_HANDLING', 'one-thread-per-connection');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_STATS_SAMPLE_PAGES', '8');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_CACHE_TYPE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOCAL_INFILE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_BIG_TABLES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_RTREE_KEYS', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOCK_WAIT_TIMEOUT', '31536000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BUFFER_POOL_RESTORE_AT_STARTUP', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_SP_RECURSION_DEPTH', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('OLD_ALTER_TABLE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPORT_PORT', '3306');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_PAGE_SIZE', '16384');
+INSERT INTO `SESSION_VARIABLES` VALUES('SSL_CIPHER', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('EXTRA_MAX_CONNECTIONS', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_EXEC_MODE', 'STRICT');
+INSERT INTO `SESSION_VARIABLES` VALUES('RELAY_LOG_RECOVERY', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('NEW', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_DELAYED_THREADS', '20');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_MODE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_QUERY_LOG_USE_GLOBAL_CONTROL', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('DATADIR', '/var/lib/mysql_data/5/');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FLUSH_LOG_AT_TRX_COMMIT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('BINLOG_FORMAT', 'MIXED');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_HIGH_PRIO_MODE', 'transactions');
+INSERT INTO `SESSION_VARIABLES` VALUES('HOSTNAME', 'p3nlhdb5502-02.shr.prod.phx3.secureserver.net');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_RANDOM_READ_AHEAD', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('KEEP_FILES_ON_CREATE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_INNODB', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('SECURE_FILE_PRIV', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('PORT', '3306');
+INSERT INTO `SESSION_VARIABLES` VALUES('ENGINE_CONDITION_PUSHDOWN', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_CLIENT', 'utf8');
+INSERT INTO `SESSION_VARIABLES` VALUES('SSL_CA', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_BIN_TRUST_FUNCTION_CREATORS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('AUTO_INCREMENT_INCREMENT', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_MAX_CHANGED_PAGES', '1000000');
+INSERT INTO `SESSION_VARIABLES` VALUES('NET_READ_TIMEOUT', '30');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_OPENSSL', 'DISABLED');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_SLAVE_SKIP_COUNTER', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_BINLOG_STMT_CACHE_SIZE', '18446744073709547520');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_LOG_OFF', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BUFFER_POOL_POPULATE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('KEY_CACHE_BLOCK_SIZE', '1024');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_SPIN_WAIT_DELAY', '6');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_CSV', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ADAPTIVE_HASH_INDEX_PARTITIONS', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('FAST_INDEX_CREATION', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('DEFAULT_STORAGE_ENGINE', 'MyISAM');
+INSERT INTO `SESSION_VARIABLES` VALUES('PRELOAD_BUFFER_SIZE', '32768');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOCK_WAIT_TIMEOUT', '50');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_IDLE_TIMEOUT', '60');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_OLD_BLOCKS_TIME', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('KEY_CACHE_DIVISION_LIMIT', '100');
+INSERT INTO `SESSION_VARIABLES` VALUES('RPL_RECOVERY_RANK', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_AUTO_IS_NULL', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('UNIQUE_CHECKS', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPLICATE_DO_TABLE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('USERSTAT', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('TX_ISOLATION', 'READ-COMMITTED');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOCKED_IN_MEMORY', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_ERROR', '/var/lib/mysql_logs/5/error.log');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOCKING_FAKE_CHANGES', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FILE_FORMAT_MAX', 'Antelope');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_COMPRESS', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('IDENTITY', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('SSL_KEY', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('IGNORE_BUILTIN_INNODB', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('OPEN_FILES_LIMIT', '65535');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_FILESYSTEM', 'binary');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_SKIP_ERRORS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_SYSTEM', 'utf8');
+INSERT INTO `SESSION_VARIABLES` VALUES('INSERT_ID', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('TIME_FORMAT', '%H:%i:%s');
+INSERT INTO `SESSION_VARIABLES` VALUES('RELAY_LOG_PURGE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_WRITE_IO_THREADS', '4');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_USE_SYS_STATS_TABLE', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_QUERY_CACHE', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FAKE_CHANGES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('SYNC_RELAY_LOG', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOG_BUFFER_SIZE', '8388608');
+INSERT INTO `SESSION_VARIABLES` VALUES('SKIP_EXTERNAL_LOCKING', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_STATS_UPDATE_NEED_LOCK', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('LC_TIME_NAMES', 'en_US');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_MAX_PURGE_LAG', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_FILE_INSTANCES', '10000');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_MAX_SORT_FILE_SIZE', '9223372036853727232');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_QUERIES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_TYPE_CONVERSIONS', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BUFFER_POOL_SHM_KEY', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_NOTES', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('LC_MESSAGES', 'en_US');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_TMP_TABLES', '32');
+INSERT INTO `SESSION_VARIABLES` VALUES('RELAY_LOG_INFO_FILE', '/var/lib/mysql_data/5/relay-log.info');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_CHECKPOINT_AGE_TARGET', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('TIMESTAMP', '1413472033');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_IBUF_ACTIVE_CONTRACT', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_QUERY_LOG_TIMESTAMP_PRECISION', 'second');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_SLAVE_STATEMENTS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_ALLOWED_PACKET', '33554432');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_USE_ATOMIC_WRITES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('CHARACTER_SET_SERVER', 'latin1');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_DICT_SIZE_LIMIT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MULTI_RANGE_COUNT', '256');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_DOUBLEWRITE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('OLD', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_FLASHCACHE', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('WARNING_COUNT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('DEFAULT_WEEK_FORMAT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_STATS_METHOD', 'nulls_unequal');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_OUTPUT', 'FILE');
+INSERT INTO `SESSION_VARIABLES` VALUES('BINLOG_STMT_CACHE_SIZE', '32768');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_TABLE_INSTANCES', '50000');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FLUSH_METHOD', 'O_DIRECT');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_USE_NATIVE_AIO', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_MMAP_SIZE', '18446744073709551615');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_CHECKSUMS', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('STORAGE_ENGINE', 'MyISAM');
+INSERT INTO `SESSION_VARIABLES` VALUES('TIME_ZONE', 'SYSTEM');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_SSL', 'DISABLED');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_TRACK_CHANGED_PAGES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INTERACTIVE_TIMEOUT', '60');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_CONCURRENCY_TICKETS', '500');
+INSERT INTO `SESSION_VARIABLES` VALUES('QUERY_RESPONSE_TIME_RANGE_BASE', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('FT_MIN_WORD_LEN', '4');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLAVE_UPDATES', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_HIGH_PRIO_TICKETS', '4294967295');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_JOIN_SIZE', '18446744073709551615');
+INSERT INTO `SESSION_VARIABLES` VALUES('SERVER_ID', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('COLLATION_DATABASE', 'latin1_swedish_ci');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_BUFFER_RESULT', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_STATS_AUTO_UPDATE', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_BUFFER_POOL_SIZE', '134217728');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FILE_PER_TABLE', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('SYNC_RELAY_LOG_INFO', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOG_GROUP_HOME_DIR', '/var/lib/mysql_data/5');
+INSERT INTO `SESSION_VARIABLES` VALUES('SSL_CERT', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LARGE_PREFIX', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_ERROR_COUNT', '64');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_FILTER', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_STATS_ON_METADATA', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('MYISAM_USE_MMAP', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_LOG_BLOCK_SIZE', '512');
+INSERT INTO `SESSION_VARIABLES` VALUES('SYNC_FRM', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_QUERY_LOG_ALWAYS_WRITE_TIME', '10.000000');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLAVE_LOAD_TMPDIR', '/tmp/mysqltmp/');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_CHANGE_BUFFERING', 'all');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_ADAPTIVE_FLUSHING', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('STORED_PROGRAM_CACHE', '256');
+INSERT INTO `SESSION_VARIABLES` VALUES('SECURE_AUTH', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('EXTRA_PORT', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('MAX_WRITE_LOCK_COUNT', '18446744073709551615');
+INSERT INTO `SESSION_VARIABLES` VALUES('RELAY_LOG', '/var/lib/mysql_logs/5/p3nlhdb5502-02-relay-bin');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_SELECT_LIMIT', '18446744073709551615');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_POOL_SIZE', '24');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_CORRUPT_TABLE_ACTION', 'assert');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_CACHE_SIZE', '100');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FLUSH_NEIGHBOR_PAGES', 'area');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_DOUBLEWRITE_FILE', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_USE_SYS_MALLOC', 'ON');
+INSERT INTO `SESSION_VARIABLES` VALUES('RAND_SEED2', '0');
+INSERT INTO `SESSION_VARIABLES` VALUES('LOG_SLOW_ADMIN_STATEMENTS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_FORCE_LOAD_CORRUPTED', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_MERGE_SORT_BLOCK_SIZE', '1048576');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_MAX_DIRTY_PAGES_PCT', '75');
+INSERT INTO `SESSION_VARIABLES` VALUES('PROFILING', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('HAVE_PROFILING', 'YES');
+INSERT INTO `SESSION_VARIABLES` VALUES('COLLATION_CONNECTION', 'utf8_unicode_ci');
+INSERT INTO `SESSION_VARIABLES` VALUES('THREAD_CONCURRENCY', '10');
+INSERT INTO `SESSION_VARIABLES` VALUES('REPLICATE_IGNORE_DB', '');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_OLD_BLOCKS_PCT', '37');
+INSERT INTO `SESSION_VARIABLES` VALUES('GENERAL_LOG_FILE', '/var/lib/mysql_data/5/p3nlhdb5502-02.log');
+INSERT INTO `SESSION_VARIABLES` VALUES('INNODB_PURGE_THREADS', '1');
+INSERT INTO `SESSION_VARIABLES` VALUES('SQL_WARNINGS', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('SLOW_QUERY_LOG', 'OFF');
+INSERT INTO `SESSION_VARIABLES` VALUES('PERFORMANCE_SCHEMA_MAX_MUTEX_INSTANCES', '1000000');
+INSERT INTO `SESSION_VARIABLES` VALUES('RELAY_LOG_SPACE_LIMIT', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `STATISTICS`
+--
+
+CREATE TEMPORARY TABLE `STATISTICS` (
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `NON_UNIQUE` bigint(1) NOT NULL DEFAULT '0',
+  `INDEX_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `INDEX_NAME` varchar(64) NOT NULL DEFAULT '',
+  `SEQ_IN_INDEX` bigint(2) NOT NULL DEFAULT '0',
+  `COLUMN_NAME` varchar(64) NOT NULL DEFAULT '',
+  `COLLATION` varchar(1) DEFAULT NULL,
+  `CARDINALITY` bigint(21) DEFAULT NULL,
+  `SUB_PART` bigint(3) DEFAULT NULL,
+  `PACKED` varchar(10) DEFAULT NULL,
+  `NULLABLE` varchar(3) NOT NULL DEFAULT '',
+  `INDEX_TYPE` varchar(16) NOT NULL DEFAULT '',
+  `COMMENT` varchar(16) DEFAULT NULL,
+  `INDEX_COMMENT` varchar(1024) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `STATISTICS`
+--
+
+INSERT INTO `STATISTICS` VALUES('def', 'iospanic', 'friends', 0, 'iospanic', 'PRIMARY', 1, 'id', 'A', 3, NULL, NULL, '', 'BTREE', '', '');
+INSERT INTO `STATISTICS` VALUES('def', 'iospanic', 'geolocation', 0, 'iospanic', 'PRIMARY', 1, 'id', 'A', 0, NULL, NULL, '', 'BTREE', '', '');
+INSERT INTO `STATISTICS` VALUES('def', 'iospanic', 'panic_friends', 0, 'iospanic', 'PRIMARY', 1, 'id', 'A', 11, NULL, NULL, '', 'BTREE', '', '');
+INSERT INTO `STATISTICS` VALUES('def', 'iospanic', 'panic_victim', 0, 'iospanic', 'PRIMARY', 1, 'id', 'A', 5, NULL, NULL, '', 'BTREE', '', '');
+INSERT INTO `STATISTICS` VALUES('def', 'iospanic', 'registeration', 0, 'iospanic', 'PRIMARY', 1, 'password', 'A', 6, NULL, NULL, '', 'BTREE', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TABLES`
+--
+
+CREATE TEMPORARY TABLE `TABLES` (
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `ENGINE` varchar(64) DEFAULT NULL,
+  `VERSION` bigint(21) unsigned DEFAULT NULL,
+  `ROW_FORMAT` varchar(10) DEFAULT NULL,
+  `TABLE_ROWS` bigint(21) unsigned DEFAULT NULL,
+  `AVG_ROW_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `DATA_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `MAX_DATA_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `INDEX_LENGTH` bigint(21) unsigned DEFAULT NULL,
+  `DATA_FREE` bigint(21) unsigned DEFAULT NULL,
+  `AUTO_INCREMENT` bigint(21) unsigned DEFAULT NULL,
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `UPDATE_TIME` datetime DEFAULT NULL,
+  `CHECK_TIME` datetime DEFAULT NULL,
+  `TABLE_COLLATION` varchar(32) DEFAULT NULL,
+  `CHECKSUM` bigint(21) unsigned DEFAULT NULL,
+  `CREATE_OPTIONS` varchar(255) DEFAULT NULL,
+  `TABLE_COMMENT` varchar(2048) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TABLES`
+--
+
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'CHARACTER_SETS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 384, 0, 8388480, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=21845', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'CLIENT_STATISTICS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 362, 0, 8388264, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=23172', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'COLLATIONS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 231, 0, 8388534, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=36314', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'COLLATION_CHARACTER_SET_APPLICABILITY', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 195, 0, 8388510, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=43018', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'COLUMNS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=1401', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'COLUMN_PRIVILEGES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2565, 0, 8387550, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3270', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INDEX_STATISTICS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1743, 0, 8387316, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=4812', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'ENGINES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 490, 0, 8388310, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=17119', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'EVENTS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=309', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'FILES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2677, 0, 8387041, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3133', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'GLOBAL_STATUS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 3268, 0, 8385688, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=2566', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'GLOBAL_TEMPORARY_TABLES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2174, 0, 8387292, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3858', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'GLOBAL_VARIABLES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 3268, 0, 8385688, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=2566', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'KEY_COLUMN_USAGE', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 4637, 0, 8388333, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1809', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'PARAMETERS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=3025', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'PARTITIONS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=2789', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'PLUGINS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=5664', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'PROCESSLIST', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=11428', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'PROFILING', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 308, 0, 8388380, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=27235', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'REFERENTIAL_CONSTRAINTS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 4814, 0, 8385988, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1742', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'ROUTINES', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=291', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'QUERY_RESPONSE_TIME', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 91, 0, 8388562, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=92182', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'SCHEMATA', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 3464, 0, 8386344, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=2421', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'SCHEMA_PRIVILEGES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2179, 0, 8386971, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3849', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'SESSION_STATUS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 3268, 0, 8385688, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=2566', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'SESSION_VARIABLES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 3268, 0, 8385688, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=2566', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'STATISTICS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 5753, 0, 8387874, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1458', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TABLES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 9450, 0, 8382150, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=887', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TABLESPACES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 6951, 0, 8382906, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1206', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TABLE_CONSTRAINTS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2504, 0, 8388400, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3350', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TABLE_PRIVILEGES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2372, 0, 8387392, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3536', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TABLE_STATISTICS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1181, 0, 8387462, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=7102', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TEMPORARY_TABLES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2174, 0, 8387292, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3858', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'THREAD_STATISTICS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 177, 0, 8388561, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=47393', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'TRIGGERS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=284', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'USER_PRIVILEGES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1986, 0, 8386878, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=4223', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'USER_STATISTICS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 314, 0, 8388510, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=26715', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'VIEWS', 'SYSTEM VIEW', 'MyISAM', 10, 'Dynamic', NULL, 0, 0, 281474976710655, 1024, 0, NULL, '2014-10-16 08:07:13', '2014-10-16 08:07:13', NULL, 'utf8_general_ci', NULL, 'max_rows=3467', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_CMPMEM_RESET', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 29, 0, 8388598, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=289262', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_RSEG', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 49, 0, 8388604, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=171196', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_UNDO_LOGS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1620, 0, 8388360, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=5178', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_CMPMEM', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 29, 0, 8388598, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=289262', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_TABLESTATS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1796, 0, 8387320, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=4670', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_LOCK_WAITS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 599, 0, 8388396, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=14004', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_INDEX_STATS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 2529, 0, 8386164, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=3316', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_CMP', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 25, 0, 8388600, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=335544', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_CMP_RESET', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 25, 0, 8388600, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=335544', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_CHANGED_PAGES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 25, 0, 8388600, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=335544', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 234, 0, 8388432, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=35848', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_TRX', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 4534, 0, 8387900, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1850', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_INDEX', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 105, 0, 8388555, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=79891', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_LOCKS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 31244, 0, 8373392, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=268', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_PAGES_BLOB', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 65, 0, 8388575, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=129055', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_TABLES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1183, 0, 8387470, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=7090', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_FIELDS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 594, 0, 8388468, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=14122', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_COLUMNS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 610, 0, 8388110, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=13751', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 6852, 0, 8386848, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1224', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_STATS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 29, 0, 8388598, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=289262', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1752, 0, 8388576, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=4788', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_INDEXES', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 614, 0, 8388468, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=13662', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'XTRADB_ADMIN_COMMAND', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 3075, 0, 8388600, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=2728', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_TABLE_STATS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1189, 0, 8388395, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=7055', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_SYS_FOREIGN_COLS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 1748, 0, 8386904, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=4798', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_BUFFER_PAGE_LRU', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 6669, 0, 8382933, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=1257', '');
+INSERT INTO `TABLES` VALUES('def', 'information_schema', 'INNODB_BUFFER_POOL_STATS', 'SYSTEM VIEW', 'MEMORY', 10, 'Fixed', NULL, 257, 0, 8388480, 0, 0, NULL, '2014-10-16 08:07:13', NULL, NULL, 'utf8_general_ci', NULL, 'max_rows=32640', '');
+INSERT INTO `TABLES` VALUES('def', 'iospanic', 'friends', 'BASE TABLE', 'InnoDB', 10, 'Compact', 3, 5461, 16384, 0, 0, 0, 357, '2014-07-05 04:38:38', NULL, NULL, 'latin1_swedish_ci', NULL, '', '');
+INSERT INTO `TABLES` VALUES('def', 'iospanic', 'geolocation', 'BASE TABLE', 'InnoDB', 10, 'Compact', 0, 0, 16384, 0, 0, 0, 1, '2014-07-05 04:38:38', NULL, NULL, 'latin1_swedish_ci', NULL, '', '');
+INSERT INTO `TABLES` VALUES('def', 'iospanic', 'panic_friends', 'BASE TABLE', 'MyISAM', 10, 'Dynamic', 11, 24, 312, 281474976710655, 2048, 48, 27, '2014-08-23 03:28:50', '2014-10-15 08:05:57', NULL, 'latin1_swedish_ci', NULL, '', '');
+INSERT INTO `TABLES` VALUES('def', 'iospanic', 'panic_victim', 'BASE TABLE', 'MyISAM', 10, 'Dynamic', 5, 52, 580, 281474976710655, 2048, 316, 54, '2014-08-03 06:08:35', '2014-10-15 08:05:57', NULL, 'latin1_swedish_ci', NULL, '', '');
+INSERT INTO `TABLES` VALUES('def', 'iospanic', 'registeration', 'BASE TABLE', 'InnoDB', 10, 'Compact', 6, 2730, 16384, 0, 0, 0, NULL, '2014-10-11 10:06:50', NULL, NULL, 'latin1_swedish_ci', NULL, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TABLESPACES`
+--
+
+CREATE TEMPORARY TABLE `TABLESPACES` (
+  `TABLESPACE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ENGINE` varchar(64) NOT NULL DEFAULT '',
+  `TABLESPACE_TYPE` varchar(64) DEFAULT NULL,
+  `LOGFILE_GROUP_NAME` varchar(64) DEFAULT NULL,
+  `EXTENT_SIZE` bigint(21) unsigned DEFAULT NULL,
+  `AUTOEXTEND_SIZE` bigint(21) unsigned DEFAULT NULL,
+  `MAXIMUM_SIZE` bigint(21) unsigned DEFAULT NULL,
+  `NODEGROUP_ID` bigint(21) unsigned DEFAULT NULL,
+  `TABLESPACE_COMMENT` varchar(2048) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TABLESPACES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TABLE_CONSTRAINTS`
+--
+
+CREATE TEMPORARY TABLE `TABLE_CONSTRAINTS` (
+  `CONSTRAINT_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `CONSTRAINT_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `CONSTRAINT_NAME` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `CONSTRAINT_TYPE` varchar(64) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TABLE_CONSTRAINTS`
+--
+
+INSERT INTO `TABLE_CONSTRAINTS` VALUES('def', 'iospanic', 'PRIMARY', 'iospanic', 'friends', 'PRIMARY KEY');
+INSERT INTO `TABLE_CONSTRAINTS` VALUES('def', 'iospanic', 'PRIMARY', 'iospanic', 'geolocation', 'PRIMARY KEY');
+INSERT INTO `TABLE_CONSTRAINTS` VALUES('def', 'iospanic', 'PRIMARY', 'iospanic', 'panic_friends', 'PRIMARY KEY');
+INSERT INTO `TABLE_CONSTRAINTS` VALUES('def', 'iospanic', 'PRIMARY', 'iospanic', 'panic_victim', 'PRIMARY KEY');
+INSERT INTO `TABLE_CONSTRAINTS` VALUES('def', 'iospanic', 'PRIMARY', 'iospanic', 'registeration', 'PRIMARY KEY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TABLE_PRIVILEGES`
+--
+
+CREATE TEMPORARY TABLE `TABLE_PRIVILEGES` (
+  `GRANTEE` varchar(81) NOT NULL DEFAULT '',
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `PRIVILEGE_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `IS_GRANTABLE` varchar(3) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TABLE_PRIVILEGES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TABLE_STATISTICS`
+--
+
+CREATE TEMPORARY TABLE `TABLE_STATISTICS` (
+  `TABLE_SCHEMA` varchar(192) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(192) NOT NULL DEFAULT '',
+  `ROWS_READ` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_CHANGED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_CHANGED_X_INDEXES` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TABLE_STATISTICS`
+--
+
+INSERT INTO `TABLE_STATISTICS` VALUES('iospanic', 'panic_friends', 66, 0, 0);
+INSERT INTO `TABLE_STATISTICS` VALUES('iospanic', 'registeration', 3, 0, 0);
+INSERT INTO `TABLE_STATISTICS` VALUES('iospanic', 'panic_victim', 30, 0, 0);
+INSERT INTO `TABLE_STATISTICS` VALUES('iospanic', 'friends', 3, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TEMPORARY_TABLES`
+--
+
+CREATE TEMPORARY TABLE `TEMPORARY_TABLES` (
+  `SESSION_ID` bigint(4) NOT NULL DEFAULT '0',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `ENGINE` varchar(64) NOT NULL DEFAULT '',
+  `NAME` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_ROWS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `AVG_ROW_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATA_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `INDEX_LENGTH` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `UPDATE_TIME` datetime DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TEMPORARY_TABLES`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `THREAD_STATISTICS`
+--
+
+CREATE TEMPORARY TABLE `THREAD_STATISTICS` (
+  `THREAD_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TOTAL_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CONCURRENT_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CONNECTED_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BUSY_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CPU_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BYTES_RECEIVED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BYTES_SENT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BINLOG_BYTES_WRITTEN` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_FETCHED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_UPDATED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TABLE_ROWS_READ` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SELECT_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `UPDATE_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OTHER_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COMMIT_TRANSACTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROLLBACK_TRANSACTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DENIED_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `LOST_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ACCESS_DENIED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `EMPTY_QUERIES` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TOTAL_SSL_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `THREAD_STATISTICS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS,SUPER privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TRIGGERS`
+--
+
+CREATE TEMPORARY TABLE `TRIGGERS` (
+  `TRIGGER_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TRIGGER_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TRIGGER_NAME` varchar(64) NOT NULL DEFAULT '',
+  `EVENT_MANIPULATION` varchar(6) NOT NULL DEFAULT '',
+  `EVENT_OBJECT_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `EVENT_OBJECT_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `EVENT_OBJECT_TABLE` varchar(64) NOT NULL DEFAULT '',
+  `ACTION_ORDER` bigint(4) NOT NULL DEFAULT '0',
+  `ACTION_CONDITION` longtext,
+  `ACTION_STATEMENT` longtext NOT NULL,
+  `ACTION_ORIENTATION` varchar(9) NOT NULL DEFAULT '',
+  `ACTION_TIMING` varchar(6) NOT NULL DEFAULT '',
+  `ACTION_REFERENCE_OLD_TABLE` varchar(64) DEFAULT NULL,
+  `ACTION_REFERENCE_NEW_TABLE` varchar(64) DEFAULT NULL,
+  `ACTION_REFERENCE_OLD_ROW` varchar(3) NOT NULL DEFAULT '',
+  `ACTION_REFERENCE_NEW_ROW` varchar(3) NOT NULL DEFAULT '',
+  `CREATED` datetime DEFAULT NULL,
+  `SQL_MODE` varchar(8192) NOT NULL DEFAULT '',
+  `DEFINER` varchar(77) NOT NULL DEFAULT '',
+  `CHARACTER_SET_CLIENT` varchar(32) NOT NULL DEFAULT '',
+  `COLLATION_CONNECTION` varchar(32) NOT NULL DEFAULT '',
+  `DATABASE_COLLATION` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `TRIGGERS`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `USER_PRIVILEGES`
+--
+
+CREATE TEMPORARY TABLE `USER_PRIVILEGES` (
+  `GRANTEE` varchar(81) NOT NULL DEFAULT '',
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `PRIVILEGE_TYPE` varchar(64) NOT NULL DEFAULT '',
+  `IS_GRANTABLE` varchar(3) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `USER_PRIVILEGES`
+--
+
+INSERT INTO `USER_PRIVILEGES` VALUES('''iospanic''@''%''', 'def', 'USAGE', 'NO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `USER_STATISTICS`
+--
+
+CREATE TEMPORARY TABLE `USER_STATISTICS` (
+  `USER` varchar(48) NOT NULL DEFAULT '',
+  `TOTAL_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CONCURRENT_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CONNECTED_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BUSY_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CPU_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BYTES_RECEIVED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BYTES_SENT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BINLOG_BYTES_WRITTEN` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_FETCHED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROWS_UPDATED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TABLE_ROWS_READ` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SELECT_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `UPDATE_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OTHER_COMMANDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COMMIT_TRANSACTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ROLLBACK_TRANSACTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DENIED_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `LOST_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ACCESS_DENIED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `EMPTY_QUERIES` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TOTAL_SSL_CONNECTIONS` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `USER_STATISTICS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS,SUPER privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `VIEWS`
+--
+
+CREATE TEMPORARY TABLE `VIEWS` (
+  `TABLE_CATALOG` varchar(512) NOT NULL DEFAULT '',
+  `TABLE_SCHEMA` varchar(64) NOT NULL DEFAULT '',
+  `TABLE_NAME` varchar(64) NOT NULL DEFAULT '',
+  `VIEW_DEFINITION` longtext NOT NULL,
+  `CHECK_OPTION` varchar(8) NOT NULL DEFAULT '',
+  `IS_UPDATABLE` varchar(3) NOT NULL DEFAULT '',
+  `DEFINER` varchar(77) NOT NULL DEFAULT '',
+  `SECURITY_TYPE` varchar(7) NOT NULL DEFAULT '',
+  `CHARACTER_SET_CLIENT` varchar(32) NOT NULL DEFAULT '',
+  `COLLATION_CONNECTION` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `VIEWS`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_CMPMEM_RESET`
+--
+
+CREATE TEMPORARY TABLE `INNODB_CMPMEM_RESET` (
+  `page_size` int(5) NOT NULL DEFAULT '0',
+  `buffer_pool_instance` int(11) NOT NULL DEFAULT '0',
+  `pages_used` int(11) NOT NULL DEFAULT '0',
+  `pages_free` int(11) NOT NULL DEFAULT '0',
+  `relocation_ops` bigint(21) NOT NULL DEFAULT '0',
+  `relocation_time` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_CMPMEM_RESET`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_RSEG`
+--
+
+CREATE TEMPORARY TABLE `INNODB_RSEG` (
+  `rseg_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `space_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `zip_size` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `page_no` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `max_size` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `curr_size` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_RSEG`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_UNDO_LOGS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_UNDO_LOGS` (
+  `trx_id` varchar(18) NOT NULL DEFAULT '',
+  `rseg_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `useg_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `type` varchar(256) NOT NULL DEFAULT '',
+  `state` varchar(256) NOT NULL DEFAULT '',
+  `size` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_UNDO_LOGS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_CMPMEM`
+--
+
+CREATE TEMPORARY TABLE `INNODB_CMPMEM` (
+  `page_size` int(5) NOT NULL DEFAULT '0',
+  `buffer_pool_instance` int(11) NOT NULL DEFAULT '0',
+  `pages_used` int(11) NOT NULL DEFAULT '0',
+  `pages_free` int(11) NOT NULL DEFAULT '0',
+  `relocation_ops` bigint(21) NOT NULL DEFAULT '0',
+  `relocation_time` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_CMPMEM`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_TABLESTATS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_TABLESTATS` (
+  `TABLE_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SCHEMA` varchar(193) NOT NULL DEFAULT '',
+  `NAME` varchar(193) NOT NULL DEFAULT '',
+  `STATS_INITIALIZED` varchar(193) NOT NULL DEFAULT '',
+  `NUM_ROWS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `CLUST_INDEX_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OTHER_INDEX_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `MODIFIED_COUNTER` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `AUTOINC` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `MYSQL_HANDLES_OPENED` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_TABLESTATS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_LOCK_WAITS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_LOCK_WAITS` (
+  `requesting_trx_id` varchar(18) NOT NULL DEFAULT '',
+  `requested_lock_id` varchar(81) NOT NULL DEFAULT '',
+  `blocking_trx_id` varchar(18) NOT NULL DEFAULT '',
+  `blocking_lock_id` varchar(81) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_LOCK_WAITS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_INDEX_STATS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_INDEX_STATS` (
+  `table_schema` varchar(192) NOT NULL DEFAULT '',
+  `table_name` varchar(192) NOT NULL DEFAULT '',
+  `index_name` varchar(192) NOT NULL DEFAULT '',
+  `fields` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `rows_per_key` varchar(256) NOT NULL DEFAULT '',
+  `index_total_pages` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `index_leaf_pages` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_INDEX_STATS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_CMP`
+--
+
+CREATE TEMPORARY TABLE `INNODB_CMP` (
+  `page_size` int(5) NOT NULL DEFAULT '0',
+  `compress_ops` int(11) NOT NULL DEFAULT '0',
+  `compress_ops_ok` int(11) NOT NULL DEFAULT '0',
+  `compress_time` int(11) NOT NULL DEFAULT '0',
+  `uncompress_ops` int(11) NOT NULL DEFAULT '0',
+  `uncompress_time` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_CMP`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_CMP_RESET`
+--
+
+CREATE TEMPORARY TABLE `INNODB_CMP_RESET` (
+  `page_size` int(5) NOT NULL DEFAULT '0',
+  `compress_ops` int(11) NOT NULL DEFAULT '0',
+  `compress_ops_ok` int(11) NOT NULL DEFAULT '0',
+  `compress_time` int(11) NOT NULL DEFAULT '0',
+  `uncompress_ops` int(11) NOT NULL DEFAULT '0',
+  `uncompress_time` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_CMP_RESET`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_CHANGED_PAGES`
+--
+
+CREATE TEMPORARY TABLE `INNODB_CHANGED_PAGES` (
+  `space_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `page_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `start_lsn` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `end_lsn` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_CHANGED_PAGES`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_BUFFER_POOL_PAGES`
+--
+
+CREATE TEMPORARY TABLE `INNODB_BUFFER_POOL_PAGES` (
+  `page_type` varchar(64) DEFAULT NULL,
+  `space_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `page_no` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `lru_position` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `fix_count` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `flush_type` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_BUFFER_POOL_PAGES`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_TRX`
+--
+
+CREATE TEMPORARY TABLE `INNODB_TRX` (
+  `trx_id` varchar(18) NOT NULL DEFAULT '',
+  `trx_state` varchar(13) NOT NULL DEFAULT '',
+  `trx_started` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `trx_requested_lock_id` varchar(81) DEFAULT NULL,
+  `trx_wait_started` datetime DEFAULT NULL,
+  `trx_weight` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_mysql_thread_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_query` varchar(1024) DEFAULT NULL,
+  `trx_operation_state` varchar(64) DEFAULT NULL,
+  `trx_tables_in_use` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_tables_locked` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_lock_structs` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_lock_memory_bytes` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_rows_locked` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_rows_modified` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_concurrency_tickets` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `trx_isolation_level` varchar(16) NOT NULL DEFAULT '',
+  `trx_unique_checks` int(1) NOT NULL DEFAULT '0',
+  `trx_foreign_key_checks` int(1) NOT NULL DEFAULT '0',
+  `trx_last_foreign_key_error` varchar(256) DEFAULT NULL,
+  `trx_adaptive_hash_latched` int(1) NOT NULL DEFAULT '0',
+  `trx_adaptive_hash_timeout` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_TRX`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_BUFFER_POOL_PAGES_INDEX`
+--
+
+CREATE TEMPORARY TABLE `INNODB_BUFFER_POOL_PAGES_INDEX` (
+  `index_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `space_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `page_no` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `n_recs` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `data_size` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `hashed` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `access_time` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `modified` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `dirty` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `old` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `lru_position` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `fix_count` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `flush_type` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_BUFFER_POOL_PAGES_INDEX`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_LOCKS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_LOCKS` (
+  `lock_id` varchar(81) NOT NULL DEFAULT '',
+  `lock_trx_id` varchar(18) NOT NULL DEFAULT '',
+  `lock_mode` varchar(32) NOT NULL DEFAULT '',
+  `lock_type` varchar(32) NOT NULL DEFAULT '',
+  `lock_table` varchar(1024) NOT NULL DEFAULT '',
+  `lock_index` varchar(1024) DEFAULT NULL,
+  `lock_space` bigint(21) unsigned DEFAULT NULL,
+  `lock_page` bigint(21) unsigned DEFAULT NULL,
+  `lock_rec` bigint(21) unsigned DEFAULT NULL,
+  `lock_data` varchar(8192) DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_LOCKS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_BUFFER_POOL_PAGES_BLOB`
+--
+
+CREATE TEMPORARY TABLE `INNODB_BUFFER_POOL_PAGES_BLOB` (
+  `space_id` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `page_no` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `compressed` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `part_len` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `next_page_no` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `lru_position` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `fix_count` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `flush_type` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_BUFFER_POOL_PAGES_BLOB`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_TABLES`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_TABLES` (
+  `TABLE_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SCHEMA` varchar(193) NOT NULL DEFAULT '',
+  `NAME` varchar(193) NOT NULL DEFAULT '',
+  `FLAG` int(11) NOT NULL DEFAULT '0',
+  `N_COLS` int(11) NOT NULL DEFAULT '0',
+  `SPACE` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_TABLES`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_FIELDS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_FIELDS` (
+  `INDEX_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NAME` varchar(193) NOT NULL DEFAULT '',
+  `POS` int(11) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_FIELDS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_COLUMNS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_COLUMNS` (
+  `TABLE_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NAME` varchar(193) NOT NULL DEFAULT '',
+  `POS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `MTYPE` int(11) NOT NULL DEFAULT '0',
+  `PRTYPE` int(11) NOT NULL DEFAULT '0',
+  `LEN` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_COLUMNS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_BUFFER_PAGE`
+--
+
+CREATE TEMPORARY TABLE `INNODB_BUFFER_PAGE` (
+  `POOL_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `BLOCK_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SPACE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGE_NUMBER` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGE_TYPE` varchar(64) DEFAULT NULL,
+  `FLUSH_TYPE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `FIX_COUNT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `IS_HASHED` varchar(3) DEFAULT NULL,
+  `NEWEST_MODIFICATION` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OLDEST_MODIFICATION` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ACCESS_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TABLE_NAME` varchar(1024) DEFAULT NULL,
+  `INDEX_NAME` varchar(1024) DEFAULT NULL,
+  `NUMBER_RECORDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATA_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COMPRESSED_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGE_STATE` varchar(64) DEFAULT NULL,
+  `IO_FIX` varchar(64) DEFAULT NULL,
+  `IS_OLD` varchar(3) DEFAULT NULL,
+  `FREE_PAGE_CLOCK` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_BUFFER_PAGE`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_STATS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_STATS` (
+  `INDEX_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `KEY_COLS` int(11) unsigned NOT NULL DEFAULT '0',
+  `DIFF_VALS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NON_NULL_VALS` bigint(21) unsigned DEFAULT NULL
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_STATS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_FOREIGN`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_FOREIGN` (
+  `ID` varchar(193) NOT NULL DEFAULT '',
+  `FOR_NAME` varchar(193) NOT NULL DEFAULT '',
+  `REF_NAME` varchar(193) NOT NULL DEFAULT '',
+  `N_COLS` int(11) unsigned NOT NULL DEFAULT '0',
+  `TYPE` int(11) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_FOREIGN`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_INDEXES`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_INDEXES` (
+  `INDEX_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NAME` varchar(193) NOT NULL DEFAULT '',
+  `TABLE_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TYPE` int(11) NOT NULL DEFAULT '0',
+  `N_FIELDS` int(11) NOT NULL DEFAULT '0',
+  `PAGE_NO` int(11) NOT NULL DEFAULT '0',
+  `SPACE` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_INDEXES`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `XTRADB_ADMIN_COMMAND`
+--
+
+CREATE TEMPORARY TABLE `XTRADB_ADMIN_COMMAND` (
+  `result_message` varchar(1024) NOT NULL DEFAULT ''
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `XTRADB_ADMIN_COMMAND`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_TABLE_STATS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_TABLE_STATS` (
+  `table_schema` varchar(192) NOT NULL DEFAULT '',
+  `table_name` varchar(192) NOT NULL DEFAULT '',
+  `rows` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `clust_size` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `other_size` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `modified` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_TABLE_STATS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_SYS_FOREIGN_COLS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_SYS_FOREIGN_COLS` (
+  `ID` varchar(193) NOT NULL DEFAULT '',
+  `FOR_COL_NAME` varchar(193) NOT NULL DEFAULT '',
+  `REF_COL_NAME` varchar(193) NOT NULL DEFAULT '',
+  `POS` int(11) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_SYS_FOREIGN_COLS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_BUFFER_PAGE_LRU`
+--
+
+CREATE TEMPORARY TABLE `INNODB_BUFFER_PAGE_LRU` (
+  `POOL_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `LRU_POSITION` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `SPACE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGE_NUMBER` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGE_TYPE` varchar(64) DEFAULT NULL,
+  `FLUSH_TYPE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `FIX_COUNT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `IS_HASHED` varchar(3) DEFAULT NULL,
+  `NEWEST_MODIFICATION` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OLDEST_MODIFICATION` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `ACCESS_TIME` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `TABLE_NAME` varchar(1024) DEFAULT NULL,
+  `INDEX_NAME` varchar(1024) DEFAULT NULL,
+  `NUMBER_RECORDS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATA_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COMPRESSED_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `COMPRESSED` varchar(3) DEFAULT NULL,
+  `IO_FIX` varchar(64) DEFAULT NULL,
+  `IS_OLD` varchar(3) DEFAULT NULL,
+  `FREE_PAGE_CLOCK` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_BUFFER_PAGE_LRU`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INNODB_BUFFER_POOL_STATS`
+--
+
+CREATE TEMPORARY TABLE `INNODB_BUFFER_POOL_STATS` (
+  `POOL_ID` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `POOL_SIZE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `FREE_BUFFERS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `DATABASE_PAGES` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `OLD_DATABASE_PAGES` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `MODIFIED_DATABASE_PAGES` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PENDING_DECOMPRESS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PENDING_READS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PENDING_FLUSH_LRU` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PENDING_FLUSH_LIST` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGES_MADE_YOUNG` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGES_NOT_MADE_YOUNG` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGES_MADE_YOUNG_RATE` double NOT NULL DEFAULT '0',
+  `PAGES_MADE_NOT_YOUNG_RATE` double NOT NULL DEFAULT '0',
+  `NUMBER_PAGES_READ` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NUMBER_PAGES_CREATED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NUMBER_PAGES_WRITTEN` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `PAGES_READ_RATE` double NOT NULL DEFAULT '0',
+  `PAGES_CREATE_RATE` double NOT NULL DEFAULT '0',
+  `PAGES_WRITTEN_RATE` double NOT NULL DEFAULT '0',
+  `NUMBER_PAGES_GET` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `HIT_RATE` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `YOUNG_MAKE_PER_THOUSAND_GETS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NOT_YOUNG_MAKE_PER_THOUSAND_GETS` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NUMBER_PAGES_READ_AHEAD` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `NUMBER_READ_AHEAD_EVICTED` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `READ_AHEAD_RATE` double NOT NULL DEFAULT '0',
+  `READ_AHEAD_EVICTED_RATE` double NOT NULL DEFAULT '0',
+  `LRU_IO_TOTAL` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `LRU_IO_CURRENT` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `UNCOMPRESS_TOTAL` bigint(21) unsigned NOT NULL DEFAULT '0',
+  `UNCOMPRESS_CURRENT` bigint(21) unsigned NOT NULL DEFAULT '0'
+) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `INNODB_BUFFER_POOL_STATS`
+--
+
+-- in use (#1227 - Access denied; you need (at least one of) the PROCESS privilege(s) for this operation)
+--
+-- Database: `iospanic`
+--
+CREATE DATABASE `iospanic` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `iospanic`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends`
+--
+
+CREATE TABLE `friends` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `mynumber` varchar(30) NOT NULL,
+  `friendsnumber` varchar(30) NOT NULL,
+  `activate` varchar(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=357 ;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` VALUES(353, '03343535203', '090078601', '1');
+INSERT INTO `friends` VALUES(355, '090078601', '03152151511', '1');
+INSERT INTO `friends` VALUES(356, '090078601', '03322276516', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `geolocation`
+--
+
+CREATE TABLE `geolocation` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `latitude` float NOT NULL,
+  `longitude` float NOT NULL,
+  `username` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `geolocation`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `panic_friends`
+--
+
+CREATE TABLE `panic_friends` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `panicvictim_id` int(5) NOT NULL,
+  `friendsnumber` varchar(20) NOT NULL,
+  `received` int(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Dumping data for table `panic_friends`
+--
+
+INSERT INTO `panic_friends` VALUES(26, 53, '03343535203', 0);
+INSERT INTO `panic_friends` VALUES(25, 53, '03322276516', 0);
+INSERT INTO `panic_friends` VALUES(24, 53, '03152151511', 0);
+INSERT INTO `panic_friends` VALUES(23, 52, '03343535203', 0);
+INSERT INTO `panic_friends` VALUES(22, 52, '03152151511', 0);
+INSERT INTO `panic_friends` VALUES(21, 51, '090078601', 0);
+INSERT INTO `panic_friends` VALUES(20, 51, '03152151511', 0);
+INSERT INTO `panic_friends` VALUES(19, 50, '03343535203', 0);
+INSERT INTO `panic_friends` VALUES(18, 50, '03152151511', 0);
+INSERT INTO `panic_friends` VALUES(17, 49, '03343535203', 0);
+INSERT INTO `panic_friends` VALUES(16, 49, '090078601', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `panic_victim`
+--
+
+CREATE TABLE `panic_victim` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `mynumber` varchar(20) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `latitude` varchar(10) NOT NULL,
+  `longitude` varchar(10) NOT NULL,
+  `type` varchar(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+
+--
+-- Dumping data for table `panic_victim`
+--
+
+INSERT INTO `panic_victim` VALUES(53, '090078601', '2014-10-15 08:05:57', '0.000000', '0.000000', '');
+INSERT INTO `panic_victim` VALUES(52, '090078601', '2014-10-11 07:37:42', '0.000000', '0.000000', '');
+INSERT INTO `panic_victim` VALUES(51, '090078601', '2014-10-11 09:10:18', '-6.888918', '107.596173', '');
+INSERT INTO `panic_victim` VALUES(50, '090078601', '2014-10-11 07:28:42', '0.000000', '0.000000', '');
+INSERT INTO `panic_victim` VALUES(49, '03322276516', '2014-10-11 09:09:27', '-6.888918', '107.596173', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registeration`
+--
+
+CREATE TABLE `registeration` (
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `pic` varchar(12) NOT NULL DEFAULT 'profile.png',
+  `panicMessage` varchar(1000) NOT NULL,
+  PRIMARY KEY (`password`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `registeration`
+--
+
+INSERT INTO `registeration` VALUES('z', '03152151511', 'profile.png', '');
+INSERT INTO `registeration` VALUES('Abdul Wahab', '03322276516', 'profile.png', '');
+INSERT INTO `registeration` VALUES('Saad', '03343535203', 'default.png', '');
+INSERT INTO `registeration` VALUES('Zohair', '03432637576', 'default.png', '');
+INSERT INTO `registeration` VALUES('Simulato', '090078601', 'default.png', '');
+INSERT INTO `registeration` VALUES('z', '1', 'default.png', '');
