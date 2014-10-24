@@ -15,9 +15,8 @@
     UIAlertView *statusAlert;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:YES];
+-(void)viewDidLoad{
+    [super viewDidLoad];
     
     self.messageText.delegate = self;
     
@@ -39,7 +38,7 @@
     
     self.save.layer.cornerRadius = 5;
     [self.save setClipsToBounds:YES];
-
+    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

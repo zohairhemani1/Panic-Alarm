@@ -103,7 +103,7 @@ static NSArray *PanicToArray;
     [status setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
     status.textColor = [UIColor grayColor];
     
-    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 200, 13)];
+    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 160, 13)];
     [message setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
     message.textColor = [UIColor grayColor];
 
@@ -113,6 +113,7 @@ static NSArray *PanicToArray;
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(10, 5, 40, 40);
     imageView.layer.cornerRadius = 20;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
     
     timestamp.textColor = [UIColor grayColor];
@@ -173,12 +174,9 @@ static NSArray *PanicToArray;
         [image_loading startAnimating];
         
         [cell.imageView setFrame:CGRectMake(20,20,20,20)];
-       calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
+        calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
         
-        if(calculatedDifference == 0) {
-            timestamp.text = hourWithMin;
-        }
-        else if(calculatedDifference < 7){
+        if(calculatedDifference < 7){
             timestamp.text = dayCurrent;
         }
         else{
@@ -187,10 +185,12 @@ static NSArray *PanicToArray;
        
     }
     
-    if(receivedStatus == 0){
+    if(receivedStatus == 0)
+    {
         status.text = @"Pending";
     }
-    else{
+    else
+    {
         status.text = @"Received";
     }
     
@@ -315,7 +315,10 @@ static NSArray *PanicToArray;
             // Today's time (a la iPhone Mail)
             [formatter setDateStyle:NSDateFormatterNoStyle];
             [formatter setTimeStyle:NSDateFormatterShortStyle];
+            NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
             return [formatter stringFromDate:date];
+            
+            
         }
         else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 1)
         {
