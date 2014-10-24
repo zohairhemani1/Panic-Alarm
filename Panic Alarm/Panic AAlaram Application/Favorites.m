@@ -76,7 +76,6 @@ static NSMutableArray* favouritesArray;
         //cell.textLabel.text = fullName;
     }
     
-    
     //name.textColor= [UIColor grayColor];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
     [cell addSubview:name];

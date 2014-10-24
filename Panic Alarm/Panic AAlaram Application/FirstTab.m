@@ -42,8 +42,12 @@ bool condition=NO;
     return self;
 }
 
-- (void)loadView{
-    [super loadView];
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    [self.locationManager setDelegate:self];
+    self.location = [[CLLocation alloc] init];
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
@@ -51,7 +55,6 @@ bool condition=NO;
     
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
-    
     
     //this is how you can use the indicator view//
     progress = [c indicatorprogress:progress];
@@ -75,19 +78,14 @@ bool condition=NO;
     
     AVAudioPlayer *player;
     //SystemSoundID soundID;
-    
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
     NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
-    
     player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
-    
     [player play];
     
-    self.locationManager = [[CLLocationManager alloc] init];
+
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
-    self.locationManager.delegate=self;
-    self.location = [[CLLocation alloc] init];
     
     [progress startAnimating];
     
@@ -121,57 +119,74 @@ bool condition=NO;
         [push sendPushInBackground];
         
     }
-    [self locationManager:self.locationManager];
+   // [self locationManager:self.locationManager];
 
     [progress stopAnimating];
 }
 
--(void)PanicVictimRest{
-    
-    float longitude = self.location.coordinate.longitude;
-    float latitude =  self.location.coordinate.latitude;
-    
-    NSLog(@"longitude is: %f",longitude);
-    NSLog(@"latitude is: %f",latitude);
-    
-    NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
-    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
-    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
-    [panic_victim_data setValue:victimName forKey:@"name"];
-    [panic_victim_data setValue:victimNumber forKey:@"password"];
-    [panic_victim_data setValue:@"P" forKey:@"type"];
-    [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
-    //[favouritesObj favouritesArray];
-    
-    NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
-    
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization
-                        dataWithJSONObject:PanicVictimDataArray
-                        options:NSJSONWritingPrettyPrinted
-                        error:&error];
-    if ([jsonData length] > 0 &&
-        error == nil)
-    {
-        //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData
-                                                     encoding:NSUTF8StringEncoding];
-        WebService *PanicVictimRestAPI = [[WebService alloc] init];
-        [PanicVictimRestAPI FilePath:@"http://www.bizsocialcard.com/iospanic/panicButton.php" parameterOne:jsonString];
-    }
-   
- 
+
+// Location Manager Delegate Methods
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [manager startUpdatingLocation];
+    NSLog(@"%@", [locations lastObject]);
 }
 
--(void)locationManager:(CLLocationManager *)manager{
-    
-   // self.location = locations.lastObject;
-    if(first_time_on_database)
-    {
-        [self PanicVictimRest];
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    NSLog(@"Error while getting core location : %@",[error localizedFailureReason]);
+    if ([error code] == kCLErrorDenied) {
+         NSLog(@"Yes I have denied ");
     }
-    first_time_on_database = NO;
+    [manager stopUpdatingLocation];
 }
+
+//-(void)PanicVictimRest{
+//    
+//    float longitude = self.location.coordinate.longitude;
+//    float latitude =  self.location.coordinate.latitude;
+//    
+//    NSLog(@"longitude is: %f",longitude);
+//    NSLog(@"latitude is: %f",latitude);
+//    
+//    NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
+//    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
+//    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
+//    [panic_victim_data setValue:victimName forKey:@"name"];
+//    [panic_victim_data setValue:victimNumber forKey:@"password"];
+//    [panic_victim_data setValue:@"P" forKey:@"type"];
+//    [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
+//    //[favouritesObj favouritesArray];
+//    
+//    NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
+//    
+//    NSError *error = nil;
+//    NSData *jsonData = [NSJSONSerialization
+//                        dataWithJSONObject:PanicVictimDataArray
+//                        options:NSJSONWritingPrettyPrinted
+//                        error:&error];
+//    if ([jsonData length] > 0 &&
+//        error == nil)
+//    {
+//        //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
+//        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+//                                                     encoding:NSUTF8StringEncoding];
+//        WebService *PanicVictimRestAPI = [[WebService alloc] init];
+//        [PanicVictimRestAPI FilePath:@"http://www.bizsocialcard.com/iospanic/panicButton.php" parameterOne:jsonString];
+//    }
+//   
+//}
+//
+//-(void)locationManager:(CLLocationManager *)manager{
+//    
+//   // self.location = locations.lastObject;
+//    if(first_time_on_database)
+//    {
+//        [self PanicVictimRest];
+//    }
+//    first_time_on_database = NO;
+//}
 
 
 -(void)viewDidAppear:(BOOL)animated
@@ -188,7 +203,6 @@ bool condition=NO;
 
 -(void)fetchingFriendsWhoAdded
 {
-    
     
     [[UITabBar appearance] setSelectionIndicatorImage:
      [UIImage imageNamed:@"selected_tabbaritem.png"]];

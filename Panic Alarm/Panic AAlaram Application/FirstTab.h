@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <Foundation/Foundation.h>
 
-@interface FirstTab : UIViewController <CLLocationManagerDelegate, UITextFieldDelegate>
+@interface FirstTab : UIViewController <CLLocationManagerDelegate>
 
 @property(strong,nonatomic) CLLocationManager * locationManager;
 @property(strong,nonatomic) CLLocation *location;
