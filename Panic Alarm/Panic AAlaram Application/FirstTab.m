@@ -97,7 +97,6 @@ bool condition=NO;
      userInfo:nil
      repeats:YES]; */
     
-    Favorites *favObj = [[Favorites alloc] init];
     NSMutableArray* list = [Favorites favouritesList];
     victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
     victimNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
@@ -141,8 +140,7 @@ bool condition=NO;
     [panic_victim_data setValue:victimName forKey:@"name"];
     [panic_victim_data setValue:victimNumber forKey:@"password"];
     [panic_victim_data setValue:@"P" forKey:@"type"];
-    [panic_victim_data setValue:@"Generated From Code. I need help. Please follow my location." forKey:@"panicMessage"];
-    
+    [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
     //[favouritesObj favouritesArray];
     
     NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
@@ -183,6 +181,7 @@ bool condition=NO;
     if(condition){
         [self fetchingFriendsWhoAdded];
         condition=NO;
+        
     }
     
 }

@@ -14,6 +14,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // setting panicMessage in shared Preferences
+
     Terms *a = [[Terms alloc] init];
     [a fetchContactList];
     

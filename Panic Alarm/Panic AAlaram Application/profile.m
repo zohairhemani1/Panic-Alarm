@@ -35,6 +35,8 @@
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:lineView];
     
+    self.messageText.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"];
+    
     self.save.layer.cornerRadius = 5;
     [self.save setClipsToBounds:YES];
 
@@ -125,7 +127,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         statusAlert = [[UIAlertView alloc]initWithTitle:@"Status" message:@" Your Panic message has been updated" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
         
         [[NSUserDefaults standardUserDefaults ] setObject:self.personName.text forKey:@"name"];
-        
+        [[NSUserDefaults standardUserDefaults ] setObject:self.messageText.text forKey:@"panicMessage"];
         [statusAlert show];
     }
     else{

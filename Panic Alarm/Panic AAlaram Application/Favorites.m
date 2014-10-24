@@ -48,8 +48,7 @@ static NSMutableArray* favouritesArray;
 {
     // NSLog(@"Index: %@ ",indexPath.row);
     static NSString *simpleTableIdentifierr = @"SimpleTableCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifierr];
-    
+    UITableViewCell *cell ;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
@@ -110,7 +109,13 @@ static NSMutableArray* favouritesArray;
     
     //[button setBackgroundImage:[UIImage imageNamed:@"cross.png"] forState:UIControlStateNormal];
     
-    [cell.contentView addSubview:button];
+    [cell addSubview:button];
+    
+    if ([cell subviews]){
+        for (UIView *subview in [cell.contentView subviews]) {
+            [subview removeFromSuperview];
+        }
+    }
     
     return cell;
     
@@ -128,6 +133,7 @@ static NSMutableArray* favouritesArray;
     //TODO: refresh your data
     
     [self.refresh endRefreshing];
+    favouritesArray = nil;
     [Favorites favouritesList];
     [self.favoritesTable reloadData];
     
@@ -165,6 +171,19 @@ static NSMutableArray* favouritesArray;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        NSLog(@"the delete array object is %@",[[favouritesArray valueForKey:@"username"]objectAtIndex:indexPath.row]);
+        
+       // [favouritesArray removeObjectAtIndex:indexPath.row];
+       // [favouritesArray removeAllObjects];
+        
+//        for(int i =0;i<[favouritesArray count];i++){
+//            NSLog(@"the favourites array object is %@",[[favouritesArray valueForKey:@"username"]objectAtIndex:i]);
+//        }
+        
+        
+        WebService *updateMessage = [[WebService alloc] init];
+        [updateMessage FilePath:@"http://bizsocialcard.com/iospanic/deleteFriend.php" parameterOne:[[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] parameterTwo:[[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row]];
         
         [favouritesArray removeObjectAtIndex:indexPath.row];
         [tableView reloadData];

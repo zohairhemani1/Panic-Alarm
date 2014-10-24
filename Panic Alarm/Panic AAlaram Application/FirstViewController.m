@@ -226,8 +226,6 @@ UIActivityIndicatorView *progress;
 	// now lets make the connection to the web
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-	
-	NSLog(returnString);
     
 }
 
@@ -240,6 +238,18 @@ UIActivityIndicatorView *progress;
         alertbox = [[UIAlertView alloc]initWithTitle:@"Incomplete Information" message:@" It seems you have not inserted username or password!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
         [alertbox show];
         
+    }
+    else if([self.insertusername.text length] < 6){
+        // There's no text in the box.
+        
+        alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" The Username should be 6 charachter long!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
+        [alertbox show];
+        
+    }
+    else if([self.insertpassword.text length] < 6){
+        
+        alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" The Password should be 6 charachter long!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
+        [alertbox show];
     }
     else{
         [progress startAnimating];

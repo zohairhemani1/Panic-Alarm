@@ -16,13 +16,14 @@
 
 @implementation Victims{
 
+    UIActivityIndicatorView *image_loading;
     NSString *nameToAdd;
     UIImage *img;
     NSString *profilePic ;
     NSString *imagePathString ;
     NSURL *imagePathUrl;
     NSData *data ;
-    UIImageView *imageView;
+    NSString *hourWithMin;
     NSString *hour;
     int messageDay;
     int currentDay;
@@ -95,17 +96,21 @@ static NSArray *PanicToArray;
     static NSString *simple = @"second";
     UITableViewCell *cell;
     
-    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 6, 150, 20)];
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
+    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f]];
     
-    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 150, 20)];
-    [message setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+    UILabel *status = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 170, 13)];
+    [status setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
+    status.textColor = [UIColor grayColor];
+    
+    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 200, 13)];
+    [message setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
     message.textColor = [UIColor grayColor];
 
-    UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(210, 32, 50, 13)];
-    [timestamp setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+    UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(220, 2, 80, 20)];
+    [timestamp setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.f]];
 
-    imageView = [[UIImageView alloc] init];
+    UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(10, 5, 40, 40);
     imageView.layer.cornerRadius = 20;
     [imageView setClipsToBounds:YES];
@@ -113,6 +118,7 @@ static NSArray *PanicToArray;
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
     
+    int receivedStatus ;
     int calculatedDifference;
     
     if(self.segments.selectedSegmentIndex == 0)
@@ -120,7 +126,7 @@ static NSArray *PanicToArray;
         // Panic From table view
         
         if (cell == nil) {
-            cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+            cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier forIndexPath:indexPath];
             
         }
         
@@ -129,10 +135,12 @@ static NSArray *PanicToArray;
         name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
         message.text = [[PanicFromArray valueForKey:@"panicMessage" ] objectAtIndex:indexPath.row];
         
-        calculatedDifference = [self calculateDifference:indexPath.row];
+        receivedStatus = [[[PanicFromArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
+        
+        calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
         
         if(calculatedDifference == 0) {
-            timestamp.text = hour;
+            timestamp.text = hourWithMin;
         }
         else if(calculatedDifference < 7){
             timestamp.text = dayCurrent;
@@ -140,26 +148,35 @@ static NSArray *PanicToArray;
         else{
             timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
         }
-
+        
     }
     else
     {
-        
+
         //PanicTo Table View
         
         if (cell == nil) {
-            cell = [tableView dequeueReusableCellWithIdentifier:simple];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simple];
 
         }
         
         name.text = [[PanicToArray valueForKey:@"username" ] objectAtIndex:indexPath.row];
-        //profilePic = [[PanicToArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
-       // message.text = [[PanicToArray valueForKey:@"panicMessage" ] objectAtIndex:indexPath.row];
+        profilePic = [[PanicToArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
+        message.text = [[PanicToArray valueForKey:@"panicMessage"] objectAtIndex:indexPath.row];
         
-       calculatedDifference = [self calculateDifference:indexPath.row];
+        receivedStatus = [[[PanicToArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
+
+        image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
+        [image_loading setColor:[UIColor blackColor]];
+        [cell addSubview:image_loading];
+        
+        [image_loading startAnimating];
+        
+        [cell.imageView setFrame:CGRectMake(20,20,20,20)];
+       calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
         
         if(calculatedDifference == 0) {
-            timestamp.text = hour;
+            timestamp.text = hourWithMin;
         }
         else if(calculatedDifference < 7){
             timestamp.text = dayCurrent;
@@ -169,36 +186,50 @@ static NSArray *PanicToArray;
         }
        
     }
-    UIButton *status_button = [[UIButton alloc]initWithFrame:CGRectMake(210,7,50,20)];
-    status_button.backgroundColor=[UIColor blackColor];
-    [status_button setTitle:@"Pending" forState:UIControlStateNormal];
-    [status_button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if(receivedStatus == 0){
+        status.text = @"Pending";
+    }
+    else{
+        status.text = @"Received";
+    }
     
     imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
     imagePathUrl = [NSURL URLWithString:imagePathString];
-    data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-    img = [[UIImage alloc]initWithData:data ];
     
-    imageView.image = img;
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        
+        data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
+        img = [[UIImage alloc]initWithData:data];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            imageView.image = img;
+            [cell addSubview:imageView];
+            [image_loading stopAnimating];
+        });
+        
+    });
     
-    [cell addSubview:imageView];
-    [cell addSubview:status_button];
     [cell addSubview:name];
     [cell addSubview:message];
     [cell addSubview:timestamp];
+    [cell addSubview:status];
     
+//    if ([cell.contentView subviews]){
+//        for (UIView *subview in [cell.contentView subviews]) {
+//            [subview removeFromSuperview];
+//        }
+//    }
+
     return cell;
 }
 
--(void)acceptFriendRequest:(id)sender{
+-(int)calculateDifference:(int)index FromArray:(NSArray *)timeFromArray{
     
-}
-
--(int)calculateDifference:(int)index{
-    
-    NSString *dateFromJson = [[PanicToArray valueForKey:@"timestamp"]objectAtIndex:index];
+    NSString *dateFromJson = [[timeFromArray valueForKey:@"timestamp"]objectAtIndex:index];
     NSDate *today = [NSDate date];
     
    // NSLog(@"Today: %@",today);
@@ -212,11 +243,16 @@ static NSArray *PanicToArray;
     [dateFormatter setDateFormat:@"dd"];
     messageDay = [[dateFormatter stringFromDate:JsonDateFormatted] intValue];
     
-    
     [dateFormatter setDateFormat:@"HH:mm"];
-    hour = [dateFormatter stringFromDate:JsonDateFormatted];
-
+    hourWithMin = [dateFormatter stringFromDate:JsonDateFormatted];
     
+    [dateFormatter setDateFormat:@"HH"];
+    hour = [dateFormatter stringFromDate:JsonDateFormatted];
+    
+    if([hour intValue] > 12){
+        
+    }
+
     [dateFormatter setDateFormat:@"dd"];
     currentDay = [[dateFormatter stringFromDate:today] intValue];
 
@@ -298,12 +334,6 @@ static NSArray *PanicToArray;
     NSString *defaultDate = [formatter stringFromDate:date];
     return defaultDate;
 }
-
-
-
-
-
-
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
