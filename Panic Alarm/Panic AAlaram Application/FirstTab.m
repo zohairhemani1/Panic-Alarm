@@ -19,6 +19,9 @@
     NSString *victimName;
     NSString *victimNumber;
     Favorites *favouritesObj;
+    
+    float longitude;
+    float latitude;
 }
 @end
 
@@ -119,7 +122,7 @@ bool condition=NO;
         [push sendPushInBackground];
         
     }
-   // [self locationManager:self.locationManager];
+    [self locationManager:self.locationManager];
 
     [progress stopAnimating];
 }
@@ -128,65 +131,69 @@ bool condition=NO;
 // Location Manager Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    [manager startUpdatingLocation];
-    NSLog(@"%@", [locations lastObject]);
-}
+    CLLocation *location = [locations lastObject];
+    
+    latitude = location.coordinate.latitude;
+    longitude = location.coordinate.longitude;
+    
+    NSLog(@"So the longitude is%f", location.coordinate.longitude);
 
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error
-{
-    NSLog(@"Error while getting core location : %@",[error localizedFailureReason]);
-    if ([error code] == kCLErrorDenied) {
-         NSLog(@"Yes I have denied ");
+    if(first_time_on_database)
+    {
+        [self PanicVictimRest];
     }
+    first_time_on_database = NO;
     [manager stopUpdatingLocation];
+
 }
 
-//-(void)PanicVictimRest{
-//    
-//    float longitude = self.location.coordinate.longitude;
-//    float latitude =  self.location.coordinate.latitude;
-//    
-//    NSLog(@"longitude is: %f",longitude);
-//    NSLog(@"latitude is: %f",latitude);
-//    
-//    NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
-//    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
-//    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
-//    [panic_victim_data setValue:victimName forKey:@"name"];
-//    [panic_victim_data setValue:victimNumber forKey:@"password"];
-//    [panic_victim_data setValue:@"P" forKey:@"type"];
-//    [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
-//    //[favouritesObj favouritesArray];
-//    
-//    NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
-//    
-//    NSError *error = nil;
-//    NSData *jsonData = [NSJSONSerialization
-//                        dataWithJSONObject:PanicVictimDataArray
-//                        options:NSJSONWritingPrettyPrinted
-//                        error:&error];
-//    if ([jsonData length] > 0 &&
-//        error == nil)
-//    {
-//        //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
-//        NSString *jsonString = [[NSString alloc] initWithData:jsonData
-//                                                     encoding:NSUTF8StringEncoding];
-//        WebService *PanicVictimRestAPI = [[WebService alloc] init];
-//        [PanicVictimRestAPI FilePath:@"http://www.bizsocialcard.com/iospanic/panicButton.php" parameterOne:jsonString];
+//- (void)locationManager:(CLLocationManager *)manager
+//       didFailWithError:(NSError *)error
+//{
+//    NSLog(@"Error while getting core location : %@",[error localizedFailureReason]);
+//    if ([error code] == kCLErrorDenied) {
+//         NSLog(@"Yes I have denied ");
 //    }
-//   
+//    [manager stopUpdatingLocation];
 //}
-//
-//-(void)locationManager:(CLLocationManager *)manager{
-//    
-//   // self.location = locations.lastObject;
-//    if(first_time_on_database)
-//    {
-//        [self PanicVictimRest];
-//    }
-//    first_time_on_database = NO;
-//}
+
+-(void)PanicVictimRest{
+    
+    NSLog(@"longitude is: %f",longitude);
+    NSLog(@"latitude is: %f",latitude);
+    
+    NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
+    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
+    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
+    [panic_victim_data setValue:victimName forKey:@"name"];
+    [panic_victim_data setValue:victimNumber forKey:@"password"];
+    [panic_victim_data setValue:@"P" forKey:@"type"];
+    [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
+    //[favouritesObj favouritesArray];
+    
+    NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization
+                        dataWithJSONObject:PanicVictimDataArray
+                        options:NSJSONWritingPrettyPrinted
+                        error:&error];
+    if ([jsonData length] > 0 &&
+        error == nil)
+    {
+        //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+        WebService *PanicVictimRestAPI = [[WebService alloc] init];
+        [PanicVictimRestAPI FilePath:@"http://www.bizsocialcard.com/iospanic/panicButton.php" parameterOne:jsonString];
+    }
+   
+}
+
+-(void)locationManager:(CLLocationManager *)manager{
+    
+   // self.location = locations.lastObject;
+    }
 
 
 -(void)viewDidAppear:(BOOL)animated

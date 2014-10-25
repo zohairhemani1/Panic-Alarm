@@ -7,54 +7,23 @@
 //
 
 #import "About.h"
+#import "checkInternet.h"
 
 @implementation About{
-    UIImage *uploadedimage;
+    UIActivityIndicatorView *progress;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:YES];
-    
-    self.personName.text = @"Zohair Hemani";
-    
+    [super viewDidLoad];
+
+    [self.myWebView loadRequest:[self getURLRequest]];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    
-    
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Camera"]) {
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Photos"]) {
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    else{
-        return;
-    }
-    [self presentViewController:picker animated:YES completion:nil];
-    
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    uploadedimage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self.personImage setImage:uploadedimage];
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-
-- (IBAction)upload:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                  initWithTitle:@"What do you want to do?"
-                                  delegate:self
-                                  cancelButtonTitle:@"Cancel"
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles:@"Camera", @"Photos", nil];
-    
-    [actionSheet showInView:self.view];
+-(NSURLRequest *)getURLRequest{
+    NSString *fullURL = @"http://facebook.com";
+    NSURL *url = [NSURL URLWithString:fullURL];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    return requestObj;
 }
 @end

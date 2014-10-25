@@ -34,8 +34,7 @@ NSMutableArray *network;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    c = [[checkInternet alloc]init];
-    [c viewWillAppear:YES];
+    
     
     [self.settingsTable setSeparatorColor:[UIColor lightGrayColor]];
     
@@ -45,12 +44,11 @@ NSMutableArray *network;
     profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"account",@"notification",nil];
     network = [[NSMutableArray alloc] initWithObjects:@"network",@"system",nil];
     
-    if([c internetstatus] == TRUE){
-        internet = @"Connected";
-    }
-    else{
-        internet = @"Not Connected";
-    }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -114,6 +112,15 @@ NSMutableArray *network;
     else
     {
         CellIdentifier = [network objectAtIndex:indexPath.row];
+    }
+    
+    c = [[checkInternet alloc]init];
+    [c viewWillAppear:YES];
+    if([c internetstatus] == TRUE){
+        internet = @"Connected";
+    }
+    else{
+        internet = @"Not Connected";
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];

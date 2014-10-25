@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface About : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *personImage;
-@property (weak, nonatomic) IBOutlet UILabel *personName;
-@property (weak, nonatomic) IBOutlet UIButton *uploadedImage;
-- (IBAction)upload:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UIWebView *myWebView;
 
 @end

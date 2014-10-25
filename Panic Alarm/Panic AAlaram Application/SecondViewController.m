@@ -259,7 +259,6 @@ NSArray *DistinctFriendsWhoUseApp;
     [self.myTable setSeparatorColor:[UIColor lightGrayColor]];
     
     c= [[checkInternet alloc]init];
-    
     [c viewWillAppear:YES];
     //testingProgress = [c indicatorprogress];
     
