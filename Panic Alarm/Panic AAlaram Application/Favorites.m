@@ -14,7 +14,6 @@
 @interface Favorites (){
     checkInternet *c;
     NSString *storedNumber;
-    
 }
 @end
 
@@ -31,9 +30,57 @@ static NSMutableArray* favouritesArray;
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.favoritesTable setSeparatorColor:[UIColor lightGrayColor]];
+    
+    c = [[checkInternet alloc]init];
+    [c viewWillAppear:YES];
+    
+    self.favoritesTable.delegate=self;
+    self.favoritesTable.dataSource = self;
+    
+    self.refresh = [[UIRefreshControl alloc] init];
+    [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    [self.favoritesTable addSubview:self.refresh];
+    
+    //UIImage *backgroundImage = [UIImage imageNamed:@"background"];
+    //self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [Favorites favouritesList];
+    
+    self.searchResult = [NSMutableArray arrayWithCapacity:[favouritesArray count]];
+    
+}
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    [self.searchResult removeAllObjects];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+    
+    self.searchResult = [NSMutableArray arrayWithArray: [favouritesArray filteredArrayUsingPredicate:resultPredicate]];
+}
+
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    return YES;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [favouritesArray count];
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        return [self.searchResult count];
+    }
+    else
+    {
+        return [favouritesArray count];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -72,15 +119,21 @@ static NSMutableArray* favouritesArray;
         
         name.text = fullName;
         phonenumber.text = number;
-        //cell.detailTextLabel.text = number;
-        //cell.textLabel.text = fullName;
+
     }
-    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        phonenumber.textColor = [UIColor blackColor];
+    }
+    else
+    {
+        phonenumber.textColor = [UIColor grayColor];
+    }
     //name.textColor= [UIColor grayColor];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
     [cell addSubview:name];
     [phonenumber setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
-    phonenumber.textColor = [UIColor grayColor];
+    
     [cell addSubview:phonenumber];
     
     NSLog(@"Full Name: %@", fullName);
@@ -102,6 +155,7 @@ static NSMutableArray* favouritesArray;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     //set the position of the button
     button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
+    
     [button setTitle:@"Delete" forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor blackColor]];
     [button addTarget:self action:@selector(deleteFriend:) forControlEvents:UIControlEventTouchUpInside];
@@ -137,30 +191,6 @@ static NSMutableArray* favouritesArray;
     [self.favoritesTable reloadData];
     
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [self.favoritesTable setSeparatorColor:[UIColor lightGrayColor]];
-    
-    c = [[checkInternet alloc]init];
-    [c viewWillAppear:YES];
-    
-    self.favoritesTable.delegate=self;
-    self.favoritesTable.dataSource = self;
-    
-    self.refresh = [[UIRefreshControl alloc] init];
-    [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-    [self.favoritesTable addSubview:self.refresh];
-    
-    //UIImage *backgroundImage = [UIImage imageNamed:@"background"];
-    //self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    [self.view setBackgroundColor:[UIColor blackColor]];
-    [Favorites favouritesList];
-    
-}
-
 
 // ----- swipe to delete ----- //
 

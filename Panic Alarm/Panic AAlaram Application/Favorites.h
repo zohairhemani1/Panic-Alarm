@@ -10,9 +10,10 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface Favorites : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource>
+@interface Favorites : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource,UISearchDisplayDelegate>
 @property UIRefreshControl *refresh;
 @property (strong, nonatomic) IBOutlet UITableView *favoritesTable;
 + (NSMutableArray*)favouritesList;
+@property (nonatomic, strong) NSMutableArray *searchResult;
 
 @end
