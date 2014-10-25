@@ -9,6 +9,7 @@
 #import "Victims.h"
 #import "PanicFrom.h"
 #import "WebService.h"
+#import "checkInternet.h"
 
 @interface Victims ()
 
@@ -28,6 +29,9 @@
     int messageDay;
     int currentDay;
     NSString *dayCurrent;
+    UIActivityIndicatorView *pageLoading;
+    checkInternet *c;
+    WebService *panicFromRestObj;
 
 }
 static NSArray *PanicFromArray;
@@ -48,15 +52,48 @@ static NSArray *PanicToArray;
 {
     [super viewDidLoad];
 
-    WebService *panicFromRestObj = [[WebService alloc] init];
+    panicFromRestObj = [[WebService alloc] init];
     
-    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://www.bizsocialcard.com/iospanic/panicFrom.php" parameterOne:nil]];
-    
-    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://www.bizsocialcard.com/iospanic/panicTo.php" parameterOne:nil]];
+    self.refresh = [[UIRefreshControl alloc] init];
+    [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    [self.mytable addSubview:self.refresh];
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    c = [[checkInternet alloc]init];
+    [c viewWillAppear:YES];
+
+    pageLoading = [c indicatorprogress:pageLoading];
+    [self.view addSubview:pageLoading];
+    [pageLoading bringSubviewToFront:self.view];
     
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        
+        [pageLoading startAnimating];
+        
+        [self callThePanicFromArray];
+        [self callThePanicToArray];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.tableView reloadData];
+            [pageLoading stopAnimating];
+            
+        });
+        
+    });
+
   }
+
+
+-(void)callThePanicFromArray{
+    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://www.bizsocialcard.com/iospanic/panicFrom.php" parameterOne:nil]];
+}
+
+-(void)callThePanicToArray{
+    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://www.bizsocialcard.com/iospanic/panicTo.php" parameterOne:nil]];
+}
 
 - (IBAction)SegmentAction:(id)sender {
     [self.mytable reloadData];
@@ -318,7 +355,6 @@ static NSArray *PanicToArray;
             NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
             return [formatter stringFromDate:date];
             
-            
         }
         else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 1)
         {
@@ -359,6 +395,16 @@ static NSArray *PanicToArray;
 
 +(NSArray *)getPanicToArray{
     return PanicToArray;
+}
+
+- (void)refreshTable{
+    //TODO: refresh your data
+    
+    [self.refresh endRefreshing];
+    PanicToArray = nil;
+    [self callThePanicToArray];
+    [self.mytable reloadData];
+    
 }
 
 @end

@@ -14,6 +14,7 @@
 @interface Favorites (){
     checkInternet *c;
     NSString *storedNumber;
+    UIActivityIndicatorView *progress;
 }
 @end
 
@@ -49,10 +50,28 @@ static NSMutableArray* favouritesArray;
     //UIImage *backgroundImage = [UIImage imageNamed:@"background"];
     //self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     [self.view setBackgroundColor:[UIColor blackColor]];
-    [Favorites favouritesList];
     
+    progress = [c indicatorprogress:progress];
+    [self.view addSubview:progress];
+    [progress bringSubviewToFront:self.view];
+    
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        
+        [progress startAnimating];
+        [Favorites favouritesList];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
     self.searchResult = [NSMutableArray arrayWithCapacity:[favouritesArray count]];
-    
+
+            [self.favoritesTable reloadData];
+            [progress stopAnimating];
+            
+        });
+        
+    });
 }
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
@@ -113,7 +132,7 @@ static NSMutableArray* favouritesArray;
     NSString *fullName = [[favouritesArray valueForKey:@"username"] objectAtIndex:indexPath.row];
     NSString *pic = [[favouritesArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
     
-    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 120, 13)];
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 17)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
     if(fullName !=nil){
         

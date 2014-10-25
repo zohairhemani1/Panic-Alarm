@@ -7,6 +7,11 @@
 	$friendsNumber = $_POST['parameterTwo'];
 	$panicMessage = $_POST['parameterThree'];
 	
+	echo $phoneNumer. ": PhoneNumber";
+	echo $type . ": Type";
+	echo $friendsNumber . ": Friend Number";
+	echo $panicMessage .  ": Panic Message";
+	
 	$query = "INSERT INTO panic_victim(mynumber,timestamp,type,panicMessage) VALUES('$phoneNumer',now(),'$type','$panicMessage')";
 	mysqli_query($con,$query);
 	if(mysqli_num_rows ==1){

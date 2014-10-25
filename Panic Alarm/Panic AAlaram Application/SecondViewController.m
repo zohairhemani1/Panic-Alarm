@@ -15,7 +15,6 @@
     checkInternet *c;
     UIRefreshControl *refreshControl;
     UIButton *button;
-    UIActivityIndicatorView *testingProgress;
     UIActivityIndicatorView *progress;
     NSMutableArray *resultArray;
 }
@@ -33,7 +32,7 @@ NSArray *DistinctFriendsWhoUseApp;
 + (NSMutableArray *)friendWhoUseAppStaticFunction
 {
     if (!friendsWhoUseApp)
-        friendsWhoUseApp = [[NSMutableArray alloc] initWithCapacity:400];
+        friendsWhoUseApp = [[NSMutableArray alloc] initWithCapacity:4000];
     
     return friendsWhoUseApp;
 }
@@ -260,7 +259,6 @@ NSArray *DistinctFriendsWhoUseApp;
     
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
-    //testingProgress = [c indicatorprogress];
     
     self.myTable.delegate=self;
     self.myTable.dataSource = self;

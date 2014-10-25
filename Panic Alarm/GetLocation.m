@@ -10,10 +10,14 @@
 #import "checkInternet.h"
 #import "FirstTab.h"
 #import "Favorites.h"
+#import "WebService.h"
+#import "Constants.h"
 
 @interface GetLocation (){
 checkInternet *c;
     NSArray *favArray;
+    NSArray *favRestJson;
+    UIButton *button;
 }
 @end
 
@@ -99,14 +103,13 @@ checkInternet *c;
     [imageView setClipsToBounds:YES];
     [cell addSubview:imageView];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     //set the position of the button
     button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
     [button setTitle:@"Find" forState:UIControlStateNormal];
+    button.tag = indexPath.row;
     [button setBackgroundColor:[UIColor blackColor]];
     [button addTarget:self action:@selector(FindLocation:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //[button setBackgroundImage:[UIImage imageNamed:@"cross.png"] forState:UIControlStateNormal];
     
     [cell.contentView addSubview:button];
     
@@ -128,6 +131,11 @@ checkInternet *c;
 }
 
 -(void)FindLocation:(id)sender{
+    button = (UIButton *) sender;
+    
+    WebService *FindLocationRest = [[WebService alloc] init];
+    favRestJson = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[[favArray valueForKey:@"friendsnumber"]objectAtIndex:button.tag] parameterThree:FIND_MESSAGE];
+    [button setTitle:@"PENDING" forState:normal];
     
 }
 

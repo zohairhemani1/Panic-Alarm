@@ -122,7 +122,6 @@ bool condition=NO;
         [push sendPushInBackground];
         
     }
-    [self locationManager:self.locationManager];
 
     [progress stopAnimating];
 }
@@ -131,31 +130,20 @@ bool condition=NO;
 // Location Manager Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    [manager stopUpdatingLocation];
     CLLocation *location = [locations lastObject];
     
     latitude = location.coordinate.latitude;
     longitude = location.coordinate.longitude;
-    
-    NSLog(@"So the longitude is%f", location.coordinate.longitude);
 
     if(first_time_on_database)
     {
         [self PanicVictimRest];
     }
     first_time_on_database = NO;
-    [manager stopUpdatingLocation];
+    
 
 }
-
-//- (void)locationManager:(CLLocationManager *)manager
-//       didFailWithError:(NSError *)error
-//{
-//    NSLog(@"Error while getting core location : %@",[error localizedFailureReason]);
-//    if ([error code] == kCLErrorDenied) {
-//         NSLog(@"Yes I have denied ");
-//    }
-//    [manager stopUpdatingLocation];
-//}
 
 -(void)PanicVictimRest{
     
@@ -189,11 +177,6 @@ bool condition=NO;
     }
    
 }
-
--(void)locationManager:(CLLocationManager *)manager{
-    
-   // self.location = locations.lastObject;
-    }
 
 
 -(void)viewDidAppear:(BOOL)animated

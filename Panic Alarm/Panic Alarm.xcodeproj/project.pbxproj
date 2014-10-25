@@ -156,6 +156,7 @@
 		DC9BA057192663AA00FEBB5C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DC9BA059192663B000FEBB5C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DC9BA05B192663BB00FEBB5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DC9D521A19FB9363002779C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		DCC0998F1928AD1B005694B0 /* FirstTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTab.h; sourceTree = "<group>"; };
 		DCC099901928AD1B005694B0 /* FirstTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTab.m; sourceTree = "<group>"; };
 		DCCD76B119169ABE009C6A37 /* panic_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = panic_button.png; sourceTree = "<group>"; };
@@ -309,6 +310,7 @@
 				DC5A8C5C1910ECB00058F7C2 /* SecondViewController.m */,
 				19CF4F3D1969D97100E971DA /* GetLocation.h */,
 				19CF4F3E1969D97100E971DA /* GetLocation.m */,
+				DC9D521A19FB9363002779C1 /* Constants.h */,
 				19C746C919795F2500192C88 /* Victims.h */,
 				19C746CA19795F2500192C88 /* Victims.m */,
 				19FB7027196732CE00032AA7 /* PanicFrom.h */,

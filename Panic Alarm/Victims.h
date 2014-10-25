@@ -12,6 +12,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *mytable;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segments;
 - (IBAction)SegmentAction:(id)sender;
+@property UIRefreshControl *refresh;
 
 +(NSArray *)getPanicFromArray;
 
