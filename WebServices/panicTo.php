@@ -5,10 +5,17 @@
 	
 	$storedNumber = $_POST['username'];
 	
-	$query = "SELECT * from `panic_friends` pf, `panic_victim` pv, `registeration` r WHERE pv.id = pf.panicvictim_id AND pv.mynumber = '{$storedNumber}' AND r.password = pf.friendsnumber group by pf.friendsnumber";
+	$query = "SELECT pf.*, pv.*, r.*, pv.panicMessage as pMessage from `panic_friends` pf, `panic_victim` pv, `registeration` r WHERE pv.id = pf.panicvictim_id AND pv.mynumber = '{$storedNumber}' AND r.password = pf.friendsnumber order by timestamp desc";
 	$result = mysqli_query($con,$query);
+	//$row=mysqli_fetch_assoc($result);
 	
 	while($row=mysqli_fetch_assoc($result))
+	{
+		array_push($PanicTo,$row);	
+	}
+	
+	
+	/*while($row=mysqli_fetch_assoc($result))
 	{
 
 		$panicToNumber = $row['friendsnumber'];
@@ -26,8 +33,9 @@
 		
 		array_push($PanicTo,$row);
 		
-		
-	}
+	}*/
+	
+	
 	
 	echo json_encode($PanicTo);
 	

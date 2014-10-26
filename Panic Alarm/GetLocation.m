@@ -12,11 +12,12 @@
 #import "Favorites.h"
 #import "WebService.h"
 #import "Constants.h"
+#import <Parse/Parse.h>
 
 @interface GetLocation (){
 checkInternet *c;
     NSArray *favArray;
-    NSArray *favRestJson;
+    NSArray *favRestJsonArray;
     UIButton *button;
 }
 @end
@@ -134,9 +135,25 @@ checkInternet *c;
     button = (UIButton *) sender;
     
     WebService *FindLocationRest = [[WebService alloc] init];
-    favRestJson = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[[favArray valueForKey:@"friendsnumber"]objectAtIndex:button.tag] parameterThree:FIND_MESSAGE];
-    [button setTitle:@"PENDING" forState:normal];
+    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[[favArray valueForKey:@"friendsnumber"]objectAtIndex:button.tag] parameterThree:FIND_MESSAGE];
     
+    NSLog(@"the returned value are: %@",[favRestJsonArray valueForKey:@"success"] );
+    
+    if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
+    {
+        
+        NSLog(@"in code");
+        
+        [button setTitle:@"PENDING" forState:normal];
+        
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:@"X_090078601"];   // channels column in PARSE!
+        NSString *FindNotificationMessage = [[[favArray valueForKey:@"username"]objectAtIndex:button.tag] stringByAppendingString:@" is requesting your Location."];
+        [push setMessage:FindNotificationMessage];
+        //[push setData:data];
+        [push sendPushInBackground];
+        
+    }
 }
 
 @end

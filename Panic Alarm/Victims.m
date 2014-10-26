@@ -200,7 +200,7 @@ static NSArray *PanicToArray;
         
         name.text = [[PanicToArray valueForKey:@"username" ] objectAtIndex:indexPath.row];
         profilePic = [[PanicToArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
-        message.text = [[PanicToArray valueForKey:@"panicMessage"] objectAtIndex:indexPath.row];
+        message.text = [[PanicToArray valueForKey:@"pMessage"] objectAtIndex:indexPath.row];
         
         receivedStatus = [[[PanicToArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
 
@@ -254,12 +254,7 @@ static NSArray *PanicToArray;
     [cell addSubview:message];
     [cell addSubview:timestamp];
     [cell addSubview:status];
-    
-//    if ([cell.contentView subviews]){
-//        for (UIView *subview in [cell.contentView subviews]) {
-//            [subview removeFromSuperview];
-//        }
-//    }
+
 
     return cell;
 }
@@ -398,13 +393,12 @@ static NSArray *PanicToArray;
 }
 
 - (void)refreshTable{
-    //TODO: refresh your data
-    
     [self.refresh endRefreshing];
     PanicToArray = nil;
+    PanicFromArray = nil;
     [self callThePanicToArray];
+    [self callThePanicFromArray];
     [self.mytable reloadData];
-    
 }
 
 @end

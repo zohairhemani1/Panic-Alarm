@@ -191,7 +191,7 @@ NSArray *DistinctFriendsWhoUseApp;
     NSString *nameToAccept = [[DistinctFriendsWhoUseApp valueForKey:@"fullName"] objectAtIndex:button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
-    NSString *friendsNumber = @"X_03432637576";
+    NSString *friendsNumber = @"X_090078601";
     
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
