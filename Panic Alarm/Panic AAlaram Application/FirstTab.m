@@ -56,6 +56,8 @@ bool condition=NO;
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     condition=YES;
     
+   // self.title = @"Hello World";
+    
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     

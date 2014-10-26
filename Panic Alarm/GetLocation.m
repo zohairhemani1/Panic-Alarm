@@ -19,6 +19,7 @@ checkInternet *c;
     NSArray *favArray;
     NSArray *favRestJsonArray;
     UIButton *button;
+    UIActivityIndicatorView *progress;
 }
 @end
 
@@ -43,7 +44,7 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    favArray = [Favorites favouritesList];
+    
     
     self.myContacts.delegate=self;
     self.myContacts.dataSource = self;
@@ -51,6 +52,27 @@ checkInternet *c;
     self.refresh = [[UIRefreshControl alloc] init];
     [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     [self.myContacts addSubview:self.refresh];
+    
+    progress = [c indicatorprogress:progress];
+    [self.view addSubview:progress];
+    [progress bringSubviewToFront:self.view];
+    
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        
+        [progress startAnimating];
+        favArray = [Favorites favouritesList];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.myContacts reloadData];
+            [progress stopAnimating];
+            
+        });
+        
+    });
+
     
 }
 
@@ -78,8 +100,8 @@ checkInternet *c;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
     }
     
-    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 120, 13)];
-    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 19)];
+    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
     NSString *pic = [[favArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
     
     //name.textColor= [UIColor grayColor];

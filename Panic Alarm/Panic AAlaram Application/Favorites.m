@@ -132,8 +132,8 @@ static NSMutableArray* favouritesArray;
     NSString *fullName = [[favouritesArray valueForKey:@"username"] objectAtIndex:indexPath.row];
     NSString *pic = [[favouritesArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
     
-    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 17)];
-    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 19)];
+    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
     if(fullName !=nil){
         
         name.text = fullName;

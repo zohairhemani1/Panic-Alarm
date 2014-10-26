@@ -371,7 +371,6 @@ NSArray *DistinctFriendsWhoUseApp;
         index--;
         
     }
-    searchResults = friendsWhoUseApp;
     // ending funtion here
 }
 
