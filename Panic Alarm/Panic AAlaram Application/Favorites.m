@@ -167,6 +167,7 @@ static NSMutableArray* favouritesArray;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
     imageView.frame = CGRectMake(10,5,40,40); //set these variables as you want
     imageView.layer.cornerRadius = 20;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
     [cell addSubview:imageView];
     

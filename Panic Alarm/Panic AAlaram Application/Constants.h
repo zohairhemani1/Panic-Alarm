@@ -13,6 +13,8 @@
 
 #define BASEURL @"http://www.bizsocialcard.com/iospanic/"
 #define FIND_REST @"findButton.php"
+#define ACCEPT_TO_SEND_LOCATION @"acceptToSendLocation.php"
+#define ACCEPT_LOCATION @"acceptLocation.php"
 
 
 #endif
