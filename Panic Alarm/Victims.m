@@ -183,6 +183,8 @@ static NSArray *PanicToArray;
             
         }
         
+        [[self.segments.subviews objectAtIndex:0] setBackgroundColor:[UIColor whiteColor]];
+        
         profilePic = [[PanicFromArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
 
         name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
@@ -219,7 +221,7 @@ static NSArray *PanicToArray;
     }
     else
     {
-
+        [[self.segments.subviews objectAtIndex:1] setBackgroundColor:[UIColor whiteColor]];
         //PanicTo Table View
         
         if (cell == nil) {

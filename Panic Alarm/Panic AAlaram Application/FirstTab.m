@@ -20,7 +20,7 @@
     NSString *victimNumber;
     Favorites *favouritesObj;
     NSString *friendsNumber;
-    
+    UIAlertView *help_message;
     float longitude;
     float latitude;
 }
@@ -34,6 +34,14 @@ bool condition=NO;
 
 -(IBAction)backgroundTouch:(id)sender
 {
+}
+
+- (IBAction)help_button:(id)sender {
+    
+    help_message = [[UIAlertView alloc]initWithTitle:@"Help Desk" message:@"You can press the P button to send panic to your Friends\n You can press the F button to find your favourite friends." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    
+    [help_message show];
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

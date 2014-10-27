@@ -18,9 +18,8 @@
 
 - (IBAction)get_location:(id)sender;
 
--(void)locationManager:(CLLocationManager *)manager;
-//-(void)currentLocationToDatabaseLatitude:(NSString * )latitude longitude:(NSString *) longitude;
 - (IBAction)backgroundTouch:(id)sender;
+- (IBAction)help_button:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *panic;
 
