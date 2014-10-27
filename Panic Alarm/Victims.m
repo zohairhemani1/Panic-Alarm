@@ -10,6 +10,8 @@
 #import "PanicFrom.h"
 #import "WebService.h"
 #import "checkInternet.h"
+#import "Constants.h"
+#import <Parse/Parse.h>
 
 @interface Victims ()
 
@@ -32,7 +34,11 @@
     UIActivityIndicatorView *pageLoading;
     checkInternet *c;
     WebService *panicFromRestObj;
-
+    NSArray *AcceptToSendLocationJsonArray;
+    UIButton *accept_location;
+    NSString *FindNotificationMessage;
+    int receivedStatus ;
+    
 }
 static NSArray *PanicFromArray;
 static NSArray *PanicToArray;
@@ -143,10 +149,16 @@ static NSArray *PanicToArray;
     UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 160, 13)];
     [message setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
     message.textColor = [UIColor grayColor];
+    message.numberOfLines = 2;
 
     UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(220, 2, 80, 20)];
     [timestamp setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.f]];
 
+    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 22, 80, 20)];
+    //[accept_location setTitle:@"Accept" forState:normal];
+    [accept_location setTitleColor:[UIColor whiteColor] forState:normal];
+    [accept_location setBackgroundColor:[UIColor blackColor]];
+    
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(10, 5, 40, 40);
     imageView.layer.cornerRadius = 20;
@@ -156,8 +168,11 @@ static NSArray *PanicToArray;
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
     
-    int receivedStatus ;
     int calculatedDifference;
+    
+    
+    
+    
     
     if(self.segments.selectedSegmentIndex == 0)
     {
@@ -171,9 +186,23 @@ static NSArray *PanicToArray;
         profilePic = [[PanicFromArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
 
         name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
-        message.text = [[PanicFromArray valueForKey:@"panicMessage" ] objectAtIndex:indexPath.row];
-        
+        message.text = [[PanicFromArray valueForKey:@"pMessage" ] objectAtIndex:indexPath.row];
         receivedStatus = [[[PanicFromArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
+        
+        if(receivedStatus == 0)
+        {
+            //[accept_location setTitle:@"Accept" forState:normal];
+            status.text = @"Status: Pending";
+            //[accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
+           // accept_location.tag = indexPath.row;
+            
+        }
+        else
+        {
+            //[accept_location setTitle:@"Sent" forState:normal];
+            status.text = @"Status: Received";
+        }
+        
         
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
         
@@ -201,9 +230,29 @@ static NSArray *PanicToArray;
         name.text = [[PanicToArray valueForKey:@"username" ] objectAtIndex:indexPath.row];
         profilePic = [[PanicToArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
         message.text = [[PanicToArray valueForKey:@"pMessage"] objectAtIndex:indexPath.row];
-        
         receivedStatus = [[[PanicToArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
-
+        if(receivedStatus == 0)
+        {
+            [accept_location setTitle:@"Accept" forState:normal];
+            status.text = @"Status: Pending";
+            [accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
+            accept_location.tag = indexPath.row;
+            
+        }
+        else
+        {
+            [accept_location setTitle:@"Sent" forState:normal];
+            status.text = @"Status: Received";
+        }
+        
+        
+        
+        if([[[PanicToArray valueForKey:@"type"] objectAtIndex:indexPath.row] isEqualToString:@"F"]){
+            
+            [cell addSubview:accept_location];
+            
+        }
+        
         image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
         [image_loading setColor:[UIColor blackColor]];
         [cell addSubview:image_loading];
@@ -213,22 +262,16 @@ static NSArray *PanicToArray;
         [cell.imageView setFrame:CGRectMake(20,20,20,20)];
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
         
-        if(calculatedDifference < 7){
+        if(calculatedDifference == 0) {
+            timestamp.text = hourWithMin;
+        }
+        else if(calculatedDifference < 7){
             timestamp.text = dayCurrent;
         }
         else{
             timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
         }
        
-    }
-    
-    if(receivedStatus == 0)
-    {
-        status.text = @"Pending";
-    }
-    else
-    {
-        status.text = @"Received";
     }
     
     imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
@@ -401,4 +444,25 @@ static NSArray *PanicToArray;
     [self.mytable reloadData];
 }
 
+-(void)AcceptToSendLocation:(id)sender
+{
+    accept_location = (UIButton*) sender;
+    WebService *AcceptToSendLocationRest = [[WebService alloc] init];
+    AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[[PanicToArray valueForKeyPath:@"friendsnumber"] objectAtIndex:accept_location.tag] parameterTwo:@"20" parameterThree:[[PanicToArray valueForKey:@"id"] objectAtIndex:accept_location.tag]];
+    
+    if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"]){
+        [accept_location setTitle:@"Sent" forState:normal];
+        PFPush *push = [[PFPush alloc] init];
+        //[push setChannel:@"X_090078601"];   // channels column in PARSE!
+        [push setChannel:[@"X_" stringByAppendingString:[[PanicToArray valueForKey:@"friendsnumber"] objectAtIndex:accept_location.tag]]];
+        FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
+        [push setMessage:FindNotificationMessage];
+        //[push setData:data];
+        [push sendPushInBackground];
+    }
+    else{
+        // Alert value for key @"error" from acceptToSendLocationJsonArray
+    }
+    
+}
 @end

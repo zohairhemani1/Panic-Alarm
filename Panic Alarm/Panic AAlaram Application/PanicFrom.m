@@ -10,6 +10,8 @@
 #import "checkInternet.h"
 #import "Map.h"
 #import "Victims.h"
+#import "WebService.h"
+#import "Constants.h"
 
 @interface PanicFrom (){
 checkInternet *c;
@@ -62,6 +64,13 @@ checkInternet *c;
 }
 - (IBAction)findLocation:(id)sender {
     [self performSegueWithIdentifier:@"goToMap" sender:self];
+    WebService *locationReceived = [[WebService alloc] init];
+    [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@""];
+    
+    //parameter1 : id
+    //2: panicvictim_id
+    //3: friendsnumber
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

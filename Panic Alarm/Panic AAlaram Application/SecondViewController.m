@@ -108,6 +108,7 @@ NSArray *DistinctFriendsWhoUseApp;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
     imageView.frame = CGRectMake(10, 5, 40, 40);
     imageView.layer.cornerRadius = 20;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
     [cell addSubview:imageView];
 
