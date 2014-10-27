@@ -19,7 +19,6 @@
     NSString *victimName;
     NSString *victimNumber;
     Favorites *favouritesObj;
-    NSString *friendsNumber;
     
     float longitude;
     float latitude;
@@ -70,22 +69,6 @@ bool condition=NO;
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
-    dispatch_async(myqueue, ^(void) {
-        
-        [progress startAnimating];
-        
-        [self fetchingFriendsWhoAdded];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Update UI on main queue
-            
-            [progress stopAnimating];
-            
-        });
-        
-    });
-
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -124,7 +107,7 @@ bool condition=NO;
     for (int i=0; i<[list count]; i++)
     {
         NSLog(@"Fav Item: %@", [list objectAtIndex:i]);
-        friendsNumber = @"X_";
+        NSString *friendsNumber = @"X_";
         friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"] objectAtIndex:i]];
         NSLog(@"NO: %@", friendsNumber);
         NSString *msg = [victimName stringByAppendingString:@" is in Danger! Please track his location."];
@@ -132,12 +115,8 @@ bool condition=NO;
         NSDictionary *data = @{
                                @"alert": msg,
                                @"name": victimName,
-                               @"number": victimNumber,
-                               @"sound":@"cheering.caf"
+                               @"number": victimNumber
                                };
-      //  NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:msg, @"alert",
-                             // @"cheering.caf", @"sound",
-                             // nil];
         
         PFPush *push = [[PFPush alloc] init];
         [push setChannel:friendsNumber];   // channels column in PARSE!
@@ -202,17 +181,17 @@ bool condition=NO;
 }
 
 
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    
-//    if(condition){
-//        
-//        condition=NO;
-//        
-//    }
-//    
-//}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if(condition){
+        [self fetchingFriendsWhoAdded];
+        condition=NO;
+        
+    }
+    
+}
 
 -(void)fetchingFriendsWhoAdded
 {

@@ -24,7 +24,6 @@
     self.personName.delegate = self;
     
     self.personImage.layer.cornerRadius = 40;
-    self.personImage.contentMode = UIViewContentModeScaleAspectFill;
     [self.personImage setClipsToBounds:YES];
     
     lineView = [[UIView alloc] initWithFrame:CGRectMake(20, self.personName.frame.origin.y, self.view.bounds.size.width, 1)];
