@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController<UITextFieldDelegate>
+@interface FirstViewController : UIViewController<UITextFieldDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 
 //- (IBAction)textFieldReturn:(id)sender;
 - (IBAction)backgroundTouched:(id)sender;

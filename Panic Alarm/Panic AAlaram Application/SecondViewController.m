@@ -268,6 +268,7 @@ NSArray *DistinctFriendsWhoUseApp;
     
     progress = [c indicatorprogress:progress];
     [self.view addSubview:progress];
+    
     [progress bringSubviewToFront:self.view];
     
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);

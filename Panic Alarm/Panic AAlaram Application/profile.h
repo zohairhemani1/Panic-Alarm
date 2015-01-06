@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface profile : UIViewController <UITextViewDelegate,UITextFieldDelegate>
+@interface profile : UIViewController <UITextViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *personImage;
 @property (weak, nonatomic) IBOutlet UITextField *personName;
 @property (weak, nonatomic) IBOutlet UIButton *uploadedImage;

@@ -135,24 +135,28 @@ static NSArray *PanicToArray;
 {
     
     static NSString *simpleTableIdentifier = @"myvictims";
-    
     static NSString *simple = @"second";
+    
     UITableViewCell *cell;
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f]];
+    name.text = @"";
     
     UILabel *status = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 170, 13)];
     [status setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
     status.textColor = [UIColor grayColor];
+    status.text = @"";
     
     UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 160, 13)];
     [message setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
     message.textColor = [UIColor grayColor];
     message.numberOfLines = 2;
+    message.text = @"";
 
     UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(220, 2, 80, 20)];
     [timestamp setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.f]];
+    timestamp.text = @"";
 
     accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 22, 80, 20)];
     //[accept_location setTitle:@"Accept" forState:normal];
@@ -170,17 +174,13 @@ static NSArray *PanicToArray;
     
     int calculatedDifference;
     
-    
-    
-    
-    
     if(self.segments.selectedSegmentIndex == 0)
     {
         // Panic From table view
         
         if (cell == nil) {
-            cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier forIndexPath:indexPath];
-            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:simpleTableIdentifier];
         }
         
         [[self.segments.subviews objectAtIndex:0] setBackgroundColor:[UIColor whiteColor]];
@@ -205,16 +205,18 @@ static NSArray *PanicToArray;
             status.text = @"Status: Received";
         }
         
-        
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
         
-        if(calculatedDifference == 0) {
+        if(calculatedDifference == 0)
+        {
             timestamp.text = hourWithMin;
         }
-        else if(calculatedDifference < 7){
+        else if(calculatedDifference < 7)
+        {
             timestamp.text = dayCurrent;
         }
-        else{
+        else
+        {
             timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
         }
         
@@ -225,8 +227,8 @@ static NSArray *PanicToArray;
         //PanicTo Table View
         
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simple];
-
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:simple];
         }
         
         name.text = [[PanicToArray valueForKey:@"username" ] objectAtIndex:indexPath.row];
@@ -247,8 +249,7 @@ static NSArray *PanicToArray;
             status.text = @"Status: Received";
         }
         
-        
-        
+    
         if([[[PanicToArray valueForKey:@"type"] objectAtIndex:indexPath.row] isEqualToString:@"F"]){
             
             [cell addSubview:accept_location];
@@ -299,7 +300,6 @@ static NSArray *PanicToArray;
     [cell addSubview:message];
     [cell addSubview:timestamp];
     [cell addSubview:status];
-
 
     return cell;
 }
@@ -466,5 +466,10 @@ static NSArray *PanicToArray;
         // Alert value for key @"error" from acceptToSendLocationJsonArray
     }
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"FromSegue" sender:self];
 }
 @end
