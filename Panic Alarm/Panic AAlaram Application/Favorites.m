@@ -157,7 +157,7 @@ static NSMutableArray* favouritesArray;
     
     NSLog(@"Full Name: %@", fullName);
     // if(fullName !=nil){cell.textLabel.text = fullName;}
-    NSString *imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+    NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
     
     NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
@@ -232,7 +232,7 @@ static NSMutableArray* favouritesArray;
         
         
         WebService *updateMessage = [[WebService alloc] init];
-        [updateMessage FilePath:@"http://bizsocialcard.com/iospanic/deleteFriend.php" parameterOne:[[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] parameterTwo:[[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row]];
+        [updateMessage FilePath:@"http://fajjemobile.info/iospanic/deleteFriend.php" parameterOne:[[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] parameterTwo:[[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row]];
         
         [favouritesArray removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
@@ -246,7 +246,7 @@ static NSMutableArray* favouritesArray;
     NSString *storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     
     if(favouritesArray == nil){
-    favJson = [favouritesService FilePath:@"http://bizsocialcard.com/iospanic/favourites.php" parameterOne:storedNumber];
+    favJson = [favouritesService FilePath:@"http://fajjemobile.info/iospanic/favourites.php" parameterOne:storedNumber];
     favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
         {

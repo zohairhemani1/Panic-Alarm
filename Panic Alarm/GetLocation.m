@@ -113,7 +113,7 @@ checkInternet *c;
     phonenumber.text=[[favArray valueForKey:@"friendsnumber"]objectAtIndex:indexPath.row];
     [cell addSubview:phonenumber];
     
-    NSString *imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+    NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
     
     NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];

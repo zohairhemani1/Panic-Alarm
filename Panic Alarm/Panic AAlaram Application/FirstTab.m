@@ -204,7 +204,7 @@ bool condition=NO;
         NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding];
         WebService *PanicVictimRestAPI = [[WebService alloc] init];
-        [PanicVictimRestAPI FilePath:@"http://www.bizsocialcard.com/iospanic/panicButton.php" parameterOne:jsonString];
+        [PanicVictimRestAPI FilePath:@"http://fajjemobile.info/iospanic/panicButton.php" parameterOne:jsonString];
     }
    
 }
@@ -230,7 +230,7 @@ bool condition=NO;
     [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbarbackground.png"]];
     
     WebService *myWebservice = [[WebService alloc] init];
-    NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://www.bizsocialcard.com/iospanic/getFriends.php" parameterOne:@""];
+    NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://fajjemobile.info/iospanic/getFriends.php" parameterOne:@""];
     
     for(NSDictionary *item in friendsToAcceptArray)
     {

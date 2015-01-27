@@ -192,7 +192,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	return returnValue;
 }
 
-
 - (void)stopNotifier
 {
 	if (_reachabilityRef != NULL)
@@ -200,7 +199,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 		SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
 	}
 }
-
 
 - (void)dealloc
 {

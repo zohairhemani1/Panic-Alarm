@@ -120,7 +120,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (IBAction)save_action:(id)sender {
     
     WebService *updateMessage = [[WebService alloc] init];
-     NSArray *result = [updateMessage FilePath:@"http://bizsocialcard.com/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
+     NSArray *result = [updateMessage FilePath:@"http://fajjemobile.info/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
      NSString *status = [result valueForKey:@"success"];
     
     if([status isEqualToString:@"OK"]){

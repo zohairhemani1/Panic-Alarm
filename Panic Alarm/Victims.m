@@ -94,11 +94,11 @@ static NSArray *PanicToArray;
 
 
 -(void)callThePanicFromArray{
-    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://www.bizsocialcard.com/iospanic/panicFrom.php" parameterOne:nil]];
+    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://fajjemobile.info/iospanic/panicFrom.php" parameterOne:nil]];
 }
 
 -(void)callThePanicToArray{
-    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://www.bizsocialcard.com/iospanic/panicTo.php" parameterOne:nil]];
+    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://fajjemobile.info/iospanic/panicTo.php" parameterOne:nil]];
 }
 
 - (IBAction)SegmentAction:(id)sender {
@@ -277,7 +277,7 @@ static NSArray *PanicToArray;
        
     }
     
-    imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+    imagePathString = @"http://fajjemobile.infofajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
     imagePathUrl = [NSURL URLWithString:imagePathString];

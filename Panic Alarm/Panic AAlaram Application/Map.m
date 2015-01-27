@@ -143,7 +143,7 @@
                                                                          reuseIdentifier:SFAnnotationIdentifier] ;
         
         profilePic = [[[Victims getPanicFromArray] valueForKey:@"pic"] objectAtIndex:self.panicPersonId];
-        imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+        imagePathString = @"http://fajjemobile.infofajjemobile.info/iospanic/assets/upload/";
         imagePathString = [imagePathString stringByAppendingString:profilePic];
         imagePathUrl = [NSURL URLWithString:imagePathString];
         data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];

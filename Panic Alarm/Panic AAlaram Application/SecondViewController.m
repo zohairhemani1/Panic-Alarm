@@ -98,7 +98,7 @@ NSArray *DistinctFriendsWhoUseApp;
     NSLog(@"Profile Picture %@ for Username %@",profilePic,fullName);
     
     
-    NSString *imagePathString = @"http://www.bizsocialcard.com/iospanic/assets/upload/";
+    NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
     NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
@@ -205,7 +205,7 @@ NSArray *DistinctFriendsWhoUseApp;
     NSLog(@"Number To Accept %@", numberToAccept);
     
     WebService *acceptRequest = [[WebService alloc] init];
-    [acceptRequest FilePath:@"http://www.bizsocialcard.com/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
+    [acceptRequest FilePath:@"http://fajjemobile.info/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
     
     //03432637576 will be replaced by shared preference number
     
@@ -239,7 +239,7 @@ NSArray *DistinctFriendsWhoUseApp;
     [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
-    [addFriend FilePath:@"http://www.bizsocialcard.com/iospanic/friends.php" parameterOne:numberToAdd
+    [addFriend FilePath:@"http://fajjemobile.info/iospanic/friends.php" parameterOne:numberToAdd
            parameterTwo:@""];
     
 }
@@ -310,9 +310,9 @@ NSArray *DistinctFriendsWhoUseApp;
         NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding];
         //NSLog(@"JSON String = %@", jsonString);
-        
+        //NSLog(@"String: %@",jsonString);
         WebService *myWebService = [[WebService alloc] init];
-        resultArray = [myWebService FilePath:@"http://www.bizsocialcard.com/iospanic/json-contacts.php" parameterOne:jsonString];
+        resultArray = [myWebService FilePath:@"http://fajjemobile.info/iospanic/json-contacts.php" parameterOne:jsonString];
         
         if (!resultArray) {
             NSLog(@"Error parsing JSON: %@", error);

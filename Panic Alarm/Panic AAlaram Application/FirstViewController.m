@@ -10,6 +10,7 @@
 #import "FirstTab.h"
 #import <Parse/Parse.h>
 #import "checkInternet.h"
+#import "Constants.h"
 
 @interface FirstViewController (){
     NSMutableData *_downloadedData;
@@ -78,7 +79,7 @@ UIActivityIndicatorView *progress;
 - (void)downloadItems
 {
     // Download the json file
-    NSURL *jsonFileUrl = [NSURL URLWithString:@"http://bizsocialcard.com/iospanic/login.php"];
+    NSURL *jsonFileUrl = [NSURL URLWithString:@"http://fajjemobile.info/iospanic/login.php"];
     
     // Create the NSURLConnection
     
@@ -176,6 +177,8 @@ UIActivityIndicatorView *progress;
 
 - (void)uploadImage
 {
+    
+    [progress startAnimating];
     int randomNumber = arc4random() % 100000;
     NSLog(@"RandomNumber: %i", randomNumber);
     NSString *imageNameRandomNumber = [@(randomNumber) stringValue];
@@ -191,7 +194,7 @@ UIActivityIndicatorView *progress;
      */
 	NSData *imageData = UIImageJPEGRepresentation(uploadedimage, 0);
 	// setting up the URL to post to
-	NSString *urlString = @"http://bizsocialcard.com/iospanic/image_upload.php";
+	NSString *urlString = [BASEURL stringByAppendingString:@"image_upload.php"];
 	
 	// setting up the request object now
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -210,22 +213,33 @@ UIActivityIndicatorView *progress;
 	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
 	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-	
+    
 	/*
 	 now lets create the body of the post
      */
 	NSMutableData *body = [NSMutableData data];
+    
 	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", fileName]] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[NSData dataWithData:imageData]];
-	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"username\"\r\n\r\n%@", usernameEditText] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"password\"\r\n\r\n%@", passwordEditText] dataUsingEncoding:NSUTF8StringEncoding]];
 	// setting the body of the post to the reqeust
+    
 	[request setHTTPBody:body];
 	
 	// now lets make the connection to the web
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+	//NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+      NSError *err = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
+    
+    NSLog(@"JsonArray %@", jsonArray);
     
 }
 
@@ -252,7 +266,6 @@ UIActivityIndicatorView *progress;
         [alertbox show];
     }
     else{
-        [progress startAnimating];
         
     usernameEditText = [[self insertusername] text];
     passwordEditText = [[self insertpassword] text];
@@ -267,17 +280,19 @@ UIActivityIndicatorView *progress;
     CGImageRef cgref = [uploadedimage CGImage];
     CIImage *cim = [uploadedimage CIImage];
     
-    if (cim == nil && cgref == NULL)
-    {
-        NSLog(@"no underlying data"); // image not uploaded by user
-    }
-    else
-    {
-        [self uploadImage]; // uploads image.
-    }
+//    if (cim == nil && cgref == NULL)
+//    {
+//        NSLog(@"no underlying data"); // image not uploaded by user
+//    }
+//    else
+//    {
+//        
+//    }
+        
+        [self uploadImage]; // uploads image & inserts username password into database. - checks login.
     
     
-    [self downloadItems]; // inserts username password into database. - checks login.
+    //[self downloadItems]; // inserts username password into database. - checks login.
     
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
@@ -287,6 +302,10 @@ UIActivityIndicatorView *progress;
         [currentInstallation addUniqueObject:phone forKey:@"number"];
         [currentInstallation saveInBackground];
     }
+    
+    
+    
+    
 }
 - (IBAction)upload:(id)sender {
     
