@@ -210,7 +210,7 @@ UIActivityIndicatorView *progress;
 	 You might want to generate a random boundary.. this is just the same
 	 as my output from wireshark on a valid html post
      */
-	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
+	NSString *boundary = @"---------------------------14737809831466499882746641449";
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
 	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
     
@@ -221,7 +221,7 @@ UIActivityIndicatorView *progress;
     
 	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithString:[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", fileName]] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[NSData dataWithData:imageData]];
     
 	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -239,7 +239,12 @@ UIActivityIndicatorView *progress;
       NSError *err = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
     
-    NSLog(@"JsonArray %@", jsonArray);
+    if([[jsonArray valueForKey:@"success"] isEqualToString:@"0"] )
+    {
+        [self performSegueWithIdentifier:@"login" sender:self];
+    }
+    
+    NSLog(@"JsonArrayIs %@", jsonArray);
     
 }
 
