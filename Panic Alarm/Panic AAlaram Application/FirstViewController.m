@@ -160,17 +160,6 @@ UIActivityIndicatorView *progress;
         NSLog(@"username EditText%@",usernameEditText);
         NSLog(@"passwordEditText%@", passwordEditText);
         
-        if([username length] != 0)
-        {
-            [self performSegueWithIdentifier:@"login" sender:self];
-            NSLog(@"Login Successfull!");
-            
-        }
-        else
-        {
-            NSLog(@"Wrong Credentials!");
-            
-        }
     }
 }
 
@@ -241,7 +230,14 @@ UIActivityIndicatorView *progress;
     
     if([[jsonArray valueForKey:@"success"] isEqualToString:@"0"] )
     {
-        [self performSegueWithIdentifier:@"login" sender:self];
+        [[NSUserDefaults standardUserDefaults ] setObject:self.insertusername.text forKey:@"username"];
+        [[NSUserDefaults standardUserDefaults ] setObject:self.insertpassword.text forKey:@"password"];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+        [self presentViewController:secondView animated:YES completion:nil];
+        
+        //[self performSegueWithIdentifier:@"login" sender:self];
     }
     
     NSLog(@"JsonArrayIs %@", jsonArray);
@@ -268,6 +264,11 @@ UIActivityIndicatorView *progress;
     else if([self.insertpassword.text length] < 6){
         
         alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" The Password should be 6 charachter long!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
+        [alertbox show];
+    }
+    else if (self.imageView.image == NULL)
+    {
+        alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" You have not uploaded your image" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
         [alertbox show];
     }
     else{
@@ -306,8 +307,9 @@ UIActivityIndicatorView *progress;
        [currentInstallation addUniqueObject:phone forKey:@"channels"];
         [currentInstallation addUniqueObject:phone forKey:@"number"];
         [currentInstallation saveInBackground];
+        //[self performSegueWithIdentifier:@"login" sender:self];
     }
-    
+
     
     
     

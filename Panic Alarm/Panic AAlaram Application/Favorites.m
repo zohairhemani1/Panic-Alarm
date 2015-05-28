@@ -35,6 +35,8 @@ static NSMutableArray* favouritesArray;
 {
     [super viewDidLoad];
     
+
+    
     [self.favoritesTable setSeparatorColor:[UIColor lightGrayColor]];
     
     c = [[checkInternet alloc]init];

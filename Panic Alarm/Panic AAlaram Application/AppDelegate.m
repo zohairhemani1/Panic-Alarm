@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "Terms.h"
+#import "FirstTab.h"
 
 @implementation AppDelegate
 
@@ -16,6 +17,26 @@
 {
     // setting panicMessage in shared Preferences
 
+    [[UITabBar appearance]setTintColor:[UIColor whiteColor]];
+    
+    //username and password
+    
+        if([[[NSUserDefaults standardUserDefaults]valueForKey:@"username"] isEqualToString:@""])
+        {
+            //FirstTab *firstView = [[FirstTab alloc] init];
+            NSLog(@"the username is: %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]);
+    
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+    
+            self.window.rootViewController = secondView;
+            
+            [self.window makeKeyAndVisible];
+            NSLog(@"on the second screen");
+        }
+    // end here
+    
+    
     Terms *a = [[Terms alloc] init];
     [a fetchContactList];
     

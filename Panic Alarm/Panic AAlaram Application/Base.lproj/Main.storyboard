@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="12E4022" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--First Tab - First-->
         <scene sceneID="W3I-pn-N6e">
             <objects>
                 <viewController storyboardIdentifier="login" title="First" id="CZ4-MO-1fc" customClass="FirstTab" sceneMemberID="viewController">
@@ -61,7 +61,7 @@
             </objects>
             <point key="canvasLocation" x="833" y="-758"/>
         </scene>
-        <!--Favorites-->
+        <!--Favorites - Favorites-->
         <scene sceneID="CwK-lI-E3i">
             <objects>
                 <viewController id="fCu-cS-HWF" customClass="Favorites" sceneMemberID="viewController">
@@ -120,9 +120,9 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="305" y="-198"/>
+            <point key="canvasLocation" x="311" y="-192"/>
         </scene>
-        <!--User-->
+        <!--Panic From - User-->
         <scene sceneID="qCa-F0-Ibd">
             <objects>
                 <viewController storyboardIdentifier="panic" id="bDD-yR-M17" customClass="PanicFrom" sceneMemberID="viewController">
@@ -180,7 +180,7 @@
             </objects>
             <point key="canvasLocation" x="1204" y="951"/>
         </scene>
-        <!--Settings-->
+        <!--Settings - Settings-->
         <scene sceneID="TtW-rm-GWB">
             <objects>
                 <tableViewController id="eYG-ff-H6q" customClass="Settings" sceneMemberID="viewController">
@@ -343,7 +343,7 @@
             </objects>
             <point key="canvasLocation" x="760" y="2041"/>
         </scene>
-        <!--Notifications-->
+        <!--Notifications - Notifications-->
         <scene sceneID="cbJ-ag-LLF">
             <objects>
                 <viewController id="Bsy-Tb-Lc7" customClass="Notifications" sceneMemberID="viewController">
@@ -371,7 +371,7 @@
             </objects>
             <point key="canvasLocation" x="1328" y="2782"/>
         </scene>
-        <!--Profile-->
+        <!--Profile - Profile-->
         <scene sceneID="lYl-Nt-3VC">
             <objects>
                 <viewController id="fkM-og-r2n" customClass="profile" sceneMemberID="viewController">
@@ -446,7 +446,7 @@
             </objects>
             <point key="canvasLocation" x="1328" y="2161"/>
         </scene>
-        <!--About-->
+        <!--About - About-->
         <scene sceneID="EXF-Oa-veN">
             <objects>
                 <viewController id="Jmm-UL-zyb" customClass="About" sceneMemberID="viewController">
@@ -474,7 +474,7 @@
             </objects>
             <point key="canvasLocation" x="1328" y="1557"/>
         </scene>
-        <!--Victims-->
+        <!--Victims - Victims-->
         <scene sceneID="q7h-yA-V5q">
             <objects>
                 <tableViewController id="gQ1-yY-bzn" customClass="Victims" sceneMemberID="viewController">
@@ -543,7 +543,7 @@
             </objects>
             <point key="canvasLocation" x="760" y="951"/>
         </scene>
-        <!--Friends-->
+        <!--Get Location - Friends-->
         <scene sceneID="rZl-dH-j4V">
             <objects>
                 <viewController storyboardIdentifier="GetLocation" id="wQB-lX-WM8" customClass="GetLocation" sceneMemberID="viewController">
@@ -577,7 +577,7 @@
             </objects>
             <point key="canvasLocation" x="1328" y="-758"/>
         </scene>
-        <!--Friends using this app-->
+        <!--Second View Controller - Friends using this app-->
         <scene sceneID="ot8-2e-RuS">
             <objects>
                 <viewController storyboardIdentifier="contacts" title="Friends using this app" id="QUy-BD-bpt" customClass="SecondViewController" sceneMemberID="viewController">
@@ -706,7 +706,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8i-ey-R6F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1100" y="-198"/>
+            <point key="canvasLocation" x="-1202" y="-198"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="KNA-UE-p3Z">
@@ -773,24 +773,24 @@
                         <outlet property="imageView" destination="zbE-Gg-egL" id="OIm-79-A6e"/>
                         <outlet property="insertpassword" destination="6hc-gk-eSf" id="dTj-sc-UEB"/>
                         <outlet property="insertusername" destination="D1B-oR-INu" id="e70-rP-QL7"/>
-                        <segue destination="8YX-ce-x5E" kind="modal" identifier="login" id="aB7-oS-1OB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCP-OJ-Oa6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-631" y="-198"/>
+            <point key="canvasLocation" x="-833" y="-198"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">
             <objects>
-                <tabBarController id="8YX-ce-x5E" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="NavigationTime" id="8YX-ce-x5E" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="gA3-g9-WYt"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="JQR-rB-NYL">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.19658623569610639" green="0.074501263982060001" blue="0.28744818239795922" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
@@ -803,9 +803,9 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-164" y="-198"/>
+            <point key="canvasLocation" x="-158" y="-192"/>
         </scene>
-        <!--Map-->
+        <!--Map - Map-->
         <scene sceneID="9ge-Tl-PY5">
             <objects>
                 <viewController id="gAh-ap-2MR" customClass="Map" sceneMemberID="viewController">
@@ -849,7 +849,7 @@
             </objects>
             <point key="canvasLocation" x="1628" y="951"/>
         </scene>
-        <!--Log-->
+        <!--Navigation Controller - Log-->
         <scene sceneID="4IV-53-zVc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" id="PcE-Ax-VxJ" sceneMemberID="viewController">
@@ -868,7 +868,7 @@
             </objects>
             <point key="canvasLocation" x="311" y="951"/>
         </scene>
-        <!--Home-->
+        <!--Navigation Controller - Home-->
         <scene sceneID="mRA-dP-oei">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b8p-1W-tTH" sceneMemberID="viewController">
@@ -887,7 +887,7 @@
             </objects>
             <point key="canvasLocation" x="307" y="-758"/>
         </scene>
-        <!--Settings-->
+        <!--Navigation Controller - Settings-->
         <scene sceneID="E79-NU-rds">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hTF-Jx-T8k" sceneMemberID="viewController">
@@ -925,10 +925,10 @@
         <image name="textbox.png" width="204" height="40"/>
         <image name="uploadTextBox.png" width="459" height="71"/>
     </resources>
+    <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
 </document>
