@@ -1,5 +1,6 @@
 <?php
 	
+	include 'connect_to_mysql.php';
 	$id = $_POST['parameterOne'];
 	$panic_id = $_POST['parameterTwo'];
 	$friendsNumber = $_POST['parameterThree'];

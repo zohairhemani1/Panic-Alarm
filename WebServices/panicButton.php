@@ -15,7 +15,6 @@
 			$number = $jsonArray['password'];
 			$longitude = $jsonArray['longitude'];
 			$latitude = $jsonArray['latitude'];
-			$panicMessage = $jsonArray['panicMessage'];
 			$type = $jsonArray['type'];
 	}
 	
@@ -34,9 +33,15 @@
 	
 	if($count>0)	
 	{
+		
+		$query = "SELECT panicMessage from registeration WHERE password = '$number'";
+		$result = mysqli_query($con,$query);
+		$row = mysqli_fetch_array($result);
+		$panicMessage = $row['panicMessage'];
+		
 		/* Insertion of Panic  Victim's Information */	
 		$query = "INSERT INTO panic_victim(mynumber,timestamp,latitude,longitude,type,panicMessage) 
-							  VALUES('$number',sysdate(),'$latitude','$longitude','$type','$panicMessage')";
+							  VALUES('$number',NOW() + INTERVAL 12 HOUR,'$latitude','$longitude','$type','$panicMessage')";
 		mysqli_query($con,$query);
 		
 		/* Getting MAX ID i.e Last Panic Victim's Information. */

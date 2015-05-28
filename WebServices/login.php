@@ -25,6 +25,7 @@ else
 {
 	$query = "INSERT INTO registeration(username,password,pic) VALUES('$username','$password','$pic')";
 	$result = mysqli_query($con,$query);
+	echo "{\"success\":\"true\"}";
 }
 // Close connections
 mysqli_close($con);

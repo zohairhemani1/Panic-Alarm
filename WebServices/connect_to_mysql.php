@@ -1,12 +1,12 @@
 <?php
 
-$db_host = "iospanic.db.11683817.hostedresource.com"; 
+$db_host = "localhost"; 
 
-$db_username = "iospanic";  
+$db_username = "panicalarm";  
 
 $db_pass = "Hemani786!";  
 
-$db_name = "iospanic"; 
+$db_name = "panicalarm"; 
 
 // Run the connection here  
 
