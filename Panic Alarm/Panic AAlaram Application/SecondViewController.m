@@ -17,6 +17,7 @@
     UIButton *button;
     UIActivityIndicatorView *progress;
     NSMutableArray *resultArray;
+    NSMutableArray *searchResults;
 }
 
 @end
@@ -26,7 +27,7 @@
 
 static NSMutableArray *friendsWhoUseApp;
 static NSMutableArray *finalArray;
-NSArray *searchResults;
+
 NSArray *DistinctFriendsWhoUseApp;
 
 + (NSMutableArray *)friendWhoUseAppStaticFunction
@@ -77,14 +78,16 @@ NSArray *DistinctFriendsWhoUseApp;
     NSString *profilePic;
     
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    UITableViewCell *cell ;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    
+    NSLog(@"in table view");
     if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"in search text");
+        NSLog(@"search count: %d",[searchResults count]);
         fullName = [[searchResults valueForKey:@"fullName"] objectAtIndex:indexPath.row];
         number = [[searchResults valueForKey:@"phoneNumber"] objectAtIndex:indexPath.row];
         profilePic = [[searchResults valueForKey:@"0"] objectAtIndex:indexPath.row];
@@ -387,13 +390,16 @@ NSArray *DistinctFriendsWhoUseApp;
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
-    searchResults = [DistinctFriendsWhoUseApp filteredArrayUsingPredicate:resultPredicate];
+   
+    [searchResults removeAllObjects];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchText];
+    searchResults = [NSMutableArray arrayWithArray:[DistinctFriendsWhoUseApp filteredArrayUsingPredicate:resultPredicate]];
+
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    [self filterContentForSearchText:searchString
+        [self filterContentForSearchText:searchString
                                scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
                                       objectAtIndex:[self.searchDisplayController.searchBar
                                                      selectedScopeButtonIndex]]];

@@ -634,13 +634,15 @@
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="Z7h-1E-pvt"/>
                     <connections>
                         <outlet property="myTable" destination="tde-h0-htz" id="xq3-WC-rM7"/>
+                        <outlet property="searchDisplayController" destination="FUj-uf-doA" id="YaI-T1-yNm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qq-4t-Ow8" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="FUj-uf-doA">
                     <connections>
                         <outlet property="delegate" destination="QUy-BD-bpt" id="ZHe-Yc-Zt2"/>
-                        <outlet property="searchContentsController" destination="QUy-BD-bpt" id="f1a-Il-gUW"/>
+                        <outlet property="searchBar" destination="gcn-VA-gGP" id="FXr-fv-K0d"/>
+                        <outlet property="searchContentsController" destination="QUy-BD-bpt" id="AM5-mR-Bj0"/>
                         <outlet property="searchResultsDataSource" destination="QUy-BD-bpt" id="biN-S4-Ts0"/>
                         <outlet property="searchResultsDelegate" destination="QUy-BD-bpt" id="gwe-jR-3hI"/>
                     </connections>
