@@ -84,9 +84,9 @@
                                     <outlet property="delegate" destination="fCu-cS-HWF" id="HSI-lQ-Qxx"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5AO-9F-pCG">
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AO-9F-pCG">
                                 <rect key="frame" x="0.0" y="19" width="320" height="44"/>
-                                <color key="barTintColor" red="0.22707666139999999" green="0.086056372320000005" blue="0.33203125" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.33725490196078434" green="0.21568627450980393" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </textAttributes>
@@ -605,16 +605,6 @@
                                     <outlet property="dataSource" destination="QUy-BD-bpt" id="bJT-dm-2wH"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-k4-xP3">
-                                <rect key="frame" x="0.0" y="19" width="320" height="44"/>
-                                <color key="barTintColor" red="0.22707666139999999" green="0.086056372320000005" blue="0.33203125" alpha="1" colorSpace="calibratedRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Contacts" id="Yg1-Jv-FMZ"/>
-                                </items>
-                            </navigationBar>
                             <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-VA-gGP">
                                 <rect key="frame" x="0.0" y="63" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -622,6 +612,18 @@
                                     <outlet property="delegate" destination="QUy-BD-bpt" id="KiX-FP-Jd9"/>
                                 </connections>
                             </searchBar>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-k4-xP3">
+                                <rect key="frame" x="0.0" y="19" width="320" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.33725490196078434" green="0.21568627450980393" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Contacts" id="Yg1-Jv-FMZ"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <accessibility key="accessibilityConfiguration" label=""/>
                         <constraints>
