@@ -246,6 +246,9 @@ NSArray *DistinctFriendsWhoUseApp;
 {
     [super viewDidLoad];
     
+    UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
+    
     [self.myTable setSeparatorColor:[UIColor lightGrayColor]];
     
     c= [[checkInternet alloc]init];
@@ -253,8 +256,6 @@ NSArray *DistinctFriendsWhoUseApp;
     
     self.myTable.delegate=self;
     self.myTable.dataSource = self;
-
-    [self.view setBackgroundColor:[UIColor blackColor]];
     
     progress = [c indicatorprogress:progress];
     [self.view addSubview:progress];

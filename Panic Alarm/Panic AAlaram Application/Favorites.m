@@ -36,7 +36,9 @@ static NSMutableArray* favouritesArray;
     [super viewDidLoad];
     
 
-    
+    UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
+
     [self.favoritesTable setSeparatorColor:[UIColor lightGrayColor]];
     
     c = [[checkInternet alloc]init];
@@ -48,10 +50,6 @@ static NSMutableArray* favouritesArray;
     self.refresh = [[UIRefreshControl alloc] init];
     [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     [self.favoritesTable addSubview:self.refresh];
-    
-    //UIImage *backgroundImage = [UIImage imageNamed:@"background"];
-    //self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    [self.view setBackgroundColor:[UIColor blackColor]];
     
     progress = [c indicatorprogress:progress];
     [self.view addSubview:progress];

@@ -17,6 +17,11 @@
       "idiom" : "iphone",
       "filename" : "Panic_alarm_icon 2-2.png",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "size" : "60x60",
+      "scale" : "3x"
     }
   ],
   "info" : {
