@@ -23,7 +23,6 @@
     
         if([[[NSUserDefaults standardUserDefaults]valueForKey:@"username"] isEqualToString:@""])
         {
-            //FirstTab *firstView = [[FirstTab alloc] init];
             NSLog(@"the username is: %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]);
     
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
@@ -33,6 +32,10 @@
             
             [self.window makeKeyAndVisible];
             NSLog(@"on the second screen");
+        }
+        else{
+            [[NSUserDefaults standardUserDefaults ] setObject:@"" forKey:@"username"];
+            [[NSUserDefaults standardUserDefaults ] setObject:@"" forKey:@"password"];
         }
     // end here
     

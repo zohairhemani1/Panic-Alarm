@@ -36,8 +36,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBh-LA-fJ7">
-                                <rect key="frame" x="276" y="74" width="24" height="28"/>
-                                <state key="normal" image="Favorites">
+                                <rect key="frame" x="277" y="81" width="20" height="20"/>
+                                <state key="normal" image="help">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -598,13 +598,6 @@
                                     <outlet property="dataSource" destination="QUy-BD-bpt" id="bJT-dm-2wH"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search here!" translatesAutoresizingMaskIntoConstraints="NO" id="GUS-nE-l5b">
-                                <rect key="frame" x="0.0" y="63" width="320" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="QUy-BD-bpt" id="psX-I7-Txj"/>
-                                </connections>
-                            </searchBar>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-k4-xP3">
                                 <rect key="frame" x="0.0" y="19" width="320" height="44"/>
                                 <color key="barTintColor" red="0.22707666139999999" green="0.086056372320000005" blue="0.33203125" alpha="1" colorSpace="calibratedRGB"/>
@@ -615,20 +608,26 @@
                                     <navigationItem title="Contacts" id="Yg1-Jv-FMZ"/>
                                 </items>
                             </navigationBar>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-VA-gGP">
+                                <rect key="frame" x="0.0" y="63" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="QUy-BD-bpt" id="KiX-FP-Jd9"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <accessibility key="accessibilityConfiguration" label=""/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" systemItem="contacts" id="Z7h-1E-pvt"/>
                     <connections>
                         <outlet property="myTable" destination="tde-h0-htz" id="xq3-WC-rM7"/>
-                        <outlet property="searchDisplayController" destination="FUj-uf-doA" id="nA7-AM-h1y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qq-4t-Ow8" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="FUj-uf-doA">
                     <connections>
                         <outlet property="delegate" destination="QUy-BD-bpt" id="ZHe-Yc-Zt2"/>
-                        <outlet property="searchBar" destination="GUS-nE-l5b" id="Pxn-IU-v5f"/>
                         <outlet property="searchContentsController" destination="QUy-BD-bpt" id="f1a-Il-gUW"/>
                         <outlet property="searchResultsDataSource" destination="QUy-BD-bpt" id="biN-S4-Ts0"/>
                         <outlet property="searchResultsDelegate" destination="QUy-BD-bpt" id="gwe-jR-3hI"/>
@@ -917,6 +916,7 @@
         <image name="checkbox.png" width="20" height="20"/>
         <image name="diana" width="36" height="36"/>
         <image name="fineLocation.png" width="200" height="44"/>
+        <image name="help" width="28" height="28"/>
         <image name="home" width="24" height="24"/>
         <image name="panic_button.png" width="313" height="268"/>
         <image name="profilepic.png" width="200" height="203"/>

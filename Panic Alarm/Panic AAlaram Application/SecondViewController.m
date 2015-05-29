@@ -56,9 +56,8 @@ NSArray *DistinctFriendsWhoUseApp;
     
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Selected section>> %d",indexPath.section);
-    NSLog(@"Selected row of section >> %d",indexPath.row);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -73,18 +72,17 @@ NSArray *DistinctFriendsWhoUseApp;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-   // NSLog(@"Index: %@ ",indexPath.row);
+    NSString *fullName;
+    NSString *number;
+    NSString *profilePic;
+    
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    //tableView.separatorColor = [UIColor clearColor];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
-    NSString *fullName;
-    NSString *number;
-    NSString *profilePic;
+    
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         fullName = [[searchResults valueForKey:@"fullName"] objectAtIndex:indexPath.row];
@@ -131,19 +129,13 @@ NSArray *DistinctFriendsWhoUseApp;
         
         name.text = fullName;
         phonenumber.text = number;
-        //cell.detailTextLabel.text = number;
-        //cell.textLabel.text = fullName;
     }
 
-
-    //name.textColor= [UIColor grayColor];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
     [cell addSubview:name];
     [phonenumber setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
     phonenumber.textColor = [UIColor grayColor];
     [cell addSubview:phonenumber];
-    //cell.detailTextLabel.textColor = [UIColor grayColor];
-    //cell.textLabel.font = [UIFont fontWithName:@"ComicSansMS" size:14.0f];
     
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
@@ -156,7 +148,6 @@ NSArray *DistinctFriendsWhoUseApp;
     {
         NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
         
-        //[button setBackgroundImage:[UIImage imageNamed:@"addToFavourite.png"] forState:UIControlStateNormal];
         [button setTitle:@"Accept" forState:UIControlStateNormal];
         [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -164,7 +155,6 @@ NSArray *DistinctFriendsWhoUseApp;
     {
         NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
         
-        //[button setBackgroundImage:[UIImage imageNamed:@"addToFavourite.png"] forState:UIControlStateNormal];
         [button setTitle:@"Pending" forState:UIControlStateNormal];
         [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }

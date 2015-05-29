@@ -16,5 +16,4 @@
 #define ACCEPT_TO_SEND_LOCATION @"acceptToSendLocation.php"
 #define ACCEPT_LOCATION @"acceptLocation.php"
 
-
 #endif
