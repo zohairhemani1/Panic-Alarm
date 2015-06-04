@@ -18,10 +18,12 @@
     // setting panicMessage in shared Preferences
 
     [[UITabBar appearance]setTintColor:[UIColor whiteColor]];
+        
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     //username and password
     
-        if([[[NSUserDefaults standardUserDefaults]valueForKey:@"username"] isEqualToString:@""])
+        if(![[[NSUserDefaults standardUserDefaults]valueForKey:@"username"] isEqualToString:@""])
         {
             NSLog(@"the username is: %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]);
     
@@ -50,7 +52,7 @@
      UIRemoteNotificationTypeAlert|
      UIRemoteNotificationTypeSound];
     
-   // [application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    [application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
     
     NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     

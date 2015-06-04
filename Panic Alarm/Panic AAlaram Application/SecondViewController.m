@@ -17,7 +17,7 @@
     UIButton *button;
     UIActivityIndicatorView *progress;
     NSMutableArray *resultArray;
-    NSMutableArray *searchResults;
+    NSArray *searchResults;
 }
 
 @end
@@ -221,7 +221,7 @@ NSArray *DistinctFriendsWhoUseApp;
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
     
-    NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+    NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
 
     
     NSString *message = @"You have been added by ";
@@ -391,9 +391,9 @@ NSArray *DistinctFriendsWhoUseApp;
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
    
-    [searchResults removeAllObjects];
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchText];
-    searchResults = [NSMutableArray arrayWithArray:[DistinctFriendsWhoUseApp filteredArrayUsingPredicate:resultPredicate]];
+   // [searchResults removeAllObjects];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+    searchResults = [DistinctFriendsWhoUseApp filteredArrayUsingPredicate:resultPredicate];
 
 }
 

@@ -12,12 +12,6 @@
 		19196BB519780DC00070C9D4 /* alarmsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 19196BB419780DC00070C9D4 /* alarmsound.mp3 */; };
 		19196BB719780F4D0070C9D4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19196BB619780F4D0070C9D4 /* MediaPlayer.framework */; };
 		19196BB91978110F0070C9D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19196BB81978110F0070C9D4 /* AVFoundation.framework */; };
-		1934EC2D1923F6C000F6CEC3 /* selected_tabbaritem.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC2C1923F6C000F6CEC3 /* selected_tabbaritem.png */; };
-		1934EC341923F6D200F6CEC3 /* contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC2E1923F6D200F6CEC3 /* contacts.png */; };
-		1934EC351923F6D200F6CEC3 /* favorites_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC2F1923F6D200F6CEC3 /* favorites_top.png */; };
-		1934EC361923F6D200F6CEC3 /* favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC301923F6D200F6CEC3 /* favorites.png */; };
-		1934EC371923F6D200F6CEC3 /* image_tab_contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC311923F6D200F6CEC3 /* image_tab_contacts.png */; };
-		1934EC381923F6D200F6CEC3 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC321923F6D200F6CEC3 /* star.png */; };
 		1934EC391923F6D200F6CEC3 /* tabbarbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC331923F6D200F6CEC3 /* tabbarbackground.png */; };
 		194A06D91926A50900AA7654 /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = 194A06D81926A50900AA7654 /* Terms.m */; };
 		194A06DE1926A65900AA7654 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DA1926A65900AA7654 /* checkbox-checked.png */; };
@@ -68,8 +62,6 @@
 		DCCD76B219169ABE009C6A37 /* panic_button.png in Resources */ = {isa = PBXBuildFile; fileRef = DCCD76B119169ABE009C6A37 /* panic_button.png */; };
 		DCCD76B419169AD2009C6A37 /* FindButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DCCD76B319169AD1009C6A37 /* FindButton.png */; };
 		DCCD76B719169D72009C6A37 /* WebService.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCD76B619169D72009C6A37 /* WebService.m */; };
-		DCE6BDA31916C02F0067B846 /* background_tabone.png in Resources */ = {isa = PBXBuildFile; fileRef = DCE6BDA11916C02F0067B846 /* background_tabone.png */; };
-		DCE6BDA41916C02F0067B846 /* background_tabone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCE6BDA21916C02F0067B846 /* background_tabone@2x.png */; };
 		DCE6BDA71916C2420067B846 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE6BDA51916C2420067B846 /* AddressBook.framework */; };
 		DCE6BDA81916C2420067B846 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE6BDA61916C2420067B846 /* AddressBookUI.framework */; };
 /* End PBXBuildFile section */
@@ -81,12 +73,6 @@
 		19196BB419780DC00070C9D4 /* alarmsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarmsound.mp3; sourceTree = "<group>"; };
 		19196BB619780F4D0070C9D4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		19196BB81978110F0070C9D4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		1934EC2C1923F6C000F6CEC3 /* selected_tabbaritem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected_tabbaritem.png; sourceTree = SOURCE_ROOT; };
-		1934EC2E1923F6D200F6CEC3 /* contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contacts.png; sourceTree = SOURCE_ROOT; };
-		1934EC2F1923F6D200F6CEC3 /* favorites_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorites_top.png; sourceTree = SOURCE_ROOT; };
-		1934EC301923F6D200F6CEC3 /* favorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorites.png; sourceTree = SOURCE_ROOT; };
-		1934EC311923F6D200F6CEC3 /* image_tab_contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_tab_contacts.png; sourceTree = SOURCE_ROOT; };
-		1934EC321923F6D200F6CEC3 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = SOURCE_ROOT; };
 		1934EC331923F6D200F6CEC3 /* tabbarbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbarbackground.png; sourceTree = SOURCE_ROOT; };
 		194A06D71926A50900AA7654 /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		194A06D81926A50900AA7654 /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
@@ -163,8 +149,6 @@
 		DCCD76B319169AD1009C6A37 /* FindButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FindButton.png; path = ../FindButton.png; sourceTree = "<group>"; };
 		DCCD76B519169D72009C6A37 /* WebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebService.h; sourceTree = "<group>"; };
 		DCCD76B619169D72009C6A37 /* WebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebService.m; sourceTree = "<group>"; };
-		DCE6BDA11916C02F0067B846 /* background_tabone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_tabone.png; sourceTree = "<group>"; };
-		DCE6BDA21916C02F0067B846 /* background_tabone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_tabone@2x.png"; sourceTree = "<group>"; };
 		DCE6BDA51916C2420067B846 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		DCE6BDA61916C2420067B846 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -206,20 +190,12 @@
 				19F593E81927383F0090BE79 /* fineLocation.png */,
 				19F593E91927383F0090BE79 /* setupEdit.png */,
 				19F593EA1927383F0090BE79 /* stopAlert.png */,
-				1934EC2E1923F6D200F6CEC3 /* contacts.png */,
 				194A06DA1926A65900AA7654 /* checkbox-checked.png */,
 				194A06DB1926A65900AA7654 /* checkbox-checked@2x.png */,
 				194A06DC1926A65900AA7654 /* checkbox.png */,
 				194A06DD1926A65900AA7654 /* checkbox@2x.png */,
-				1934EC2F1923F6D200F6CEC3 /* favorites_top.png */,
-				1934EC301923F6D200F6CEC3 /* favorites.png */,
-				1934EC311923F6D200F6CEC3 /* image_tab_contacts.png */,
-				1934EC321923F6D200F6CEC3 /* star.png */,
 				1934EC331923F6D200F6CEC3 /* tabbarbackground.png */,
-				1934EC2C1923F6C000F6CEC3 /* selected_tabbaritem.png */,
 				DC0C058D19247F8A00BC9F38 /* home.png */,
-				DCE6BDA11916C02F0067B846 /* background_tabone.png */,
-				DCE6BDA21916C02F0067B846 /* background_tabone@2x.png */,
 				DCCD76B319169AD1009C6A37 /* FindButton.png */,
 				DCCD76B119169ABE009C6A37 /* panic_button.png */,
 				DC5A8C831910F7F00058F7C2 /* uploadTextBox.png */,
@@ -388,6 +364,15 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Zohair Hemani - Stanford Assignment";
+				TargetAttributes = {
+					DC5A8C3F1910ECB00058F7C2 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = DC5A8C3B1910ECB00058F7C2 /* Build configuration list for PBXProject "Panic Alarm" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -418,21 +403,13 @@
 				DC5A8C821910F79D0058F7C2 /* submit.png in Resources */,
 				1934EC391923F6D200F6CEC3 /* tabbarbackground.png in Resources */,
 				DC5A8C5F1910ECB00058F7C2 /* Images.xcassets in Resources */,
-				1934EC371923F6D200F6CEC3 /* image_tab_contacts.png in Resources */,
-				DCE6BDA31916C02F0067B846 /* background_tabone.png in Resources */,
 				19F593EB1927383F0090BE79 /* fineLocation.png in Resources */,
 				190C92891958B12E00AD92CF /* checkbox-pressed.png in Resources */,
-				1934EC361923F6D200F6CEC3 /* favorites.png in Resources */,
 				19196BB519780DC00070C9D4 /* alarmsound.mp3 in Resources */,
-				1934EC2D1923F6C000F6CEC3 /* selected_tabbaritem.png in Resources */,
 				DC5A8C7D1910ED2B0058F7C2 /* background.png in Resources */,
 				19F593ED1927383F0090BE79 /* stopAlert.png in Resources */,
 				194A06E11926A65900AA7654 /* checkbox@2x.png in Resources */,
-				DCE6BDA41916C02F0067B846 /* background_tabone@2x.png in Resources */,
 				DCCD76B219169ABE009C6A37 /* panic_button.png in Resources */,
-				1934EC351923F6D200F6CEC3 /* favorites_top.png in Resources */,
-				1934EC381923F6D200F6CEC3 /* star.png in Resources */,
-				1934EC341923F6D200F6CEC3 /* contacts.png in Resources */,
 				DC5A8C4E1910ECB00058F7C2 /* InfoPlist.strings in Resources */,
 				19F593EC1927383F0090BE79 /* setupEdit.png in Resources */,
 				DCCD76B419169AD2009C6A37 /* FindButton.png in Resources */,

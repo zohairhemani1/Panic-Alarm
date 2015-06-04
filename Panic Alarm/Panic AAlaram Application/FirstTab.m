@@ -23,6 +23,7 @@
     UIAlertView *help_message;
     float longitude;
     float latitude;
+    AVAudioPlayer *player;
 }
 @end
 
@@ -58,8 +59,14 @@ bool condition=NO;
     [super viewDidLoad];
     
     self.locationManager = [[CLLocationManager alloc] init];
-    [self.locationManager setDelegate:self];
-    self.location = [[CLLocation alloc] init];
+    self.locationManager.delegate = self;
+    #ifdef __IPHONE_8_0
+        if(IS_OS_8_OR_LATER) {
+        // Use one or the other, not both. Depending on what you put in info.plist
+            [self.locationManager requestAlwaysAuthorization];
+        }
+    #endif
+    //[self.locationManager startUpdatingLocation];
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
@@ -103,31 +110,37 @@ bool condition=NO;
 }
 
 - (IBAction)get_location:(id)sender {
-    
+
     [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
     
-    AVAudioPlayer *player;
+    
     //SystemSoundID soundID;
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
     NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
     player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
     [player play];
     
-
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager requestAlwaysAuthorization];
     [self.locationManager startUpdatingLocation];
+
     
+//    CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
+//    
+//    if (authorizationStatus == kCLAuthorizationStatusAuthorized ||
+//        authorizationStatus == kCLAuthorizationStatusAuthorizedAlways ||
+//        authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse)
+//    {
+//    }
+
     [progress startAnimating];
-    
-    /* [NSTimer scheduledTimerWithTimeInterval:60.0
-     target:self
-     selector:@selector(throwinglocationtodatabase)
-     userInfo:nil
-     repeats:YES]; */
-    
+
     NSMutableArray* list = [Favorites favouritesList];
-    victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-    victimNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    //if(list!=NULL)
+   // {
+        victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+        victimNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+   // }
     
     for (int i=0; i<[list count]; i++)
     {
@@ -155,12 +168,25 @@ bool condition=NO;
     }
 
     [progress stopAnimating];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+     target:self
+     selector:@selector(stopSoundAndAnimation)
+     userInfo:nil
+     repeats:YES];
+    
 }
 
+-(void)stopSoundAndAnimation
+{
+    [player stop];
+    [self.panic setBackgroundImage:[UIImage imageNamed:@"panic_animation4"] forState:normal];
+}
 
 // Location Manager Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    NSLog(@"in location update");
     [manager stopUpdatingLocation];
     CLLocation *location = [locations lastObject];
     
@@ -170,10 +196,9 @@ bool condition=NO;
     if(first_time_on_database)
     {
         [self PanicVictimRest];
+        
     }
     first_time_on_database = NO;
-    
-
 }
 
 -(void)PanicVictimRest{
@@ -209,25 +234,20 @@ bool condition=NO;
    
 }
 
-
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    
-//    if(condition){
-//        
-//        condition=NO;
-//        
-//    }
-//    
-//}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    //[self.locationManager startUpdatingLocation];
+}
 
 -(void)fetchingFriendsWhoAdded
 {
     
-    [[UITabBar appearance] setSelectionIndicatorImage:
-     [UIImage imageNamed:@"selected_tabbaritem.png"]];
-    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbarbackground.png"]];
+   // [[UITabBar appearance] setSelectionIndicatorImage:
+   //  [UIImage imageNamed:@"selected_tabbaritem.png"]];
+   // [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbarbackground.png"]];
     
     WebService *myWebservice = [[WebService alloc] init];
     NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://fajjemobile.info/iospanic/getFriends.php" parameterOne:@""];

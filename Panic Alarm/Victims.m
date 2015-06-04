@@ -174,6 +174,10 @@ static NSArray *PanicToArray;
     
     int calculatedDifference;
     
+    image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
+    [image_loading setColor:[UIColor blackColor]];
+    
+    
     if(self.segments.selectedSegmentIndex == 0)
     {
         // Panic From table view
@@ -186,9 +190,8 @@ static NSArray *PanicToArray;
         [[self.segments.subviews objectAtIndex:0] setBackgroundColor:[UIColor whiteColor]];
         
         profilePic = [[PanicFromArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
-
         name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
-        message.text = [[PanicFromArray valueForKey:@"pMessage" ] objectAtIndex:indexPath.row];
+        message.text =[[PanicFromArray valueForKey:@"pMessage" ] objectAtIndex:indexPath.row];
         receivedStatus = [[[PanicFromArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
         
         if(receivedStatus == 0)
@@ -207,18 +210,8 @@ static NSArray *PanicToArray;
         
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
         
-        if(calculatedDifference == 0)
-        {
-            timestamp.text = hourWithMin;
-        }
-        else if(calculatedDifference < 7)
-        {
-            timestamp.text = dayCurrent;
-        }
-        else
-        {
-            timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
-        }
+        [cell addSubview:image_loading];
+        [image_loading startAnimating];
         
     }
     else
@@ -256,30 +249,29 @@ static NSArray *PanicToArray;
             
         }
         
-        image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
-        [image_loading setColor:[UIColor blackColor]];
-        [cell addSubview:image_loading];
         
-        [image_loading startAnimating];
         
         [cell.imageView setFrame:CGRectMake(20,20,20,20)];
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
-        
-        if(calculatedDifference == 0) {
-            timestamp.text = hourWithMin;
-        }
-        else if(calculatedDifference < 7){
-            timestamp.text = dayCurrent;
-        }
-        else{
-            timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
-        }
        
+        [cell addSubview:image_loading];
+        [image_loading startAnimating];
+        
     }
     
-    imagePathString = @"http://fajjemobile.infofajjemobile.info/iospanic/assets/upload/";
-    imagePathString = [imagePathString stringByAppendingString:profilePic];
+    if(calculatedDifference == 0) {
+        timestamp.text = hourWithMin;
+    }
+    else if(calculatedDifference < 7){
+        timestamp.text = dayCurrent;
+    }
+    else{
+        timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
+    }
     
+    imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
+    imagePathString = [imagePathString stringByAppendingString:profilePic];
+    NSLog(@"the full image path is : %@",imagePathString);
     imagePathUrl = [NSURL URLWithString:imagePathString];
     
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
@@ -313,7 +305,6 @@ static NSArray *PanicToArray;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
    // [dateFormatter setDateFormat: @"EEEE"];
-    
     
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate * JsonDateFormatted = [dateFormatter dateFromString:dateFromJson];
@@ -439,10 +430,18 @@ static NSArray *PanicToArray;
 
 - (void)refreshTable{
     [self.refresh endRefreshing];
-    PanicToArray = nil;
-    PanicFromArray = nil;
-    [self callThePanicToArray];
-    [self callThePanicFromArray];
+    //PanicToArray = nil;
+    //PanicFromArray = nil;
+    if(PanicToArray == nil)
+    {
+       [self callThePanicToArray];
+    }
+    
+    if(PanicFromArray == nil)
+    {
+       [self callThePanicFromArray];
+    }
+    
     [self.mytable reloadData];
 }
 
