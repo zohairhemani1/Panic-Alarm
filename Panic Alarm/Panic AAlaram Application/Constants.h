@@ -10,10 +10,8 @@
 #define Panic_Alarm_Constants_h
 
 #define FIND_MESSAGE @"Hi there, I want to Find your Location."
-
 #define BASEURL @"http://www.fajjemobile.info/iospanic/"
 #define FIND_REST @"findButton.php"
 #define ACCEPT_TO_SEND_LOCATION @"acceptToSendLocation.php"
 #define ACCEPT_LOCATION @"acceptLocation.php"
-
 #endif
