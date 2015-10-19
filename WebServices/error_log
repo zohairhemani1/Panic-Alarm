@@ -1,3 +1,9 @@
 [04-May-2014 20:46:17 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/contacts.php on line 18
 [16-May-2014 11:39:34 UTC] PHP Fatal error:  Call to undefined function push() in /home/zohairhemani1/public_html/iospanic/json-contacts.php on line 26
 [16-May-2014 11:39:38 UTC] PHP Fatal error:  Call to undefined function push() in /home/zohairhemani1/public_html/iospanic/json-contacts.php on line 26
+[28-May-2015 09:16:43 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/image_upload.php on line 31
+[28-May-2015 10:45:59 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/image_upload.php on line 31
+[28-May-2015 10:55:49 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/image_upload.php on line 31
+[28-May-2015 13:38:19 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/image_upload.php on line 31
+[28-May-2015 14:36:33 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/image_upload.php on line 31
+[28-May-2015 14:45:08 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/zohairhemani1/public_html/iospanic/image_upload.php on line 31

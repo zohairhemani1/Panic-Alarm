@@ -27,9 +27,14 @@
 	
 	if($count == 1)
 	{
-		$tempArray = $row;
+		/*$tempArray = $row;
+		$tempArray['success'] = "0";
 		array_push($resultArray, $tempArray);
+		echo json_encode($resultArray);*/
+		
+		$resultArray['success'] = "0";
 		echo json_encode($resultArray);
+		
 	}
 	else if($count == 0)
 	{

@@ -2,15 +2,12 @@
 	
 	$friendsArray = array();
 	
-	$con=mysqli_connect("iospanic.db.11683817.hostedresource.com","iospanic","Hemani786!","iospanic");
-	if (mysqli_connect_errno())
-	{
-	 // echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
+	include 'connect_to_mysql.php';
 	
 	$jsonArray = json_decode(stripslashes($_POST['parameterOne']), true);
-	$storedNumber = $_POST['username'];
-	
+	//$storedNumber = $_POST['parameterTwo'];
+	$storedNumber = substr($_POST['parameterTwo'],-10);
+	//echo "StoredNumber: {$storedNumber}";
 	
 if (is_array($jsonArray))
 {
@@ -19,25 +16,14 @@ if (is_array($jsonArray))
 	{
 		$id = $row['id'];
 		$name = $row['fullName'];
-		$phone = $row['phoneNumber'];
+		$phone = trim(substr($row['phoneNumber'], -10));
 		
-		/*$query = "SELECT distinct registeration.id,registeration.username,registeration.password,friends.mynumber,friends.activate
-					FROM registeration
-					LEFT OUTER JOIN friends
- 				  ON friends.friendsnumber=registeration.password WHERE registeration.password='$phone' AND friends.activate IS NULL";*/
-				  
-	/*	$query = "SELECT distinct registeration.id,registeration.username,registeration.password,friends.mynumber,friends.friendsnumber,
-					friends.activate
-					FROM registeration
-					LEFT OUTER JOIN friends
- 				  ON friends.friendsnumber=registeration.password WHERE registeration.password='$phone' AND ((friends.mynumber != '$storedNumber' AND friends.activate!=1) OR friends.activate IS NULL)";
-	*/			  
-	
+		
 	$query = "SELECT registeration.username, registeration.password, friends.mynumber, friends.friendsnumber, friends.activate
 				FROM registeration
 				LEFT OUTER JOIN friends ON friends.friendsnumber = registeration.password
-				WHERE registeration.password like '$phone'  
-				AND (friends.friendsnumber IS NULL or friends.mynumber!='$storedNumber') and registeration.password != '$storedNumber'";
+				WHERE registeration.password like '%$phone'
+				AND (friends.friendsnumber IS NULL or friends.mynumber not like '%$storedNumber') AND (registeration.password not like '%$storedNumber')";
 	
 	
 		$result = mysqli_query($con,$query);
@@ -45,18 +31,31 @@ if (is_array($jsonArray))
 		
 		if($count == 1)
 		{ 
-			//echo "1";
-			$query_pic = "SELECT pic from registeration WHERE password like '$phone'";
+			$query_pic = "SELECT pic from registeration WHERE password like '%$phone'";
 			$result_pic = mysqli_query($con,$query_pic);
 			$row_pic = mysqli_fetch_array($result_pic);
 			array_push($row,$row_pic['pic']);
-			
 			
 			array_push($friendsArray,$row);
 		}
 		
 	}
 }
+
+	
+	function cmp(array $a, array $b) 
+	{
+		if ($a['fullName'] < $b['fullName']) {
+			return -1;
+		} else if ($a['fullName'] > $b['fullName']) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
+	usort($friendsArray, 'cmp');
+	
 	echo json_encode($friendsArray);
 		
 ?>

@@ -17,16 +17,17 @@ $tempArray = array();
 
 if($count == 1)
 {
-	$tempArray = $row;
-    array_push($resultArray, $tempArray);
-	echo json_encode($resultArray);
+	// user already exists against that number
+	$resultArray['status'] = 2;
 }
 else
 {
 	$query = "INSERT INTO registeration(username,password,pic) VALUES('$username','$password','$pic')";
 	$result = mysqli_query($con,$query);
-	echo "{\"success\":\"true\"}";
+	$resultArray['status'] = 1;
 }
+
+echo json_encode($resultArray);
 // Close connections
 mysqli_close($con);
 
