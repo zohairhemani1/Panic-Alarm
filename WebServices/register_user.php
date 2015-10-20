@@ -25,15 +25,21 @@ if($count == 1)
 	$resultArray['status'] = 2;
 	
 }
-else
+else if($count == 0)
 {
+	// new user
+	
 	$query = "INSERT INTO registeration(username,password,pic) VALUES('$username','$password','$pic')";
 	$result = mysqli_query($con,$query);
 	$resultArray['status'] = 1;
 }
+else
+{
+	$resultArray['status'] = -1;
+}
 
 echo json_encode($resultArray);
-// Close connections
+
 mysqli_close($con);
 
 ?>

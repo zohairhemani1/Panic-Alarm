@@ -5,9 +5,7 @@
 	include 'connect_to_mysql.php';
 	
 	$jsonArray = json_decode(stripslashes($_POST['parameterOne']), true);
-	//$storedNumber = $_POST['parameterTwo'];
 	$storedNumber = substr($_POST['parameterTwo'],-10);
-	//echo "StoredNumber: {$storedNumber}";
 	
 if (is_array($jsonArray))
 {
@@ -30,7 +28,7 @@ if (is_array($jsonArray))
 		$count = mysqli_num_rows($result);
 		
 		if($count == 1)
-		{ 
+		{ 				
 			$query_pic = "SELECT pic from registeration WHERE password like '%$phone'";
 			$result_pic = mysqli_query($con,$query_pic);
 			$row_pic = mysqli_fetch_array($result_pic);
@@ -41,7 +39,7 @@ if (is_array($jsonArray))
 		
 	}
 }
-
+	
 	
 	function cmp(array $a, array $b) 
 	{
