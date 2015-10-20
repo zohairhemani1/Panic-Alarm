@@ -18,7 +18,12 @@ $tempArray = array();
 if($count == 1)
 {
 	// user already exists against that number
+	
+	$query = "UPDATE `registeration` SET `username` = '$username', pic = '$pic' where `password` like '$password'  ";
+	$result = mysqli_query($con,$query);
+	
 	$resultArray['status'] = 2;
+	
 }
 else
 {
