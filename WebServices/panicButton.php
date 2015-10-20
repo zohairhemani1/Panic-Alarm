@@ -2,6 +2,7 @@
 	
 	include 'connect_to_mysql.php';
 	$jsonArray = json_decode(stripslashes($_POST['parameterOne']), true);
+	$returnArray = array();
 	
 	$number = "";
 	$name = "";
@@ -61,16 +62,17 @@
 			else if ($db_friendsnumber != $number)
 				$friendsnumber = $db_friendsnumber;
 			else
-				echo "No Number.";
+				$returnArray['status'] = 2;  //"No Number.";
 			
 			$query_panic_friends = "INSERT INTO panic_friends(panicvictim_id,friendsnumber) VALUES('$foreignKey','$friendsnumber')";
 			mysqli_query($con,$query_panic_friends);
 		}
-		echo "Your Panic has been Sent";
+			$returnArray['status'] = 1;   //"Your Panic has been Sent";
 	}
 	
 	else
-		echo "You don't have any friends yet.";
+			$returnArray['status'] = 0;  //"You don't have any friends yet.";
+	
 	
 	mysqli_close($con);
 	
