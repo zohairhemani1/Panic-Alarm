@@ -27,6 +27,11 @@
 		19DBA63F193036E800BFD9CB /* checkInternet.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DBA63D193036E800BFD9CB /* checkInternet.m */; };
 		19E35D9719235ACF00988D00 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E35D9619235ACF00988D00 /* CoreLocation.framework */; };
 		19E35D991923734800988D00 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E35D981923734800988D00 /* MapKit.framework */; };
+		19E941A91BD679C700705B5C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A51BD679C700705B5C /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
+		19E941AA1BD679C700705B5C /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A61BD679C700705B5C /* DigitsKit.framework */; settings = {ASSET_TAGS = (); }; };
+		19E941AB1BD679C700705B5C /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19E941A71BD679C700705B5C /* DigitsKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
+		19E941AC1BD679C700705B5C /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A81BD679C700705B5C /* TwitterCore.framework */; settings = {ASSET_TAGS = (); }; };
+		19E941AF1BD67ECF00705B5C /* digitsVerification.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E941AE1BD67ECF00705B5C /* digitsVerification.m */; settings = {ASSET_TAGS = (); }; };
 		19F3B623198F72E400B586A4 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F3B622198F72E400B586A4 /* Notifications.m */; };
 		19F593E7192734DD0090BE79 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F593E6192734DD0090BE79 /* Map.m */; };
 		19F593EB1927383F0090BE79 /* fineLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F593E81927383F0090BE79 /* fineLocation.png */; };
@@ -98,6 +103,12 @@
 		19DBA641193048AF00BFD9CB /* comic-sans-ms.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "comic-sans-ms.ttf"; sourceTree = "<group>"; };
 		19E35D9619235ACF00988D00 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		19E35D981923734800988D00 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		19E941A51BD679C700705B5C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		19E941A61BD679C700705B5C /* DigitsKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DigitsKit.framework; sourceTree = "<group>"; };
+		19E941A71BD679C700705B5C /* DigitsKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DigitsKitResources.bundle; path = DigitsKit.framework/Versions/A/Resources/DigitsKitResources.bundle; sourceTree = "<group>"; };
+		19E941A81BD679C700705B5C /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		19E941AD1BD67ECF00705B5C /* digitsVerification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = digitsVerification.h; sourceTree = "<group>"; };
+		19E941AE1BD67ECF00705B5C /* digitsVerification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = digitsVerification.m; sourceTree = "<group>"; };
 		19F3B621198F72E400B586A4 /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
 		19F3B622198F72E400B586A4 /* Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
 		19F593E5192734DD0090BE79 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
@@ -161,6 +172,7 @@
 				19196BB91978110F0070C9D4 /* AVFoundation.framework in Frameworks */,
 				19196BB719780F4D0070C9D4 /* MediaPlayer.framework in Frameworks */,
 				DC9BA05C192663BB00FEBB5C /* SystemConfiguration.framework in Frameworks */,
+				19E941A91BD679C700705B5C /* Fabric.framework in Frameworks */,
 				DC9BA05A192663B000FEBB5C /* StoreKit.framework in Frameworks */,
 				DC9BA058192663AA00FEBB5C /* Security.framework in Frameworks */,
 				DC9BA056192663A100FEBB5C /* QuartzCore.framework in Frameworks */,
@@ -173,9 +185,11 @@
 				19E35D991923734800988D00 /* MapKit.framework in Frameworks */,
 				DC9BA04B1926634000FEBB5C /* Parse.framework in Frameworks */,
 				DCE6BDA71916C2420067B846 /* AddressBook.framework in Frameworks */,
+				19E941AC1BD679C700705B5C /* TwitterCore.framework in Frameworks */,
 				DCE6BDA81916C2420067B846 /* AddressBookUI.framework in Frameworks */,
 				DC5A8C481910ECB00058F7C2 /* UIKit.framework in Frameworks */,
 				DC5A8C441910ECB00058F7C2 /* Foundation.framework in Frameworks */,
+				19E941AA1BD679C700705B5C /* DigitsKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +232,10 @@
 		DC5A8C371910ECB00058F7C2 = {
 			isa = PBXGroup;
 			children = (
+				19E941A51BD679C700705B5C /* Fabric.framework */,
+				19E941A61BD679C700705B5C /* DigitsKit.framework */,
+				19E941A71BD679C700705B5C /* DigitsKitResources.bundle */,
+				19E941A81BD679C700705B5C /* TwitterCore.framework */,
 				DC5A8C491910ECB00058F7C2 /* Panic AAlaram Application */,
 				DC5A8C6B1910ECB00058F7C2 /* Panic AAlaram ApplicationTests */,
 				DC5A8C421910ECB00058F7C2 /* Frameworks */,
@@ -301,6 +319,8 @@
 				1980BDD219AB752C008B58A0 /* profile.m */,
 				19F3B621198F72E400B586A4 /* Notifications.h */,
 				19F3B622198F72E400B586A4 /* Notifications.m */,
+				19E941AD1BD67ECF00705B5C /* digitsVerification.h */,
+				19E941AE1BD67ECF00705B5C /* digitsVerification.m */,
 				DC5A8C5E1910ECB00058F7C2 /* Images.xcassets */,
 				DC5A8C4A1910ECB00058F7C2 /* Supporting Files */,
 			);
@@ -346,6 +366,7 @@
 				DC5A8C3C1910ECB00058F7C2 /* Sources */,
 				DC5A8C3D1910ECB00058F7C2 /* Frameworks */,
 				DC5A8C3E1910ECB00058F7C2 /* Resources */,
+				19E941A41BD6796000705B5C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -366,6 +387,7 @@
 				ORGANIZATIONNAME = "Zohair Hemani - Stanford Assignment";
 				TargetAttributes = {
 					DC5A8C3F1910ECB00058F7C2 = {
+						DevelopmentTeam = WP7E4DG2UD;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -409,6 +431,7 @@
 				DC5A8C7D1910ED2B0058F7C2 /* background.png in Resources */,
 				19F593ED1927383F0090BE79 /* stopAlert.png in Resources */,
 				194A06E11926A65900AA7654 /* checkbox@2x.png in Resources */,
+				19E941AB1BD679C700705B5C /* DigitsKitResources.bundle in Resources */,
 				DCCD76B219169ABE009C6A37 /* panic_button.png in Resources */,
 				DC5A8C4E1910ECB00058F7C2 /* InfoPlist.strings in Resources */,
 				19F593EC1927383F0090BE79 /* setupEdit.png in Resources */,
@@ -422,6 +445,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		19E941A41BD6796000705B5C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 4cd570f532c5fe6dd0836afb7765122a896da4a0 b3aaa0b52e74942a5ccdcc259d4f25a3b68a2bb09c2c9424cf1e0f4e63bf01ac";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DC5A8C3C1910ECB00058F7C2 /* Sources */ = {
@@ -439,6 +478,7 @@
 				19DBA63E193036E800BFD9CB /* Reachability.m in Sources */,
 				194A06D91926A50900AA7654 /* Terms.m in Sources */,
 				DC5A8C541910ECB00058F7C2 /* AppDelegate.m in Sources */,
+				19E941AF1BD67ECF00705B5C /* digitsVerification.m in Sources */,
 				DC5A8C5A1910ECB00058F7C2 /* FirstViewController.m in Sources */,
 				19F593E7192734DD0090BE79 /* Map.m in Sources */,
 				19DBA63F193036E800BFD9CB /* checkInternet.m in Sources */,
@@ -498,6 +538,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: MELANIE kidd (QNEV439LJX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.silversages.panicalaram";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -537,6 +578,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: MELANIE kidd (QNEV439LJX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.silversages.panicalaram";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -556,7 +598,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: MELANIE kidd (QNEV439LJX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Panic",
@@ -568,7 +611,9 @@
 				GCC_PREFIX_HEADER = "Panic AAlaram Application/Panic Alarm-Prefix.pch";
 				INFOPLIST_FILE = "Panic AAlaram Application/Panic Alarm-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.panicAlarm;
 				PRODUCT_NAME = "Panic Alarm";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -578,7 +623,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: MELANIE kidd (QNEV439LJX)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Panic",
@@ -590,7 +636,9 @@
 				GCC_PREFIX_HEADER = "Panic AAlaram Application/Panic Alarm-Prefix.pch";
 				INFOPLIST_FILE = "Panic AAlaram Application/Panic Alarm-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.panicAlarm;
 				PRODUCT_NAME = "Panic Alarm";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

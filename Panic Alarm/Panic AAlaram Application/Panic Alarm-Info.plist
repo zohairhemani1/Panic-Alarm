@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.silversages.panicalaram</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,8 +22,32 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>4cd570f532c5fe6dd0836afb7765122a896da4a0</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>860CUGCIx2Ma2j4zv9gq5tvCI</string>
+					<key>consumerSecret</key>
+					<string>aIVisxD2PiyewfVaym0sWwXvwXHsuGabDV0eVvSzvdN7lraFpZ</string>
+				</dict>
+				<key>KitName</key>
+				<string>Digits</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to find places near you.</string>
 	<key>UIAppFonts</key>

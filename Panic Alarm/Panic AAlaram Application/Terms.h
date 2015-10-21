@@ -10,7 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface Terms : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource>{
+@interface Terms : UIViewController<ABNewPersonViewControllerDelegate>{
 
     BOOL checkboxSelected;
     

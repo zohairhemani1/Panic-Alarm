@@ -102,12 +102,23 @@ static NSMutableArray* favouritesArray;
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    tableView.sectionHeaderHeight = 30.0;
+    return 30.0f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
+   
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    label.text =  @"Friends Who Have Added Me";
+    label.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:label];
     
-    return @"Friends Who Have Added Me";
+    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,6 +130,7 @@ static NSMutableArray* favouritesArray;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
     }
+
     storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     NSString *number;
     

@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import "Terms.h"
 #import "FirstTab.h"
+#import <Fabric/Fabric.h>
+#import <DigitsKit/DigitsKit.h>
 
 @implementation AppDelegate
 
@@ -21,25 +23,40 @@
         
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    [Fabric with:@[[Digits class]]];
+    
+//    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"termsAgreed"]isEqualToString:@"termsAgreed"])
+//       {
+//           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                       UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+//           
+//                       self.window.rootViewController = secondView;
+//           
+//                       [self.window makeKeyAndVisible];
+//
+//       }
+    
+    
     //username and password
     
-        if(![[[NSUserDefaults standardUserDefaults]valueForKey:@"username"] isEqualToString:@""])
-        {
-            NSLog(@"the username is: %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]);
-    
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
-    
-            self.window.rootViewController = secondView;
-            
-            [self.window makeKeyAndVisible];
-            NSLog(@"on the second screen");
-        }
-        else{
-            [[NSUserDefaults standardUserDefaults ] setObject:@"" forKey:@"username"];
-            [[NSUserDefaults standardUserDefaults ] setObject:@"" forKey:@"password"];
-        }
+//        if(![[[NSUserDefaults standardUserDefaults]valueForKey:@"username"] isEqualToString:@""])
+//        {
+//            NSLog(@"the username is: %@",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]);
+//    
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//            UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+//    
+//            self.window.rootViewController = secondView;
+//            
+//            [self.window makeKeyAndVisible];
+//            NSLog(@"on the second screen");
+//        }
+//        else{
+//            [[NSUserDefaults standardUserDefaults ] setObject:@"" forKey:@"username"];
+//            [[NSUserDefaults standardUserDefaults ] setObject:@"" forKey:@"password"];
+//        }
     // end here
+    
     
     
     Terms *a = [[Terms alloc] init];
@@ -48,20 +65,17 @@
     [Parse setApplicationId:@"ydmTMKN3ZJ3UtKXrWipMk8Fd4nUfYfCgVJgb92lB"
                   clientKey:@"WddesaUPVKyD9H0oMbCikuP0sGR1aqev9HFBjikV"];
     // Override point for customization after application launch.
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-     UIRemoteNotificationTypeAlert|
-     UIRemoteNotificationTypeSound];
-    
-    [application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+  //  [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+  //   UIRemoteNotificationTypeAlert|
+   //  UIRemoteNotificationTypeSound];
     
     NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
     // Create a pointer to the Photo object
-    NSString *victinName = [notificationPayload objectForKey:@"name"];
-    NSString *victimNumber = [notificationPayload objectForKey:@"number"];
-    NSString *msg = [notificationPayload objectForKey:@"alert"];
-    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:msg message:victinName delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
-   // [myAlert show];
+    // NSString *victinName = [notificationPayload objectForKey:@"name"];
+    // NSString *victimNumber = [notificationPayload objectForKey:@"number"];
+    // NSString *msg = [notificationPayload objectForKey:@"alert"];
+
     
    // [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

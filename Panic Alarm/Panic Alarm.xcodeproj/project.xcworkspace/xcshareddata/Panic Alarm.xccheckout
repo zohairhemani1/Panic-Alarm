@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>23CC5C80-81B2-4B56-AD56-3618A62E15A8</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Panic Alarm</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>AD9E3F5ACF3020798AE7EC7326FEBA0A1FDD2DB6</key>
 		<string>https://github.com/zohairhemani1/Panic-Alarm.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Panic Alarm/Panic Alarm.xcodeproj</string>
+	<string>Panic Alarm/Panic Alarm.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>AD9E3F5ACF3020798AE7EC7326FEBA0A1FDD2DB6</key>

@@ -44,21 +44,10 @@ UIActivityIndicatorView *progress;
         c = [[checkInternet alloc]init];
         [c viewWillAppear:YES];
     
-    self.insertusername.delegate = self;
-    self.insertpassword.delegate = self;
-    
 	// Do any additional setup after loading the view, typically from a nib.
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
-    self.insertusername.leftView = paddingView;
-    self.insertusername.leftViewMode = UITextFieldViewModeAlways;
-    
-    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
-    self.insertpassword.leftView = paddingView2;
-    self.insertpassword.leftViewMode = UITextFieldViewModeAlways;
-    
+
     UIImage *navbackgroundImage = [UIImage imageNamed:@"favorites_top"];
     [[UINavigationBar appearance] setBackgroundImage:navbackgroundImage forBarMetrics:UIBarMetricsDefault];
     [[UITextField appearance] setTintColor:[UIColor blackColor]];
@@ -74,6 +63,14 @@ UIActivityIndicatorView *progress;
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     
+    UIView *paddingView;
+    
+    for(UITextField *textField in self.myTextFieldsCollection)
+    {
+        paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
+        textField.leftView = paddingView;
+        textField.leftViewMode = UITextFieldViewModeAlways;
+    }
 }
 
 - (void)downloadItems
@@ -135,10 +132,7 @@ UIActivityIndicatorView *progress;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:_downloadedData options:NSJSONReadingAllowFragments error:&error];
     
     //jsonArray[0] = {2,4};
-    
-    
-    
-    
+
     if(jsonArray.count == 0)
     {
         NSLog(@"JSON returning empty array");
@@ -266,11 +260,15 @@ UIActivityIndicatorView *progress;
         alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" The Password should be 6 charachter long!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
         [alertbox show];
     }
+    
+    /*
     else if (self.imageView.image == NULL)
     {
         alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" You have not uploaded your image" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
         [alertbox show];
     }
+    */
+    
     else{
         
     usernameEditText = [[self insertusername] text];
@@ -283,8 +281,8 @@ UIActivityIndicatorView *progress;
         // getting code.
     storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     
-    CGImageRef cgref = [uploadedimage CGImage];
-    CIImage *cim = [uploadedimage CIImage];
+   // CGImageRef cgref = [uploadedimage CGImage];
+   // CIImage *cim = [uploadedimage CIImage];
     
 //    if (cim == nil && cgref == NULL)
 //    {
@@ -307,12 +305,9 @@ UIActivityIndicatorView *progress;
        [currentInstallation addUniqueObject:phone forKey:@"channels"];
         [currentInstallation addUniqueObject:phone forKey:@"number"];
         [currentInstallation saveInBackground];
-        //[self performSegueWithIdentifier:@"login" sender:self];
-    }
 
-    
-    
-    
+    }
+ 
 }
 - (IBAction)upload:(id)sender {
     

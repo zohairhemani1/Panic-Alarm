@@ -164,7 +164,6 @@ checkInternet *c;
     
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
-        
         NSLog(@"in code");
         
         [button setTitle:@"PENDING" forState:normal];
@@ -175,7 +174,6 @@ checkInternet *c;
         [push setMessage:FindNotificationMessage];
         //[push setData:data];
         [push sendPushInBackground];
-        
     }
 }
 

@@ -26,6 +26,7 @@ bool loadCondition = NO;
     
     if (checkboxSelected == 1){
             [self performSegueWithIdentifier:@"userLogin" sender:self];
+        [[NSUserDefaults standardUserDefaults ] setObject:@"termsAgreed" forKey:@"termsAgreed"];
         
 	}
     else{
@@ -82,7 +83,8 @@ bool loadCondition = NO;
     [super viewDidAppear:animated];
     
     self.navigationItem.hidesBackButton = NO;
-    if(loadCondition){
+    if(loadCondition)
+    {
         loadCondition = NO;
     }
 }

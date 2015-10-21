@@ -10,7 +10,6 @@
 
 @interface FirstViewController : UIViewController<UITextFieldDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 
-//- (IBAction)textFieldReturn:(id)sender;
 - (IBAction)backgroundTouched:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *insertusername;
 @property (weak, nonatomic) IBOutlet UITextField *insertpassword;
@@ -19,5 +18,6 @@
 - (IBAction)upload:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *animationView;
 
+@property (strong, nonatomic) IBOutletCollection (UITextField) NSArray *myTextFieldsCollection;
 @end
 

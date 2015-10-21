@@ -61,14 +61,32 @@ NSArray *DistinctFriendsWhoUseApp;
 {
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//
+//{
+//    tableView.sectionHeaderHeight = 30.0;
+//    
+//    return @"Friends Who Use Panic Alarm";
+//}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    tableView.sectionHeaderHeight = 30.0;
-    
-    return @"Friends Who Use Panic Alarm";
+    return 30.0f;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    label.text = @"Friends Who Use Panic Alarm";
+    label.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:label];
+    
+    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    return view;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -306,39 +324,62 @@ NSArray *DistinctFriendsWhoUseApp;
         //NSLog(@"JSON String = %@", jsonString);
         //NSLog(@"String: %@",jsonString);
         WebService *myWebService = [[WebService alloc] init];
-        resultArray = [myWebService FilePath:@"http://fajjemobile.info/iospanic/json-contacts.php" parameterOne:jsonString];
+        resultArray = [myWebService FilePath:@"http://fajjemobile.info/iospanic/json-contacts.php" parameterOne:jsonString parameterTwo:@"03432637576"];
         
-        if (!resultArray) {
+        if (!resultArray)
+        {
             NSLog(@"Error parsing JSON: %@", error);
-        } else {
-            for(NSDictionary *item in resultArray)
+        }
+        else
+        {
+            for (int i = 0; i < [resultArray count]; i++)
             {
-                NSLog(@" Contact: %@", item);
+                NSString *firstNumber = [[resultArray[i] valueForKey:@"phoneNumber"] substringFromIndex: [[resultArray[i] valueForKey:@"phoneNumber"] length] - 10];
                 
-                bool foundMatch = NO;
-                
-                for (int i=0; i<[friendsWhoUseApp count]; i++)
+                for (int k = i+1 ; k < [resultArray count]; k++)
                 {
-                    
-                    NSString *p = [friendsWhoUseApp[i] valueForKey:@"friendsnumber"];
-                    NSString *q = [friendsWhoUseApp[i] valueForKey:@"phoneNumber"];
-                    
-                    if([[item valueForKey:@"phoneNumber"] isEqualToString:p] || [[item valueForKey:@"phoneNumber"] isEqualToString:q])
+                    NSString *secondNumber = [[resultArray[k] valueForKey:@"phoneNumber"] substringFromIndex: [[resultArray[k] valueForKey:@"phoneNumber"] length] - 10];
+ 
+                    if([firstNumber isEqualToString:secondNumber])
                     {
-                        //[SecondViewController.friendWhoUseAppStaticFunction removeObject:item];
-                        NSLog(@"Found Object that needs to be removed! %@", item);
-                        foundMatch = YES;
-                        
+                        NSLog(@"removed object is %@",[resultArray[i] valueForKey:@"phoneNumber"]);
+                        [resultArray removeObjectAtIndex:i];
+                        break;
                     }
                 }
-                
-                if (foundMatch==NO)
+                if([resultArray[i] valueForKey:@"phoneNumber"] != nil)
                 {
-                    [SecondViewController.friendWhoUseAppStaticFunction addObject:item];
-                    
+                    [SecondViewController.friendWhoUseAppStaticFunction addObject:[resultArray objectAtIndex:i]];
                 }
-
             }
+
+//            for(NSDictionary *item in resultArray)
+//            {
+//                NSLog(@" The contacts are:  %@", item);
+//                
+//                bool foundMatch = NO;
+//                
+//                for (int i=0; i<[friendsWhoUseApp count]; i++)
+//                {
+//                    NSString *p = [friendsWhoUseApp[i] valueForKey:@"friendsnumber"];
+//                    NSString *q = [friendsWhoUseApp[i] valueForKey:@"phoneNumber"];
+//                    
+//                    if([[item valueForKey:@"phoneNumber"] isEqualToString:p] || [[item valueForKey:@"phoneNumber"] isEqualToString:q])
+//                    {
+//                        //[SecondViewController.friendWhoUseAppStaticFunction removeObject:item];
+//                        NSLog(@"Found Object that needs to be removed! %@", item);
+//                        foundMatch = YES;
+//                        
+//                    }
+//                }
+//                
+//                if (foundMatch==NO)
+//                {
+//                    [SecondViewController.friendWhoUseAppStaticFunction addObject:item];
+//                    
+//                }
+//
+//            }
         }
         
         
