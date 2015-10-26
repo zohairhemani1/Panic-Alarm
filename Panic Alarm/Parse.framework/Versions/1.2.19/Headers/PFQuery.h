@@ -46,7 +46,7 @@
  Initializes the query with a class name.
  @param newClassName The class name.
  */
-- (id)initWithClassName:(NSString *)newClassName;
+- (instancetype)initWithClassName:(NSString *)newClassName;
 
 /*!
   The class name to query for
@@ -423,7 +423,7 @@
  Finds objects based on the constructed query.
  @result Returns an array of PFObjects that were found.
  */
-- (NSArray *)findObjects;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *findObjects;
 
 /*!
  Finds objects based on the constructed query and sets an error if there was one.
@@ -454,7 +454,7 @@
  
  @result Returns a PFObject, or nil if none was found.
  */
-- (PFObject *)getFirstObject;
+@property (NS_NONATOMIC_IOSONLY, getter=getFirstObject, readonly, strong) PFObject *firstObject;
 
 /*!
  Gets an object based on the constructed query and sets an error if any occurred.
@@ -494,7 +494,7 @@
   Counts objects based on the constructed query.
  @result Returns the number of PFObjects that match the query, or -1 if there is an error.
  */
-- (NSInteger)countObjects;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger countObjects;
 
 /*!
   Counts objects based on the constructed query and sets an error if there was one.
@@ -562,7 +562,7 @@
  Returns whether there is a cached result for this query.
  @result YES if there is a cached result for this query, and NO otherwise.
  */
-- (BOOL)hasCachedResult;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasCachedResult;
 
 /*!
  Clears the cached result for this query.  If there is no cached result, this is a noop.

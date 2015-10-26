@@ -18,7 +18,7 @@
     UISwitch *switchView;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -42,11 +42,11 @@
 {
     if (section==0)
     {
-        return [panicNotifications count];
+        return panicNotifications.count;
     }
     else
     {
-        return [appNotifications count];
+        return appNotifications.count;
     }
 }
 
@@ -80,11 +80,11 @@
     }
     
     if(indexPath.section == 0)
-        cell.textLabel.text = [panicNotifications objectAtIndex:indexPath.row];
+        cell.textLabel.text = panicNotifications[indexPath.row];
     
     if(indexPath.section == 1)
     {
-        cell.textLabel.text = [appNotifications objectAtIndex:indexPath.row];
+        cell.textLabel.text = appNotifications[indexPath.row];
     }
     
     switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -98,8 +98,8 @@
     btn.backgroundColor = [UIColor clearColor];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    [[btn layer] setBorderWidth:2.0f];
-    [[btn layer] setBackgroundColor:[UIColor blackColor].CGColor];
+    btn.layer.borderWidth = 2.0f;
+    btn.layer.backgroundColor = [UIColor blackColor].CGColor;
     
     [btn addTarget:self action:@selector(reset:) forControlEvents:UIControlEventTouchUpInside];
     [self.notificationstable addSubview:btn];

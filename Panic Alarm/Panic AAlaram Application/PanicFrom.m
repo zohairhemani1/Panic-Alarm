@@ -26,7 +26,7 @@ checkInternet *c;
 
 @synthesize panicPersonName;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -44,17 +44,19 @@ checkInternet *c;
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-   
-        panicPersonName.text = [[[Victims getPanicFromArray] valueForKey:@"username"] objectAtIndex:self.panicPersonId];
-        profilePic = [[[Victims getPanicFromArray] valueForKey:@"pic"] objectAtIndex:self.panicPersonId];
+    (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    NSLog(@"the panic person id is: %d",self.panicPersonId);
+        panicPersonName.text = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
+        profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
     
-    imagePathString = @"http://fajjemobile.infofajjemobile.info/iospanic/assets/upload/";
+    imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
+    
+    NSLog(@"image path string is: %@",imagePathString);
     imagePathUrl = [NSURL URLWithString:imagePathString];
     data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
     img = [[UIImage alloc]initWithData:data ];
-    [self.panicPersonImage setImage:img];
+    (self.panicPersonImage).image = img;
 }
 
 - (void)didReceiveMemoryWarning

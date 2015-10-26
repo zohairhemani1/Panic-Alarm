@@ -10,57 +10,58 @@
 
 @implementation WebService
 
--(NSArray*)FilePath:(NSString*)filepath parameterOne:(NSString*)parameterOne parameterTwo:(NSString*)parameterTwo parameterThree:(NSString*)parameterThree
+-(NSMutableArray*)FilePath:(NSString*)filepath parameterOne:(NSString*)parameterOne parameterTwo:(NSString*)parameterTwo parameterThree:(NSString*)parameterThree
 {
     NSURL *jsonFileUrl = [NSURL URLWithString:filepath];
     
     // Create the NSURLConnection
     //NSString * username = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-    NSString * storedNumber = @"03432637576";
+    NSString * storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     //NSString *number = @"03432637576";
     
     // Posting the values of edit text field to database to query the results.
     
     NSString *myRequestString = [NSString stringWithFormat:@"parameterOne=%@&parameterTwo=%@&parameterThree=%@&username=%@",parameterOne,parameterTwo,parameterThree,storedNumber];
     
+    myRequestString = [myRequestString stringByAddingPercentEncodingWithAllowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" \"#%/+:<>?@[\\]^`{|}"] invertedSet]];
     // Create Data from request
-    NSData *myRequestData = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
+    NSData *myRequestData = [NSData dataWithBytes: myRequestString.UTF8String length: myRequestString.length];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: jsonFileUrl];
     // set Request Type
     NSError *err = nil;
-    [request setHTTPMethod: @"POST"];
+    request.HTTPMethod = @"POST";
     // Set content-type
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
     // Set Request Body
-    [request setHTTPBody: myRequestData];
+    request.HTTPBody = myRequestData;
     // Now send a request and get Response
     NSData *returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
     // Log Response
-    NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+    NSString *response = [[NSString alloc] initWithBytes:returnData.bytes length:returnData.length encoding:NSUTF8StringEncoding];
     
-    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
-    
-    
-    
+    NSMutableArray *jsonArray;
+    if (returnData != nil) {
+        jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
+    }
+   
     NSLog(@"%@",response);
     NSLog(@"JsonArray %@", jsonArray);
-    
     //[NSURLConnection connectionWithRequest:request delegate:self];
-    
     // return response;
+    
     return jsonArray;
 }
 
--(NSArray*)FilePath:(NSString*)filepath parameterOne:(NSString*)parameterOne
+-(NSMutableArray*)FilePath:(NSString*)filepath parameterOne:(NSString*)parameterOne
 {
     
-    NSArray * responseArray = [self FilePath:filepath parameterOne:parameterOne parameterTwo:nil parameterThree:nil];
+    NSMutableArray * responseArray = [self FilePath:filepath parameterOne:parameterOne parameterTwo:nil parameterThree:nil];
     return responseArray;
 }
 
--(NSArray*)FilePath:(NSString*)filepath parameterOne:(NSString*)parameterOne parameterTwo:(NSString*)parameterTwo
+-(NSMutableArray*)FilePath:(NSString*)filepath parameterOne:(NSString*)parameterOne parameterTwo:(NSString*)parameterTwo
 {
-    NSArray * responseArray = [self FilePath:filepath parameterOne:parameterOne parameterTwo:parameterTwo parameterThree:nil];
+    NSMutableArray * responseArray = [self FilePath:filepath parameterOne:parameterOne parameterTwo:parameterTwo parameterThree:nil];
     return responseArray;
 }
 

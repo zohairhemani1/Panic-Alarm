@@ -22,7 +22,7 @@ NSMutableArray *about;
 NSMutableArray *profile;
 NSMutableArray *network;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -45,9 +45,9 @@ NSMutableArray *network;
         internet = @"Not Connected";
     }
     
-    [self.settingsTable setSeparatorColor:[UIColor lightGrayColor]];
+    (self.settingsTable).separatorColor = [UIColor lightGrayColor];
     
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
     about = [[NSMutableArray alloc] initWithObjects:@"about",@"tell",@"help",nil];
     profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"account",@"notification",nil];
@@ -73,15 +73,15 @@ NSMutableArray *network;
 {
     if (section==0)
     {
-        return [about count];
+        return about.count;
     }
     else if(section==1)
     {
-        return [profile count];
+        return profile.count;
     }
     else
     {
-        return [network count];
+        return network.count;
     }
     
 }
@@ -92,7 +92,7 @@ NSMutableArray *network;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *CellIdentifier = [about objectAtIndex:indexPath.row];
+    NSString *CellIdentifier = about[indexPath.row];
     
     NSString *freind = @"tell";
     if(CellIdentifier == freind){
@@ -121,15 +121,15 @@ NSMutableArray *network;
     NSString *CellIdentifier;
     if(indexPath.section == 0)
     {
-        CellIdentifier = [about objectAtIndex:indexPath.row];
+        CellIdentifier = about[indexPath.row];
     }
     else if(indexPath.section == 1)
     {
-        CellIdentifier = [profile objectAtIndex:indexPath.row];
+        CellIdentifier = profile[indexPath.row];
     }
     else
     {
-        CellIdentifier = [network objectAtIndex:indexPath.row];
+        CellIdentifier = network[indexPath.row];
     }
     
     

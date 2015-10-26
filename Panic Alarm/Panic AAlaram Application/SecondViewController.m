@@ -46,28 +46,66 @@ NSArray *DistinctFriendsWhoUseApp;
     return finalArray;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
+    
+    (self.myTable).separatorColor = [UIColor lightGrayColor];
+    
+    c= [[checkInternet alloc]init];
+    [c viewWillAppear:YES];
+    
+    self.myTable.delegate=self;
+    self.myTable.dataSource = self;
+    
+    progress = [c indicatorprogress:progress];
+    [self.view addSubview:progress];
+    
+    [progress bringSubviewToFront:self.view];
+    
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        
+        [progress startAnimating];
+        [self sendingJSONArrayToServer];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.myTable reloadData];
+            [progress stopAnimating];
+        });
+        
+    });
+    
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.myTable;
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = refreshControl;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return [searchResults count];
-        
-    } else {
-        return [DistinctFriendsWhoUseApp count];
+        return searchResults.count;
+    }
+    else
+    {
+        return DistinctFriendsWhoUseApp.count;
     }
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//
-//{
-//    tableView.sectionHeaderHeight = 30.0;
-//    
-//    return @"Friends Who Use Panic Alarm";
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -79,12 +117,12 @@ NSArray *DistinctFriendsWhoUseApp;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    label.font = [UIFont boldSystemFontOfSize:15];
     label.text = @"Friends Who Use Panic Alarm";
     label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    view.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
     return view;
 }
 
@@ -102,20 +140,17 @@ NSArray *DistinctFriendsWhoUseApp;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    NSLog(@"in table view");
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         NSLog(@"in search text");
-        NSLog(@"search count: %d",[searchResults count]);
-        fullName = [[searchResults valueForKey:@"fullName"] objectAtIndex:indexPath.row];
-        number = [[searchResults valueForKey:@"phoneNumber"] objectAtIndex:indexPath.row];
-        profilePic = [[searchResults valueForKey:@"0"] objectAtIndex:indexPath.row];
+        NSLog(@"search count: %d",searchResults.count);
+        fullName = [searchResults valueForKey:@"fullName"][indexPath.row];
+        number = [searchResults valueForKey:@"password"][indexPath.row];
+        profilePic = [searchResults valueForKey:@"picture"][indexPath.row];
     } else {
-        fullName = [[DistinctFriendsWhoUseApp valueForKey:@"fullName"] objectAtIndex:indexPath.row];
-        number = [[DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"] objectAtIndex:indexPath.row];
-        profilePic = [[DistinctFriendsWhoUseApp valueForKey:@"0"] objectAtIndex:indexPath.row];
+        fullName = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][indexPath.row];
+        number = [DistinctFriendsWhoUseApp valueForKey:@"password"][indexPath.row];
+        profilePic = [DistinctFriendsWhoUseApp valueForKey:@"picture"][indexPath.row];
     }
-    NSLog(@"Profile Picture %@ for Username %@",profilePic,fullName);
-    
     
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
@@ -152,9 +187,9 @@ NSArray *DistinctFriendsWhoUseApp;
         phonenumber.text = number;
     }
 
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
+    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
     [cell addSubview:name];
-    [phonenumber setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+    phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
     [cell addSubview:phonenumber];
     
@@ -162,7 +197,7 @@ NSArray *DistinctFriendsWhoUseApp;
     
     //set the position of the button
     
-    NSString *activateValue = [[DistinctFriendsWhoUseApp valueForKey:@"activate"] objectAtIndex:indexPath.row];
+    NSString *activateValue = [DistinctFriendsWhoUseApp valueForKey:@"activate"][indexPath.row];
     button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
     button.backgroundColor= [UIColor blackColor];
     if(activateValue != nil && [activateValue isEqual: @"0"])
@@ -186,7 +221,7 @@ NSArray *DistinctFriendsWhoUseApp;
     }
     
     button.tag = indexPath.row;
-    NSLog(@"Button Tag: %ld", (long)button.tag);
+   // NSLog(@"Button Tag: %ld", (long)button.tag);
     [cell.contentView addSubview:button];
     
     
@@ -199,8 +234,8 @@ NSArray *DistinctFriendsWhoUseApp;
     button = (UIButton*) sender;
     [button setBackgroundImage:[UIImage imageNamed:@"tick.png"] forState:UIControlStateNormal];
     
-    NSString *numberToAccept = [[DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"] objectAtIndex:button.tag];
-    NSString *nameToAccept = [[DistinctFriendsWhoUseApp valueForKey:@"fullName"] objectAtIndex:button.tag];
+    NSString *numberToAccept = [DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"][button.tag];
+    NSString *nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
     NSString *friendsNumber = @"X_090078601";
@@ -210,7 +245,7 @@ NSArray *DistinctFriendsWhoUseApp;
     [push setMessage:@"Zohair Hemani accepted your friend request"];  // Zohair Hemani will be replaced by sharedpreference name.
     [push sendPushInBackground];
     
-    NSString * storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
     
     NSLog(@"Stored Number: %@", storedNumber);
     NSLog(@"Number To Accept %@", numberToAccept);
@@ -227,85 +262,38 @@ NSArray *DistinctFriendsWhoUseApp;
     button = (UIButton*) sender;
     //[button setBackgroundImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
     
-    NSString *numberToAdd = [[DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"] objectAtIndex:button.tag];
-    NSString *nameToAdd = [[DistinctFriendsWhoUseApp valueForKey:@"fullName"] objectAtIndex:button.tag];
+   // NSString *numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
+   // NSString *nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
 
     [button setTitle:@"Pending" forState:UIControlStateNormal];
 
-    NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [[DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"] objectAtIndex:button.tag],[[DistinctFriendsWhoUseApp valueForKey:@"fullName"] objectAtIndex:button.tag] );
+    NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag],[DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag] );
     
-    NSString *friendsNumber = @"X_03432637576";
-    
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:friendsNumber];   // channels column in PARSE!
+//    NSString *friendsNumber = @"X_03432637576";
+//    
+//    PFPush *push = [[PFPush alloc] init];
+//    [push setChannel:friendsNumber];   // channels column in PARSE!
     
     NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
 
-    
     NSString *message = @"You have been added by ";
     message = [message stringByAppendingString:storedName];
     
-    [push setMessage:message];
-    
-    [push sendPushInBackground];
+//    [push setMessage:message];
+//    
+//    [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
-    [addFriend FilePath:@"http://fajjemobile.info/iospanic/friends.php" parameterOne:numberToAdd
+    [addFriend FilePath:@"http://fajjemobile.info/iospanic/friends.php" parameterOne:@"+923152151511"
            parameterTwo:@""];
     
 }
 
-- (void)refreshTable {
-    //TODO: refresh your data
-    
+- (void)refreshTable
+{
     [self sendingJSONArrayToServer];
     [self.myTable reloadData];
     [refreshControl endRefreshing];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
-    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    
-    [self.myTable setSeparatorColor:[UIColor lightGrayColor]];
-    
-    c= [[checkInternet alloc]init];
-    [c viewWillAppear:YES];
-    
-    self.myTable.delegate=self;
-    self.myTable.dataSource = self;
-    
-    progress = [c indicatorprogress:progress];
-    [self.view addSubview:progress];
-    
-    [progress bringSubviewToFront:self.view];
-    
-    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
-    dispatch_async(myqueue, ^(void) {
-        
-        [progress startAnimating];
-        [self sendingJSONArrayToServer];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Update UI on main queue
-            
-            [self.myTable reloadData];
-            [progress stopAnimating];
-        });
-        
-    });
-
-    
-    
-    UITableViewController *tableViewController = [[UITableViewController alloc] init];
-    tableViewController.tableView = self.myTable;
-    
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-    tableViewController.refreshControl = refreshControl;
 }
 
 -(void)sendingJSONArrayToServer
@@ -315,16 +303,14 @@ NSArray *DistinctFriendsWhoUseApp;
                         dataWithJSONObject:SecondViewController.finalArrayStaticFunction
                         options:NSJSONWritingPrettyPrinted
                         error:&error];
-    if ([jsonData length] > 0 &&
+    if (jsonData.length > 0 &&
         error == nil)
     {
-        //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
         NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding];
-        //NSLog(@"JSON String = %@", jsonString);
-        //NSLog(@"String: %@",jsonString);
+
         WebService *myWebService = [[WebService alloc] init];
-        resultArray = [myWebService FilePath:@"http://fajjemobile.info/iospanic/json-contacts.php" parameterOne:jsonString parameterTwo:@"03432637576"];
+        resultArray = [myWebService FilePath:@"http://fajjemobile.info/iospanic/json-contacts.php" parameterOne:jsonString parameterTwo:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
         
         if (!resultArray)
         {
@@ -332,70 +318,38 @@ NSArray *DistinctFriendsWhoUseApp;
         }
         else
         {
-            for (int i = 0; i < [resultArray count]; i++)
+            //int arrayCount = resultArray.count;
+            
+            for (int i = 0; i < resultArray.count; i++)
             {
                 NSString *firstNumber = [[resultArray[i] valueForKey:@"phoneNumber"] substringFromIndex: [[resultArray[i] valueForKey:@"phoneNumber"] length] - 10];
                 
-                for (int k = i+1 ; k < [resultArray count]; k++)
+                for (int k = i+1 ; k < resultArray.count; k++)
                 {
                     NSString *secondNumber = [[resultArray[k] valueForKey:@"phoneNumber"] substringFromIndex: [[resultArray[k] valueForKey:@"phoneNumber"] length] - 10];
  
                     if([firstNumber isEqualToString:secondNumber])
                     {
-                        NSLog(@"removed object is %@",[resultArray[i] valueForKey:@"phoneNumber"]);
-                        [resultArray removeObjectAtIndex:i];
-                        break;
+                        [resultArray removeObjectAtIndex:k];
+                        k = k-1;
                     }
                 }
-                if([resultArray[i] valueForKey:@"phoneNumber"] != nil)
-                {
-                    [SecondViewController.friendWhoUseAppStaticFunction addObject:[resultArray objectAtIndex:i]];
-                }
             }
-
-//            for(NSDictionary *item in resultArray)
-//            {
-//                NSLog(@" The contacts are:  %@", item);
-//                
-//                bool foundMatch = NO;
-//                
-//                for (int i=0; i<[friendsWhoUseApp count]; i++)
-//                {
-//                    NSString *p = [friendsWhoUseApp[i] valueForKey:@"friendsnumber"];
-//                    NSString *q = [friendsWhoUseApp[i] valueForKey:@"phoneNumber"];
-//                    
-//                    if([[item valueForKey:@"phoneNumber"] isEqualToString:p] || [[item valueForKey:@"phoneNumber"] isEqualToString:q])
-//                    {
-//                        //[SecondViewController.friendWhoUseAppStaticFunction removeObject:item];
-//                        NSLog(@"Found Object that needs to be removed! %@", item);
-//                        foundMatch = YES;
-//                        
-//                    }
-//                }
-//                
-//                if (foundMatch==NO)
-//                {
-//                    [SecondViewController.friendWhoUseAppStaticFunction addObject:item];
-//                    
-//                }
-//
-//            }
+            friendsWhoUseApp = resultArray;
         }
         
         
     }
-    else if ([jsonData length] == 0 &&
-             error == nil){
+    else if (jsonData.length == 0 && error == nil){
         NSLog(@"No data was returned after serialization.");
     }
     else if (error != nil){
         NSLog(@"An error happened = %@", error);
     }
     
-    
     DistinctFriendsWhoUseApp = [SecondViewController.friendWhoUseAppStaticFunction copy];
     
-    NSInteger index = [DistinctFriendsWhoUseApp count] - 1;
+    NSInteger index = DistinctFriendsWhoUseApp.count - 1;
     
     for (id object in [DistinctFriendsWhoUseApp reverseObjectEnumerator]) {
         
@@ -415,7 +369,6 @@ NSArray *DistinctFriendsWhoUseApp;
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -431,20 +384,15 @@ NSArray *DistinctFriendsWhoUseApp;
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-   
    // [searchResults removeAllObjects];
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
     searchResults = [DistinctFriendsWhoUseApp filteredArrayUsingPredicate:resultPredicate];
-
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
         [self filterContentForSearchText:searchString
-                               scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
-                                      objectAtIndex:[self.searchDisplayController.searchBar
-                                                     selectedScopeButtonIndex]]];
-    
+                               scope:(self.searchDisplayController.searchBar).scopeButtonTitles[(self.searchDisplayController.searchBar).selectedScopeButtonIndex]];
     return YES;
 }
 

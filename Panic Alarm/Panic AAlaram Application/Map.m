@@ -26,6 +26,7 @@
     NSString *imagePathString ;
     NSURL *imagePathUrl;
     NSData *data ;
+    int count;
 }
 
 @end
@@ -40,52 +41,36 @@
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
+    count = 0;
+    
+    srcLat = 40.740010;
+    srcLon = -73.997582;
+    destLat = 40.740514;
+    destLon = -74.001208;
+    
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager requestAlwaysAuthorization];
+    [self.locationManager startUpdatingLocation];
+    
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+    {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    
     self.mapView.delegate = self;
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = YES;
     
-    srcLat = -6.877517;
-    srcLon = 107.586838;
-    destLat = -6.888918;
-    destLon = 107.596173;
 //    srcText = @"Here is source";
 //    destText = @"Here is Victim";
     
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
-        destLat = [[[[Victims getPanicFromArray] valueForKey:@"latitude"] objectAtIndex:self.panicPersonId]floatValue];
-        destLon = [[[[Victims getPanicFromArray] valueForKey:@"longitude"] objectAtIndex:self.panicPersonId]floatValue];
+        //destLat = [[[Victims getPanicFromArray] valueForKey:@"latitude"][self.panicPersonId]floatValue];
+        //destLon = [[[Victims getPanicFromArray] valueForKey:@"longitude"][self.panicPersonId]floatValue];
 
 }
 
-//- (IBAction)zoomToCurrentLocation:(id)sender {
-//    
-//    self.locationManager = [[CLLocationManager alloc] init];
-//    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    [self.locationManager startUpdatingLocation];
-//    
-//    float spanX = 0.00725;
-//    float spanY = 0.00725;
-//    MKCoordinateRegion region;
-//    region.center.latitude = self.locationManager.location.coordinate.latitude;
-//    region.center.longitude = self.locationManager.location.coordinate.longitude;
-//    region.span.latitudeDelta = spanX;
-//    region.span.longitudeDelta = spanY;
-//    [self.mapView setZoomEnabled:YES];
-//    [self.mapView setScrollEnabled:YES];
-//    
-//    [self.mapView setRegion:region animated:YES];
-//    self.mapView.userLocation.title = @"I'm Here";
-//    self.mapView.userLocation.subtitle = @"Come and Find Me";
-//    
-//    
-//    NSLog(@"Latitude is: %@", [NSString stringWithFormat:@"%f",self.locationManager.location.coordinate.latitude] );
-//    NSLog(@"Longitude is: %@", [NSString stringWithFormat:@"%f",self.locationManager.location.coordinate.longitude] );
-//    NSLog(@"-----------------");
-//    NSLog(@"map Latitude is: %@", [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.latitude] );
-//    NSLog(@"map Longitude is: %@", [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.longitude] );
-//}
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     
@@ -109,12 +94,12 @@
     MKPlacemark *myplace= [[MKPlacemark alloc]initWithCoordinate:CLLocationCoordinate2DMake(srcLat,srcLon) addressDictionary:nil];
     
     MKMapItem *srcMapItem = [[MKMapItem alloc]initWithPlacemark:myplace];
-    [srcMapItem setName:@""];
+    srcMapItem.name = @"";
     
     MKPlacemark *destplace= [[MKPlacemark alloc]initWithCoordinate:CLLocationCoordinate2DMake(destLat, destLon) addressDictionary:nil];
     
     MKMapItem *distMapItem = [[MKMapItem alloc]initWithPlacemark:destplace];
-    [distMapItem setName:@""];
+    distMapItem.name = @"";
     
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = CLLocationCoordinate2DMake(srcLat, srcLon);
@@ -139,19 +124,38 @@
     (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFAnnotationIdentifier];
     if (!pinView)
     {
+        UIImageView *imageView = [[UIImageView alloc]init];
+        imageView.layer.borderWidth = 1;
+        imageView.layer.borderColor = [[UIColor whiteColor]CGColor];
+        CGRect rect = CGRectMake(2,2,46,43);
+        [imageView setFrame:rect];
+        
+        imageView.layer.cornerRadius=22.0;
+        imageView.layer.masksToBounds=YES;
         MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                                         reuseIdentifier:SFAnnotationIdentifier] ;
+                                                                        reuseIdentifier:SFAnnotationIdentifier] ;
         
-        profilePic = [[[Victims getPanicFromArray] valueForKey:@"pic"] objectAtIndex:self.panicPersonId];
-        imagePathString = @"http://fajjemobile.infofajjemobile.info/iospanic/assets/upload/";
-        imagePathString = [imagePathString stringByAppendingString:profilePic];
-        imagePathUrl = [NSURL URLWithString:imagePathString];
-        data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
+        if(count == 0)
+        {
+            profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
+            imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
+            imagePathString = [imagePathString stringByAppendingString:profilePic];
+            imagePathUrl = [NSURL URLWithString:imagePathString];
+            data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
         
-        img = [[UIImage alloc]initWithData:data];
+            img = [[UIImage alloc]initWithData:data];
+            imageView.image = img;
+            count ++;
+        }
+        else
+        {
+            NSData* myEncodedImageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userImage"];
+            img = [UIImage imageWithData:myEncodedImageData];
+
+            imageView.image = img;
+        }
         
-        annotationView.image = [self resizeUIImage:img giveRectangle:CGRectMake(0,0,30,30)];
-        
+        [annotationView addSubview:imageView];
         return annotationView;
     }
     else
@@ -161,21 +165,22 @@
     return pinView;
 }
 
--(UIImage *)resizeUIImage: (UIImage *)providedImage giveRectangle:(CGRect)rectangle
-{
-    UIGraphicsBeginImageContext( rectangle.size );
-    [providedImage drawInRect:rectangle];
-    UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    NSData *imageData = UIImagePNGRepresentation(picture1);
-    UIImage *img2=[UIImage imageWithData:imageData];
-    return img2;
-}
+//-(UIImage *)resizeUIImage: (UIImage *)providedImage giveRectangle:(CGRect)rectangle
+//{
+//    UIGraphicsBeginImageContext( rectangle.size );
+//    [providedImage drawInRect:rectangle];
+//    UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    NSData *imageData = UIImagePNGRepresentation(picture1);
+//    UIImage *img2=[UIImage imageWithData:imageData];
+//    return img2;
+//}
 
 - (void)showDirections:(MKDirectionsResponse *)response
 {
-    for (MKRoute *route in response.routes) {
+    for (MKRoute *route in response.routes)
+    {
         [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
     }
 }
@@ -183,7 +188,6 @@
 - (void)findDirectionsFrom:(MKMapItem *)source
                         to:(MKMapItem *)destination
 {
-    
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;
     request.transportType = MKDirectionsTransportTypeAutomobile;
@@ -203,12 +207,12 @@
 
 - (void)didLoadedDirections:(MKDirectionsResponse *)response
 {
-    MKRoute *route = [response.routes firstObject];
+    MKRoute *route = (response.routes).firstObject;
     [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
     
-    NSMutableArray *_steps = [NSMutableArray arrayWithCapacity:[route.steps count]];
+    NSMutableArray *_steps = [NSMutableArray arrayWithCapacity:(route.steps).count];
     for (MKRouteStep *_step in route.steps) {
-        [_steps addObject:[_step instructions]];
+        [_steps addObject:_step.instructions];
     }
     //self.routeSteps = _steps;
     
@@ -227,16 +231,48 @@
     [self.mapView setVisibleMapRect:zoomRect animated:YES];
 }
 
--(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay{
-    
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
         MKPolylineRenderer *polylineRender = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
         polylineRender.lineWidth = 3.0f;
         polylineRender.strokeColor = [UIColor blueColor];
         return polylineRender;
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+-(void)viewDidDisappear:(BOOL)animated
+{
     [self viewWillDisappear:YES];
 }
+
+
+//- (IBAction)zoomToCurrentLocation:(id)sender {
+//
+//    self.locationManager = [[CLLocationManager alloc] init];
+//    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    [self.locationManager startUpdatingLocation];
+//
+//    float spanX = 0.00725;
+//    float spanY = 0.00725;
+//    MKCoordinateRegion region;
+//    region.center.latitude = self.locationManager.location.coordinate.latitude;
+//    region.center.longitude = self.locationManager.location.coordinate.longitude;
+//    region.span.latitudeDelta = spanX;
+//    region.span.longitudeDelta = spanY;
+//    [self.mapView setZoomEnabled:YES];
+//    [self.mapView setScrollEnabled:YES];
+//
+//    [self.mapView setRegion:region animated:YES];
+//    self.mapView.userLocation.title = @"I'm Here";
+//    self.mapView.userLocation.subtitle = @"Come and Find Me";
+//
+//
+//    NSLog(@"Latitude is: %@", [NSString stringWithFormat:@"%f",self.locationManager.location.coordinate.latitude] );
+//    NSLog(@"Longitude is: %@", [NSString stringWithFormat:@"%f",self.locationManager.location.coordinate.longitude] );
+//    NSLog(@"-----------------");
+//    NSLog(@"map Latitude is: %@", [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.latitude] );
+//    NSLog(@"map Longitude is: %@", [NSString stringWithFormat:@"%f",self.mapView.userLocation.coordinate.longitude] );
+//}
+
 @end
 

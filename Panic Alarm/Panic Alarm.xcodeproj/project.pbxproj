@@ -610,7 +610,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Panic AAlaram Application/Panic Alarm-Prefix.pch";
 				INFOPLIST_FILE = "Panic AAlaram Application/Panic Alarm-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.panicAlarm;
 				PRODUCT_NAME = "Panic Alarm";
 				PROVISIONING_PROFILE = "";
@@ -635,7 +635,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Panic AAlaram Application/Panic Alarm-Prefix.pch";
 				INFOPLIST_FILE = "Panic AAlaram Application/Panic Alarm-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.panicAlarm;
 				PRODUCT_NAME = "Panic Alarm";
 				PROVISIONING_PROFILE = "";

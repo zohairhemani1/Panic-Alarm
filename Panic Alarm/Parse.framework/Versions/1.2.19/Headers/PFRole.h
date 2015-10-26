@@ -33,7 +33,7 @@
  
  @param name The name of the Role to create.
  */
-- (id)initWithName:(NSString *)name;
+- (instancetype)initWithName:(NSString *)name;
 
 /*!
  Constructs a new PFRole with the given name.
@@ -41,7 +41,7 @@
  @param name The name of the Role to create.
  @param acl The ACL for this role. Roles must have an ACL.
  */
-- (id)initWithName:(NSString *)name acl:(PFACL *)acl;
+- (instancetype)initWithName:(NSString *)name acl:(PFACL *)acl;
 
 /*!
  Constructs a new PFRole with the given name. If no default ACL has been

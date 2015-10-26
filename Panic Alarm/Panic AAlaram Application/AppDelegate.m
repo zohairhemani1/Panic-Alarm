@@ -19,11 +19,13 @@
 {
     // setting panicMessage in shared Preferences
 
-    [[UITabBar appearance]setTintColor:[UIColor whiteColor]];
+    [UITabBar appearance].tintColor = [UIColor whiteColor];
         
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     [Fabric with:@[[Digits class]]];
+    
+    [[NSUserDefaults standardUserDefaults]setValue:@"+923152151511" forKey:@"myPhoneNumber"];
     
 //    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"termsAgreed"]isEqualToString:@"termsAgreed"])
 //       {
@@ -69,7 +71,7 @@
   //   UIRemoteNotificationTypeAlert|
    //  UIRemoteNotificationTypeSound];
     
-    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+  //  NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     
     // Create a pointer to the Photo object
     // NSString *victinName = [notificationPayload objectForKey:@"name"];
@@ -78,7 +80,7 @@
 
     
    // [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     return YES;
 }

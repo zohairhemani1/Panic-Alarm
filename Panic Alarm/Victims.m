@@ -13,6 +13,8 @@
 #import "Constants.h"
 #import <Parse/Parse.h>
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
 @interface Victims ()
 
 @end
@@ -37,7 +39,9 @@
     NSArray *AcceptToSendLocationJsonArray;
     UIButton *accept_location;
     NSString *FindNotificationMessage;
-    int receivedStatus ;
+    int receivedStatus;
+    NSMutableDictionary *imagesDictionary;
+    UIImageView *imageView;
     
 }
 static NSArray *PanicFromArray;
@@ -45,7 +49,7 @@ static NSArray *PanicToArray;
 
 @synthesize mytable = _tableView;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -64,7 +68,8 @@ static NSArray *PanicToArray;
     [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     [self.mytable addSubview:self.refresh];
     
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
 
@@ -91,7 +96,6 @@ static NSArray *PanicToArray;
     });
 
   }
-
 
 -(void)callThePanicFromArray{
     PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://fajjemobile.info/iospanic/panicFrom.php" parameterOne:nil]];
@@ -121,15 +125,15 @@ static NSArray *PanicToArray;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-        if(self.segments.selectedSegmentIndex == 0){
-        return [PanicFromArray count];
+    if(self.segments.selectedSegmentIndex == 0)
+    {
+        return PanicFromArray.count;
     }
-        else {
-        return [PanicToArray count];
-        }
-    
+    else
+    {
+        return PanicToArray.count;
     }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -140,34 +144,30 @@ static NSArray *PanicToArray;
     UITableViewCell *cell;
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f]];
+    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
     name.text = @"";
     
     UILabel *status = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 170, 13)];
-    [status setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
+    status.font = [UIFont fontWithName:@"HelveticaNeue" size:11.f];
     status.textColor = [UIColor grayColor];
     status.text = @"";
     
     UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 160, 13)];
-    [message setFont:[UIFont fontWithName:@"HelveticaNeue" size:11.f]];
+    message.font = [UIFont fontWithName:@"HelveticaNeue" size:11.f];
     message.textColor = [UIColor grayColor];
     message.numberOfLines = 2;
     message.text = @"";
 
     UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(220, 2, 80, 20)];
-    [timestamp setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.f]];
+    timestamp.font = [UIFont fontWithName:@"HelveticaNeue" size:14.f];
     timestamp.text = @"";
 
     accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 22, 80, 20)];
     //[accept_location setTitle:@"Accept" forState:normal];
     [accept_location setTitleColor:[UIColor whiteColor] forState:normal];
-    [accept_location setBackgroundColor:[UIColor blackColor]];
+    accept_location.backgroundColor = [UIColor blackColor];
     
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(10, 5, 40, 40);
-    imageView.layer.cornerRadius = 20;
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [imageView setClipsToBounds:YES];
+    
     
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
@@ -175,7 +175,7 @@ static NSArray *PanicToArray;
     int calculatedDifference;
     
     image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
-    [image_loading setColor:[UIColor blackColor]];
+    image_loading.color = [UIColor blackColor];
     
     
     if(self.segments.selectedSegmentIndex == 0)
@@ -187,13 +187,55 @@ static NSArray *PanicToArray;
                                           reuseIdentifier:simpleTableIdentifier];
         }
         
-        [[self.segments.subviews objectAtIndex:0] setBackgroundColor:[UIColor whiteColor]];
+        (self.segments.subviews)[0].backgroundColor = [UIColor whiteColor];
         
-        profilePic = [[PanicFromArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
-        name.text = [[PanicFromArray valueForKey:@"username"]objectAtIndex:indexPath.row];
-        message.text =[[PanicFromArray valueForKey:@"pMessage" ] objectAtIndex:indexPath.row];
-        receivedStatus = [[[PanicFromArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
+        profilePic = [PanicFromArray valueForKey:@"pic"][indexPath.row];
+        name.text = [[PanicFromArray valueForKey:@"username"][indexPath.row] uppercaseString];
+        message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
+        receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
         
+        UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
+        if (retrievedImage == nil) {
+            dispatch_async(kBgQueue, ^{
+                [image_loading startAnimating];
+                NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]]]];
+                
+                UIImage *image;
+                if([[PanicFromArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
+                {
+                    image = [UIImage imageNamed:@"no_image"];
+                }
+                else
+                {
+                    image = [UIImage imageWithData:imgData];
+                }
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                        if (updateCell)
+                        {
+                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+                            imageView.image = image;
+                            imageView.layer.cornerRadius = 20;
+                            imageView.contentMode = UIViewContentModeScaleAspectFill;
+                            [imageView setClipsToBounds:YES];
+                            
+                            [imagesDictionary setObject:image forKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
+                            [updateCell addSubview:imageView];
+                            [image_loading stopAnimating];
+                        }
+                    });
+                }
+            });
+        }
+        else
+        {
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+            imageView.image = retrievedImage;
+            [cell addSubview:imageView];
+            
+        }
+
         if(receivedStatus == 0)
         {
             //[accept_location setTitle:@"Accept" forState:normal];
@@ -216,7 +258,7 @@ static NSArray *PanicToArray;
     }
     else
     {
-        [[self.segments.subviews objectAtIndex:1] setBackgroundColor:[UIColor whiteColor]];
+        (self.segments.subviews)[1].backgroundColor = [UIColor whiteColor];
         //PanicTo Table View
         
         if (cell == nil) {
@@ -224,10 +266,53 @@ static NSArray *PanicToArray;
                                           reuseIdentifier:simple];
         }
         
-        name.text = [[PanicToArray valueForKey:@"username" ] objectAtIndex:indexPath.row];
-        profilePic = [[PanicToArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
-        message.text = [[PanicToArray valueForKey:@"pMessage"] objectAtIndex:indexPath.row];
-        receivedStatus = [[[PanicToArray valueForKey:@"received" ] objectAtIndex:indexPath.row]intValue];
+        name.text = [PanicToArray valueForKey:@"username" ][indexPath.row];
+        profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
+        message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
+        receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
+        
+        UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
+        if (retrievedImage == nil) {
+            dispatch_async(kBgQueue, ^{
+                [image_loading startAnimating];
+                NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]]]];
+                
+                UIImage *image;
+                if([[PanicToArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
+                {
+                    image = [UIImage imageNamed:@"no_image"];
+                }
+                else
+                {
+                    image = [UIImage imageWithData:imgData];
+                }
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                        if (updateCell)
+                        {
+                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+                            imageView.image = image;
+                            imageView.layer.cornerRadius = 20;
+                            imageView.contentMode = UIViewContentModeScaleAspectFill;
+                            [imageView setClipsToBounds:YES];
+                            
+                            [imagesDictionary setObject:image forKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
+                            [updateCell addSubview:imageView];
+                            [image_loading stopAnimating];
+                        }
+                    });
+                }
+            });
+        }
+        else
+        {
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+            imageView.image = retrievedImage;
+            [cell addSubview:imageView];
+            
+        }
+
         if(receivedStatus == 0)
         {
             [accept_location setTitle:@"Accept" forState:normal];
@@ -243,15 +328,13 @@ static NSArray *PanicToArray;
         }
         
     
-        if([[[PanicToArray valueForKey:@"type"] objectAtIndex:indexPath.row] isEqualToString:@"F"]){
+        if([[PanicToArray valueForKey:@"type"][indexPath.row] isEqualToString:@"F"]){
             
             [cell addSubview:accept_location];
             
         }
-        
-        
-        
-        [cell.imageView setFrame:CGRectMake(20,20,20,20)];
+
+        (cell.imageView).frame = CGRectMake(20,20,20,20);
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
        
         [cell addSubview:image_loading];
@@ -269,25 +352,6 @@ static NSArray *PanicToArray;
         timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
     }
     
-    imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
-    imagePathString = [imagePathString stringByAppendingString:profilePic];
-    NSLog(@"the full image path is : %@",imagePathString);
-    imagePathUrl = [NSURL URLWithString:imagePathString];
-    
-    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
-    dispatch_async(myqueue, ^(void) {
-        
-        data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-        img = [[UIImage alloc]initWithData:data];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            imageView.image = img;
-            [cell addSubview:imageView];
-            [image_loading stopAnimating];
-        });
-        
-    });
-    
     [cell addSubview:name];
     [cell addSubview:message];
     [cell addSubview:timestamp];
@@ -298,7 +362,7 @@ static NSArray *PanicToArray;
 
 -(int)calculateDifference:(int)index FromArray:(NSArray *)timeFromArray{
     
-    NSString *dateFromJson = [[timeFromArray valueForKey:@"timestamp"]objectAtIndex:index];
+    NSString *dateFromJson = [timeFromArray valueForKey:@"timestamp"][index];
     NSDate *today = [NSDate date];
     
    // NSLog(@"Today: %@",today);
@@ -306,30 +370,30 @@ static NSArray *PanicToArray;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
    // [dateFormatter setDateFormat: @"EEEE"];
     
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     NSDate * JsonDateFormatted = [dateFormatter dateFromString:dateFromJson];
-    [dateFormatter setDateFormat:@"dd"];
-    messageDay = [[dateFormatter stringFromDate:JsonDateFormatted] intValue];
+    dateFormatter.dateFormat = @"dd";
+    messageDay = [dateFormatter stringFromDate:JsonDateFormatted].intValue;
     
-    [dateFormatter setDateFormat:@"HH:mm"];
+    dateFormatter.dateFormat = @"HH:mm";
     hourWithMin = [dateFormatter stringFromDate:JsonDateFormatted];
     
-    [dateFormatter setDateFormat:@"HH"];
+    dateFormatter.dateFormat = @"HH";
     hour = [dateFormatter stringFromDate:JsonDateFormatted];
     
-    if([hour intValue] > 12){
+    if(hour.intValue > 12){
         
     }
 
-    [dateFormatter setDateFormat:@"dd"];
-    currentDay = [[dateFormatter stringFromDate:today] intValue];
+    dateFormatter.dateFormat = @"dd";
+    currentDay = [dateFormatter stringFromDate:today].intValue;
 
     int difference = messageDay - currentDay;
     
    // NSLog(@"the date difference is %d",difference);
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setDay:difference];
+    components.day = difference;
     
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
@@ -345,8 +409,8 @@ static NSArray *PanicToArray;
 {
     // Initialize the formatter.
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterShortStyle];
-    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
     
     // Initialize the calendar and flags.
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit;
@@ -354,9 +418,9 @@ static NSArray *PanicToArray;
     
     // Create reference date for supplied date.
     NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
-    [comps setHour:0];
-    [comps setMinute:0];
-    [comps setSecond:0];
+    comps.hour = 0;
+    comps.minute = 0;
+    comps.second = 0;
     NSDate *suppliedDate = [calendar dateFromComponents:comps];
     
     // Iterate through the eight days (tomorrow, today, and the last six).
@@ -365,13 +429,13 @@ static NSArray *PanicToArray;
     {
         // Initialize reference date.
         comps = [calendar components:unitFlags fromDate:[NSDate date]];
-        [comps setHour:0];
-        [comps setMinute:0];
-        [comps setSecond:0];
-        [comps setDay:[comps day] - i];
+        comps.hour = 0;
+        comps.minute = 0;
+        comps.second = 0;
+        comps.day = comps.day - i;
         NSDate *referenceDate = [calendar dateFromComponents:comps];
         // Get week day (starts at 1).
-        int weekday = [[calendar components:unitFlags fromDate:referenceDate] weekday] - 1;
+        int weekday = [calendar components:unitFlags fromDate:referenceDate].weekday - 1;
         
         if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == -1)
         {
@@ -381,8 +445,8 @@ static NSArray *PanicToArray;
         else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 0)
         {
             // Today's time (a la iPhone Mail)
-            [formatter setDateStyle:NSDateFormatterNoStyle];
-            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            formatter.dateStyle = NSDateFormatterNoStyle;
+            formatter.timeStyle = NSDateFormatterShortStyle;
             NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
             return [formatter stringFromDate:date];
             
@@ -395,7 +459,7 @@ static NSArray *PanicToArray;
         else if ([suppliedDate compare:referenceDate] == NSOrderedSame)
         {
             // Day of the week
-            NSString *day = [[formatter weekdaySymbols] objectAtIndex:weekday];
+            NSString *day = formatter.weekdaySymbols[weekday];
             return day;
         }
     }
@@ -408,15 +472,16 @@ static NSArray *PanicToArray;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    NSIndexPath *indexPath = [self.mytable indexPathForSelectedRow];
+    NSIndexPath *indexPath = (self.mytable).indexPathForSelectedRow;
     PanicFrom *panic = segue.destinationViewController;
     
     if ([segue.identifier isEqualToString:@"FromSegue"]) {
         
         panic.panicPersonId = indexPath.row;
+        NSLog(@"the id is: %d",panic.panicPersonId);
     }
         // Hide bottom tab bar in the detail view
-        //   destViewController.hidesBottomBarWhenPushed = YES;
+        // destViewController.hidesBottomBarWhenPushed = YES;
     
 }
 
@@ -449,13 +514,13 @@ static NSArray *PanicToArray;
 {
     accept_location = (UIButton*) sender;
     WebService *AcceptToSendLocationRest = [[WebService alloc] init];
-    AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[[PanicToArray valueForKeyPath:@"friendsnumber"] objectAtIndex:accept_location.tag] parameterTwo:@"20" parameterThree:[[PanicToArray valueForKey:@"id"] objectAtIndex:accept_location.tag]];
+    AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:@"20" parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
     
     if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"]){
         [accept_location setTitle:@"Sent" forState:normal];
         PFPush *push = [[PFPush alloc] init];
         //[push setChannel:@"X_090078601"];   // channels column in PARSE!
-        [push setChannel:[@"X_" stringByAppendingString:[[PanicToArray valueForKey:@"friendsnumber"] objectAtIndex:accept_location.tag]]];
+        [push setChannel:[@"X_" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];
         FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
         [push setMessage:FindNotificationMessage];
         //[push setData:data];
@@ -469,6 +534,9 @@ static NSArray *PanicToArray;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"FromSegue" sender:self];
+    if(self.segments.selectedSegmentIndex == 0)
+    {
+        [self performSegueWithIdentifier:@"FromSegue" sender:self];
+    }
 }
 @end

@@ -20,7 +20,6 @@
     NSString *victimNumber;
     Favorites *favouritesObj;
     NSString *friendsNumber;
-    UIAlertView *help_message;
     float longitude;
     float latitude;
     AVAudioPlayer *player;
@@ -37,15 +36,7 @@ bool condition=NO;
 {
 }
 
-- (IBAction)help_button:(id)sender {
-    
-    help_message = [[UIAlertView alloc]initWithTitle:@"Help Desk" message:@"You can press the P button to send panic to your Friends\n You can press the F button to find your favourite friends." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-    
-    [help_message show];
-    
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -60,13 +51,13 @@ bool condition=NO;
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    #ifdef __IPHONE_8_0
-        if(IS_OS_8_OR_LATER) {
-        // Use one or the other, not both. Depending on what you put in info.plist
-            [self.locationManager requestAlwaysAuthorization];
-        }
-    #endif
-    //[self.locationManager startUpdatingLocation];
+//    #ifdef __IPHONE_8_0
+//        if(IS_OS_8_OR_LATER) {
+//        // Use one or the other, not both. Depending on what you put in info.plist
+//            [self.locationManager requestAlwaysAuthorization];
+//        }
+//    #endif
+//    [self.locationManager startUpdatingLocation];
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
@@ -82,8 +73,6 @@ bool condition=NO;
     [self.view addSubview:progress];
     [progress bringSubviewToFront:self.view];
     // indicator view end
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
@@ -109,71 +98,77 @@ bool condition=NO;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)get_location:(id)sender {
+- (IBAction)help_button:(id)sender
+{
+    [self showAlertBox:NO title:@"Help Desk" message:@"You can press the P button to send panic to your Friends\n You can press the F button to find your favourite friends."];
+}
 
-    [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
-    
-    
-    //SystemSoundID soundID;
-    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
-    NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
-    player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
-    [player play];
-    
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager requestAlwaysAuthorization];
-    [self.locationManager startUpdatingLocation];
-
-    
-//    CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
-//    
-//    if (authorizationStatus == kCLAuthorizationStatusAuthorized ||
-//        authorizationStatus == kCLAuthorizationStatusAuthorizedAlways ||
-//        authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse)
-//    {
-//    }
-
-    [progress startAnimating];
-
-    NSMutableArray* list = [Favorites favouritesList];
-    //if(list!=NULL)
-   // {
-        victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-        victimNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
-   // }
-    
-    for (int i=0; i<[list count]; i++)
+- (IBAction)get_location:(id)sender
+{
+    if([[Favorites favouritesList]count]>0)
     {
-        NSLog(@"Fav Item: %@", [list objectAtIndex:i]);
-        friendsNumber = @"X_";
-        friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"] objectAtIndex:i]];
-        NSLog(@"NO: %@", friendsNumber);
-        NSString *msg = [victimName stringByAppendingString:@" is in Danger! Please track his location."];
+        [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
+    
+        //SystemSoundID soundID;
+        NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
+        NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
+        player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
+        [player play];
+    
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [self.locationManager requestAlwaysAuthorization];
+        [self.locationManager startUpdatingLocation];
+    
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+        {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+
+        [progress startAnimating];
+
+        NSMutableArray* list = [Favorites favouritesList];
+        victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+        victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
+    
+        for (int i=0; i<list.count; i++)
+        {
+            NSLog(@"Fav Item: %@", list[i]);
+            friendsNumber = @"X_";
+            friendsNumber = [friendsNumber stringByAppendingString:[list valueForKey:@"friendsnumber"][i]];
+            NSLog(@"NO: %@", friendsNumber);
+            NSString *msg = [victimName stringByAppendingString:@" is in Danger! Please track his location."];
         
-        NSDictionary *data = @{
+            NSDictionary *data = @{
                                @"alert": msg,
                                @"name": victimName,
                                @"number": victimNumber,
                                @"sound":@"cheering.caf"
                                };
-      //  NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:msg, @"alert",
+            //  NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:msg, @"alert",
                              // @"cheering.caf", @"sound",
                              // nil];
         
-        PFPush *push = [[PFPush alloc] init];
-        [push setChannel:friendsNumber];   // channels column in PARSE!
-        [push setData:data];
-        [push sendPushInBackground];
+            [self PanicVictimRest];
         
-    }
+            PFPush *push = [[PFPush alloc] init];
+            [push setChannel:friendsNumber];   // channels column in PARSE!
+            [push setData:data];
+            [push sendPushInBackground];
+        
+        }
 
-    [progress stopAnimating];
-    
-    [NSTimer scheduledTimerWithTimeInterval:5.0
-     target:self
-     selector:@selector(stopSoundAndAnimation)
-     userInfo:nil
-     repeats:YES];
+        [progress stopAnimating];
+        
+        [NSTimer scheduledTimerWithTimeInterval:5.0
+                                         target:self
+                                       selector:@selector(stopSoundAndAnimation)
+                                       userInfo:nil
+                                        repeats:YES];
+    }
+    else
+    {
+        [self showAlertBox:NO title:@"ERROR" message:@"You don't have any friends."];
+    }
     
 }
 
@@ -186,55 +181,57 @@ bool condition=NO;
 // Location Manager Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"in location update");
+   // NSLog(@"in location update");
     [manager stopUpdatingLocation];
-    CLLocation *location = [locations lastObject];
+    CLLocation *location = locations.lastObject;
     
     latitude = location.coordinate.latitude;
     longitude = location.coordinate.longitude;
 
     if(first_time_on_database)
     {
-        [self PanicVictimRest];
-        
+            [self PanicVictimRest];
     }
-    first_time_on_database = NO;
+    
 }
 
 -(void)PanicVictimRest{
     
     NSLog(@"longitude is: %f",longitude);
     NSLog(@"latitude is: %f",latitude);
-    
-    NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
-    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
-    [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
-    [panic_victim_data setValue:victimName forKey:@"name"];
-    [panic_victim_data setValue:victimNumber forKey:@"password"];
-    [panic_victim_data setValue:@"P" forKey:@"type"];
-    [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
-    //[favouritesObj favouritesArray];
-    
-    NSArray *PanicVictimDataArray = [[NSArray alloc] initWithObjects:panic_victim_data, nil];
-    
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization
-                        dataWithJSONObject:PanicVictimDataArray
-                        options:NSJSONWritingPrettyPrinted
-                        error:&error];
-    if ([jsonData length] > 0 &&
-        error == nil)
+    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
     {
-        //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData
-                                                     encoding:NSUTF8StringEncoding];
-        WebService *PanicVictimRestAPI = [[WebService alloc] init];
-        [PanicVictimRestAPI FilePath:@"http://fajjemobile.info/iospanic/panicButton.php" parameterOne:jsonString];
+        first_time_on_database = NO;
+        NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
+        [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
+        [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
+        [panic_victim_data setValue:victimName forKey:@"name"];
+        [panic_victim_data setValue:victimNumber forKey:@"password"];
+        [panic_victim_data setValue:@"P" forKey:@"type"];
+        [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
+        //[favouritesObj favouritesArray];
+        
+        NSArray *PanicVictimDataArray = @[panic_victim_data];
+        
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization
+                            dataWithJSONObject:PanicVictimDataArray
+                            options:NSJSONWritingPrettyPrinted
+                            error:&error];
+        if (jsonData.length > 0 &&
+            error == nil)
+        {
+            //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                         encoding:NSUTF8StringEncoding];
+            WebService *PanicVictimRestAPI = [[WebService alloc] init];
+            [PanicVictimRestAPI FilePath:@"http://fajjemobile.info/iospanic/panicButton.php" parameterOne:jsonString];
+        }
     }
-   
 }
 
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:YES];
     
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
@@ -261,7 +258,7 @@ bool condition=NO;
         NSString *profilePic;
         NSLog(@" friendsToAcceptItem: %@", item);
         
-        for (int i=0; i < [SecondViewController.finalArrayStaticFunction count]; i++)
+        for (int i=0; i < (SecondViewController.finalArrayStaticFunction).count; i++)
         {
             phoneNumber = [SecondViewController.finalArrayStaticFunction[i] valueForKeyPath:@"phoneNumber"];
             NSString *friendsNumber  = [item valueForKey:@"friendsnumber"];
@@ -301,42 +298,42 @@ bool condition=NO;
     
     
     //set the number of notifications here//
-    int notifiations = [friendsToAcceptArray count];
+    NSUInteger notifiations = friendsToAcceptArray.count;
     //zohair work now//
     
-    if(notifiations==0){
-        [[[[[self tabBarController] tabBar] items] objectAtIndex:1] setBadgeValue:nil];
+    if(notifiations==0)
+    {
+        [self.tabBarController.tabBar.items[1] setBadgeValue:nil];
     }
-    else{
+    else
+    {
         NSString* notifiations_string = [NSString stringWithFormat:@"%i", notifiations];
-        [[[[[self tabBarController] tabBar] items] objectAtIndex:1] setBadgeValue:notifiations_string];
+        self.tabBarController.tabBar.items[1].badgeValue = notifiations_string;
     }
-    
-    
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
+-(void)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
 {
-    [self animateTextField: textField up: YES];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: NO];
-}
-
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
-{
-    const int movementDistance = 100; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
     
-    int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    [UIView commitAnimations];
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             if(moveBack == true)
+                             {
+                                 [self.navigationController popToRootViewControllerAnimated:YES];
+                             }
+                             
+                             
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

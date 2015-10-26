@@ -10,9 +10,9 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface GetLocation : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource>
+@interface GetLocation : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating>
 @property UIRefreshControl *refresh;
 
 @property (weak, nonatomic) IBOutlet UITableView *myContacts;
-
+@property (strong, nonatomic) UISearchController *searchController;
 @end

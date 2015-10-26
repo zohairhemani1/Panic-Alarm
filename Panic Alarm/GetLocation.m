@@ -25,7 +25,7 @@ checkInternet *c;
 
 @implementation GetLocation
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -39,12 +39,10 @@ checkInternet *c;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [self.myContacts setSeparatorColor:[UIColor lightGrayColor]];
+    (self.myContacts).separatorColor = [UIColor lightGrayColor];
     
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
-    
-    
     
     self.myContacts.delegate=self;
     self.myContacts.dataSource = self;
@@ -56,6 +54,14 @@ checkInternet *c;
     progress = [c indicatorprogress:progress];
     [self.view addSubview:progress];
     [progress bringSubviewToFront:self.view];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+//    self.searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"ScopeButtonCountry",@"Country"),
+//                                                          NSLocalizedString(@"ScopeButtonCapital",@"Capital")];
+    self.searchController.searchBar.delegate = self;
+    [self.searchController.searchBar sizeToFit];
     
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
@@ -76,9 +82,24 @@ checkInternet *c;
     
 }
 
+//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+//{
+//    NSString *searchString = searchController.searchBar.text;
+//    [self searchForText:searchString scope:searchController.searchBar.selectedScopeButtonIndex];
+//    [self.myContacts reloadData];
+//}
+//
+//- (void)searchForText:(NSString*)searchText scope:(NSString*)scope
+//{
+//    // [searchResults removeAllObjects];
+//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+//    searchResults = [favArray filteredArrayUsingPredicate:resultPredicate];
+//    
+//}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [favArray count];
+    return favArray.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -100,17 +121,21 @@ checkInternet *c;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
     }
     
+    tableView.tableHeaderView = self.searchController.searchBar;
+    
+    self.definesPresentationContext = YES;
+    
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 19)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
-    NSString *pic = [[favArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
+    NSString *pic = [favArray valueForKey:@"pic"][indexPath.row];
     
     //name.textColor= [UIColor grayColor];
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
-    name.text = [[favArray valueForKey:@"username"]objectAtIndex:indexPath.row];
+    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
+    name.text = [favArray valueForKey:@"username"][indexPath.row];
     [cell addSubview:name];
-    [phonenumber setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+    phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
-    phonenumber.text=[[favArray valueForKey:@"friendsnumber"]objectAtIndex:indexPath.row];
+    phonenumber.text=[favArray valueForKey:@"friendsnumber"][indexPath.row];
     [cell addSubview:phonenumber];
     
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
@@ -132,7 +157,7 @@ checkInternet *c;
     button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
     [button setTitle:@"Find" forState:UIControlStateNormal];
     button.tag = indexPath.row;
-    [button setBackgroundColor:[UIColor blackColor]];
+    button.backgroundColor = [UIColor blackColor];
     [button addTarget:self action:@selector(FindLocation:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell.contentView addSubview:button];
@@ -158,7 +183,7 @@ checkInternet *c;
     button = (UIButton *) sender;
     
     WebService *FindLocationRest = [[WebService alloc] init];
-    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[[favArray valueForKey:@"friendsnumber"]objectAtIndex:button.tag] parameterThree:FIND_MESSAGE];
+    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[favArray valueForKey:@"friendsnumber"][button.tag] parameterThree:FIND_MESSAGE];
     
     NSLog(@"the returned value are: %@",[favRestJsonArray valueForKey:@"success"] );
     
@@ -170,7 +195,7 @@ checkInternet *c;
         
         PFPush *push = [[PFPush alloc] init];
         [push setChannel:@"X_090078601"];   // channels column in PARSE!
-        NSString *FindNotificationMessage = [[[favArray valueForKey:@"username"]objectAtIndex:button.tag] stringByAppendingString:@" is requesting your Location."];
+        NSString *FindNotificationMessage = [[favArray valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
         //[push setData:data];
         [push sendPushInBackground];

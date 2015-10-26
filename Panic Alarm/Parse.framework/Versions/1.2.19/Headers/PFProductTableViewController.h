@@ -18,5 +18,5 @@
 /*!
  Initializes a product table view controller.
  */
-- (id)init;
+- (instancetype)init;
 @end

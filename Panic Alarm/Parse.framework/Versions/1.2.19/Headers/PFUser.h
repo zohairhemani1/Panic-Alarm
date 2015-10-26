@@ -42,7 +42,7 @@ A Parse Framework User Object that is a local representation of a user persisted
  a signUp or logIn method. An authenticated object is required in order to save (with altered values) or delete it.
  @result Returns whether the user is authenticated.
  */
-- (BOOL)isAuthenticated;
+@property (NS_NONATOMIC_IOSONLY, getter=isAuthenticated, readonly) BOOL authenticated;
 
 /** @name Creating a New User */
 
@@ -77,7 +77,7 @@ A Parse Framework User Object that is a local representation of a user persisted
  Signs up the user. Make sure that password and username are set. This will also enforce that the username isn't already taken. 
  @result Returns true if the sign up was successful.
  */
-- (BOOL)signUp;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL signUp;
 
 /*!
  Signs up the user. Make sure that password and username are set. This will also enforce that the username isn't already taken.

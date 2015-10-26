@@ -87,7 +87,7 @@
  Saves the file.
  @result Returns whether the save succeeded.
  */
-- (BOOL)save;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL save;
 
 /*!
  Saves the file and sets an error if it occurs.
@@ -135,7 +135,7 @@
  servers.
  @result The data. Returns nil if there was an error in fetching.
  */
-- (NSData *)getData;
+@property (NS_NONATOMIC_IOSONLY, getter=getData, readonly, copy) NSData *data;
 
 /*!
  This method is like getData but avoids ever holding the entire PFFile's
@@ -144,7 +144,7 @@
  @result A stream containing the data. Returns nil if there was an error in
  fetching.
  */
-- (NSInputStream *)getDataStream;
+@property (NS_NONATOMIC_IOSONLY, getter=getDataStream, readonly, strong) NSInputStream *dataStream;
 
 /*!
  Gets the data from cache if available or fetches its contents from the Parse

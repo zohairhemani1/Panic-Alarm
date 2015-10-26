@@ -23,7 +23,7 @@
 /*!
  @return A ParseQuery that can be used to get objects in this relation.
  */
-- (PFQuery *)query;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) PFQuery *query;
 
 
 #pragma mark Modifying relations

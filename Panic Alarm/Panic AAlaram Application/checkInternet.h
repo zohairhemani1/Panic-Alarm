@@ -17,8 +17,9 @@ BOOL first_time;
 @interface checkInternet : UIViewController<UIAlertViewDelegate>
 
 - (void) viewWillAppear:(BOOL)animated;
-- (void) checkNetworkStatus;
+-(void) checkNetworkStatus:(NSNotification *)notice;
 - (UIActivityIndicatorView *)indicatorprogress:(UIActivityIndicatorView *)progressing;
-- (BOOL) internetstatus;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL internetstatus;
 
+-(UIAlertController*)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message;
 @end

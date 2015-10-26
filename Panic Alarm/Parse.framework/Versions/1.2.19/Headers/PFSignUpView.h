@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
+typedef NS_OPTIONS(unsigned int, PFSignUpFields) {
     PFSignUpFieldsUsernameAndPassword = 0,
     PFSignUpFieldsEmail = 1 << 0,
     PFSignUpFieldsAdditional = 1 << 1, // this field can be used for something else
     PFSignUpFieldsSignUpButton = 1 << 2,
     PFSignUpFieldsDismissButton = 1 << 3,
     PFSignUpFieldsDefault = PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsEmail | PFSignUpFieldsSignUpButton | PFSignUpFieldsDismissButton
-} PFSignUpFields;
+};
 
 /*!
  The class provides a standard sign up interface for authenticating a PFUser.
@@ -27,7 +27,7 @@ typedef enum {
  Initializes the view with the specified sign up elements.
  @param fields A bitmask specifying the sign up elements which are enabled in the view
  */
-- (id)initWithFields:(PFSignUpFields) fields;
+- (instancetype)initWithFields:(PFSignUpFields) fields;
 
 /// The view controller that will present this view.
 /// Used to lay out elements correctly when the presenting view controller has translucent elements.

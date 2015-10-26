@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
+typedef NS_OPTIONS(unsigned int, PFLogInFields) {
     PFLogInFieldsNone = 0,
     PFLogInFieldsUsernameAndPassword = 1 << 0,
     PFLogInFieldsPasswordForgotten = 1 << 1,
@@ -19,7 +19,7 @@ typedef enum {
     PFLogInFieldsDismissButton = 1 << 6,
     
     PFLogInFieldsDefault = PFLogInFieldsUsernameAndPassword | PFLogInFieldsLogInButton | PFLogInFieldsSignUpButton | PFLogInFieldsPasswordForgotten | PFLogInFieldsDismissButton
-} PFLogInFields;
+};
 
 /*!
  The class provides a standard log in interface for authenticating a PFUser.
@@ -31,7 +31,7 @@ typedef enum {
  Initializes the view with the specified log in elements.
  @param fields A bitmask specifying the log in elements which are enabled in the view
  */
-- (id)initWithFields:(PFLogInFields) fields;
+- (instancetype)initWithFields:(PFLogInFields) fields;
 
 /// The view controller that will present this view.
 /// Used to lay out elements correctly when the presenting view controller has translucent elements.

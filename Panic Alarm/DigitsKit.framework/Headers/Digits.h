@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The Digits user session or nil if there's no authenticated user.
  */
-- (twtr_nullable DGTSession *)session;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) DGTSession * _Nullable session;
 
 /**
  *  Authentication configuration details. Encapsulates the `consumerKey` and `consumerSecret` credentials required to authenticate a Twitter application.

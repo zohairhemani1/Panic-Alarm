@@ -9,23 +9,24 @@
 #import "profile.h"
 #import "WebService.h"
 
-@implementation profile{
+@implementation profile
+{
     UIImage *uploadedimage;
     UIView *lineView;
-    UIAlertView *statusAlert;
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    self.messageText.delegate = self;
-    
-    self.personName.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-    self.personName.delegate = self;
+    self.personName.text = [[[NSUserDefaults standardUserDefaults] valueForKey:@"name"] uppercaseString];
     
     self.personImage.layer.cornerRadius = 40;
     self.personImage.contentMode = UIViewContentModeScaleAspectFill;
     [self.personImage setClipsToBounds:YES];
+    NSData* myEncodedImageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userImage"];
+    UIImage *img = [UIImage imageWithData:myEncodedImageData];
+    
+    self.personImage.image = img;
     
     lineView = [[UIView alloc] initWithFrame:CGRectMake(20, self.personName.frame.origin.y, self.view.bounds.size.width, 1)];
     lineView.backgroundColor = [UIColor lightGrayColor];
@@ -35,11 +36,80 @@
     lineView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:lineView];
     
-    self.messageText.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"];
+    self.messageText.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"panicMessage"];
     
     self.save.layer.cornerRadius = 5;
     [self.save setClipsToBounds:YES];
     
+}
+
+- (IBAction)upload:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"What do you want to do?"
+                                 message:nil
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                       [self presentViewController:picker animated:YES completion:nil];
+                                                   }];
+    
+    UIAlertAction *photoRoll = [UIAlertAction actionWithTitle:@"Photo Roll" style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction * action) {
+                                                          picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                          [self presentViewController:picker animated:YES completion:nil];
+                                                      }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action) {
+                                                   }];
+    
+    [alert addAction:camera];
+    [alert addAction:photoRoll];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    self.personImage.layer.cornerRadius= self.personImage.frame.size.height/2;
+    self.personImage.layer.masksToBounds = YES;
+    self.personImage.layer.borderWidth = 0;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    uploadedimage = info[UIImagePickerControllerOriginalImage];
+    (self.personImage).image = uploadedimage;
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)save_action:(id)sender {
+    
+    WebService *updateMessage = [[WebService alloc] init];
+     NSArray *result = [updateMessage FilePath:@"http://fajjemobile.info/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
+     NSString *status = [result valueForKey:@"success"];
+    
+    if([status isEqualToString:@"OK"])
+    {
+        [self showAlertBox:NO title:@"Status" message:@"Your Panic message has been updated" ];
+        [[NSUserDefaults standardUserDefaults ] setValue:self.personName.text forKey:@"name"];
+        [[NSUserDefaults standardUserDefaults ] setValue:self.messageText.text forKey:@"panicMessage"];
+    }
+    else
+    {
+        [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated."];
+    }
+    
+}
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -55,91 +125,44 @@
     }
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    
-    
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Camera"]) {
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Photos"]) {
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    else{
-        return;
-    }
-    [self presentViewController:picker animated:YES completion:nil];
-    
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
+-(void)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
 {
-    uploadedimage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self.personImage setImage:uploadedimage];
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-
-- (IBAction)upload:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                  initWithTitle:@"What do you want to do?"
-                                  delegate:self
-                                  cancelButtonTitle:@"Cancel"
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles:@"Camera", @"Photos", nil];
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:title
+                                 message:message
+                                 preferredStyle:UIAlertControllerStyleAlert];
     
-    [actionSheet showInView:self.view];
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             if(moveBack == true)
+                             {
+                                 [self.navigationController popToRootViewControllerAnimated:YES];
+                             }
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [self animateTextView: textView up: YES];
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    [self animateTextView: textView up: NO];
-}
-
-- (void) animateTextView: (UITextView*) textView up: (BOOL) up
-{
-    const int movementDistance = 80; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
-    
-    int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    self.view.frame = CGRectMake(self.view.frame.origin.x, (self.view.frame.origin.y - 50.0), self.view.frame.size.width, self.view.frame.size.height);
     [UIView commitAnimations];
 }
 
-- (IBAction)save_action:(id)sender {
-    
-    WebService *updateMessage = [[WebService alloc] init];
-     NSArray *result = [updateMessage FilePath:@"http://fajjemobile.info/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
-     NSString *status = [result valueForKey:@"success"];
-    
-    if([status isEqualToString:@"OK"]){
-        statusAlert = [[UIAlertView alloc]initWithTitle:@"Status" message:@" Your Panic message has been updated" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
-        
-        [[NSUserDefaults standardUserDefaults ] setObject:self.personName.text forKey:@"name"];
-        [[NSUserDefaults standardUserDefaults ] setObject:self.messageText.text forKey:@"panicMessage"];
-        [statusAlert show];
-    }
-    else{
-        statusAlert = [[UIAlertView alloc]initWithTitle:@"Status" message:@"Your Panic message could not be updated." delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
-        [statusAlert show];
-
-    }
-    
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    self.view.frame = CGRectMake(self.view.frame.origin.x, (self.view.frame.origin.y + 50.0), self.view.frame.size.width, self.view.frame.size.height);
+    [UIView commitAnimations];
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
-}
 @end

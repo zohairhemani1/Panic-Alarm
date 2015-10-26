@@ -33,22 +33,20 @@
 /*!
  Set whether the public is allowed to read this object.
  */
-- (void)setPublicReadAccess:(BOOL)allowed;
 
 /*!
  Gets whether the public is allowed to read this object.
  */
-- (BOOL)getPublicReadAccess;
+@property (NS_NONATOMIC_IOSONLY, getter=getPublicReadAccess) BOOL publicReadAccess;
 
 /*!
  Set whether the public is allowed to write this object.
  */
-- (void)setPublicWriteAccess:(BOOL)allowed;
 
 /*!
  Gets whether the public is allowed to write this object.
  */
-- (BOOL)getPublicWriteAccess;
+@property (NS_NONATOMIC_IOSONLY, getter=getPublicWriteAccess) BOOL publicWriteAccess;
 
 /** @name Controlling Access Per-User */
 

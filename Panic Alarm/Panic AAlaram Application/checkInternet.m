@@ -14,10 +14,7 @@
 BOOL alertTime= YES;
 @implementation checkInternet
 
-
-UIAlertView *alertbox;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -64,13 +61,10 @@ UIAlertView *alertbox;
             NSLog(@"The internet is down.");
             internetActive = NO;
             
-            if(alertTime == YES){
-                
+            if(alertTime == YES)
+            {
                 alertTime= NO;
-            
-                alertbox = [[UIAlertView alloc]initWithTitle:@"Internet Issue" message:@" It seems your Internet connection is Down!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"Try again", nil];
-            [alertbox show];
-            
+                [self showAlertBox:NO title:@"Internet Issue" message:@"It seems your Internet connection is Down!!"];
             }
             
             NSLog(@"The internet is not working.");
@@ -78,7 +72,7 @@ UIAlertView *alertbox;
         }
         case ReachableViaWiFi:
         {
-            NSLog(@"The internet is working via WIFI.");
+            //NSLog(@"The internet is working via WIFI.");
             internetActive = YES;
            
             break;
@@ -106,7 +100,7 @@ UIAlertView *alertbox;
     [self.view addSubview:progressing];
     [progressing bringSubviewToFront:self.view];
     //[progressing setBackgroundColor:[UIColor blackColor]];
-    [progressing setColor:[UIColor whiteColor ]];
+    progressing.color = [UIColor whiteColor ];
     progressing.backgroundColor =[[UIColor blackColor] colorWithAlphaComponent:0.7f];
     progressing.layer.cornerRadius = 10;
 
@@ -135,4 +129,31 @@ UIAlertView *alertbox;
 - (BOOL) internetstatus{
     return internetActive;
 }
+
+-(UIAlertController*)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             if(moveBack == true)
+                             {
+                                 [self.navigationController popToRootViewControllerAnimated:YES];
+                             }
+                             
+                             
+                         }];
+    [alert addAction:ok];
+    //[self presentViewController:alert animated:YES completion:nil];
+    
+    return alert;
+}
+
 @end

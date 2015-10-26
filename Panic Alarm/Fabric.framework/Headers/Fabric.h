@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Unavailable. Use `+sharedSDK` to retrieve the shared Fabric instance.
  */
-- (id)init FAB_UNAVAILABLE("Use +sharedSDK to retrieve the shared Fabric instance.");
+- (instancetype)init FAB_UNAVAILABLE("Use +sharedSDK to retrieve the shared Fabric instance.");
 
 @end
 

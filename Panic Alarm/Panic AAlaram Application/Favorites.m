@@ -22,7 +22,7 @@
 static NSMutableArray* favouritesArray;
 @synthesize favoritesTable;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -39,7 +39,7 @@ static NSMutableArray* favouritesArray;
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
 
-    [self.favoritesTable setSeparatorColor:[UIColor lightGrayColor]];
+    (self.favoritesTable).separatorColor = [UIColor lightGrayColor];
     
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
@@ -64,7 +64,7 @@ static NSMutableArray* favouritesArray;
         dispatch_async(dispatch_get_main_queue(), ^{
             // Update UI on main queue
             
-    self.searchResult = [NSMutableArray arrayWithCapacity:[favouritesArray count]];
+    self.searchResult = [NSMutableArray arrayWithCapacity:favouritesArray.count];
 
             [self.favoritesTable reloadData];
             [progress stopAnimating];
@@ -85,7 +85,7 @@ static NSMutableArray* favouritesArray;
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    [self filterContentForSearchText:searchString scope:(self.searchDisplayController.searchBar).scopeButtonTitles[(self.searchDisplayController.searchBar).selectedScopeButtonIndex]];
     
     return YES;
 }
@@ -94,11 +94,11 @@ static NSMutableArray* favouritesArray;
 {
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
-        return [self.searchResult count];
+        return (self.searchResult).count;
     }
     else
     {
-        return [favouritesArray count];
+        return favouritesArray.count;
     }
 }
 
@@ -112,12 +112,13 @@ static NSMutableArray* favouritesArray;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
-    [label setFont:[UIFont boldSystemFontOfSize:15]];
+    label.font = [UIFont boldSystemFontOfSize:15];
     label.text =  @"Friends Who Have Added Me";
     label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    view.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+    
     return view;
 }
 
@@ -134,41 +135,43 @@ static NSMutableArray* favouritesArray;
     storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     NSString *number;
     
-    if(![[[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row] isEqualToString:storedNumber])
-        number = [[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row];
-    else if (![[[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] isEqualToString:storedNumber])
-        number = [[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row];
+    if(![[favouritesArray valueForKey:@"friendsnumber"][indexPath.row] isEqualToString:storedNumber])
+        number = [favouritesArray valueForKey:@"friendsnumber"][indexPath.row];
+    else if (![[favouritesArray valueForKey:@"mynumber"][indexPath.row] isEqualToString:storedNumber])
+        number = [favouritesArray valueForKey:@"mynumber"][indexPath.row];
     else
         NSLog(@"No Number.");
     
-    NSString *fullName = [[favouritesArray valueForKey:@"username"] objectAtIndex:indexPath.row];
-    NSString *pic = [[favouritesArray valueForKey:@"pic"] objectAtIndex:indexPath.row];
+    NSString *fullName = [favouritesArray valueForKey:@"username"][indexPath.row];
+    NSString *pic = [favouritesArray valueForKey:@"pic"][indexPath.row];
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 19)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
-    if(fullName !=nil){
-        
-        name.text = fullName;
+    if(fullName !=nil)
+    {
+        name.text = [fullName uppercaseString];
         phonenumber.text = number;
-
     }
+    
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
         phonenumber.textColor = [UIColor blackColor];
     }
+    
     else
     {
         phonenumber.textColor = [UIColor grayColor];
     }
+    
     //name.textColor= [UIColor grayColor];
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f]];
+    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.f];
     [cell addSubview:name];
-    [phonenumber setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f]];
+    phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     
     [cell addSubview:phonenumber];
     
     NSLog(@"Full Name: %@", fullName);
-    // if(fullName !=nil){cell.textLabel.text = fullName;}
+
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
     
@@ -189,15 +192,15 @@ static NSMutableArray* favouritesArray;
     button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
     
     [button setTitle:@"Delete" forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor blackColor]];
+    button.backgroundColor = [UIColor blackColor];
     [button addTarget:self action:@selector(deleteFriend:) forControlEvents:UIControlEventTouchUpInside];
     
     //[button setBackgroundImage:[UIImage imageNamed:@"cross.png"] forState:UIControlStateNormal];
     
     [cell addSubview:button];
     
-    if ([cell subviews]){
-        for (UIView *subview in [cell.contentView subviews]) {
+    if (cell.subviews){
+        for (UIView *subview in (cell.contentView).subviews) {
             [subview removeFromSuperview];
         }
     }
@@ -233,7 +236,7 @@ static NSMutableArray* favouritesArray;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        NSLog(@"the delete array object is %@",[[favouritesArray valueForKey:@"username"]objectAtIndex:indexPath.row]);
+        NSLog(@"the delete array object is %@",[favouritesArray valueForKey:@"username"][indexPath.row]);
         
        // [favouritesArray removeObjectAtIndex:indexPath.row];
        // [favouritesArray removeAllObjects];
@@ -244,7 +247,7 @@ static NSMutableArray* favouritesArray;
         
         
         WebService *updateMessage = [[WebService alloc] init];
-        [updateMessage FilePath:@"http://fajjemobile.info/iospanic/deleteFriend.php" parameterOne:[[favouritesArray valueForKey:@"mynumber"] objectAtIndex:indexPath.row] parameterTwo:[[favouritesArray valueForKey:@"friendsnumber"] objectAtIndex:indexPath.row]];
+        [updateMessage FilePath:@"http://fajjemobile.info/iospanic/deleteFriend.php" parameterOne:[favouritesArray valueForKey:@"mynumber"][indexPath.row] parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][indexPath.row]];
         
         [favouritesArray removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
@@ -255,17 +258,16 @@ static NSMutableArray* favouritesArray;
 {
     WebService *favouritesService = [[WebService alloc] init];
     NSArray * favJson = [[NSArray alloc] init];
-    NSString *storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    NSString *storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
     
-    if(favouritesArray == nil){
-    favJson = [favouritesService FilePath:@"http://fajjemobile.info/iospanic/favourites.php" parameterOne:storedNumber];
-    favouritesArray = [[NSMutableArray alloc] init];
+    if(favouritesArray == nil)
+    {
+        favJson = [favouritesService FilePath:@"http://fajjemobile.info/iospanic/favourites.php" parameterOne:@"+923432637576"];
+        favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
         {
-        
             [favouritesArray addObject:item];
             NSLog(@" favouritesArray: %@", favouritesArray);
-        
         }
     }
     return favouritesArray;

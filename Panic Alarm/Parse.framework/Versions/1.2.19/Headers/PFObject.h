@@ -67,7 +67,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
  @param newClassName A class name can be any alphanumeric string that begins with a letter. It represents an object in your app, like a User or a Document.
  @result Returns the object that is instantiated with the given class name.
  */
-- (id)initWithClassName:(NSString *)newClassName;
+- (instancetype)initWithClassName:(NSString *)newClassName;
 
 #pragma mark -
 #pragma mark Properties
@@ -104,7 +104,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
  createdAt, updatedAt, authData, or objectId. It does include things like username
  and ACL.
  */
-- (NSArray *)allKeys;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *allKeys;
 
 #pragma mark -
 #pragma mark Get and set
@@ -229,7 +229,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
  Saves the PFObject.
  @result Returns whether the save succeeded.
  */
-- (BOOL)save;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL save;
 
 /*!
  Saves the PFObject and sets an error if it occurs.
@@ -373,7 +373,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
  Gets whether the PFObject has been fetched.
  @result YES if the PFObject is new or has been fetched or refreshed.  NO otherwise.
  */
-- (BOOL)isDataAvailable;
+@property (NS_NONATOMIC_IOSONLY, getter=isDataAvailable, readonly) BOOL dataAvailable;
 
 #if PARSE_IOS_ONLY
 // Deprecated and intentionally not available on the new OS X SDK
@@ -416,7 +416,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
 /*!
  Fetches the PFObject's data from the server if isDataAvailable is false.
  */
-- (PFObject *)fetchIfNeeded;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) PFObject *fetchIfNeeded;
 
 /*!
  Fetches the PFObject's data from the server if isDataAvailable is false.
@@ -525,7 +525,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
  Deletes the PFObject.
  @result Returns whether the delete succeeded.
  */
-- (BOOL)delete;   
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL delete;   
 
 /*!
  Deletes the PFObject and sets an error if it occurs.
@@ -574,7 +574,7 @@ NS_REQUIRES_PROPERTY_DEFINITIONS
  Gets whether any key-value pair in this object (or its children) has been added/updated/removed and not saved yet.
  @result Returns whether this object has been altered and not saved yet.
  */
-- (BOOL)isDirty;
+@property (NS_NONATOMIC_IOSONLY, getter=isDirty, readonly) BOOL dirty;
 
 /*!
  Get whether a value associated with a key has been added/updated/removed and not saved yet.

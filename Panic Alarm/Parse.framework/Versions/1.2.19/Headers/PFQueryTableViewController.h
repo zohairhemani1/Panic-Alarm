@@ -22,14 +22,14 @@
  @param aClassName The class name of the PFObjects that this table will display
  @result The initialized PFQueryTableViewController
  */
-- (id)initWithStyle:(UITableViewStyle)style className:(NSString *)aClassName;
+- (instancetype)initWithStyle:(UITableViewStyle)style className:(NSString *)aClassName;
 
 /*! 
  Initializes with a class name of the PFObjects that will be associated with this table.
  @param aClassName The class name of the PFObjects that this table will display
  @result The initialized PFQueryTableViewController
  */
-- (id)initWithClassName:(NSString *)aClassName;
+- (instancetype)initWithClassName:(NSString *)aClassName;
 
 /*! @name Configuring Behavior */
 
@@ -95,7 +95,7 @@
  Override to construct your own custom PFQuery to get the objects.
  @result PFQuery that loadObjects will use to the objects for this table.
 */
-- (PFQuery *)queryForTable;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) PFQuery *queryForTable;
 
 /*!
  Clears the table of all objects.

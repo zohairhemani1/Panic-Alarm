@@ -22,7 +22,6 @@
     NSString *usernameEditText;
     NSString *passwordEditText;
     NSString *fileName;
-    UIAlertView *alertbox;
 }
 
 @end
@@ -50,7 +49,7 @@ UIActivityIndicatorView *progress;
 
     UIImage *navbackgroundImage = [UIImage imageNamed:@"favorites_top"];
     [[UINavigationBar appearance] setBackgroundImage:navbackgroundImage forBarMetrics:UIBarMetricsDefault];
-    [[UITextField appearance] setTintColor:[UIColor blackColor]];
+    [UITextField appearance].tintColor = [UIColor blackColor];
     
     UIView *statusBarbg = [[UIView alloc] init];
     statusBarbg.frame = CGRectMake(0, 0, 320, 20);
@@ -85,19 +84,19 @@ UIActivityIndicatorView *progress;
     NSString *myRequestString = [NSString stringWithFormat:@"username=%@&password=%@&pic=%@",usernameEditText, passwordEditText,fileName];
     
     // Create Data from request
-    NSData *myRequestData = [NSData dataWithBytes: [myRequestString UTF8String] length: [myRequestString length]];
+    NSData *myRequestData = [NSData dataWithBytes: myRequestString.UTF8String length: myRequestString.length];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: jsonFileUrl];
     // set Request Type
     
-    [request setHTTPMethod: @"POST"];
+    request.HTTPMethod = @"POST";
     // Set content-type
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
     // Set Request Body
-    [request setHTTPBody: myRequestData];
+    request.HTTPBody = myRequestData;
     // Now send a request and get Response
     NSData *returnData = [NSURLConnection sendSynchronousRequest: request returningResponse: nil error: nil];
     // Log Response
-    NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
+    NSString *response = [[NSString alloc] initWithBytes:returnData.bytes length:returnData.length encoding:NSUTF8StringEncoding];
     NSLog(@"%@",response);
     
     [NSURLConnection connectionWithRequest:request delegate:self];
@@ -164,7 +163,7 @@ UIActivityIndicatorView *progress;
     [progress startAnimating];
     int randomNumber = arc4random() % 100000;
     NSLog(@"RandomNumber: %i", randomNumber);
-    NSString *imageNameRandomNumber = [@(randomNumber) stringValue];
+    NSString *imageNameRandomNumber = (@(randomNumber)).stringValue;
     fileName = [imageNameRandomNumber stringByAppendingString:@".jpg"];
     //UIImage *myImage = [UIImage imageNamed:imageNameRandomNumber];
     //UIImageView *myImageView =[[UIImageView alloc]initWithImage:uploadedimage];
@@ -181,8 +180,8 @@ UIActivityIndicatorView *progress;
 	
 	// setting up the request object now
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-	[request setURL:[NSURL URLWithString:urlString]];
-	[request setHTTPMethod:@"POST"];
+	request.URL = [NSURL URLWithString:urlString];
+	request.HTTPMethod = @"POST";
     NSLog(@"URL: %@",urlString);
 	
 	/*
@@ -214,7 +213,7 @@ UIActivityIndicatorView *progress;
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"password\"\r\n\r\n%@", passwordEditText] dataUsingEncoding:NSUTF8StringEncoding]];
 	// setting the body of the post to the reqeust
     
-	[request setHTTPBody:body];
+	request.HTTPBody = body;
 	
 	// now lets make the connection to the web
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
@@ -241,45 +240,34 @@ UIActivityIndicatorView *progress;
 
 - (IBAction)login:(id)sender {
     
-    if([self.insertusername.text isEqualToString:@""] ||[self.insertpassword.text isEqualToString:@""]) {
-        // There's no text in the box.
-        
-        alertbox = [[UIAlertView alloc]initWithTitle:@"Incomplete Information" message:@" It seems you have not inserted username or password!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
-        [alertbox show];
-        
-    }
-    else if([self.insertusername.text length] < 6){
-        // There's no text in the box.
-        
-        alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" The Username should be 6 charachter long!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
-        [alertbox show];
-        
-    }
-    else if([self.insertpassword.text length] < 6){
-        
-        alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" The Password should be 6 charachter long!!" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
-        [alertbox show];
-    }
-    
-    /*
-    else if (self.imageView.image == NULL)
+    if([self.insertusername.text isEqualToString:@""] ||[self.insertpassword.text isEqualToString:@""])
     {
-        alertbox = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@" You have not uploaded your image" delegate:self cancelButtonTitle:Nil otherButtonTitles:@"OK", nil];
-        [alertbox show];
+        [self showAlertBox:NO title:@"Incomplete Information" message:@"It seems you have not inserted username or password!!"];
     }
-    */
+    else if((self.insertusername.text).length < 6)
+    {
+        [self showAlertBox:NO title:@"Sorry" message:@"The Username should be 6 charachter long!!"];
+    }
+    else if((self.insertpassword.text).length < 6)
+    {
+        [self showAlertBox:NO title:@"Sorry" message:@"The Password should be 6 charachter long!!"];
+    }
     
     else{
         
-    usernameEditText = [[self insertusername] text];
-    passwordEditText = [[self insertpassword] text];
+    usernameEditText = self.insertusername.text;
+    passwordEditText = self.insertpassword.text;
     
-    [[NSUserDefaults standardUserDefaults ] setObject:usernameEditText forKey:@"name"];
-    [[NSUserDefaults standardUserDefaults ] setObject:passwordEditText forKey:@"password"];
+    [[NSUserDefaults standardUserDefaults] setValue:usernameEditText forKey:@"name"];
+    [[NSUserDefaults standardUserDefaults] setValue:passwordEditText forKey:@"password"];
     
+    NSData* imageData = UIImagePNGRepresentation(self.imageView.image);
+    [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userImage"];
+        
    // NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
         // getting code.
-    storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+        
+    storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     
    // CGImageRef cgref = [uploadedimage CGImage];
    // CIImage *cim = [uploadedimage CIImage];
@@ -293,15 +281,13 @@ UIActivityIndicatorView *progress;
 //        
 //    }
         
-        [self uploadImage]; // uploads image & inserts username password into database. - checks login.
-    
+    [self uploadImage]; // uploads image & inserts username password into database. - checks login.
     
     //[self downloadItems]; // inserts username password into database. - checks login.
     
-    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     NSString * phone = @"X_";
-    phone = [phone stringByAppendingString:[[self insertpassword] text]];
+    phone = [phone stringByAppendingString:self.insertpassword.text];
        [currentInstallation addUniqueObject:phone forKey:@"channels"];
         [currentInstallation addUniqueObject:phone forKey:@"number"];
         [currentInstallation saveInBackground];
@@ -311,52 +297,52 @@ UIActivityIndicatorView *progress;
 }
 - (IBAction)upload:(id)sender {
     
-    
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
-                                  initWithTitle:@"What do you want to do?"
-                                  delegate:self
-                                  cancelButtonTitle:@"Cancel"
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles:@"Camera", @"Photos", nil];
-    
-    [actionSheet showInView:self.view];
-    
-    
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     
-  
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Camera"]) {
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Photos"]) {
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    else{
-        return;
-    }
-    [self presentViewController:picker animated:YES completion:nil];
+    UIAlertController * alert = [UIAlertController
+                                  alertControllerWithTitle:@"What do you want to do?"
+                                  message:nil
+                                  preferredStyle:UIAlertControllerStyleActionSheet];
     
+    UIAlertAction *camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                      picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                       [self presentViewController:picker animated:YES completion:nil];
+                                                   }];
+    
+    UIAlertAction *photoRoll = [UIAlertAction actionWithTitle:@"Photo Roll" style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction * action) {
+                                                        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                          [self presentViewController:picker animated:YES completion:nil];
+                                                      }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action) {
+                                                   }];
+    
+    [alert addAction:camera];
+    [alert addAction:photoRoll];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
     self.imageView.layer.cornerRadius= self.imageView.frame.size.height/2;
     //layer.cornerRadius = cell.yourImageView.frame.size.height /2;
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.borderWidth = 0;
-    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    uploadedimage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self.imageView setImage:uploadedimage];
+    uploadedimage = info[UIImagePickerControllerOriginalImage];
+    (self.imageView).image = uploadedimage;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([[segue identifier] isEqualToString:@"login"]){
+    if([segue.identifier isEqualToString:@"login"]){
         
     }
 }
@@ -383,5 +369,31 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [textField resignFirstResponder];
     return YES;
 }
+
+-(void)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             if(moveBack == true)
+                             {
+                                 [self.navigationController popToRootViewControllerAnimated:YES];
+                             }
+                             
+                             
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
 @end
 

@@ -48,8 +48,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We use your location to find places near you.</string>
+    <key>NSLocationUsageDescription</key>
+    <string>I need Location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Panic Alarm app wants to access your Location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>comic-sans-ms.ttf</string>
