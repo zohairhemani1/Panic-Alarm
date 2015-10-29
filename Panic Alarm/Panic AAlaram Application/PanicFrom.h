@@ -14,5 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *panicPersonImage;
 @property int panicPersonId;
 - (IBAction)findLocation:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *panicMessage;
+@property (weak, nonatomic) IBOutlet UILabel *panicNumber;
+@property (weak, nonatomic) IBOutlet UIView *panicView;
 
 @end

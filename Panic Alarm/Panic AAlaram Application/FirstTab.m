@@ -105,7 +105,7 @@ bool condition=NO;
 
 - (IBAction)get_location:(id)sender
 {
-    if([[Favorites favouritesList]count]>0)
+    if([Favorites favouritesList].count>0)
     {
         [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
     
@@ -144,9 +144,6 @@ bool condition=NO;
                                @"number": victimNumber,
                                @"sound":@"cheering.caf"
                                };
-            //  NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:msg, @"alert",
-                             // @"cheering.caf", @"sound",
-                             // nil];
         
             [self PanicVictimRest];
         
@@ -154,7 +151,6 @@ bool condition=NO;
             [push setChannel:friendsNumber];   // channels column in PARSE!
             [push setData:data];
             [push sendPushInBackground];
-        
         }
 
         [progress stopAnimating];
@@ -169,7 +165,6 @@ bool condition=NO;
     {
         [self showAlertBox:NO title:@"ERROR" message:@"You don't have any friends."];
     }
-    
 }
 
 -(void)stopSoundAndAnimation

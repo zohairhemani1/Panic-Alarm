@@ -22,22 +22,8 @@
       "scale" : "2x"
     },
     {
-      "resizing" : {
-        "mode" : "9-part",
-        "center" : {
-          "mode" : "tile",
-          "width" : 1,
-          "height" : 1
-        },
-        "cap-insets" : {
-          "bottom" : 480,
-          "top" : 479,
-          "right" : 320,
-          "left" : 319
-        }
-      },
       "idiom" : "iphone",
-      "filename" : "background_tabone@2x.png",
+      "filename" : "Default-568h@2x~iphone_640x1136.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },

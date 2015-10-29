@@ -13,10 +13,11 @@
 #import "WebService.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
+#import "SearchResultsTableViewController.h"
 
 @interface GetLocation (){
 checkInternet *c;
-    NSArray *favArray;
+    NSMutableArray *favArray;
     NSArray *favRestJsonArray;
     UIButton *button;
     UIActivityIndicatorView *progress;
@@ -44,9 +45,6 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    self.myContacts.delegate=self;
-    self.myContacts.dataSource = self;
-    
     self.refresh = [[UIRefreshControl alloc] init];
     [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     [self.myContacts addSubview:self.refresh];
@@ -55,14 +53,6 @@ checkInternet *c;
     [self.view addSubview:progress];
     [progress bringSubviewToFront:self.view];
     
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-//    self.searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"ScopeButtonCountry",@"Country"),
-//                                                          NSLocalizedString(@"ScopeButtonCapital",@"Capital")];
-    self.searchController.searchBar.delegate = self;
-    [self.searchController.searchBar sizeToFit];
-    
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
         
@@ -70,58 +60,67 @@ checkInternet *c;
         favArray = [Favorites favouritesList];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Update UI on main queue
             
             [self.myContacts reloadData];
             [progress stopAnimating];
-            
         });
-        
     });
-
     
+    UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    
+    self.searchController.searchResultsUpdater = self;
+    
+    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x,
+                                                       self.searchController.searchBar.frame.origin.y,
+                                                       self.searchController.searchBar.frame.size.width, 44.0);
+    
+    self.myContacts.tableHeaderView = self.searchController.searchBar;
 }
 
-//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-//{
-//    NSString *searchString = searchController.searchBar.text;
-//    [self searchForText:searchString scope:searchController.searchBar.selectedScopeButtonIndex];
-//    [self.myContacts reloadData];
-//}
-//
-//- (void)searchForText:(NSString*)searchText scope:(NSString*)scope
-//{
-//    // [searchResults removeAllObjects];
-//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-//    searchResults = [favArray filteredArrayUsingPredicate:resultPredicate];
-//    
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return favArray.count;
+    if(self.searchController.active)
+    {
+        return self.searchResults.count;
+    }
+    else
+    {
+        return favArray.count;
+    }
+    
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    tableView.sectionHeaderHeight = 30.0;
+    return 30.0f;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
     
-    return @"    Ask Location To Freinds";
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, tableView.frame.size.width, 18)];
+    label.font = [UIFont boldSystemFontOfSize:15];
+    label.text = @"Ask Location To Freinds";
+    label.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:label];
+    
+    view.backgroundColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:206/255.0 alpha:1.0];
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // NSLog(@"Index: %@ ",indexPath.row);
     static NSString *simpleTableIdentifierr = @"SimpleTableCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifierr];
+    UITableViewCell *cell;
     
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifierr];
     }
-    
-    tableView.tableHeaderView = self.searchController.searchBar;
     
     self.definesPresentationContext = YES;
     
@@ -129,14 +128,12 @@ checkInternet *c;
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
     NSString *pic = [favArray valueForKey:@"pic"][indexPath.row];
     
-    //name.textColor= [UIColor grayColor];
     name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
-    name.text = [favArray valueForKey:@"username"][indexPath.row];
-    [cell addSubview:name];
     phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
+    
+    name.text = [favArray valueForKey:@"username"][indexPath.row];
     phonenumber.text=[favArray valueForKey:@"friendsnumber"][indexPath.row];
-    [cell addSubview:phonenumber];
     
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
@@ -150,21 +147,75 @@ checkInternet *c;
     imageView.layer.cornerRadius = 20;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
-    [cell addSubview:imageView];
     
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //set the position of the button
     button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
     [button setTitle:@"Find" forState:UIControlStateNormal];
     button.tag = indexPath.row;
     button.backgroundColor = [UIColor blackColor];
     [button addTarget:self action:@selector(FindLocation:) forControlEvents:UIControlEventTouchUpInside];
     
+    [cell addSubview:name];
+    [cell addSubview:phonenumber];
+    [cell addSubview:imageView];
     [cell.contentView addSubview:button];
     
     return cell;
     
 }
+
+#pragma mark - UISearchControllerDelegate & UISearchResultsDelegate
+
+// Called when the search bar becomes first responder
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString *searchString = self.searchController.searchBar.text;
+    
+    [self updateFilteredContentForAirlineName:searchString];
+    
+    // If searchResultsController
+    if (self.searchController.searchResultsController) {
+        
+        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+        
+        // Present SearchResultsTableViewController as the topViewController
+        SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+        
+        // Update searchResults
+        vc.searchResults = self.searchResults;
+        vc.searchTableTitle = self.title;
+        
+        // And reload the tableView with the new data
+        
+        [vc.tableView reloadData];
+    }
+}
+
+// Update self.searchResults based on searchString, which is the argument in passed to this method
+- (void)updateFilteredContentForAirlineName:(NSString *)airlineName
+{
+    if (airlineName == nil) {
+        
+        // If empty the search results are the same as the original data
+        self.searchResults = [favArray mutableCopy];
+    } else {
+        
+        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
+        
+        // Else if the airline's name is
+        for (NSDictionary *airline in favArray) {
+            if ([airline[@"username"] containsString:airlineName]) {
+                
+                //      NSString *str = [NSString stringWithFormat:@"%@", airline[@"username"] /*, airline[@"icao"]*/];
+                [newSearchResult addObject:airline];
+            }
+            
+            self.searchResults = newSearchResult;
+        }
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

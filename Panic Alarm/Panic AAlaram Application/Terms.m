@@ -45,11 +45,10 @@ bool loadCondition = NO;
     if (checkboxSelected == 1)
     {
         [self performSegueWithIdentifier:@"userLogin" sender:self];
-        [[NSUserDefaults standardUserDefaults ] setObject:@"termsAgreed" forKey:@"termsAgreed"];
 	}
     else
     {
-        [self showAlertBox:NO title:@"Have'nt agreed" message:@"It seems you have not checked the conditions box!!"];
+        [self showAlertBox:NO title:@"Have'nt agreed" message:@"It seems you have not checked the conditions box"];
     }
 }
 

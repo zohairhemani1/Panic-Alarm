@@ -10,6 +10,4 @@
 
 @interface About : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIWebView *myWebView;
-
 @end

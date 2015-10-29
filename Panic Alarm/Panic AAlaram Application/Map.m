@@ -126,9 +126,9 @@
     {
         UIImageView *imageView = [[UIImageView alloc]init];
         imageView.layer.borderWidth = 1;
-        imageView.layer.borderColor = [[UIColor whiteColor]CGColor];
+        imageView.layer.borderColor = [UIColor whiteColor].CGColor;
         CGRect rect = CGRectMake(2,2,46,43);
-        [imageView setFrame:rect];
+        imageView.frame = rect;
         
         imageView.layer.cornerRadius=22.0;
         imageView.layer.masksToBounds=YES;

@@ -50,8 +50,9 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-        return 30;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -75,7 +76,8 @@
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
@@ -110,7 +112,7 @@
 
 -(void) switchChanged:(UISwitch *)sender{
     switchView = (UISwitch *)sender;
-    NSLog(@"switch changed %i",switchView.tag);
+    NSLog(@"switch changed %d",switchView.tag);
 }
 
 -(void)reset:(id)sender{

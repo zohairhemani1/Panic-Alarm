@@ -42,12 +42,17 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
+    self.panicView.backgroundColor = [UIColor whiteColor];
+    
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     NSLog(@"the panic person id is: %d",self.panicPersonId);
-        panicPersonName.text = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
-        profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
+    
+    panicPersonName.text = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
+    profilePic = [[Victims getPanicFromArray] valueForKey:@"d"][self.panicPersonId];
+    
+    self.panicMessage.text = @"I am getting raped";
     
     imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];

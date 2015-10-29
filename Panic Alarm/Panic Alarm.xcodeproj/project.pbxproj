@@ -19,6 +19,7 @@
 		194A06E01926A65900AA7654 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DC1926A65900AA7654 /* checkbox.png */; };
 		194A06E11926A65900AA7654 /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DD1926A65900AA7654 /* checkbox@2x.png */; };
 		1980BDD319AB752C008B58A0 /* profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1980BDD219AB752C008B58A0 /* profile.m */; };
+		1996B0081BDF8593003E53E0 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		19C746CB19795F2500192C88 /* Victims.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C746CA19795F2500192C88 /* Victims.m */; };
 		19CF4F3F1969D97100E971DA /* GetLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CF4F3E1969D97100E971DA /* GetLocation.m */; };
 		19D0A696196DDFEE00CB68F3 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D0A695196DDFEE00CB68F3 /* Settings.m */; };
@@ -34,7 +35,6 @@
 		19E941AF1BD67ECF00705B5C /* digitsVerification.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E941AE1BD67ECF00705B5C /* digitsVerification.m */; settings = {ASSET_TAGS = (); }; };
 		19F3B623198F72E400B586A4 /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F3B622198F72E400B586A4 /* Notifications.m */; };
 		19F593E7192734DD0090BE79 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F593E6192734DD0090BE79 /* Map.m */; };
-		19F593EB1927383F0090BE79 /* fineLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F593E81927383F0090BE79 /* fineLocation.png */; };
 		19F593EC1927383F0090BE79 /* setupEdit.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F593E91927383F0090BE79 /* setupEdit.png */; };
 		19F593ED1927383F0090BE79 /* stopAlert.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F593EA1927383F0090BE79 /* stopAlert.png */; };
 		19FB7029196732CE00032AA7 /* PanicFrom.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB7028196732CE00032AA7 /* PanicFrom.m */; };
@@ -88,6 +88,8 @@
 		197049A519321BF100BA1896 /* NSStrinAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStrinAdditions.h; sourceTree = "<group>"; };
 		1980BDD119AB752C008B58A0 /* profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profile.h; sourceTree = "<group>"; };
 		1980BDD219AB752C008B58A0 /* profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = profile.m; sourceTree = "<group>"; };
+		1996B0061BDF8593003E53E0 /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
+		1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 		19C746C919795F2500192C88 /* Victims.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Victims.h; path = ../Victims.h; sourceTree = "<group>"; };
 		19C746CA19795F2500192C88 /* Victims.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Victims.m; path = ../Victims.m; sourceTree = "<group>"; };
 		19CF4F3D1969D97100E971DA /* GetLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetLocation.h; path = ../GetLocation.h; sourceTree = "<group>"; };
@@ -113,7 +115,6 @@
 		19F3B622198F72E400B586A4 /* Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
 		19F593E5192734DD0090BE79 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 		19F593E6192734DD0090BE79 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
-		19F593E81927383F0090BE79 /* fineLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fineLocation.png; sourceTree = SOURCE_ROOT; };
 		19F593E91927383F0090BE79 /* setupEdit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setupEdit.png; sourceTree = SOURCE_ROOT; };
 		19F593EA1927383F0090BE79 /* stopAlert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopAlert.png; sourceTree = SOURCE_ROOT; };
 		19FB7027196732CE00032AA7 /* PanicFrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanicFrom.h; sourceTree = "<group>"; };
@@ -201,7 +202,6 @@
 			children = (
 				190C92881958B12E00AD92CF /* checkbox-pressed.png */,
 				19196BB419780DC00070C9D4 /* alarmsound.mp3 */,
-				19F593E81927383F0090BE79 /* fineLocation.png */,
 				19F593E91927383F0090BE79 /* setupEdit.png */,
 				19F593EA1927383F0090BE79 /* stopAlert.png */,
 				194A06DA1926A65900AA7654 /* checkbox-checked.png */,
@@ -319,6 +319,8 @@
 				1980BDD219AB752C008B58A0 /* profile.m */,
 				19F3B621198F72E400B586A4 /* Notifications.h */,
 				19F3B622198F72E400B586A4 /* Notifications.m */,
+				1996B0061BDF8593003E53E0 /* SearchResultsTableViewController.h */,
+				1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */,
 				19E941AD1BD67ECF00705B5C /* digitsVerification.h */,
 				19E941AE1BD67ECF00705B5C /* digitsVerification.m */,
 				DC5A8C5E1910ECB00058F7C2 /* Images.xcassets */,
@@ -425,7 +427,6 @@
 				DC5A8C821910F79D0058F7C2 /* submit.png in Resources */,
 				1934EC391923F6D200F6CEC3 /* tabbarbackground.png in Resources */,
 				DC5A8C5F1910ECB00058F7C2 /* Images.xcassets in Resources */,
-				19F593EB1927383F0090BE79 /* fineLocation.png in Resources */,
 				190C92891958B12E00AD92CF /* checkbox-pressed.png in Resources */,
 				19196BB519780DC00070C9D4 /* alarmsound.mp3 in Resources */,
 				DC5A8C7D1910ED2B0058F7C2 /* background.png in Resources */,
@@ -483,6 +484,7 @@
 				19F593E7192734DD0090BE79 /* Map.m in Sources */,
 				19DBA63F193036E800BFD9CB /* checkInternet.m in Sources */,
 				1905FE3D1983910700C76BA0 /* About.m in Sources */,
+				1996B0081BDF8593003E53E0 /* SearchResultsTableViewController.m in Sources */,
 				19D2D698191F7D14007A27F2 /* Favorites.m in Sources */,
 				DC5A8C501910ECB00058F7C2 /* main.m in Sources */,
 				19F3B623198F72E400B586A4 /* Notifications.m in Sources */,

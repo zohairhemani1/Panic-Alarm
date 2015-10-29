@@ -220,7 +220,7 @@ static NSArray *PanicToArray;
                             imageView.contentMode = UIViewContentModeScaleAspectFill;
                             [imageView setClipsToBounds:YES];
                             
-                            [imagesDictionary setObject:image forKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
+                            imagesDictionary[[PanicFromArray valueForKey:@"pic"][indexPath.row]] = image;
                             [updateCell addSubview:imageView];
                             [image_loading stopAnimating];
                         }
@@ -297,7 +297,7 @@ static NSArray *PanicToArray;
                             imageView.contentMode = UIViewContentModeScaleAspectFill;
                             [imageView setClipsToBounds:YES];
                             
-                            [imagesDictionary setObject:image forKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
+                            imagesDictionary[[PanicToArray valueForKey:@"pic"][indexPath.row]] = image;
                             [updateCell addSubview:imageView];
                             [image_loading stopAnimating];
                         }

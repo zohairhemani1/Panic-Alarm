@@ -44,7 +44,7 @@ BOOL alertTime= YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
     // check if a pathway to a random host exists
     hostReachable = [Reachability reachabilityWithHostName:@"www.apple.com"];
-    [hostReachable startNotifier];
+    hostReachable.startNotifier;
 
     // internet work end //
 }
@@ -53,7 +53,7 @@ BOOL alertTime= YES;
 {
     // called after network status changes
     
-    NetworkStatus internetStatus = [hostReachable currentReachabilityStatus];
+    NetworkStatus internetStatus = hostReachable.currentReachabilityStatus;
     switch (internetStatus)
     {
         case NotReachable:

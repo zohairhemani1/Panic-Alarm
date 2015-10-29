@@ -8,6 +8,7 @@
 
 #import "digitsVerification.h"
 #import <DigitsKit/DigitsKit.h>
+#import "Terms.h"
 
 @interface digitsVerification ()
 
@@ -18,52 +19,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    DGTAuthenticateButton *digitsButton = [DGTAuthenticateButton buttonWithAuthenticationCompletion:^(DGTSession *session, NSError *error) {
-        // Inspect session/error objects
-    }];
-    [self.view addSubview:digitsButton];
-    
+//    DGTAuthenticateButton *authButton;
+//    authButton = [DGTAuthenticateButton buttonWithAuthenticationCompletion:^(DGTSession *session, NSError *error) {
+//        if (session.userID) {
+//            // TODO: associate the session userID with your user model
+//            
+//            NSString * storyboardName = @"Main";
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
+//            
+//            [self presentViewController:vc animated:YES completion:nil];
+//            
+//
+//        } else if (error) {
+//            NSLog(@"Authentication error: %@", error.localizedDescription);
+//        }
+//    }];
+//    authButton.center = self.view.center;
+//    [self.view addSubview:authButton];
+
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    
 }
 
 - (IBAction)digitsButtonClick:(id)sender
 {
-    DGTAuthenticateButton *authButton;
-    authButton = [DGTAuthenticateButton buttonWithAuthenticationCompletion:^(DGTSession *session, NSError *error) {
-        if (session.userID) {
-            // TODO: associate the session userID with your user model
-            NSString *msg = [NSString stringWithFormat:@"Phone number: %@", session.phoneNumber];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You are logged in!"
-                                                            message:msg
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        } else if (error) {
-            NSLog(@"Authentication error: %@", error.localizedDescription);
-        }
-    }];
-    authButton.center = self.view.center;
-    [self.view addSubview:authButton];
-
-//    NSString *phoneNumber = @"+34";
-//    Digits *digits = [Digits sharedInstance];
-//    [digits authenticateWithPhoneNumber:phoneNumber digitsAppearance:yourAppearance viewController:nil title:title completion:^(DGTSession *session, NSError *error) {
-//        // Country selector will be set to Spain
-//    }];
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
     
-    [[Digits sharedInstance] authenticateWithCompletion:^(DGTSession *session, NSError *error) {
-     //   UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-     //   UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
-        
-    //    self.window.rootViewController = secondView;
-     //   [self.window makeKeyAndVisible];
-        
-    }];
+    UIViewController<DGTCompletionViewController> * vc = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
+    
+    Digits *digits = [Digits sharedInstance];
+    DGTAuthenticationConfiguration *configuration = [[DGTAuthenticationConfiguration alloc] initWithAccountFields:DGTAccountFieldsDefaultOptionMask];
+    configuration.phoneNumber = @"+345555555555";
+    [digits authenticateWithNavigationViewController:self.navigationController configuration:configuration completionViewController:vc];
+    
 }
 
 @end

@@ -23,7 +23,7 @@
     
     NSString *myRequestString = [NSString stringWithFormat:@"parameterOne=%@&parameterTwo=%@&parameterThree=%@&username=%@",parameterOne,parameterTwo,parameterThree,storedNumber];
     
-    myRequestString = [myRequestString stringByAddingPercentEncodingWithAllowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" \"#%/+:<>?@[\\]^`{|}"] invertedSet]];
+    myRequestString = [myRequestString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@" \"#%/+:<>?@[\\]^`{|}"].invertedSet];
     // Create Data from request
     NSData *myRequestData = [NSData dataWithBytes: myRequestString.UTF8String length: myRequestString.length];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: jsonFileUrl];

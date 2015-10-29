@@ -25,18 +25,18 @@
     
     [Fabric with:@[[Digits class]]];
     
-    [[NSUserDefaults standardUserDefaults]setValue:@"+923152151511" forKey:@"myPhoneNumber"];
+    [[NSUserDefaults standardUserDefaults]setValue:@"+923333667339" forKey:@"myPhoneNumber"];
     
-//    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"termsAgreed"]isEqualToString:@"termsAgreed"])
-//       {
-//           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//                       UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
-//           
-//                       self.window.rootViewController = secondView;
-//           
-//                       [self.window makeKeyAndVisible];
-//
-//       }
+    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"loggedIn"]isEqualToString:@"loggedIn"])
+       {
+           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                       UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+           
+                       self.window.rootViewController = secondView;
+           
+                       [self.window makeKeyAndVisible];
+
+       }
     
     
     //username and password

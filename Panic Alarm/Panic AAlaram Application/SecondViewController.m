@@ -116,13 +116,13 @@ NSArray *DistinctFriendsWhoUseApp;
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, tableView.frame.size.width, 18)];
     label.font = [UIFont boldSystemFontOfSize:15];
     label.text = @"Friends Who Use Panic Alarm";
     label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     
-    view.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+    view.backgroundColor = [UIColor colorWithRed:201/255.0 green:201/255.0 blue:206/255.0 alpha:1.0];
     return view;
 }
 
@@ -140,13 +140,15 @@ NSArray *DistinctFriendsWhoUseApp;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
         NSLog(@"in search text");
-        NSLog(@"search count: %d",searchResults.count);
         fullName = [searchResults valueForKey:@"fullName"][indexPath.row];
         number = [searchResults valueForKey:@"password"][indexPath.row];
         profilePic = [searchResults valueForKey:@"picture"][indexPath.row];
-    } else {
+    }
+    else
+    {
         fullName = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][indexPath.row];
         number = [DistinctFriendsWhoUseApp valueForKey:@"password"][indexPath.row];
         profilePic = [DistinctFriendsWhoUseApp valueForKey:@"picture"][indexPath.row];
@@ -165,24 +167,11 @@ NSArray *DistinctFriendsWhoUseApp;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
     [cell addSubview:imageView];
-
-    /*
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^(void) {
-       
-        
-        if (img) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-            });
-        }
-    });
-    */
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 6, 150, 20)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
-    if(fullName !=nil){
-        
+    if(fullName !=nil)
+    {
         name.text = fullName;
         phonenumber.text = number;
     }
@@ -193,40 +182,34 @@ NSArray *DistinctFriendsWhoUseApp;
     phonenumber.textColor = [UIColor grayColor];
     [cell addSubview:phonenumber];
     
-    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    
-    //set the position of the button
-    
     NSString *activateValue = [DistinctFriendsWhoUseApp valueForKey:@"activate"][indexPath.row];
-    button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
-    button.backgroundColor= [UIColor blackColor];
+    
+    button = [[UIButton alloc]initWithFrame:CGRectMake(cell.frame.origin.x + 250, 07, 45, 36)];
+    
     if(activateValue != nil && [activateValue isEqual: @"0"])
     {
         NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
         
-        [button setTitle:@"Accept" forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
         [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if(activateValue != nil && [activateValue isEqual: @"00"])
     {
         NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
         
-        [button setTitle:@"Pending" forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
         [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
     else
     {
-        [button setTitle:@"ADD" forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
         [button addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     button.tag = indexPath.row;
-   // NSLog(@"Button Tag: %ld", (long)button.tag);
-    [cell.contentView addSubview:button];
-    
+    [cell addSubview:button];
     
     return cell;
-    
 }
 
 - (void)acceptFriendRequest:(id)sender
@@ -260,12 +243,11 @@ NSArray *DistinctFriendsWhoUseApp;
 - (void)addFriend:(id)sender
 {
     button = (UIButton*) sender;
-    //[button setBackgroundImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
     
    // NSString *numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
    // NSString *nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
 
-    [button setTitle:@"Pending" forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
 
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag],[DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag] );
     
@@ -274,10 +256,10 @@ NSArray *DistinctFriendsWhoUseApp;
 //    PFPush *push = [[PFPush alloc] init];
 //    [push setChannel:friendsNumber];   // channels column in PARSE!
     
-    NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"username"];
+    NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
 
     NSString *message = @"You have been added by ";
-    message = [message stringByAppendingString:storedName];
+    //message = [message stringByAppendingString:storedName];
     
 //    [push setMessage:message];
 //    

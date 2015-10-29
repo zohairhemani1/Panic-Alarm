@@ -184,14 +184,6 @@ UIActivityIndicatorView *progress;
 	request.HTTPMethod = @"POST";
     NSLog(@"URL: %@",urlString);
 	
-	/*
-	 add some header info now
-	 we always need a boundary when we post a file
-	 also we need to set the content type
-	 
-	 You might want to generate a random boundary.. this is just the same
-	 as my output from wireshark on a valid html post
-     */
 	NSString *boundary = @"---------------------------14737809831466499882746641449";
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
 	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
@@ -223,8 +215,10 @@ UIActivityIndicatorView *progress;
     
     if([[jsonArray valueForKey:@"success"] isEqualToString:@"0"] )
     {
-        [[NSUserDefaults standardUserDefaults ] setObject:self.insertusername.text forKey:@"username"];
-        [[NSUserDefaults standardUserDefaults ] setObject:self.insertpassword.text forKey:@"password"];
+        [[NSUserDefaults standardUserDefaults ] setValue:self.insertusername.text forKey:@"username"];
+        [[NSUserDefaults standardUserDefaults ] setValue:self.insertpassword.text forKey:@"password"];
+        
+        [[NSUserDefaults standardUserDefaults ] setValue:@"loggedIn" forKey:@"loggedIn"];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
@@ -280,7 +274,6 @@ UIActivityIndicatorView *progress;
 //    {
 //        
 //    }
-        
     [self uploadImage]; // uploads image & inserts username password into database. - checks login.
     
     //[self downloadItems]; // inserts username password into database. - checks login.

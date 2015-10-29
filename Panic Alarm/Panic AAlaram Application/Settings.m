@@ -38,7 +38,7 @@ NSMutableArray *network;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    if([c internetstatus] == TRUE){
+    if(c.internetstatus == TRUE){
         internet = @"Connected";
     }
     else{
@@ -50,18 +50,21 @@ NSMutableArray *network;
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
     about = [[NSMutableArray alloc] initWithObjects:@"about",@"tell",@"help",nil];
-    profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"account",@"notification",nil];
-    network = [[NSMutableArray alloc] initWithObjects:@"network",@"system",nil];
+    profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"notification",nil];
+    network = [[NSMutableArray alloc] initWithObjects:@"system",nil];
     
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:YES];
     
-    if([c internetstatus] == TRUE){
+    if(c.internetstatus == TRUE)
+    {
         internet = @"Connected";
     }
-    else{
+    else
+    {
         internet = @"Not Connected";
     }
     
@@ -71,11 +74,11 @@ NSMutableArray *network;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section==0)
+    if (section == 0)
     {
         return about.count;
     }
-    else if(section==1)
+    else if(section == 1)
     {
         return profile.count;
     }
@@ -83,37 +86,31 @@ NSMutableArray *network;
     {
         return network.count;
     }
-    
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 3;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *CellIdentifier = about[indexPath.row];
-    
-    NSString *freind = @"tell";
-    if(CellIdentifier == freind){
-        self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"hello"] applicationActivities:nil];
-        [self presentViewController:self.activityViewController animated:YES completion:nil];
+    if(indexPath.section == 0)
+    {
+        NSString *CellIdentifier = about[indexPath.row];
+        
+        NSString *freind = @"tell";
+        if(CellIdentifier == freind)
+        {
+            self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"hello"] applicationActivities:nil];
+            [self presentViewController:self.activityViewController animated:YES completion:nil];
+        }
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    if(section == 0){
-        return @" ";
-    }
-    else if(section == 1)
-    {
-        return @" ";
-    }
-    else
-    {
-        return @" ";
-    }
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @" ";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
