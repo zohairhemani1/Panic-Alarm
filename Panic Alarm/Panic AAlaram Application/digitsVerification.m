@@ -23,20 +23,38 @@
 //    authButton = [DGTAuthenticateButton buttonWithAuthenticationCompletion:^(DGTSession *session, NSError *error) {
 //        if (session.userID) {
 //            // TODO: associate the session userID with your user model
-//            
-//            NSString * storyboardName = @"Main";
-//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-//            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
-//            
-//            [self presentViewController:vc animated:YES completion:nil];
-//            
-//
+//            NSString *msg = [NSString stringWithFormat:@"Phone number: %@", session.phoneNumber];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You are logged in!"
+//                                                            message:msg
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
 //        } else if (error) {
 //            NSLog(@"Authentication error: %@", error.localizedDescription);
 //        }
 //    }];
 //    authButton.center = self.view.center;
 //    [self.view addSubview:authButton];
+
+    
+    DGTAuthenticateButton *authButton;
+    authButton = [DGTAuthenticateButton buttonWithAuthenticationCompletion:^(DGTSession *session, NSError *error) {
+        if (session.userID) {
+            // TODO: associate the session userID with your user model
+            
+            NSString * storyboardName = @"Main";
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+            UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
+            
+            [self presentViewController:vc animated:YES completion:nil];
+            
+        } else if (error) {
+            NSLog(@"Authentication error: %@", error.localizedDescription);
+        }
+    }];
+    authButton.center = self.view.center;
+    [self.view addSubview:authButton];
 
 }
 
@@ -47,15 +65,16 @@
 
 - (IBAction)digitsButtonClick:(id)sender
 {
-    NSString * storyboardName = @"Main";
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
     
-    UIViewController<DGTCompletionViewController> * vc = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
-    
-    Digits *digits = [Digits sharedInstance];
-    DGTAuthenticationConfiguration *configuration = [[DGTAuthenticationConfiguration alloc] initWithAccountFields:DGTAccountFieldsDefaultOptionMask];
-    configuration.phoneNumber = @"+345555555555";
-    [digits authenticateWithNavigationViewController:self.navigationController configuration:configuration completionViewController:vc];
+//    NSString * storyboardName = @"Main";
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//    
+//    UIViewController<DGTCompletionViewController> * vc = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
+//    
+//    Digits *digits = [Digits sharedInstance];
+//    DGTAuthenticationConfiguration *configuration = [[DGTAuthenticationConfiguration alloc] initWithAccountFields:DGTAccountFieldsDefaultOptionMask];
+//    configuration.phoneNumber = @"+345555555555";
+//    [digits authenticateWithNavigationViewController:self.navigationController configuration:configuration completionViewController:vc];
     
 }
 

@@ -9,13 +9,19 @@
 #import "Favorites.h"
 #import "PanicFrom.h"
 #import "WebService.h"
+#import "Constants.h"
+#import <Parse/Parse.h>
 #import "checkInternet.h"
-#import "SearchResultsTableViewController.h"
 
-@interface Favorites (){
+@interface Favorites ()
+{
     checkInternet *c;
     NSString *storedNumber;
     UIActivityIndicatorView *progress;
+    UIButton *button;
+    NSArray *favRestJsonArray;
+    UIImage *img;
+    NSMutableArray *imagesArray;
 }
 @end
 
@@ -68,13 +74,14 @@ static NSMutableArray* favouritesArray;
         
     });
     
+    imagesArray = [[NSMutableArray alloc]init];
     
     UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
     
     self.searchController.searchResultsUpdater = self;
-    
+    self.searchController.delegate = self;
     self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x,
                                                        self.searchController.searchBar.frame.origin.y,
                                                        self.searchController.searchBar.frame.size.width, 44.0);
@@ -125,7 +132,7 @@ static NSMutableArray* favouritesArray;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
     }
 
-    storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     NSString *number;
     
     if(![[favouritesArray valueForKey:@"friendsnumber"][indexPath.row] isEqualToString:storedNumber])
@@ -146,49 +153,75 @@ static NSMutableArray* favouritesArray;
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
     if(fullName !=nil)
     {
-        name.text = fullName.uppercaseString;
+        name.text = fullName.capitalizedString;
         phonenumber.text = number;
     }
     
-        phonenumber.textColor = [UIColor grayColor];
-    
-    //name.textColor= [UIColor grayColor];
     name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.f];
-    [cell addSubview:name];
     phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
-    
-    [cell addSubview:phonenumber];
-    
-    NSLog(@"Full Name: %@", fullName);
+    phonenumber.textColor = [UIColor grayColor];
 
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
     
     NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
     NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-    UIImage *img = [[UIImage alloc]initWithData:data ];
+    img = [[UIImage alloc]initWithData:data];
+    
+    NSData* imageData = UIImagePNGRepresentation(img);
+    [imagesArray addObject:imageData];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
     imageView.frame = CGRectMake(10,5,40,40); //set these variables as you want
     imageView.layer.cornerRadius = 20;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
-    [cell addSubview:imageView];
     
     if (cell.subviews){
         for (UIView *subview in (cell.contentView).subviews) {
             [subview removeFromSuperview];
         }
     }
+    
+    button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
+    [button setTitle:@"Find" forState:UIControlStateNormal];
+    button.tag = indexPath.row;
+    button.backgroundColor = [UIColor blackColor];
+    [button addTarget:self action:@selector(FindLocation:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell addSubview:name];
+    [cell addSubview:phonenumber];
+    [cell addSubview:imageView];
+    [cell addSubview:button];
     return cell;
 }
 
-#pragma mark - UISearchControllerDelegate & UISearchResultsDelegate
+-(void)FindLocation:(id)sender{
+    button = (UIButton *) sender;
+    
+    WebService *FindLocationRest = [[WebService alloc] init];
+    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][button.tag] parameterThree:FIND_MESSAGE];
+    
+    NSLog(@"the returned value are: %@",[favRestJsonArray valueForKey:@"success"]);
+    
+    if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
+    {
+        NSLog(@"in code");
+        
+        [button setTitle:@"PENDING" forState:normal];
+        
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:@"X_090078601"];   // channels column in PARSE!
+        NSString *FindNotificationMessage = [[favouritesArray valueForKey:@"username"][button.tag] stringByAppendingString:@"is requesting your Location."];
+        [push setMessage:FindNotificationMessage];
+        //[push setData:data];
+        [push sendPushInBackground];
+    }
+}
 
-// Called when the search bar becomes first responder
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    
     NSString *searchString = self.searchController.searchBar.text;
     
     [self updateFilteredContentForAirlineName:searchString];
@@ -203,34 +236,34 @@ static NSMutableArray* favouritesArray;
         
         // Update searchResults
         vc.searchResults = self.searchResults;
-        vc.searchTableTitle = self.title;
-        
+        vc.searchTableTitle = @"Favourites";
+        vc.classType = @"favourites";
         // And reload the tableView with the new data
-        
         [vc.tableView reloadData];
     }
 }
 
-
 // Update self.searchResults based on searchString, which is the argument in passed to this method
 - (void)updateFilteredContentForAirlineName:(NSString *)airlineName
 {
-    if (airlineName == nil) {
-        
+    if (airlineName == nil)
+    {
         // If empty the search results are the same as the original data
         self.searchResults = [favouritesArray mutableCopy];
-    } else {
-        
+    }
+    else
+    {
         NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
-        
+        int dictionaryIndex = 0;
         // Else if the airline's name is
-        for (NSDictionary *airline in favouritesArray) {
-            if ([airline[@"username"] containsString:airlineName]) {
-                
-          //      NSString *str = [NSString stringWithFormat:@"%@", airline[@"username"] /*, airline[@"icao"]*/];
+        for (NSDictionary *airline in favouritesArray)
+        {
+            dictionaryIndex ++;
+            if (([[airline[@"username"] capitalizedString] containsString:airlineName]) || ([[airline[@"username"] uppercaseString] containsString:airlineName]) ||  ([[airline[@"username"] lowercaseString] containsString:airlineName]))
+            {
+                [airline setValue:[imagesArray objectAtIndex:dictionaryIndex-1] forKey:@"imageInNSData"];
                 [newSearchResult addObject:airline];
             }
-            
             self.searchResults = newSearchResult;
         }
     }
@@ -273,12 +306,12 @@ static NSMutableArray* favouritesArray;
     
     if(favouritesArray == nil)
     {
-        favJson = [favouritesService FilePath:@"http://fajjemobile.info/iospanic/favourites.php" parameterOne:@"+923432637576"];
+        favJson = [favouritesService FilePath:@"http://fajjemobile.info/iospanic/favourites.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
         favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
         {
             [favouritesArray addObject:item];
-            NSLog(@" favouritesArray: %@", favouritesArray);
+            //NSLog(@" favouritesArray: %@", favouritesArray);
         }
     }
     return favouritesArray;
@@ -288,6 +321,11 @@ static NSMutableArray* favouritesArray;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController
+{
+    NSLog(@"search returned");
 }
 
 @end

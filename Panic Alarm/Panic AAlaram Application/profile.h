@@ -16,4 +16,5 @@
 @property (strong, nonatomic) IBOutlet UITextView *messageText;
 @property (weak, nonatomic) IBOutlet UIButton *save;
 - (IBAction)save_action:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *profile_complete_view;
 @end

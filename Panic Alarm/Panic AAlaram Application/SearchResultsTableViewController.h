@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSMutableArray *searchResults;
 @property (nonatomic, strong) NSString *searchTableTitle;
+@property (nonatomic, strong) NSString *classType;
 
 @end

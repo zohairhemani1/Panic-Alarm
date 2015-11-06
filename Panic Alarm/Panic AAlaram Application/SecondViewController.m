@@ -11,13 +11,16 @@
 #import <Parse/Parse.h>
 #import "checkInternet.h"
 
-@interface SecondViewController (){
+
+@interface SecondViewController ()
+{
     checkInternet *c;
     UIRefreshControl *refreshControl;
     UIButton *button;
     UIActivityIndicatorView *progress;
     NSMutableArray *resultArray;
     NSArray *searchResults;
+    NSMutableArray *imagesArray;
 }
 
 @end
@@ -58,9 +61,6 @@ NSArray *DistinctFriendsWhoUseApp;
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    self.myTable.delegate=self;
-    self.myTable.dataSource = self;
-    
     progress = [c indicatorprogress:progress];
     [self.view addSubview:progress];
     
@@ -81,31 +81,44 @@ NSArray *DistinctFriendsWhoUseApp;
         
     });
     
-    UITableViewController *tableViewController = [[UITableViewController alloc] init];
-    tableViewController.tableView = self.myTable;
+    imagesArray = [[NSMutableArray alloc]init];
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-    tableViewController.refreshControl = refreshControl;
+//    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+//    tableViewController.tableView = self.myTable;
+//    
+//    refreshControl = [[UIRefreshControl alloc] init];
+//    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+//    tableViewController.refreshControl = refreshControl;
+    
+    UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.delegate = self;
+    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x,
+                                                       self.searchController.searchBar.frame.origin.y,
+                                                       self.searchController.searchBar.frame.size.width, 44.0);
+    
+    self.myTable.tableHeaderView = self.searchController.searchBar;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return searchResults.count;
+    if (self.searchController.active)
+    {
+        return (self.searchResults).count;
     }
     else
     {
         return DistinctFriendsWhoUseApp.count;
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -128,11 +141,6 @@ NSArray *DistinctFriendsWhoUseApp;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    NSString *fullName;
-    NSString *number;
-    NSString *profilePic;
-    
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
     UITableViewCell *cell ;
     
@@ -140,26 +148,19 @@ NSArray *DistinctFriendsWhoUseApp;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-    {
-        NSLog(@"in search text");
-        fullName = [searchResults valueForKey:@"fullName"][indexPath.row];
-        number = [searchResults valueForKey:@"password"][indexPath.row];
-        profilePic = [searchResults valueForKey:@"picture"][indexPath.row];
-    }
-    else
-    {
-        fullName = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][indexPath.row];
-        number = [DistinctFriendsWhoUseApp valueForKey:@"password"][indexPath.row];
-        profilePic = [DistinctFriendsWhoUseApp valueForKey:@"picture"][indexPath.row];
-    }
+    NSString *fullName = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][indexPath.row];
+    NSString *number = [DistinctFriendsWhoUseApp valueForKey:@"password"][indexPath.row];
+    NSString *profilePic = [DistinctFriendsWhoUseApp valueForKey:@"picture"][indexPath.row];
     
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
     NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
     NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-    UIImage *img = [[UIImage alloc]initWithData:data ];
+    UIImage *img = [[UIImage alloc]initWithData:data];
+    
+    NSData* imageData = UIImagePNGRepresentation(img);
+    [imagesArray addObject:imageData];
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
     imageView.frame = CGRectMake(10, 5, 40, 40);
@@ -170,6 +171,7 @@ NSArray *DistinctFriendsWhoUseApp;
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 6, 150, 20)];
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 28, 80, 20)];
+    
     if(fullName !=nil)
     {
         name.text = fullName;
@@ -177,10 +179,8 @@ NSArray *DistinctFriendsWhoUseApp;
     }
 
     name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
-    [cell addSubview:name];
     phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
-    [cell addSubview:phonenumber];
     
     NSString *activateValue = [DistinctFriendsWhoUseApp valueForKey:@"activate"][indexPath.row];
     
@@ -188,34 +188,36 @@ NSArray *DistinctFriendsWhoUseApp;
     
     if(activateValue != nil && [activateValue isEqual: @"0"])
     {
-        NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
+        NSLog(@"activate1: --> %@, %ld",activateValue, (long)indexPath.row);
         
-        [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
+        [button setBackgroundImage:[UIImage imageNamed:@"tick"] forState:normal];
         [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if(activateValue != nil && [activateValue isEqual: @"00"])
     {
-        NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
+        NSLog(@"activate2: --> %@, %ld",activateValue, (long)indexPath.row);
         
         [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
         [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
     }
     else
     {
+         NSLog(@"activate3: --> %@, %ld",activateValue, (long)indexPath.row);
         [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
         [button addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     button.tag = indexPath.row;
     [cell addSubview:button];
-    
+    [cell addSubview:phonenumber];
+    [cell addSubview:name];
     return cell;
 }
 
 - (void)acceptFriendRequest:(id)sender
 {
     button = (UIButton*) sender;
-    [button setBackgroundImage:[UIImage imageNamed:@"tick.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:UIControlStateNormal];
     
     NSString *numberToAccept = [DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"][button.tag];
     NSString *nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
@@ -256,9 +258,9 @@ NSArray *DistinctFriendsWhoUseApp;
 //    PFPush *push = [[PFPush alloc] init];
 //    [push setChannel:friendsNumber];   // channels column in PARSE!
     
-    NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+   // NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
 
-    NSString *message = @"You have been added by ";
+   // NSString *message = @"You have been added by ";
     //message = [message stringByAppendingString:storedName];
     
 //    [push setMessage:message];
@@ -266,8 +268,7 @@ NSArray *DistinctFriendsWhoUseApp;
 //    [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
-    [addFriend FilePath:@"http://fajjemobile.info/iospanic/friends.php" parameterOne:@"+923152151511"
-           parameterTwo:@""];
+    [addFriend FilePath:@"http://fajjemobile.info/iospanic/add_friends.php" parameterOne:[DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag] parameterTwo:@""];
     
 }
 
@@ -319,13 +320,13 @@ NSArray *DistinctFriendsWhoUseApp;
             }
             friendsWhoUseApp = resultArray;
         }
-        
-        
     }
-    else if (jsonData.length == 0 && error == nil){
+    else if (jsonData.length == 0 && error == nil)
+    {
         NSLog(@"No data was returned after serialization.");
     }
-    else if (error != nil){
+    else if (error != nil)
+    {
         NSLog(@"An error happened = %@", error);
     }
     
@@ -342,11 +343,9 @@ NSArray *DistinctFriendsWhoUseApp;
             [friendsWhoUseApp removeObjectAtIndex:index];
         }
         index--;
-        
     }
     // ending funtion here
 }
-
 
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -364,18 +363,59 @@ NSArray *DistinctFriendsWhoUseApp;
     return [UIImage imageWithData:data];
 }
 
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-   // [searchResults removeAllObjects];
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-    searchResults = [DistinctFriendsWhoUseApp filteredArrayUsingPredicate:resultPredicate];
+    
+    NSString *searchString = self.searchController.searchBar.text;
+    
+    [self updateFilteredContentForAirlineName:searchString];
+    
+    // If searchResultsController
+    if (self.searchController.searchResultsController) {
+        
+        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+        
+        // Present SearchResultsTableViewController as the topViewController
+        SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+        
+        // Update searchResults
+        vc.searchResults = self.searchResults;
+        vc.searchTableTitle = @"Contacts";
+        vc.classType = @"contacts";
+        // And reload the tableView with the new data
+        [vc.tableView reloadData];
+    }
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+
+// Update self.searchResults based on searchString, which is the argument in passed to this method
+- (void)updateFilteredContentForAirlineName:(NSString *)airlineName
 {
-        [self filterContentForSearchText:searchString
-                               scope:(self.searchDisplayController.searchBar).scopeButtonTitles[(self.searchDisplayController.searchBar).selectedScopeButtonIndex]];
-    return YES;
+    if (airlineName == nil)
+    {
+        self.searchResults = [DistinctFriendsWhoUseApp mutableCopy];
+    }
+    else
+    {
+        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
+        int dictionaryIndex = 0;
+        // Else if the airline's name is
+        for (NSDictionary *airline in DistinctFriendsWhoUseApp)
+        {
+            dictionaryIndex ++;
+            if (([[airline[@"fullName"] capitalizedString] containsString:airlineName]) || ([[airline[@"fullName"] uppercaseString] containsString:airlineName]) ||  ([[airline[@"fullName"] lowercaseString] containsString:airlineName]))
+            {
+                [airline setValue:[imagesArray objectAtIndex:dictionaryIndex-1] forKey:@"imageInNSData"];
+                [newSearchResult addObject:airline];
+            }
+            self.searchResults = newSearchResult;
+        }
+    }
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController
+{
+    NSLog(@"search returned");
 }
 
 @end

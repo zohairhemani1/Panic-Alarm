@@ -44,8 +44,8 @@
         jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
     }
    
-    NSLog(@"%@",response);
-    NSLog(@"JsonArray %@", jsonArray);
+  //  NSLog(@"%@",response);
+   // NSLog(@"JsonArray %@", jsonArray);
     //[NSURLConnection connectionWithRequest:request delegate:self];
     // return response;
     

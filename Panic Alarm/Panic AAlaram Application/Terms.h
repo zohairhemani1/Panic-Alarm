@@ -10,10 +10,9 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface Terms : UIViewController<ABNewPersonViewControllerDelegate>{
-
+@interface Terms : UIViewController<ABNewPersonViewControllerDelegate>
+{
     BOOL checkboxSelected;
-    
     IBOutlet UIButton *checkboxButton;
 }
 - (IBAction)checkboxButton:(id)sender;

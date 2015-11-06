@@ -9,13 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import "SearchResultsTableViewController.h"
 
-@interface SecondViewController : UIViewController<ABNewPersonViewControllerDelegate,UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate, UISearchDisplayDelegate, UISearchControllerDelegate,UISearchResultsUpdating>
+@interface SecondViewController : UIViewController<ABNewPersonViewControllerDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 
 + (NSMutableArray *)friendWhoUseAppStaticFunction;
 + (NSMutableArray *)finalArrayStaticFunction;
 
 @property (weak, nonatomic) IBOutlet UITableView *myTable;
+
+@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) NSMutableArray *searchResults;
 
 @end
 

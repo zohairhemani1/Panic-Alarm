@@ -49,10 +49,11 @@ checkInternet *c;
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     NSLog(@"the panic person id is: %d",self.panicPersonId);
     
-    panicPersonName.text = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
-    profilePic = [[Victims getPanicFromArray] valueForKey:@"d"][self.panicPersonId];
     
-    self.panicMessage.text = @"I am getting raped";
+    panicPersonName.text = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
+    profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
+    self.panicMessage.text = [[Victims getPanicFromArray] valueForKey:@"panicMessage"][self.panicPersonId];
+    self.panicNumber.text = [[Victims getPanicFromArray] valueForKey:@"friendsnumber"][self.panicPersonId];
     
     imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];

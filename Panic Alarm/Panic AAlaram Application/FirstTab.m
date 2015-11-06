@@ -256,12 +256,10 @@ bool condition=NO;
         for (int i=0; i < (SecondViewController.finalArrayStaticFunction).count; i++)
         {
             phoneNumber = [SecondViewController.finalArrayStaticFunction[i] valueForKeyPath:@"phoneNumber"];
-            NSString *friendsNumber  = [item valueForKey:@"friendsnumber"];
+            NSString *friendsNumberz  = [item valueForKey:@"friendsnumber"];
             profilePic  = [item valueForKey:@"pic"];
-            NSString * storedNumber = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
-            
-            
-            
+            NSString * storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
+
             if([[item valueForKey:@"mynumber"] isEqualToString:phoneNumber] && !([[item valueForKey:@"mynumber"] isEqualToString:storedNumber]))
                 
             {
@@ -271,7 +269,7 @@ bool condition=NO;
                 activate = [item valueForKey:@"activate"];
                 
             }
-            else if ([[item valueForKey:@"mynumber"] isEqualToString:storedNumber] && [friendsNumber isEqualToString:phoneNumber])
+            else if ([[item valueForKey:@"mynumber"] isEqualToString:storedNumber] && [friendsNumberz isEqualToString:phoneNumber])
             {
                 fullName = [SecondViewController.finalArrayStaticFunction[i] valueForKey:@"fullName"];
                 phoneNumberToAdd = [SecondViewController.finalArrayStaticFunction[i] valueForKey:@"phoneNumber"];
@@ -281,6 +279,7 @@ bool condition=NO;
         }
         
         if(fullName!=nil && phoneNumber!=nil){
+            NSLog(@"adding object in dictionary");
             [item setValue:fullName forKey:@"fullName"];
             [item setValue:phoneNumberToAdd forKey:@"phoneNumber"];
             [item setValue:activate forKeyPath:@"activate"];

@@ -261,7 +261,7 @@ UIActivityIndicatorView *progress;
    // NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
         // getting code.
         
-    storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
+    storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     
    // CGImageRef cgref = [uploadedimage CGImage];
    // CIImage *cim = [uploadedimage CIImage];

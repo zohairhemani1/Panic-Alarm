@@ -18,13 +18,15 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     
-    self.personName.text = [[[NSUserDefaults standardUserDefaults] valueForKey:@"name"] uppercaseString];
+    self.personName.text = [[[NSUserDefaults standardUserDefaults] valueForKey:@"name"] capitalizedString];
     
-    self.personImage.layer.cornerRadius = 40;
+    self.personImage.layer.cornerRadius = 35;
     self.personImage.contentMode = UIViewContentModeScaleAspectFill;
     [self.personImage setClipsToBounds:YES];
-    NSData* myEncodedImageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userImage"];
     
+    [self.view setBackgroundColor:[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0]];
+    
+    NSData* myEncodedImageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userImage"];
     UIImage *img;
     if(myEncodedImageData == nil)
     {
@@ -35,16 +37,7 @@
         img = [UIImage imageWithData:myEncodedImageData];
     }
     
-    
     self.personImage.image = img;
-    
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(20, self.personName.frame.origin.y, self.view.bounds.size.width, 1)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:lineView];
-    
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(20, self.personName.frame.origin.y+25, self.view.bounds.size.width, 1)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:lineView];
     
     self.messageText.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"panicMessage"];
     
@@ -122,17 +115,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     return YES;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UIView * txt in self.view.subviews){
-        if ([txt isKindOfClass:[UITextField class]] && [txt isFirstResponder]) {
-            [txt resignFirstResponder];
-        }
-        
-        else if ([txt isKindOfClass:[UITextView class]] && [txt isFirstResponder]) {
-            [txt resignFirstResponder];
-        }
-        
-    }
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)eventtouch {
+    [self.view endEditing:(YES)];
+    
 }
 
 -(void)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
