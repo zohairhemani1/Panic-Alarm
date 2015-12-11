@@ -9,6 +9,7 @@
 #import "Settings.h"
 #import "PanicFrom.h"
 #import "checkInternet.h"
+#import "help_systemStatus.h"
 
 @interface Settings (){
     checkInternet *c;
@@ -99,11 +100,14 @@ NSMutableArray *network;
     {
         NSString *CellIdentifier = about[indexPath.row];
         
-        NSString *freind = @"tell";
-        if(CellIdentifier == freind)
+        if(CellIdentifier == @"tell")
         {
             self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"hello"] applicationActivities:nil];
             [self presentViewController:self.activityViewController animated:YES completion:nil];
+        }
+        else if(CellIdentifier == @"help")
+        {
+            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
         }
     }
 }
@@ -144,20 +148,22 @@ NSMutableArray *network;
     // Dispose of any resources that can be recreated.
 }
 
-//- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
-//{
-//    // Set the title of navigation bar by using the menu items
-//    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//    UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
-//    destViewController.title = [[about objectAtIndex:indexPath.row] capitalizedString];
-//    
-//    // Set the photo if it navigates to the PhotoView
-////    if ([segue.identifier isEqualToString:@"showPhoto"]) {
-////        PhotoViewController *photoController = (PhotoViewController*)segue.destinationViewController;
-////        NSString *photoFilename = [NSString stringWithFormat:@"%@_photo.jpg", [_menuItems objectAtIndex:indexPath.row]];
-////        photoController.photoFilename = photoFilename;
-////    }
-//    
-//    
-//}
+- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+
+    if ([segue.identifier isEqualToString:@"help_systemStatus_segue"])
+    {
+        help_systemStatus *h = segue.destinationViewController;
+        if(indexPath.section == 0)
+        {
+            h.pageName = @"FAQ.php";
+        }
+        else
+        {
+            
+        }
+    }
+}
+
 @end

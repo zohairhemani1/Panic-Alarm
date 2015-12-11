@@ -92,21 +92,30 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (IBAction)save_action:(id)sender {
     
-    WebService *updateMessage = [[WebService alloc] init];
-     NSArray *result = [updateMessage FilePath:@"http://fajjemobile.info/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
-     NSString *status = [result valueForKey:@"success"];
-    
-    if([status isEqualToString:@"OK"])
+    if([self.personName.text isEqualToString:@""] || [self.messageText.text isEqualToString:@""])
     {
-        [self showAlertBox:NO title:@"Status" message:@"Your Panic message has been updated" ];
-        [[NSUserDefaults standardUserDefaults ] setValue:self.personName.text forKey:@"name"];
-        [[NSUserDefaults standardUserDefaults ] setValue:self.messageText.text forKey:@"panicMessage"];
+        [self showAlertBox:NO title:@"Status" message:@"Please insert name and message first."];
     }
     else
     {
-        [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated."];
+        NSLog(@"the name is: %@",self.personName.text);
+        NSLog(@"the message is: %@",self.messageText.text);
+        WebService *updateMessage = [[WebService alloc] init];
+        NSArray *result = [updateMessage FilePath:@"http://fajjemobile.info/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
+        NSString *status = [result valueForKey:@"success"];
+        
+        if([status isEqualToString:@"OK"])
+        {
+            [self showAlertBox:NO title:@"Status" message:@"Your Panic message has been updated" ];
+            [[NSUserDefaults standardUserDefaults ] setValue:self.personName.text forKey:@"name"];
+            [[NSUserDefaults standardUserDefaults ] setValue:self.messageText.text forKey:@"panicMessage"];
+        }
+        else
+        {
+            [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated."];
+        }
+
     }
-    
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField

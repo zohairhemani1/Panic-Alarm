@@ -20,6 +20,7 @@
 		194A06E01926A65900AA7654 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DC1926A65900AA7654 /* checkbox.png */; };
 		194A06E11926A65900AA7654 /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DD1926A65900AA7654 /* checkbox@2x.png */; };
 		1980BDD319AB752C008B58A0 /* profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1980BDD219AB752C008B58A0 /* profile.m */; };
+		1988D74D1C1B16E3000034D9 /* help_systemStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1988D74C1C1B16E3000034D9 /* help_systemStatus.m */; settings = {ASSET_TAGS = (); }; };
 		1996B0081BDF8593003E53E0 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		1999464C1BE369C7000BE01E /* UploadingContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1999464B1BE369C7000BE01E /* UploadingContactsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		19C746CB19795F2500192C88 /* Victims.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C746CA19795F2500192C88 /* Victims.m */; };
@@ -90,6 +91,8 @@
 		194A06DD1926A65900AA7654 /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = SOURCE_ROOT; };
 		1980BDD119AB752C008B58A0 /* profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profile.h; sourceTree = "<group>"; };
 		1980BDD219AB752C008B58A0 /* profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = profile.m; sourceTree = "<group>"; };
+		1988D74B1C1B16E3000034D9 /* help_systemStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = help_systemStatus.h; sourceTree = "<group>"; };
+		1988D74C1C1B16E3000034D9 /* help_systemStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = help_systemStatus.m; sourceTree = "<group>"; };
 		1996B0061BDF8593003E53E0 /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
 		1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 		1999464A1BE369C7000BE01E /* UploadingContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploadingContactsViewController.h; path = ../UploadingContactsViewController.h; sourceTree = "<group>"; };
@@ -314,6 +317,8 @@
 				19F593E6192734DD0090BE79 /* Map.m */,
 				19D0A694196DDFEE00CB68F3 /* Settings.h */,
 				19D0A695196DDFEE00CB68F3 /* Settings.m */,
+				1988D74B1C1B16E3000034D9 /* help_systemStatus.h */,
+				1988D74C1C1B16E3000034D9 /* help_systemStatus.m */,
 				1905FE3B1983910700C76BA0 /* About.h */,
 				1905FE3C1983910700C76BA0 /* About.m */,
 				1980BDD119AB752C008B58A0 /* profile.h */,
@@ -484,6 +489,7 @@
 				19E941AF1BD67ECF00705B5C /* digitsVerification.m in Sources */,
 				DC5A8C5A1910ECB00058F7C2 /* FirstViewController.m in Sources */,
 				19F593E7192734DD0090BE79 /* Map.m in Sources */,
+				1988D74D1C1B16E3000034D9 /* help_systemStatus.m in Sources */,
 				19DBA63F193036E800BFD9CB /* checkInternet.m in Sources */,
 				1905FE3D1983910700C76BA0 /* About.m in Sources */,
 				19404F1C1BEC91FF00664583 /* NSDataAdditions.m in Sources */,

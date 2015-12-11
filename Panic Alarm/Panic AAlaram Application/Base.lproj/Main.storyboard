@@ -173,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZs-yp-PEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1236" y="1209"/>
+            <point key="canvasLocation" x="1226" y="1209"/>
         </scene>
         <!--Settings-->
         <scene sceneID="TtW-rm-GWB">
@@ -293,6 +293,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="3ZQ-0g-Ey7"/>
                     <connections>
                         <outlet property="settingsTable" destination="F5a-nO-lCo" id="6EH-Mt-RhO"/>
+                        <segue destination="Gad-uK-vNa" kind="push" identifier="help_systemStatus_segue" id="awE-1K-GV7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4g0-4s-ffo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -325,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YZs-0X-USA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="3181"/>
+            <point key="canvasLocation" x="1199" y="3240"/>
         </scene>
         <!--Profile-->
         <scene sceneID="lYl-Nt-3VC">
@@ -475,7 +476,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kuv-8T-w12" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="2543"/>
+            <point key="canvasLocation" x="1199" y="2577"/>
+        </scene>
+        <!--Help system Status-->
+        <scene sceneID="jkB-Nr-G5m">
+            <objects>
+                <viewController id="Gad-uK-vNa" customClass="help_systemStatus" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N6E-Sh-1Ke"/>
+                        <viewControllerLayoutGuide type="bottom" id="jDj-dn-Gv0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bi3-bs-ef4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqV-tz-tJ6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="maX-4o-po2"/>
+                    <connections>
+                        <outlet property="webView" destination="eqV-tz-tJ6" id="xwp-hh-eGN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YtJ-sa-vxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1746" y="2243"/>
         </scene>
         <!--About-->
         <scene sceneID="EXF-Oa-veN">
@@ -1082,6 +1111,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.33725490200000002" green="0.2156862745" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

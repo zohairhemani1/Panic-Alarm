@@ -273,8 +273,19 @@ static NSMutableArray* favouritesArray;
 {
     [self.refresh endRefreshing];
     favouritesArray = nil;
-    [Favorites favouritesList];
-    [self.favoritesTable reloadData];
+    
+    [progress startAnimating];
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        [Favorites favouritesList];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.favoritesTable reloadData];
+            [progress stopAnimating];
+        });
+    });
 }
 
 // ----- swipe to delete ----- //

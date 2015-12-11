@@ -13,6 +13,7 @@
 
 @interface SecondViewController : UIViewController<ABNewPersonViewControllerDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 
+@property UIRefreshControl *refresh;
 + (NSMutableArray *)friendWhoUseAppStaticFunction;
 + (NSMutableArray *)finalArrayStaticFunction;
 

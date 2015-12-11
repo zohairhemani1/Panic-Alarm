@@ -56,6 +56,10 @@ NSArray *DistinctFriendsWhoUseApp;
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     
+    self.refresh = [[UIRefreshControl alloc] init];
+    [self.refresh addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    [self.myTable addSubview:self.refresh];
+    
     (self.myTable).separatorColor = [UIColor lightGrayColor];
     
     c= [[checkInternet alloc]init];
@@ -272,13 +276,6 @@ NSArray *DistinctFriendsWhoUseApp;
     
 }
 
-- (void)refreshTable
-{
-    [self sendingJSONArrayToServer];
-    [self.myTable reloadData];
-    [refreshControl endRefreshing];
-}
-
 -(void)sendingJSONArrayToServer
 {
     NSError *error = nil;
@@ -416,6 +413,26 @@ NSArray *DistinctFriendsWhoUseApp;
 - (void)didDismissSearchController:(UISearchController *)searchController
 {
     NSLog(@"search returned");
+}
+
+- (void)refreshTable
+{
+    [self.refresh endRefreshing];
+    DistinctFriendsWhoUseApp = nil;
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(myqueue, ^(void) {
+        
+        [progress startAnimating];
+        [self sendingJSONArrayToServer];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.myTable reloadData];
+            [progress stopAnimating];
+        });
+        
+    });
 }
 
 @end
