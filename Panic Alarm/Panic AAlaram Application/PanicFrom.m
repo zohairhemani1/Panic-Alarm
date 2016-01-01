@@ -55,7 +55,7 @@ checkInternet *c;
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //NSLog(@"the panic person id is: %d",self.panicPersonId);
     
-    panicPersonName.text = [[[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId] capitalizedString];
+    panicPersonName.text = [[[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId] uppercaseString];
     profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
     self.panicMessage.text = [[Victims getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
     self.panicNumber.text = [[Victims getPanicFromArray] valueForKey:@"mynumber"][self.panicPersonId];
@@ -80,12 +80,11 @@ checkInternet *c;
     {
         [self performSegueWithIdentifier:@"goToMap" sender:self];
         WebService *locationReceived = [[WebService alloc] init];
-        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@""];
+        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@"" parameterTwo:@"" parameterThree:@""];
     }
     //parameter1 : id
     //2: panicvictim_id
     //3: friendsnumber
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

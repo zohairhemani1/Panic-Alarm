@@ -236,7 +236,7 @@ NSArray *DistinctFriendsWhoUseApp;
     NSString *nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
-    NSString *friendsNumber = [NSString stringWithFormat:@"X_%@",numberToAccept];
+    NSString *friendsNumber = [NSString stringWithFormat:@"%@",numberToAccept];
     
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
@@ -266,7 +266,7 @@ NSArray *DistinctFriendsWhoUseApp;
 
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag],[DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag] );
     
-//    NSString *friendsNumber = @"X_03432637576";
+//    NSString *friendsNumber = @"03432637576";
 //    
 //    PFPush *push = [[PFPush alloc] init];
 //    [push setChannel:friendsNumber];   // channels column in PARSE!

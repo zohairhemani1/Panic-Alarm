@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface Victims : UITableViewController
+@interface Victims : UITableViewController<CLLocationManagerDelegate>
+
+@property(strong,nonatomic) CLLocationManager * locationManager;
+@property(strong,nonatomic) CLLocation *location;
 @property (strong, nonatomic) IBOutlet UITableView *mytable;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segments;
 - (IBAction)SegmentAction:(id)sender;

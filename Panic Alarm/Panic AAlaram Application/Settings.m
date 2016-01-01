@@ -125,9 +125,8 @@ NSMutableArray *profile;
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.detailTextLabel.text =internet;
+
+    cell.detailTextLabel.text =internet;
     
     return cell;
     

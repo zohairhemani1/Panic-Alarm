@@ -38,9 +38,10 @@ UIActivityIndicatorView *progress;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     fileName = @"default.png";
-        c = [[checkInternet alloc]init];
-        [c viewWillAppear:YES];
+    c = [[checkInternet alloc]init];
+    [c viewWillAppear:YES];
     
 	// Do any additional setup after loading the view, typically from a nib.
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
@@ -150,24 +151,24 @@ UIActivityIndicatorView *progress;
     {
         NSLog(@"JSON returning empty array");
     }
-    else
-    {
-        NSDictionary *jsonElement = jsonArray[0];
-        //NSLog(@"json value-->%@",jsonElement);
-        
-        
-        // Create a new location object and set its props to JsonElement properties
-        
-        username = jsonElement[@"username"];
-        password = jsonElement[@"password"];
-        
-        NSLog(@"username JSON%@",username);
-        NSLog(@"passwordJSON%@",password);
-        
-        NSLog(@"username EditText%@",usernameEditText);
-        NSLog(@"passwordEditText%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]);
-        
-    }
+//    else
+//    {
+//        NSDictionary *jsonElement = jsonArray[0];
+//        //NSLog(@"json value-->%@",jsonElement);
+//        
+//        
+//        // Create a new location object and set its props to JsonElement properties
+//        
+//        username = jsonElement[@"username"];
+//        password = jsonElement[@"password"];
+//        
+//        NSLog(@"username JSON%@",username);
+//        NSLog(@"passwordJSON%@",password);
+//        
+//        NSLog(@"username EditText%@",usernameEditText);
+//        NSLog(@"passwordEditText%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]);
+//        
+//    }
 }
 
 
@@ -229,9 +230,9 @@ UIActivityIndicatorView *progress;
     
     if([[jsonArray valueForKey:@"success"] isEqualToString:@"0"] )
     {
-        [[NSUserDefaults standardUserDefaults ] setValue:self.insertusername.text forKey:@"username"];
-        
-        [[NSUserDefaults standardUserDefaults ] setValue:@"loggedIn" forKey:@"loggedIn"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.insertusername.text forKey:@"username"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.insertusername.text forKey:@"message"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"loggedIn" forKey:@"loggedIn"];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
@@ -264,34 +265,16 @@ UIActivityIndicatorView *progress;
     NSData* imageData = UIImagePNGRepresentation(self.imageView.image);
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userImage"];
         
-   // NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-        // getting code.
-        
-    //storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
-    
-   // CGImageRef cgref = [uploadedimage CGImage];
-   // CIImage *cim = [uploadedimage CIImage];
-    
-//    if (cim == nil && cgref == NULL)
-//    {
-//        NSLog(@"no underlying data"); // image not uploaded by user
-//    }
-//    else
-//    {
-//        
-//    }
-     // uploads image & inserts username password into database. - checks login.
-    
-    //[self downloadItems]; // inserts username password into database. - checks login.
-
-        [[Digits sharedInstance] authenticateWithCompletion:^(DGTSession *session, NSError *error) {
+    [[Digits sharedInstance] authenticateWithCompletion:^(DGTSession *session, NSError *error) {
             // Inspect session/error objects
             [[NSUserDefaults standardUserDefaults]setValue:session.phoneNumber forKey:@"myPhoneNumber"];
             
             PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-            
-            //[currentInstallation addUniqueObject:phone forKey:@"channels"];
-            [currentInstallation addUniqueObject:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"] forKey:@"number"];
+        
+            NSString *myPhoneNumberChannel = [@"X_" stringByAppendingString:[[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"] substringFromIndex:1]];
+        
+            [currentInstallation addUniqueObject:myPhoneNumberChannel forKey:@"channels"];
+            [currentInstallation addUniqueObject:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"] forKey:@"myPhoneNumber"];
             [currentInstallation saveInBackground];
             
             [self downloadItems];

@@ -115,9 +115,9 @@ bool condition=NO;
             {
                 NSLog(@"Fav Item: %@", list[i]);
                 friendsNumber = @"X_";
-                friendsNumber = [friendsNumber stringByAppendingString:[list valueForKey:@"friendsnumber"][i]];
+                friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"][i]substringFromIndex:1]];
                 NSLog(@"NO: %@", friendsNumber);
-                NSString *msg = [victimName stringByAppendingString:@" is in Danger! Please track his location."];
+                NSString *msg = [[victimName capitalizedString] stringByAppendingString:@" is in danger. Please track his location."];
                 
                 NSDictionary *data = @{
                                        @"alert": msg,
@@ -126,14 +126,12 @@ bool condition=NO;
                                        @"sound":@"cheering.caf"
                                        };
                 
-                [self PanicVictimRest];
-                
                 PFPush *push = [[PFPush alloc] init];
                 [push setChannel:friendsNumber];   // channels column in PARSE!
                 [push setData:data];
                 [push sendPushInBackground];
             }
-            
+            [self PanicVictimRest];
             [progress stopAnimating];
         }
         else{
@@ -161,6 +159,7 @@ bool condition=NO;
     if (alertView.tag == 121 && buttonIndex == 1)
     {
         [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+        [self.locationManager startUpdatingLocation];
     }
 }
 
@@ -179,6 +178,12 @@ bool condition=NO;
     
     latitude = location.coordinate.latitude;
     longitude = location.coordinate.longitude;
+    
+    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
+    {
+        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
+    }
 }
 
 -(void)PanicVictimRest{

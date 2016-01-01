@@ -203,16 +203,24 @@ static NSMutableArray* favouritesArray;
 -(void)FindLocation:(id)sender{
     button = (UIButton *) sender;
     
+    storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
+    NSString *number;
+    
+    if(![[favouritesArray valueForKey:@"friendsnumber"][button.tag] isEqualToString:storedNumber])
+        number = [favouritesArray valueForKey:@"friendsnumber"][button.tag];
+    else if (![[favouritesArray valueForKey:@"mynumber"][button.tag] isEqualToString:storedNumber])
+        number = [favouritesArray valueForKey:@"mynumber"][button.tag];
+    
     WebService *FindLocationRest = [[WebService alloc] init];
-    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][button.tag] parameterThree:FIND_MESSAGE];
+    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:number parameterThree:FIND_MESSAGE];
     
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[favouritesArray valueForKey:@"username"][button.tag]]];
         
         PFPush *push = [[PFPush alloc] init];
-        [push setChannel:@"X_090078601"];   // channels column in PARSE!
-        NSString *FindNotificationMessage = [[favouritesArray valueForKey:@"username"][button.tag] stringByAppendingString:@"is requesting your Location."];
+        [push setChannel:@"090078601"];   // channels column in PARSE!
+        NSString *FindNotificationMessage = [[favouritesArray valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
         //[push setData:data];
         [push sendPushInBackground];

@@ -70,6 +70,12 @@ static NSArray *PanicToArray;
     
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
 
@@ -162,12 +168,12 @@ static NSArray *PanicToArray;
     timestamp.font = [UIFont fontWithName:@"HelveticaNeue" size:14.f];
     timestamp.text = @"";
 
-    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(225, 22, 70, 20)];
+    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(230, 24, 80, 25)];
     [accept_location setTitleColor:[UIColor whiteColor] forState:normal];
-//    accept_location.clipsToBounds = YES;
-//    accept_location.layer.cornerRadius = 5;
-//    accept_location.backgroundColor = [UIColor colorWithRed:89.0f/255 green:34.0f/255 blue:122.0f/255 alpha:1.0];
-    accept_location.backgroundColor = [UIColor blueColor];
+    accept_location.clipsToBounds = YES;
+    accept_location.layer.cornerRadius = 5;
+    accept_location.backgroundColor = [UIColor colorWithRed:89.0f/255 green:34.0f/255 blue:122.0f/255 alpha:1.0];
+    //accept_location.backgroundColor = [UIColor blueColor];
     
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
@@ -310,7 +316,6 @@ static NSArray *PanicToArray;
             imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
             imageView.image = retrievedImage;
             [cell addSubview:imageView];
-            
         }
 
         if(receivedStatus == 0)
@@ -319,7 +324,6 @@ static NSArray *PanicToArray;
             status.text = @"Status: Pending";
             [accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
             accept_location.tag = indexPath.row;
-            
         }
         else
         {
@@ -327,11 +331,9 @@ static NSArray *PanicToArray;
             status.text = @"Status: Received";
         }
         
-    
-        if([[PanicToArray valueForKey:@"type"][indexPath.row] isEqualToString:@"F"]){
-            
+        if([[PanicToArray valueForKey:@"type"][indexPath.row] isEqualToString:@"F"])
+        {
             [cell addSubview:accept_location];
-            
         }
 
         (cell.imageView).frame = CGRectMake(20,20,20,20);
@@ -339,7 +341,6 @@ static NSArray *PanicToArray;
        
         [cell addSubview:image_loading];
         [image_loading startAnimating];
-        
     }
     
     if(calculatedDifference == 0) {
@@ -522,6 +523,7 @@ static NSArray *PanicToArray;
     {
         NSString *locationString = [NSString stringWithFormat:@"%@,%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"],[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"]];
         
+        [self.locationManager stopUpdatingLocation];
         accept_location = (UIButton*) sender;
         WebService *AcceptToSendLocationRest = [[WebService alloc] init];
         AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:locationString parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
@@ -529,19 +531,26 @@ static NSArray *PanicToArray;
         if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"]){
             [accept_location setTitle:@"Sent" forState:normal];
             PFPush *push = [[PFPush alloc] init];
-            //[push setChannel:@"X_090078601"];   // channels column in PARSE!
-            [push setChannel:[@"X_" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];
+            //[push setChannel:@"+090078601"];   // channels column in PARSE!
+            [push setChannel:[@"" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];
             FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
             [push setMessage:FindNotificationMessage];
             //[push setData:data];
             [push sendPushInBackground];
+            NSLog(@"1");
         }
         else{
+            NSLog(@"2");
             // Alert value for key @"error" from acceptToSendLocationJsonArray
         }
     }
     else
     {
+        NSLog(@"3");
+//        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+//        {
+//            [self.locationManager requestWhenInUseAuthorization];
+//        }
         if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
         {
             UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -556,11 +565,22 @@ static NSArray *PanicToArray;
     }
 }
 
+// Location Manager Delegate Methods
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    // NSLog(@"in location update");
+    [manager stopUpdatingLocation];
+    CLLocation *location = locations.lastObject;
+    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == 121 && buttonIndex == 1)
     {
         [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+        [self.locationManager startUpdatingLocation];
     }
 }
 

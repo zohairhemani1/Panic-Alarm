@@ -161,7 +161,7 @@
         [imageView setClipsToBounds:YES];
         
         button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
+        button.frame = CGRectMake(cell.frame.origin.x + 235, 07, 60, 36);
         [button setTitle:@"Find" forState:UIControlStateNormal];
         button.tag = indexPath.row;
         button.backgroundColor = [UIColor blackColor];
@@ -190,7 +190,7 @@
         [button setTitle:@"PENDING" forState:normal];
         
         PFPush *push = [[PFPush alloc] init];
-        [push setChannel:@"X_090078601"];   // channels column in PARSE!
+        [push setChannel:@"090078601"];   // channels column in PARSE!
         NSString *FindNotificationMessage = [[self.searchResults valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
         //[push setData:data];
@@ -207,7 +207,7 @@
     NSString *nameToAccept = [self.searchResults valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
-    NSString *friendsNumber = @"X_090078601";
+    NSString *friendsNumber = @"090078601";
     
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
@@ -237,7 +237,7 @@
     
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [self.searchResults valueForKey:@"password"][button.tag],[self.searchResults valueForKey:@"fullName"][button.tag] );
     
-    //    NSString *friendsNumber = @"X_03432637576";
+    //    NSString *friendsNumber = @"03432637576";
     //
     //    PFPush *push = [[PFPush alloc] init];
     //    [push setChannel:friendsNumber];   // channels column in PARSE!
