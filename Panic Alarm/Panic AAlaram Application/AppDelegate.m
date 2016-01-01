@@ -25,18 +25,15 @@
     
     [Fabric with:@[[Digits class]]];
     
-    [[NSUserDefaults standardUserDefaults]setValue:@"+923333667339" forKey:@"myPhoneNumber"];
-    
-//    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"loggedIn"]isEqualToString:@"loggedIn"])
-//       {
-//           UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//                       UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
-//           
-//                       self.window.rootViewController = secondView;
-//           
-//                       [self.window makeKeyAndVisible];
-//
-//       }
+    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"loggedIn"]isEqualToString:@"loggedIn"])
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+           
+        self.window.rootViewController = secondView;
+        [self.window makeKeyAndVisible];
+
+    }
     
     
     
@@ -67,6 +64,7 @@
     
     [Parse setApplicationId:@"ydmTMKN3ZJ3UtKXrWipMk8Fd4nUfYfCgVJgb92lB"
                   clientKey:@"WddesaUPVKyD9H0oMbCikuP0sGR1aqev9HFBjikV"];
+    
     // Override point for customization after application launch.
   //  [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
   //   UIRemoteNotificationTypeAlert|

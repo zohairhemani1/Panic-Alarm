@@ -147,27 +147,27 @@ static NSArray *PanicToArray;
     name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
     name.text = @"";
     
-    UILabel *status = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 170, 13)];
-    status.font = [UIFont fontWithName:@"HelveticaNeue" size:11.f];
+    UILabel *status = [[UILabel alloc]initWithFrame:CGRectMake(60, 18, 170, 13)];
+    status.font = [UIFont fontWithName:@"Helvetica-Bold" size:11.f];
     status.textColor = [UIColor grayColor];
     status.text = @"";
     
-    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 34, 160, 13)];
+    UILabel *message = [[UILabel alloc]initWithFrame:CGRectMake(60, 30, 160, 30)];
     message.font = [UIFont fontWithName:@"HelveticaNeue" size:11.f];
     message.textColor = [UIColor grayColor];
-    message.numberOfLines = 2;
+    [message setNumberOfLines:0];
     message.text = @"";
 
     UILabel *timestamp = [[UILabel alloc]initWithFrame:CGRectMake(220, 2, 80, 20)];
     timestamp.font = [UIFont fontWithName:@"HelveticaNeue" size:14.f];
     timestamp.text = @"";
 
-    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 22, 80, 20)];
-    //[accept_location setTitle:@"Accept" forState:normal];
+    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(225, 22, 70, 20)];
     [accept_location setTitleColor:[UIColor whiteColor] forState:normal];
-    accept_location.backgroundColor = [UIColor blackColor];
-    
-    
+//    accept_location.clipsToBounds = YES;
+//    accept_location.layer.cornerRadius = 5;
+//    accept_location.backgroundColor = [UIColor colorWithRed:89.0f/255 green:34.0f/255 blue:122.0f/255 alpha:1.0];
+    accept_location.backgroundColor = [UIColor blueColor];
     
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
@@ -214,7 +214,7 @@ static NSArray *PanicToArray;
                         UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
                         if (updateCell)
                         {
-                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
                             imageView.image = image;
                             imageView.layer.cornerRadius = 20;
                             imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -266,7 +266,7 @@ static NSArray *PanicToArray;
                                           reuseIdentifier:simple];
         }
         
-        name.text = [PanicToArray valueForKey:@"username" ][indexPath.row];
+        name.text = [[PanicToArray valueForKey:@"username" ][indexPath.row] uppercaseString];
         profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
         message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
         receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
@@ -291,7 +291,7 @@ static NSArray *PanicToArray;
                         UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
                         if (updateCell)
                         {
-                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
                             imageView.image = image;
                             imageView.layer.cornerRadius = 20;
                             imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -354,6 +354,7 @@ static NSArray *PanicToArray;
     
     [cell addSubview:name];
     [cell addSubview:message];
+    [message sizeToFit];
     [cell addSubview:timestamp];
     [cell addSubview:status];
 
@@ -447,7 +448,7 @@ static NSArray *PanicToArray;
             // Today's time (a la iPhone Mail)
             formatter.dateStyle = NSDateFormatterNoStyle;
             formatter.timeStyle = NSDateFormatterShortStyle;
-            NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
+            //NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
             return [formatter stringFromDate:date];
             
         }
@@ -470,19 +471,25 @@ static NSArray *PanicToArray;
 }
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     NSIndexPath *indexPath = (self.mytable).indexPathForSelectedRow;
     PanicFrom *panic = segue.destinationViewController;
     
     if ([segue.identifier isEqualToString:@"FromSegue"]) {
         
         panic.panicPersonId = indexPath.row;
-        NSLog(@"the id is: %d",panic.panicPersonId);
+        
+        if(receivedStatus == 0)
+        {
+            NSLog(@"THE status is %d", receivedStatus);
+            
+            panic.panicStatus = 0;
+        }
+        else{
+            panic.panicStatus = 1;
+        }
     }
-        // Hide bottom tab bar in the detail view
-        // destViewController.hidesBottomBarWhenPushed = YES;
-    
 }
 
 +(NSArray *)getPanicFromArray{
@@ -495,16 +502,15 @@ static NSArray *PanicToArray;
 
 - (void)refreshTable{
     [self.refresh endRefreshing];
-    //PanicToArray = nil;
-    //PanicFromArray = nil;
-    if(PanicToArray == nil)
+    if(self.segments.selectedSegmentIndex == 0)
     {
-       [self callThePanicToArray];
+        PanicFromArray = nil;
+        [self callThePanicFromArray];
     }
-    
-    if(PanicFromArray == nil)
+    else
     {
-       [self callThePanicFromArray];
+        PanicToArray = nil;
+        [self callThePanicToArray];
     }
     
     [self.mytable reloadData];
@@ -512,24 +518,50 @@ static NSArray *PanicToArray;
 
 -(void)AcceptToSendLocation:(id)sender
 {
-    accept_location = (UIButton*) sender;
-    WebService *AcceptToSendLocationRest = [[WebService alloc] init];
-    AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:@"20" parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
-    
-    if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"]){
-        [accept_location setTitle:@"Sent" forState:normal];
-        PFPush *push = [[PFPush alloc] init];
-        //[push setChannel:@"X_090078601"];   // channels column in PARSE!
-        [push setChannel:[@"X_" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];
-        FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
-        [push setMessage:FindNotificationMessage];
-        //[push setData:data];
-        [push sendPushInBackground];
+    if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] !=nil)
+    {
+        NSString *locationString = [NSString stringWithFormat:@"%@,%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"],[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"]];
+        
+        accept_location = (UIButton*) sender;
+        WebService *AcceptToSendLocationRest = [[WebService alloc] init];
+        AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:locationString parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
+        
+        if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"]){
+            [accept_location setTitle:@"Sent" forState:normal];
+            PFPush *push = [[PFPush alloc] init];
+            //[push setChannel:@"X_090078601"];   // channels column in PARSE!
+            [push setChannel:[@"X_" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];
+            FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
+            [push setMessage:FindNotificationMessage];
+            //[push setData:data];
+            [push sendPushInBackground];
+        }
+        else{
+            // Alert value for key @"error" from acceptToSendLocationJsonArray
+        }
     }
-    else{
-        // Alert value for key @"error" from acceptToSendLocationJsonArray
+    else
+    {
+        if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+            alert.tag=121;
+            [alert show];
+        }
     }
-    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 121 && buttonIndex == 1)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

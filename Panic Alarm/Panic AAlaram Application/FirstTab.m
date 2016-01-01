@@ -51,19 +51,19 @@ bool condition=NO;
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-//    #ifdef __IPHONE_8_0
-//        if(IS_OS_8_OR_LATER) {
-//        // Use one or the other, not both. Depending on what you put in info.plist
-//            [self.locationManager requestAlwaysAuthorization];
-//        }
-//    #endif
-//    [self.locationManager startUpdatingLocation];
+    
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager requestAlwaysAuthorization];
+    [self.locationManager startUpdatingLocation];
+    
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+    {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     condition=YES;
-    
-   // self.title = @"Hello World";
     
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
@@ -74,19 +74,15 @@ bool condition=NO;
     [progress bringSubviewToFront:self.view];
     // indicator view end
     
+    [progress startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
         
-        [progress startAnimating];
-        
         [self fetchingFriendsWhoAdded];
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Update UI on main queue
-            
-            [progress stopAnimating];
             
         });
-        
+        [progress stopAnimating];
     });
 
     
@@ -100,70 +96,71 @@ bool condition=NO;
 
 - (IBAction)help_button:(id)sender
 {
-    [self showAlertBox:NO title:@"Help Desk" message:@"You can press the P button to send panic to your Friends\n You can press the F button to find your favourite friends."];
+    [self showAlertBox:NO title:@"Help Desk" message:@"You can press the E button to send panic to your Friends"];
 }
 
 - (IBAction)get_location:(id)sender
 {
     if([Favorites favouritesList].count>0)
     {
-        [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
-    
-        //SystemSoundID soundID;
-        NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
-        NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
-        player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
-        [player play];
-    
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [self.locationManager requestAlwaysAuthorization];
-        [self.locationManager startUpdatingLocation];
-    
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+        if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] != nil)
         {
-            [self.locationManager requestWhenInUseAuthorization];
+            [progress startAnimating];
+            
+            NSMutableArray* list = [Favorites favouritesList];
+            victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+            victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
+            
+            for (int i=0; i<list.count; i++)
+            {
+                NSLog(@"Fav Item: %@", list[i]);
+                friendsNumber = @"X_";
+                friendsNumber = [friendsNumber stringByAppendingString:[list valueForKey:@"friendsnumber"][i]];
+                NSLog(@"NO: %@", friendsNumber);
+                NSString *msg = [victimName stringByAppendingString:@" is in Danger! Please track his location."];
+                
+                NSDictionary *data = @{
+                                       @"alert": msg,
+                                       @"name": victimName,
+                                       @"number": victimNumber,
+                                       @"sound":@"cheering.caf"
+                                       };
+                
+                [self PanicVictimRest];
+                
+                PFPush *push = [[PFPush alloc] init];
+                [push setChannel:friendsNumber];   // channels column in PARSE!
+                [push setData:data];
+                [push sendPushInBackground];
+            }
+            
+            [progress stopAnimating];
         }
-
-        [progress startAnimating];
-
-        NSMutableArray* list = [Favorites favouritesList];
-        victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-        victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
-    
-        for (int i=0; i<list.count; i++)
-        {
-            NSLog(@"Fav Item: %@", list[i]);
-            friendsNumber = @"X_";
-            friendsNumber = [friendsNumber stringByAppendingString:[list valueForKey:@"friendsnumber"][i]];
-            NSLog(@"NO: %@", friendsNumber);
-            NSString *msg = [victimName stringByAppendingString:@" is in Danger! Please track his location."];
-        
-            NSDictionary *data = @{
-                               @"alert": msg,
-                               @"name": victimName,
-                               @"number": victimNumber,
-                               @"sound":@"cheering.caf"
-                               };
-        
-            [self PanicVictimRest];
-        
-            PFPush *push = [[PFPush alloc] init];
-            [push setChannel:friendsNumber];   // channels column in PARSE!
-            [push setData:data];
-            [push sendPushInBackground];
+        else{
+            if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
+            {
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else
+            {
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+                alert.tag=121;
+                [alert show];
+            }
         }
-
-        [progress stopAnimating];
-        
-        [NSTimer scheduledTimerWithTimeInterval:5.0
-                                         target:self
-                                       selector:@selector(stopSoundAndAnimation)
-                                       userInfo:nil
-                                        repeats:YES];
     }
     else
     {
         [self showAlertBox:NO title:@"ERROR" message:@"You don't have any friends."];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 121 && buttonIndex == 1)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
 
@@ -182,20 +179,29 @@ bool condition=NO;
     
     latitude = location.coordinate.latitude;
     longitude = location.coordinate.longitude;
-
-    if(first_time_on_database)
-    {
-            [self PanicVictimRest];
-    }
-    
 }
 
 -(void)PanicVictimRest{
     
-    NSLog(@"longitude is: %f",longitude);
-    NSLog(@"latitude is: %f",latitude);
     if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
     {
+        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
+        
+        // Sound and animation work //
+        [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
+        NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
+        NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
+        player = [[AVAudioPlayer alloc]initWithContentsOfURL:soundUrl error:nil];
+        [player play];
+        
+        [NSTimer scheduledTimerWithTimeInterval:5.0
+                                         target:self
+                                       selector:@selector(stopSoundAndAnimation)
+                                       userInfo:nil
+                                        repeats:YES];
+        // Sound and animation work //
+        
         first_time_on_database = NO;
         NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
         [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
@@ -244,6 +250,19 @@ bool condition=NO;
     WebService *myWebservice = [[WebService alloc] init];
     NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://fajjemobile.info/iospanic/getFriends.php" parameterOne:@""];
     
+    // Notification Badge Number //
+    NSUInteger notifications = friendsToAcceptArray.count;
+    
+    if(notifications==0)
+    {
+        [self.tabBarController.tabBar.items[1] setBadgeValue:nil];
+    }
+    else
+    {
+        NSString* notifications_string = [NSString stringWithFormat:@"%i", notifications];
+        self.tabBarController.tabBar.items[1].badgeValue = notifications_string;
+    }
+
     for(NSDictionary *item in friendsToAcceptArray)
     {
         NSString *fullName;
@@ -289,21 +308,6 @@ bool condition=NO;
         
     } // ending for loop
     
-    
-    
-    //set the number of notifications here//
-    NSUInteger notifiations = friendsToAcceptArray.count;
-    //zohair work now//
-    
-    if(notifiations==0)
-    {
-        [self.tabBarController.tabBar.items[1] setBadgeValue:nil];
-    }
-    else
-    {
-        NSString* notifiations_string = [NSString stringWithFormat:@"%i", notifiations];
-        self.tabBarController.tabBar.items[1].badgeValue = notifiations_string;
-    }
 }
 
 -(void)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
@@ -323,8 +327,6 @@ bool condition=NO;
                              {
                                  [self.navigationController popToRootViewControllerAnimated:YES];
                              }
-                             
-                             
                          }];
     [alert addAction:ok];
     [self presentViewController:alert animated:YES completion:nil];

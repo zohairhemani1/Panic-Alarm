@@ -39,26 +39,30 @@ checkInternet *c;
 {
     [super viewDidLoad];
     
+    self.view.layer.cornerRadius = 10;
+    
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
+    if(self.panicStatus == 0)
+    {
+        self.findLocationButton.enabled = false;
+    }
     self.panicView.backgroundColor = [UIColor whiteColor];
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    NSLog(@"the panic person id is: %d",self.panicPersonId);
+    //NSLog(@"the panic person id is: %d",self.panicPersonId);
     
-    
-    panicPersonName.text = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
+    panicPersonName.text = [[[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId] capitalizedString];
     profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
-    self.panicMessage.text = [[Victims getPanicFromArray] valueForKey:@"panicMessage"][self.panicPersonId];
-    self.panicNumber.text = [[Victims getPanicFromArray] valueForKey:@"friendsnumber"][self.panicPersonId];
+    self.panicMessage.text = [[Victims getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
+    self.panicNumber.text = [[Victims getPanicFromArray] valueForKey:@"mynumber"][self.panicPersonId];
     
     imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
-    NSLog(@"image path string is: %@",imagePathString);
     imagePathUrl = [NSURL URLWithString:imagePathString];
     data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
     img = [[UIImage alloc]initWithData:data ];
@@ -70,11 +74,14 @@ checkInternet *c;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)findLocation:(id)sender {
-    [self performSegueWithIdentifier:@"goToMap" sender:self];
-    WebService *locationReceived = [[WebService alloc] init];
-    [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@""];
-    
+- (IBAction)findLocation:(id)sender
+{
+    if(self.panicStatus == 1)
+    {
+        [self performSegueWithIdentifier:@"goToMap" sender:self];
+        WebService *locationReceived = [[WebService alloc] init];
+        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@""];
+    }
     //parameter1 : id
     //2: panicvictim_id
     //3: friendsnumber

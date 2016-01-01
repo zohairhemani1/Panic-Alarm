@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import <Parse/Parse.h>
 #import "checkInternet.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface Favorites ()
 {
@@ -153,7 +154,7 @@ static NSMutableArray* favouritesArray;
     UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
     if(fullName !=nil)
     {
-        name.text = fullName.capitalizedString;
+        name.text = fullName.uppercaseString;
         phonenumber.text = number;
     }
     
@@ -184,10 +185,12 @@ static NSMutableArray* favouritesArray;
     }
     
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.frame = CGRectMake(cell.frame.origin.x + 250, 10, 60, 30);
+    button.frame = CGRectMake(cell.frame.origin.x + 210, 10, 100, 30);
+    button.clipsToBounds = YES;
+    button.layer.cornerRadius = 5;
     [button setTitle:@"Find" forState:UIControlStateNormal];
     button.tag = indexPath.row;
-    button.backgroundColor = [UIColor blackColor];
+    button.backgroundColor = [UIColor colorWithRed:89.0f/255 green:34.0f/255 blue:122.0f/255 alpha:1.0];
     [button addTarget:self action:@selector(FindLocation:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell addSubview:name];
@@ -203,13 +206,9 @@ static NSMutableArray* favouritesArray;
     WebService *FindLocationRest = [[WebService alloc] init];
     favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][button.tag] parameterThree:FIND_MESSAGE];
     
-    NSLog(@"the returned value are: %@",[favRestJsonArray valueForKey:@"success"]);
-    
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
-        NSLog(@"in code");
-        
-        [button setTitle:@"PENDING" forState:normal];
+        [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[favouritesArray valueForKey:@"username"][button.tag]]];
         
         PFPush *push = [[PFPush alloc] init];
         [push setChannel:@"X_090078601"];   // channels column in PARSE!
@@ -337,6 +336,24 @@ static NSMutableArray* favouritesArray;
 - (void)didDismissSearchController:(UISearchController *)searchController
 {
     NSLog(@"search returned");
+}
+
+-(void)showAlertBoxWithTitle:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

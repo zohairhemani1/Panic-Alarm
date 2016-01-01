@@ -21,7 +21,6 @@
 
 NSMutableArray *about;
 NSMutableArray *profile;
-NSMutableArray *network;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,12 +46,11 @@ NSMutableArray *network;
     }
     
     (self.settingsTable).separatorColor = [UIColor lightGrayColor];
-    
+    self.settingsTable.tableFooterView = [UIView new];
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
     about = [[NSMutableArray alloc] initWithObjects:@"about",@"tell",@"help",nil];
-    profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"notification",nil];
-    network = [[NSMutableArray alloc] initWithObjects:@"system",nil];
+    profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"system",nil];
     
 }
 
@@ -79,33 +77,30 @@ NSMutableArray *network;
     {
         return about.count;
     }
-    else if(section == 1)
-    {
-        return profile.count;
-    }
     else
     {
-        return network.count;
+        return profile.count;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     
     if(indexPath.section == 0)
     {
         NSString *CellIdentifier = about[indexPath.row];
         
-        if(CellIdentifier == @"tell")
+        if([CellIdentifier isEqualToString:@"tell"])
         {
             self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"hello"] applicationActivities:nil];
             [self presentViewController:self.activityViewController animated:YES completion:nil];
         }
-        else if(CellIdentifier == @"help")
+        else if([CellIdentifier isEqualToString:@"help"])
         {
             [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
         }
@@ -124,18 +119,14 @@ NSMutableArray *network;
     {
         CellIdentifier = about[indexPath.row];
     }
-    else if(indexPath.section == 1)
+    else
     {
         CellIdentifier = profile[indexPath.row];
     }
-    else
-    {
-        CellIdentifier = network[indexPath.row];
-    }
-    
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.detailTextLabel.text =internet;
     
     return cell;

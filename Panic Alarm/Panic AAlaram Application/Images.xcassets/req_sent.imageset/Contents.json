@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "req_sent.png",
+      "filename" : "request_sent.png",
       "scale" : "1x"
     },
     {

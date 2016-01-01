@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "checkInternet.h"
 #import "Constants.h"
+#import <DigitsKit/DigitsKit.h>
 
 @interface FirstViewController (){
     NSMutableData *_downloadedData;
@@ -29,11 +30,9 @@
 @implementation FirstViewController
 UIActivityIndicatorView *progress;
 
-
 -(IBAction)backgroundTouched:(id)sender
 {
     [self.insertusername resignFirstResponder];
-    [self.insertpassword resignFirstResponder];
 }
 
 - (void)viewDidLoad
@@ -72,6 +71,19 @@ UIActivityIndicatorView *progress;
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    
+    if([[[NSUserDefaults standardUserDefaults]valueForKey:@"loggedIn"]isEqualToString:@"loggedIn"])
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+        [self presentViewController:secondView animated:YES completion:nil];
+        
+    }
+}
+
 - (void)downloadItems
 {
     // Download the json file
@@ -81,7 +93,9 @@ UIActivityIndicatorView *progress;
     
     // Posting the values of edit text field to database to query the results.
     
-    NSString *myRequestString = [NSString stringWithFormat:@"username=%@&password=%@&pic=%@",usernameEditText, passwordEditText,fileName];
+    NSString *myRequestString = [NSString stringWithFormat:@"username=%@&password=%@&pic=%@",usernameEditText, [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"],fileName];
+    
+    myRequestString = [myRequestString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@" \"#%/+:<>?@[\\]^`{|}"].invertedSet];
     
     // Create Data from request
     NSData *myRequestData = [NSData dataWithBytes: myRequestString.UTF8String length: myRequestString.length];
@@ -151,7 +165,7 @@ UIActivityIndicatorView *progress;
         NSLog(@"passwordJSON%@",password);
         
         NSLog(@"username EditText%@",usernameEditText);
-        NSLog(@"passwordEditText%@", passwordEditText);
+        NSLog(@"passwordEditText%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]);
         
     }
 }
@@ -202,7 +216,7 @@ UIActivityIndicatorView *progress;
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"username\"\r\n\r\n%@", usernameEditText] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"password\"\r\n\r\n%@", passwordEditText] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"password\"\r\n\r\n%@", [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]] dataUsingEncoding:NSUTF8StringEncoding]];
 	// setting the body of the post to the reqeust
     
 	request.HTTPBody = body;
@@ -216,7 +230,6 @@ UIActivityIndicatorView *progress;
     if([[jsonArray valueForKey:@"success"] isEqualToString:@"0"] )
     {
         [[NSUserDefaults standardUserDefaults ] setValue:self.insertusername.text forKey:@"username"];
-        [[NSUserDefaults standardUserDefaults ] setValue:self.insertpassword.text forKey:@"password"];
         
         [[NSUserDefaults standardUserDefaults ] setValue:@"loggedIn" forKey:@"loggedIn"];
         
@@ -234,26 +247,19 @@ UIActivityIndicatorView *progress;
 
 - (IBAction)login:(id)sender {
     
-    if([self.insertusername.text isEqualToString:@""] ||[self.insertpassword.text isEqualToString:@""])
+    if([self.insertusername.text isEqualToString:@""])
     {
-        [self showAlertBox:NO title:@"Incomplete Information" message:@"It seems you have not inserted username or password!!"];
+        [self showAlertBox:NO title:@"Incomplete Information" message:@"It seems you have not inserted username!"];
     }
     else if((self.insertusername.text).length < 6)
     {
         [self showAlertBox:NO title:@"Sorry" message:@"The Username should be 6 charachter long!!"];
     }
-    else if((self.insertpassword.text).length < 6)
-    {
-        [self showAlertBox:NO title:@"Sorry" message:@"The Password should be 6 charachter long!!"];
-    }
-    
     else{
         
     usernameEditText = self.insertusername.text;
-    passwordEditText = self.insertpassword.text;
     
     [[NSUserDefaults standardUserDefaults] setValue:usernameEditText forKey:@"name"];
-    [[NSUserDefaults standardUserDefaults] setValue:passwordEditText forKey:@"password"];
     
     NSData* imageData = UIImagePNGRepresentation(self.imageView.image);
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userImage"];
@@ -261,7 +267,7 @@ UIActivityIndicatorView *progress;
    // NSString * storedName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
         // getting code.
         
-    storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
+    //storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     
    // CGImageRef cgref = [uploadedimage CGImage];
    // CIImage *cim = [uploadedimage CIImage];
@@ -274,17 +280,24 @@ UIActivityIndicatorView *progress;
 //    {
 //        
 //    }
-    [self uploadImage]; // uploads image & inserts username password into database. - checks login.
+     // uploads image & inserts username password into database. - checks login.
     
     //[self downloadItems]; // inserts username password into database. - checks login.
-    
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    NSString * phone = @"X_";
-    phone = [phone stringByAppendingString:self.insertpassword.text];
-       [currentInstallation addUniqueObject:phone forKey:@"channels"];
-        [currentInstallation addUniqueObject:phone forKey:@"number"];
-        [currentInstallation saveInBackground];
 
+        [[Digits sharedInstance] authenticateWithCompletion:^(DGTSession *session, NSError *error) {
+            // Inspect session/error objects
+            [[NSUserDefaults standardUserDefaults]setValue:session.phoneNumber forKey:@"myPhoneNumber"];
+            
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            
+            //[currentInstallation addUniqueObject:phone forKey:@"channels"];
+            [currentInstallation addUniqueObject:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"] forKey:@"number"];
+            [currentInstallation saveInBackground];
+            
+            [self downloadItems];
+            [self uploadImage];
+        }];
+        
     }
  
 }
@@ -326,21 +339,23 @@ UIActivityIndicatorView *progress;
     self.imageView.layer.borderWidth = 0;
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     uploadedimage = info[UIImagePickerControllerOriginalImage];
     (self.imageView).image = uploadedimage;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"login"]){
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"login"])
+    {
         
     }
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
     [UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDuration:0.5];
@@ -349,7 +364,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 	[UIView commitAnimations];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
     [UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDuration:0.5];
@@ -358,14 +374,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 	[UIView commitAnimations];
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField{
+-(BOOL) textFieldShouldReturn:(UITextField *)textField
+{
     [textField resignFirstResponder];
     return YES;
 }
 
 -(void)showAlertBox:(BOOL)moveBack title:(NSString*)title message:(NSString*)message
 {
-    UIAlertController * alert=   [UIAlertController
+    UIAlertController * alert = [UIAlertController
                                   alertControllerWithTitle:title
                                   message:message
                                   preferredStyle:UIAlertControllerStyleAlert];

@@ -69,11 +69,10 @@ NSArray *DistinctFriendsWhoUseApp;
     [self.view addSubview:progress];
     
     [progress bringSubviewToFront:self.view];
-    
+    [progress startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
         
-        [progress startAnimating];
         [self sendingJSONArrayToServer];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -155,6 +154,8 @@ NSArray *DistinctFriendsWhoUseApp;
     NSString *fullName = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][indexPath.row];
     NSString *number = [DistinctFriendsWhoUseApp valueForKey:@"password"][indexPath.row];
     NSString *profilePic = [DistinctFriendsWhoUseApp valueForKey:@"picture"][indexPath.row];
+    NSString *accReq = [DistinctFriendsWhoUseApp valueForKey:@"accReq"][indexPath.row];
+    NSString *activate = [DistinctFriendsWhoUseApp valueForKey:@"activate"][indexPath.row];
     
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
@@ -178,38 +179,44 @@ NSArray *DistinctFriendsWhoUseApp;
     
     if(fullName !=nil)
     {
-        name.text = fullName;
+        name.text = [fullName uppercaseString];
         phonenumber.text = number;
     }
 
-    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
+    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.f];
     phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
     
-    NSString *activateValue = [DistinctFriendsWhoUseApp valueForKey:@"activate"][indexPath.row];
+    button = [[UIButton alloc]initWithFrame:CGRectMake(cell.frame.origin.x + 235, 07, 60, 36)];
     
-    button = [[UIButton alloc]initWithFrame:CGRectMake(cell.frame.origin.x + 250, 07, 45, 36)];
     
-    if(activateValue != nil && [activateValue isEqual: @"0"])
+    if([activate isKindOfClass:[NSNull class]])
     {
-        NSLog(@"activate1: --> %@, %ld",activateValue, (long)indexPath.row);
+        NSLog(@"in first condition");
         
-        [button setBackgroundImage:[UIImage imageNamed:@"tick"] forState:normal];
-        [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    else if(activateValue != nil && [activateValue isEqual: @"00"])
-    {
-        NSLog(@"activate2: --> %@, %ld",activateValue, (long)indexPath.row);
-        
-        [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
-        [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    else
-    {
-         NSLog(@"activate3: --> %@, %ld",activateValue, (long)indexPath.row);
         [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
         [button addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    else if(activate != nil && [activate isEqual: @"0"])
+    {
+        if (accReq != nil && [accReq isEqual: @"0"]) {
+            [button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:normal];
+            [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+
+        }
+        else if (accReq != nil && [accReq isEqual: @"1"])
+        {
+            [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
+            //[button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+//    else
+//    {
+//         NSLog(@"activate3: --> %@, %ld",activateValue, (long)indexPath.row);
+//        [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
+//        [button addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
+//    }
     
     button.tag = indexPath.row;
     [cell addSubview:button];
@@ -221,17 +228,19 @@ NSArray *DistinctFriendsWhoUseApp;
 - (void)acceptFriendRequest:(id)sender
 {
     button = (UIButton*) sender;
-    [button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:UIControlStateNormal];
+    //[button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:UIControlStateNormal];
     
-    NSString *numberToAccept = [DistinctFriendsWhoUseApp valueForKey:@"phoneNumber"][button.tag];
+    [button setHidden:true];
+    
+    NSString *numberToAccept = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
     NSString *nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
-    NSString *friendsNumber = @"X_090078601";
+    NSString *friendsNumber = [NSString stringWithFormat:@"X_%@",numberToAccept];
     
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
-    [push setMessage:@"Zohair Hemani accepted your friend request"];  // Zohair Hemani will be replaced by sharedpreference name.
+    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];  // Zohair Hemani will be replaced by sharedpreference name.
     [push sendPushInBackground];
     
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
@@ -419,10 +428,10 @@ NSArray *DistinctFriendsWhoUseApp;
 {
     [self.refresh endRefreshing];
     DistinctFriendsWhoUseApp = nil;
+    [progress startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    
     dispatch_async(myqueue, ^(void) {
-        
-        [progress startAnimating];
         [self sendingJSONArrayToServer];
         
         dispatch_async(dispatch_get_main_queue(), ^{

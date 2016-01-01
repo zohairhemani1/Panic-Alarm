@@ -76,7 +76,7 @@
     
         if(fullName !=nil)
         {
-            name.text = fullName;
+            name.text = [fullName uppercaseString];
             phonenumber.text = number;
         }
     
@@ -84,28 +84,31 @@
         phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
         phonenumber.textColor = [UIColor grayColor];
     
-        NSString *activateValue = [self.searchResults valueForKey:@"activate"][indexPath.row];
-    
+        NSString *accReq = [self.searchResults valueForKey:@"accReq"][indexPath.row];
+        NSString *activate = [self.searchResults valueForKey:@"activate"][indexPath.row];
+        
         button = [[UIButton alloc]initWithFrame:CGRectMake(cell.frame.origin.x + 250, 07, 45, 36)];
     
-        if(activateValue != nil && [activateValue isEqual: @"0"])
+        if([activate isKindOfClass:[NSNull class]])
         {
-            NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
-        
-            [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
-            [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else if(activateValue != nil && [activateValue isEqual: @"00"])
-        {
-            NSLog(@"activate: --> %@, %ld",activateValue, (long)indexPath.row);
-        
-            [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
-            [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else
-        {
+            NSLog(@"in first condition");
+            
             [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
             [button addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        else if(activate != nil && [activate isEqual: @"0"])
+        {
+            if (accReq != nil && [accReq isEqual: @"0"]) {
+                [button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:normal];
+                [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+                
+            }
+            else if (accReq != nil && [accReq isEqual: @"1"])
+            {
+                [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
+                //[button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            }
         }
     
         button.tag = indexPath.row;
