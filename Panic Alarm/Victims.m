@@ -147,6 +147,7 @@ static NSArray *PanicToArray;
     static NSString *simpleTableIdentifier = @"myvictims";
     static NSString *simple = @"second";
     
+    NSString *type;
     UITableViewCell *cell;
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
@@ -199,6 +200,7 @@ static NSArray *PanicToArray;
         name.text = [[PanicFromArray valueForKey:@"username"][indexPath.row] uppercaseString];
         message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
         receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
+        type = [[PanicFromArray valueForKey:@"type" ][indexPath.row]intValue];
         
         UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
         if (retrievedImage == nil) {
@@ -239,7 +241,6 @@ static NSArray *PanicToArray;
             imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
             imageView.image = retrievedImage;
             [cell addSubview:imageView];
-            
         }
 
         if(receivedStatus == 0)
@@ -276,6 +277,7 @@ static NSArray *PanicToArray;
         profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
         message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
         receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
+        type = [[PanicFromArray valueForKey:@"type" ][indexPath.row]intValue];
         
         UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
         if (retrievedImage == nil) {
@@ -484,10 +486,10 @@ static NSArray *PanicToArray;
         if(receivedStatus == 0)
         {
             NSLog(@"THE status is %d", receivedStatus);
-            
             panic.panicStatus = 0;
         }
-        else{
+        else
+        {
             panic.panicStatus = 1;
         }
     }
