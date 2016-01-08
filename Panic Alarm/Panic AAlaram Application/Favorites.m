@@ -150,15 +150,15 @@ static NSMutableArray* favouritesArray;
     
     NSString *pic = [favouritesArray valueForKey:@"pic"][indexPath.row];
     
-    name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 120, 19)];
-    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
+    name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 140, 19)];
+    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 25, 80, 20)];
     if(fullName !=nil)
     {
         name.text = fullName.uppercaseString;
         phonenumber.text = number;
     }
     
-    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.f];
+    name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
     phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
 

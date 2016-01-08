@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *panicMessage;
 @property (weak, nonatomic) IBOutlet UILabel *panicNumber;
 @property (weak, nonatomic) IBOutlet UIView *panicView;
-@property int panicStatus;
+@property BOOL canGoToMap;
 @property (weak, nonatomic) IBOutlet UIButton *findLocationButton;
 
 @end

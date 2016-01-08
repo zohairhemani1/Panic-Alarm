@@ -144,8 +144,8 @@ static NSArray *PanicToArray;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *simpleTableIdentifier = @"myvictims";
-    static NSString *simple = @"second";
+    static NSString *panicFromIdentifier = @"myvictims";
+    static NSString *panicToIdentifier = @"second";
     
     NSString *type;
     UITableViewCell *cell;
@@ -191,7 +191,7 @@ static NSArray *PanicToArray;
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:simpleTableIdentifier];
+                                          reuseIdentifier:panicFromIdentifier];
         }
         
         (self.segments.subviews)[0].backgroundColor = [UIColor whiteColor];
@@ -200,7 +200,7 @@ static NSArray *PanicToArray;
         name.text = [[PanicFromArray valueForKey:@"username"][indexPath.row] uppercaseString];
         message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
         receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
-        type = [[PanicFromArray valueForKey:@"type" ][indexPath.row]intValue];
+        type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
         
         UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
         if (retrievedImage == nil) {
@@ -245,15 +245,17 @@ static NSArray *PanicToArray;
 
         if(receivedStatus == 0)
         {
-            //[accept_location setTitle:@"Accept" forState:normal];
-            status.text = @"Status: Pending";
-            //[accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
-           // accept_location.tag = indexPath.row;
-            
+            if([type isEqualToString:@"P"])
+            {
+                status.text = @"Status: Received";
+            }
+            else
+            {
+                status.text = @"Status: Pending";
+            }
         }
         else
         {
-            //[accept_location setTitle:@"Sent" forState:normal];
             status.text = @"Status: Received";
         }
         
@@ -263,21 +265,24 @@ static NSArray *PanicToArray;
         [image_loading startAnimating];
         
     }
+    
+                                                                    /////////////    Panic To Table View    //////////////
+    
     else
     {
         (self.segments.subviews)[1].backgroundColor = [UIColor whiteColor];
-        //PanicTo Table View
+        
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:simple];
+                                          reuseIdentifier:panicToIdentifier];
         }
         
         name.text = [[PanicToArray valueForKey:@"username" ][indexPath.row] uppercaseString];
         profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
         message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
         receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
-        type = [[PanicFromArray valueForKey:@"type" ][indexPath.row]intValue];
+        type = [PanicToArray valueForKey:@"type"][indexPath.row];
         
         UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
         if (retrievedImage == nil) {
@@ -322,21 +327,31 @@ static NSArray *PanicToArray;
 
         if(receivedStatus == 0)
         {
+            status.text = @"Status: Pending";                               //////// CASE 4 ////////
+            
             [accept_location setTitle:@"Accept" forState:normal];
-            status.text = @"Status: Pending";
             [accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
             accept_location.tag = indexPath.row;
+            
+            if([type isEqualToString:@"F"])
+            {
+                [cell addSubview:accept_location];
+            }
         }
         else
         {
-            [accept_location setTitle:@"Sent" forState:normal];
-            status.text = @"Status: Received";
+            if([type isEqualToString:@"F"])                                 //////// CASE 3 ///////
+            {
+                status.text = @"Status: Sent";
+            }
+            else
+            {
+                status.text = @"Status: Received";
+            }
+//            [accept_location setTitle:@"Sent" forState:normal];
+            
         }
-        
-        if([[PanicToArray valueForKey:@"type"][indexPath.row] isEqualToString:@"F"])
-        {
-            [cell addSubview:accept_location];
-        }
+
 
         (cell.imageView).frame = CGRectMake(20,20,20,20);
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
@@ -480,17 +495,21 @@ static NSArray *PanicToArray;
     PanicFrom *panic = segue.destinationViewController;
     
     if ([segue.identifier isEqualToString:@"FromSegue"]) {
-        
+        int received = [[PanicFromArray valueForKey:@"received"][indexPath.row]intValue];
+        NSString *type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
         panic.panicPersonId = indexPath.row;
         
-        if(receivedStatus == 0)
+        if(received == 0 && [type isEqualToString:@"P"])
         {
-            NSLog(@"THE status is %d", receivedStatus);
-            panic.panicStatus = 0;
+            panic.canGoToMap = true;
+        }
+        else if(received == 1 && [type isEqualToString:@"F"])
+        {
+            panic.canGoToMap = true;
         }
         else
         {
-            panic.panicStatus = 1;
+            panic.canGoToMap = false;
         }
     }
 }
@@ -527,11 +546,15 @@ static NSArray *PanicToArray;
         
         [self.locationManager stopUpdatingLocation];
         accept_location = (UIButton*) sender;
+        
         WebService *AcceptToSendLocationRest = [[WebService alloc] init];
         AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:locationString parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
         
-        if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"]){
+        if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"])
+        {
             [accept_location setTitle:@"Sent" forState:normal];
+            accept_location.enabled = false;
+            
             PFPush *push = [[PFPush alloc] init];
             //[push setChannel:@"+090078601"];   // channels column in PARSE!
             [push setChannel:[@"" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];

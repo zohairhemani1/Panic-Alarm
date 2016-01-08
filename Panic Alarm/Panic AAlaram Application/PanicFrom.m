@@ -44,7 +44,11 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    if(self.panicStatus == 0)
+    if(self.canGoToMap)
+    {
+        self.findLocationButton.enabled = true;
+    }
+    else
     {
         self.findLocationButton.enabled = false;
     }
@@ -76,12 +80,10 @@ checkInternet *c;
 }
 - (IBAction)findLocation:(id)sender
 {
-    if(self.panicStatus == 1)
-    {
-        [self performSegueWithIdentifier:@"goToMap" sender:self];
-        WebService *locationReceived = [[WebService alloc] init];
-        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@"" parameterTwo:@"" parameterThree:@""];
-    }
+    [self performSegueWithIdentifier:@"goToMap" sender:self];
+    WebService *locationReceived = [[WebService alloc] init];
+    [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@"" parameterTwo:@"" parameterThree:@""];
+    
     //parameter1 : id
     //2: panicvictim_id
     //3: friendsnumber

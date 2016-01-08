@@ -161,10 +161,12 @@
         [imageView setClipsToBounds:YES];
         
         button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(cell.frame.origin.x + 235, 07, 60, 36);
+        button.frame = CGRectMake(cell.frame.origin.x + 210, 10, 100, 30);
+        button.clipsToBounds = YES;
+        button.layer.cornerRadius = 5;
         [button setTitle:@"Find" forState:UIControlStateNormal];
         button.tag = indexPath.row;
-        button.backgroundColor = [UIColor blackColor];
+        button.backgroundColor = [UIColor colorWithRed:89.0f/255 green:34.0f/255 blue:122.0f/255 alpha:1.0];
         [button addTarget:self action:@selector(FindLocation:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell addSubview:name];
@@ -178,16 +180,20 @@
 -(void)FindLocation:(id)sender{
     button = (UIButton *) sender;
     
-    WebService *FindLocationRest = [[WebService alloc] init];
-    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:[self.searchResults valueForKey:@"friendsnumber"][button.tag] parameterThree:FIND_MESSAGE];
+    NSString* storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
+    NSString *number;
     
-    NSLog(@"the returned value are: %@",[favRestJsonArray valueForKey:@"success"] );
+    if(![[self.searchResults valueForKey:@"friendsnumber"][button.tag] isEqualToString:storedNumber])
+        number = [self.searchResults valueForKey:@"friendsnumber"][button.tag];
+    else if (![[self.searchResults valueForKey:@"mynumber"][button.tag] isEqualToString:storedNumber])
+        number = [self.searchResults valueForKey:@"mynumber"][button.tag];
+    
+    WebService *FindLocationRest = [[WebService alloc] init];
+    favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:number parameterThree:FIND_MESSAGE];
     
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
-        NSLog(@"in code");
-        
-        [button setTitle:@"PENDING" forState:normal];
+        [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[self.searchResults valueForKey:@"username"][button.tag]]];
         
         PFPush *push = [[PFPush alloc] init];
         [push setChannel:@"090078601"];   // channels column in PARSE!
@@ -260,5 +266,24 @@
 {
     return 40.0f;
 }
+
+-(void)showAlertBoxWithTitle:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 @end
