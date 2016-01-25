@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface PanicFrom : UIViewController
+@interface PanicFrom : UIViewController<CLLocationManagerDelegate>
+
+@property(strong,nonatomic) CLLocationManager * locationManager;
 
 @property (weak, nonatomic) IBOutlet UILabel *panicPersonName;
 @property (weak, nonatomic) IBOutlet UIImageView *panicPersonImage;

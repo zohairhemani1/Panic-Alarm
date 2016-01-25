@@ -87,7 +87,7 @@
         NSString *accReq = [self.searchResults valueForKey:@"accReq"][indexPath.row];
         NSString *activate = [self.searchResults valueForKey:@"activate"][indexPath.row];
         
-        button = [[UIButton alloc]initWithFrame:CGRectMake(cell.frame.origin.x + 250, 07, 45, 36)];
+        button = [[UIButton alloc]initWithFrame:CGRectMake(cell.frame.origin.x + 235, 07, 60, 36)];
     
         if([activate isKindOfClass:[NSNull class]])
         {
@@ -195,8 +195,10 @@
     {
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[self.searchResults valueForKey:@"username"][button.tag]]];
         
+        NSString *friendsNumber = @"X_";
+        friendsNumber = [friendsNumber stringByAppendingString:[number substringFromIndex:1]];
         PFPush *push = [[PFPush alloc] init];
-        [push setChannel:@"090078601"];   // channels column in PARSE!
+        [push setChannel:friendsNumber];   // channels column in PARSE!
         NSString *FindNotificationMessage = [[self.searchResults valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
         //[push setData:data];
@@ -207,17 +209,19 @@
 - (void)acceptFriendRequest:(id)sender
 {
     button = (UIButton*) sender;
-    [button setBackgroundImage:[UIImage imageNamed:@"tick.png"] forState:UIControlStateNormal];
+    //[button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:UIControlStateNormal];
     
-    NSString *numberToAccept = [self.searchResults valueForKey:@"phoneNumber"][button.tag];
+    [button setHidden:true];
+    
+    NSString *numberToAccept = [self.searchResults valueForKey:@"password"][button.tag];
     NSString *nameToAccept = [self.searchResults valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
-    NSString *friendsNumber = @"090078601";
+    NSString *friendsNumber = [NSString stringWithFormat:@"%@",numberToAccept];
     
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
-    [push setMessage:@"Zohair Hemani accepted your friend request"];  // Zohair Hemani will be replaced by sharedpreference name.
+    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];  // Zohair Hemani will be replaced by sharedpreference name.
     [push sendPushInBackground];
     
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
@@ -248,9 +252,9 @@
     //    PFPush *push = [[PFPush alloc] init];
     //    [push setChannel:friendsNumber];   // channels column in PARSE!
     
-   // NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+    // NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     
-   // NSString *message = @"You have been added by ";
+    // NSString *message = @"You have been added by ";
     //message = [message stringByAppendingString:storedName];
     
     //    [push setMessage:message];
@@ -258,10 +262,9 @@
     //    [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
-    [addFriend FilePath:@"http://fajjemobile.info/iospanic/friends.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]
-           parameterTwo:@""];
+    [addFriend FilePath:@"http://fajjemobile.info/iospanic/add_friends.php" parameterOne:[self.searchResults valueForKey:@"password"][button.tag] parameterTwo:@""];
+    
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 40.0f;

@@ -115,11 +115,13 @@ UIActivityIndicatorView *progress;
     NSLog(@"%@",response);
     
     [NSURLConnection connectionWithRequest:request delegate:self];
+    NSError *err = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
     
-//    FirstTab *first = [[FirstTab alloc] initWithNibName:Nil bundle:nil];
-//    [self presentViewController:first animated:YES completion:nil];
-    //[self showMainMenu];
-    
+    if([[NSString stringWithFormat:@"%@",[jsonArray valueForKey:@"success"]] isEqualToString:@"1"] )
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:[[jsonArray valueForKey:@"user"]valueForKey:@"panicMessage"] forKey:@"panicMessage"];
+    }
 }
 
 #pragma mark NSURLConnectionDataProtocol Methods

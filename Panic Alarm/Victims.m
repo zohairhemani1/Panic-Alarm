@@ -174,7 +174,6 @@ static NSArray *PanicToArray;
     accept_location.clipsToBounds = YES;
     accept_location.layer.cornerRadius = 5;
     accept_location.backgroundColor = [UIColor colorWithRed:89.0f/255 green:34.0f/255 blue:122.0f/255 alpha:1.0];
-    //accept_location.backgroundColor = [UIColor blueColor];
     
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
@@ -187,9 +186,10 @@ static NSArray *PanicToArray;
     
     if(self.segments.selectedSegmentIndex == 0)
     {
-        // Panic From table view
+                                                    ////////     Panic From table view      //////////
         
-        if (cell == nil) {
+        if (cell == nil)
+        {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:panicFromIdentifier];
         }
@@ -217,6 +217,7 @@ static NSArray *PanicToArray;
                 {
                     image = [UIImage imageWithData:imgData];
                 }
+                
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
@@ -266,12 +267,10 @@ static NSArray *PanicToArray;
         
     }
     
-                                                                    /////////////    Panic To Table View    //////////////
-    
+                                                        /////////////    Panic To Table View     ////////////
     else
     {
         (self.segments.subviews)[1].backgroundColor = [UIColor whiteColor];
-        
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -318,6 +317,7 @@ static NSArray *PanicToArray;
                 }
             });
         }
+        
         else
         {
             imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
@@ -348,10 +348,7 @@ static NSArray *PanicToArray;
             {
                 status.text = @"Status: Received";
             }
-//            [accept_location setTitle:@"Sent" forState:normal];
-            
         }
-
 
         (cell.imageView).frame = CGRectMake(20,20,20,20);
         calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
@@ -494,7 +491,8 @@ static NSArray *PanicToArray;
     NSIndexPath *indexPath = (self.mytable).indexPathForSelectedRow;
     PanicFrom *panic = segue.destinationViewController;
     
-    if ([segue.identifier isEqualToString:@"FromSegue"]) {
+    if ([segue.identifier isEqualToString:@"FromSegue"])
+    {
         int received = [[PanicFromArray valueForKey:@"received"][indexPath.row]intValue];
         NSString *type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
         panic.panicPersonId = indexPath.row;
@@ -522,7 +520,8 @@ static NSArray *PanicToArray;
     return PanicToArray;
 }
 
-- (void)refreshTable{
+- (void)refreshTable
+{
     [self.refresh endRefreshing];
     if(self.segments.selectedSegmentIndex == 0)
     {
@@ -555,9 +554,10 @@ static NSArray *PanicToArray;
             [accept_location setTitle:@"Sent" forState:normal];
             accept_location.enabled = false;
             
+            NSString *friendsNumber = @"X_";
+            friendsNumber = [friendsNumber stringByAppendingString:[[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] substringFromIndex:1]];
             PFPush *push = [[PFPush alloc] init];
-            //[push setChannel:@"+090078601"];   // channels column in PARSE!
-            [push setChannel:[@"" stringByAppendingString:[PanicToArray valueForKey:@"friendsnumber"][accept_location.tag]]];
+            [push setChannel:friendsNumber];   // channels column in PARSE!
             FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
             [push setMessage:FindNotificationMessage];
             //[push setData:data];
@@ -572,10 +572,7 @@ static NSArray *PanicToArray;
     else
     {
         NSLog(@"3");
-//        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
-//        {
-//            [self.locationManager requestWhenInUseAuthorization];
-//        }
+
         if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
         {
             UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

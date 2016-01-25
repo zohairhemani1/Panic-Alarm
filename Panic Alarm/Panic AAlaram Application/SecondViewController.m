@@ -421,7 +421,21 @@ NSArray *DistinctFriendsWhoUseApp;
 
 - (void)didDismissSearchController:(UISearchController *)searchController
 {
-    NSLog(@"search returned");
+    DistinctFriendsWhoUseApp = nil;
+    [progress startAnimating];
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    
+    dispatch_async(myqueue, ^(void) {
+        [self sendingJSONArrayToServer];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.myTable reloadData];
+            [progress stopAnimating];
+        });
+        
+    });
 }
 
 - (void)refreshTable

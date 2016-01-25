@@ -18,4 +18,10 @@
 - (IBAction)route:(id)sender;
 @property int panicPersonId;
 
+@property (strong,nonatomic) NSString *pinTitle;
+@property (strong,nonatomic) NSString *pinSubtitle;
+
+@property float destinationLatitude;
+@property float destinationLongitude;
+
 @end

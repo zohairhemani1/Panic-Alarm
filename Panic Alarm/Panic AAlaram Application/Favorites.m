@@ -219,7 +219,9 @@ static NSMutableArray* favouritesArray;
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[favouritesArray valueForKey:@"username"][button.tag]]];
         
         PFPush *push = [[PFPush alloc] init];
-        [push setChannel:@"090078601"];   // channels column in PARSE!
+        NSString *friendsNumber = @"X_";
+        friendsNumber = [friendsNumber stringByAppendingString:[number substringFromIndex:1]];
+        [push setChannel:friendsNumber];   // channels column in PARSE!
         NSString *FindNotificationMessage = [[favouritesArray valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
         //[push setData:data];

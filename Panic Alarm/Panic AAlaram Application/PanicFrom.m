@@ -44,6 +44,12 @@ checkInternet *c;
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    
     if(self.canGoToMap)
     {
         self.findLocationButton.enabled = true;
@@ -80,24 +86,69 @@ checkInternet *c;
 }
 - (IBAction)findLocation:(id)sender
 {
-    [self performSegueWithIdentifier:@"goToMap" sender:self];
-    WebService *locationReceived = [[WebService alloc] init];
-    [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:@"" parameterTwo:@"" parameterThree:@""];
-    
-    //parameter1 : id
-    //2: panicvictim_id
-    //3: friendsnumber
+    if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] !=nil)
+    {
+        NSString *locationString = [NSString stringWithFormat:@"%@,%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"],[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"]];
+        
+        [self.locationManager stopUpdatingLocation];
+        
+        [self performSegueWithIdentifier:@"goToMap" sender:self];
+        WebService *locationReceived = [[WebService alloc] init];
+        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:[[Victims getPanicFromArray] valueForKey:@"panicvictim_id"][self.panicPersonId] parameterTwo:[[Victims getPanicFromArray] valueForKey:@"friendsnumber"][self.panicPersonId] parameterThree:locationString];
+        
+        
+        //parameter1 : id
+        //2: panicvictim_id
+        //3: friendsnumber
+    }
+    else
+    {
+        NSLog(@"3");
+        
+        if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+            alert.tag=121;
+            [alert show];
+        }
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    // NSLog(@"in location update");
+    [manager stopUpdatingLocation];
+    CLLocation *location = locations.lastObject;
+    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 121 && buttonIndex == 1)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     Map *map = segue.destinationViewController;
     
-    if ([segue.identifier isEqualToString:@"goToMap"]) {
-        
+    if ([segue.identifier isEqualToString:@"goToMap"])
+    {
         map.panicPersonId = self.panicPersonId;
+        map.destinationLatitude = [[[Victims getPanicFromArray] valueForKey:@"latitude"][self.panicPersonId]floatValue];
+        map.destinationLongitude = [[[Victims getPanicFromArray] valueForKey:@"longitude"][self.panicPersonId]floatValue];
+        map.pinTitle = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
+        map.pinSubtitle = [[Victims getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
     }
-    
 }
 
 @end
