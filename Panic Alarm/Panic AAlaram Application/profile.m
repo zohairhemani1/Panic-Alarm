@@ -15,12 +15,15 @@
     UIImage *uploadedimage;
     UIView *lineView;
     NSString *fileName;
+    bool imagechanged;
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    fileName = @"default.png";
     
+    fileName = @"profile.png";
+    
+    imagechanged = false;
     self.personName.text = [[[NSUserDefaults standardUserDefaults] valueForKey:@"name"] capitalizedString];
     self.personImage.layer.cornerRadius = 35;
     self.personImage.contentMode = UIViewContentModeScaleAspectFill;
@@ -87,6 +90,13 @@
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     uploadedimage = info[UIImagePickerControllerOriginalImage];
+    
+    if(uploadedimage != self.personImage.image)
+    {
+        imagechanged = true;
+        NSLog(@"image has been changed");
+    }
+    
     (self.personImage).image = uploadedimage;
     NSData* imageData = UIImagePNGRepresentation(self.personImage.image);
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userImage"];
@@ -113,14 +123,17 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         
         if([status isEqualToString:@"OK"])
         {
+            if(self.personImage.image != nil && imagechanged == true)
+            {
+                [self uploadImage];
+            }
             [self showAlertBox:NO title:@"Status" message:@"Your Panic message has been updated" ];
             [[NSUserDefaults standardUserDefaults ] setValue:self.messageText.text forKey:@"panicMessage"];
             [[NSUserDefaults standardUserDefaults ] setValue:self.personName.text forKey:@"name"];
-            [self uploadImage];
         }
         else
         {
-            [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated."];
+            [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated. Please try again later"];
         }
     }
 }

@@ -13,16 +13,16 @@
 		19196BB719780F4D0070C9D4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19196BB619780F4D0070C9D4 /* MediaPlayer.framework */; };
 		19196BB91978110F0070C9D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19196BB81978110F0070C9D4 /* AVFoundation.framework */; };
 		1934EC391923F6D200F6CEC3 /* tabbarbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1934EC331923F6D200F6CEC3 /* tabbarbackground.png */; };
-		19404F1C1BEC91FF00664583 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19404F1B1BEC91FF00664583 /* NSDataAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		19404F1C1BEC91FF00664583 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19404F1B1BEC91FF00664583 /* NSDataAdditions.m */; };
 		194A06D91926A50900AA7654 /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = 194A06D81926A50900AA7654 /* Terms.m */; };
 		194A06DE1926A65900AA7654 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DA1926A65900AA7654 /* checkbox-checked.png */; };
 		194A06DF1926A65900AA7654 /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DB1926A65900AA7654 /* checkbox-checked@2x.png */; };
 		194A06E01926A65900AA7654 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DC1926A65900AA7654 /* checkbox.png */; };
 		194A06E11926A65900AA7654 /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DD1926A65900AA7654 /* checkbox@2x.png */; };
 		1980BDD319AB752C008B58A0 /* profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1980BDD219AB752C008B58A0 /* profile.m */; };
-		1988D74D1C1B16E3000034D9 /* help_systemStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1988D74C1C1B16E3000034D9 /* help_systemStatus.m */; settings = {ASSET_TAGS = (); }; };
-		1996B0081BDF8593003E53E0 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		1999464C1BE369C7000BE01E /* UploadingContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1999464B1BE369C7000BE01E /* UploadingContactsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		1988D74D1C1B16E3000034D9 /* help_systemStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 1988D74C1C1B16E3000034D9 /* help_systemStatus.m */; };
+		1996B0081BDF8593003E53E0 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1996B0071BDF8593003E53E0 /* SearchResultsTableViewController.m */; };
+		1999464C1BE369C7000BE01E /* UploadingContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1999464B1BE369C7000BE01E /* UploadingContactsViewController.m */; };
 		19C746CB19795F2500192C88 /* Victims.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C746CA19795F2500192C88 /* Victims.m */; };
 		19D0A696196DDFEE00CB68F3 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D0A695196DDFEE00CB68F3 /* Settings.m */; };
 		19D2D698191F7D14007A27F2 /* Favorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D2D697191F7D14007A27F2 /* Favorites.m */; };
@@ -30,11 +30,11 @@
 		19DBA63F193036E800BFD9CB /* checkInternet.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DBA63D193036E800BFD9CB /* checkInternet.m */; };
 		19E35D9719235ACF00988D00 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E35D9619235ACF00988D00 /* CoreLocation.framework */; };
 		19E35D991923734800988D00 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E35D981923734800988D00 /* MapKit.framework */; };
-		19E941A91BD679C700705B5C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A51BD679C700705B5C /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
-		19E941AA1BD679C700705B5C /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A61BD679C700705B5C /* DigitsKit.framework */; settings = {ASSET_TAGS = (); }; };
-		19E941AB1BD679C700705B5C /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19E941A71BD679C700705B5C /* DigitsKitResources.bundle */; settings = {ASSET_TAGS = (); }; };
-		19E941AC1BD679C700705B5C /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A81BD679C700705B5C /* TwitterCore.framework */; settings = {ASSET_TAGS = (); }; };
-		19E941AF1BD67ECF00705B5C /* digitsVerification.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E941AE1BD67ECF00705B5C /* digitsVerification.m */; settings = {ASSET_TAGS = (); }; };
+		19E941A91BD679C700705B5C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A51BD679C700705B5C /* Fabric.framework */; };
+		19E941AA1BD679C700705B5C /* DigitsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A61BD679C700705B5C /* DigitsKit.framework */; };
+		19E941AB1BD679C700705B5C /* DigitsKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19E941A71BD679C700705B5C /* DigitsKitResources.bundle */; };
+		19E941AC1BD679C700705B5C /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E941A81BD679C700705B5C /* TwitterCore.framework */; };
+		19E941AF1BD67ECF00705B5C /* digitsVerification.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E941AE1BD67ECF00705B5C /* digitsVerification.m */; };
 		19F593E7192734DD0090BE79 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F593E6192734DD0090BE79 /* Map.m */; };
 		19F593EC1927383F0090BE79 /* setupEdit.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F593E91927383F0090BE79 /* setupEdit.png */; };
 		19F593ED1927383F0090BE79 /* stopAlert.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F593EA1927383F0090BE79 /* stopAlert.png */; };
@@ -392,7 +392,7 @@
 				ORGANIZATIONNAME = "Zohair Hemani - Stanford Assignment";
 				TargetAttributes = {
 					DC5A8C3F1910ECB00058F7C2 = {
-						DevelopmentTeam = 66QY56XQA9;
+						DevelopmentTeam = QC2G57K64X;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;

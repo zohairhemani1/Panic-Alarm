@@ -39,7 +39,7 @@ UIActivityIndicatorView *progress;
 {
     [super viewDidLoad];
     
-    fileName = @"default.png";
+    fileName = @"profile.png";
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
@@ -121,6 +121,19 @@ UIActivityIndicatorView *progress;
     if([[NSString stringWithFormat:@"%@",[jsonArray valueForKey:@"success"]] isEqualToString:@"1"] )
     {
         [[NSUserDefaults standardUserDefaults] setValue:[[jsonArray valueForKey:@"user"]valueForKey:@"panicMessage"] forKey:@"panicMessage"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.insertusername.text forKey:@"username"];
+        [[NSUserDefaults standardUserDefaults] setValue:@"loggedIn" forKey:@"loggedIn"];
+    }
+    
+    if(self.imageView.image != nil)
+    {
+        [self uploadImage];
+    }
+    else
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
+        [self presentViewController:secondView animated:YES completion:nil];
     }
 }
 
@@ -176,7 +189,6 @@ UIActivityIndicatorView *progress;
 
 - (void)uploadImage
 {
-    
     [progress startAnimating];
     int randomNumber = arc4random() % 100000;
     NSLog(@"RandomNumber: %i", randomNumber);
@@ -232,10 +244,6 @@ UIActivityIndicatorView *progress;
     
     if([[jsonArray valueForKey:@"success"] isEqualToString:@"0"] )
     {
-        [[NSUserDefaults standardUserDefaults] setValue:self.insertusername.text forKey:@"username"];
-        [[NSUserDefaults standardUserDefaults] setValue:self.insertusername.text forKey:@"message"];
-        [[NSUserDefaults standardUserDefaults] setValue:@"loggedIn" forKey:@"loggedIn"];
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         UITabBarController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"NavigationTime"];
         [self presentViewController:secondView animated:YES completion:nil];
@@ -258,7 +266,7 @@ UIActivityIndicatorView *progress;
     {
         [self showAlertBox:NO title:@"Sorry" message:@"The Username should be 6 charachter long!!"];
     }
-    else{
+    else {
         
     usernameEditText = self.insertusername.text;
     
@@ -269,18 +277,21 @@ UIActivityIndicatorView *progress;
         
     [[Digits sharedInstance] authenticateWithCompletion:^(DGTSession *session, NSError *error) {
             // Inspect session/error objects
-            [[NSUserDefaults standardUserDefaults]setValue:session.phoneNumber forKey:@"myPhoneNumber"];
-            
+        [[NSUserDefaults standardUserDefaults]setValue:session.phoneNumber forKey:@"myPhoneNumber"];
+        
+        if([[NSUserDefaults standardUserDefaults]objectForKey:@"myPhoneNumber"] != nil)
+        {
             PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        
+            
             NSString *myPhoneNumberChannel = [@"X_" stringByAppendingString:[[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"] substringFromIndex:1]];
-        
+            
             [currentInstallation addUniqueObject:myPhoneNumberChannel forKey:@"channels"];
             [currentInstallation addUniqueObject:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"] forKey:@"myPhoneNumber"];
             [currentInstallation saveInBackground];
             
             [self downloadItems];
-            [self uploadImage];
+        }
+        
         }];
         
     }

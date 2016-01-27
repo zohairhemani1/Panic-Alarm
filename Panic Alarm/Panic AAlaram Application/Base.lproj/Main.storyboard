@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -552,7 +552,7 @@
                                     <constraint firstAttribute="width" constant="133" id="VC2-tZ-uSV"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed By" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ro-gb-w2f">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Developed By" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ro-gb-w2f">
                                 <rect key="frame" x="99" y="404" width="120" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="BkV-Lc-Y6J"/>
@@ -580,33 +580,18 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nQ-Dz-ARM">
-                                <rect key="frame" x="67" y="434" width="185" height="47"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="6nQ-Dz-ARM" secondAttribute="height" multiplier="185:47" id="7Vf-HS-9Bg"/>
-                                    <constraint firstAttribute="width" constant="185" id="E3P-fC-jek"/>
-                                    <constraint firstAttribute="height" constant="47" id="YLc-rO-hzN"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="47" id="qFj-Mj-j74"/>
-                                </constraints>
-                                <state key="normal" image="AVIALDO_NEW"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pzq-pS-lsH" firstAttribute="centerX" secondItem="6nQ-Dz-ARM" secondAttribute="centerX" id="0XQ-6q-NY1"/>
                             <constraint firstItem="MZz-WG-yYY" firstAttribute="centerX" secondItem="rad-Vq-sCp" secondAttribute="centerX" id="8QY-iN-pn9"/>
-                            <constraint firstItem="1ro-gb-w2f" firstAttribute="centerX" secondItem="6nQ-Dz-ARM" secondAttribute="centerX" id="Big-ND-QKM"/>
                             <constraint firstItem="1ro-gb-w2f" firstAttribute="top" secondItem="Pzq-pS-lsH" secondAttribute="bottom" constant="41" id="QGe-Eb-1KB"/>
                             <constraint firstItem="MZz-WG-yYY" firstAttribute="top" secondItem="E7o-5k-CwS" secondAttribute="bottom" constant="51" id="QZC-Vt-3IU"/>
-                            <constraint firstItem="Ews-nb-rR7" firstAttribute="top" secondItem="6nQ-Dz-ARM" secondAttribute="bottom" constant="38" id="Sqc-W4-UPg"/>
-                            <constraint firstItem="6nQ-Dz-ARM" firstAttribute="top" secondItem="1ro-gb-w2f" secondAttribute="bottom" constant="9" id="XKA-EK-p4M"/>
                             <constraint firstItem="Pzq-pS-lsH" firstAttribute="centerX" secondItem="g7o-HE-HF1" secondAttribute="centerX" id="YP8-BP-dU6"/>
                             <constraint firstItem="MZz-WG-yYY" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leadingMargin" constant="78" id="dNI-ke-rKy"/>
                             <constraint firstItem="rad-Vq-sCp" firstAttribute="top" secondItem="MZz-WG-yYY" secondAttribute="bottom" constant="26" id="if3-In-iy7"/>
                             <constraint firstItem="rad-Vq-sCp" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leadingMargin" id="ikJ-IX-OKb"/>
                             <constraint firstItem="Pzq-pS-lsH" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leadingMargin" constant="31" id="l5G-bl-ZG6"/>
-                            <constraint firstItem="1ro-gb-w2f" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leadingMargin" constant="83" id="lw9-kY-hKZ"/>
-                            <constraint firstItem="6nQ-Dz-ARM" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leadingMargin" constant="51" id="oyH-bC-7JN"/>
+                            <constraint firstItem="1ro-gb-w2f" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leadingMargin" constant="79" id="lw9-kY-hKZ"/>
                             <constraint firstItem="Pzq-pS-lsH" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="8" symbolic="YES" id="uCz-x2-yo0"/>
                             <constraint firstItem="rad-Vq-sCp" firstAttribute="centerX" secondItem="Pzq-pS-lsH" secondAttribute="centerX" id="uck-Dq-ZFR"/>
                         </constraints>
@@ -821,7 +806,9 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K5-VP-ZGH">
                                 <rect key="frame" x="15" y="192" width="290" height="118"/>
-                                <string key="text">1) INTERNET connectivity is necessary.          2) Your current location will be used.                  3) COPYRIGHTS Reserved.                               </string>
+                                <string key="text">1) INTERNET connectivity is necessary.
+2) Your current location will be used.
+3) COPYRIGHTS Reserved.                               </string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -901,7 +888,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbE-Gg-egL">
                                         <rect key="frame" x="72" y="21" width="80" height="80"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zainu memon" placeholder="       Full Name" minimumFontSize="18" background="textbox.png" disabledBackground="textbox.png" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-oR-INu">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="       Full Name" minimumFontSize="18" background="textbox.png" disabledBackground="textbox.png" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-oR-INu">
                                         <rect key="frame" x="0.0" y="121" width="225" height="49"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -1155,7 +1142,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AVIALDO_NEW" width="1426" height="425"/>
         <image name="Favorites" width="26" height="26"/>
         <image name="Log" width="25" height="25"/>
         <image name="Settings" width="26" height="26"/>
