@@ -164,7 +164,7 @@ NSArray *DistinctFriendsWhoUseApp;
     NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
     UIImage *img = [[UIImage alloc]initWithData:data];
     
-    NSData* imageData = UIImagePNGRepresentation(img);
+    NSData* imageData = UIImageJPEGRepresentation(img, 1.0);
     [imagesArray addObject:imageData];
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
@@ -240,7 +240,7 @@ NSArray *DistinctFriendsWhoUseApp;
     
     PFPush *push = [[PFPush alloc] init];
     [push setChannel:friendsNumber];   // channels column in PARSE!
-    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];  // Zohair Hemani will be replaced by sharedpreference name.
+    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];
     [push sendPushInBackground];
     
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
@@ -250,8 +250,6 @@ NSArray *DistinctFriendsWhoUseApp;
     
     WebService *acceptRequest = [[WebService alloc] init];
     [acceptRequest FilePath:@"http://fajjemobile.info/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
-    
-    //03432637576 will be replaced by shared preference number
     
 }
 
@@ -371,9 +369,7 @@ NSArray *DistinctFriendsWhoUseApp;
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    
     NSString *searchString = self.searchController.searchBar.text;
-    
     [self updateFilteredContentForAirlineName:searchString];
     
     // If searchResultsController
@@ -434,7 +430,6 @@ NSArray *DistinctFriendsWhoUseApp;
             [self.myTable reloadData];
             [progress stopAnimating];
         });
-        
     });
 }
 
@@ -454,7 +449,6 @@ NSArray *DistinctFriendsWhoUseApp;
             [self.myTable reloadData];
             [progress stopAnimating];
         });
-        
     });
 }
 

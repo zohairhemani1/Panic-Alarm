@@ -31,32 +31,11 @@
     {
         [self.webView loadRequest:[self getURLRequest]];
     }
-    
-    // Do any additional setup after loading the view.
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:YES];
-//    progress = [checkInternetObj indicatorprogress:progress];
-//    [self.view addSubview:progress];
-//    
-//    [progress bringSubviewToFront:self.view];
-//    [progress startAnimating];
-//    
-//}
-//
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:YES];
-//    
-//}
 
 -(NSURLRequest *)getURLRequest
 {

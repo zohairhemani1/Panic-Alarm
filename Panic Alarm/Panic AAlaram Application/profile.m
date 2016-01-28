@@ -98,7 +98,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     
     (self.personImage).image = uploadedimage;
-    NSData* imageData = UIImagePNGRepresentation(self.personImage.image);
+    NSData* imageData = UIImageJPEGRepresentation(self.personImage.image, 1.0);
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userImage"];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

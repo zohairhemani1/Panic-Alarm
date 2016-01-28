@@ -272,7 +272,7 @@ UIActivityIndicatorView *progress;
     
     [[NSUserDefaults standardUserDefaults] setValue:usernameEditText forKey:@"name"];
     
-    NSData* imageData = UIImagePNGRepresentation(self.imageView.image);
+    NSData* imageData = UIImageJPEGRepresentation(self.imageView.image, 1.0);
     [[NSUserDefaults standardUserDefaults] setObject:imageData forKey:@"userImage"];
         
     [[Digits sharedInstance] authenticateWithCompletion:^(DGTSession *session, NSError *error) {

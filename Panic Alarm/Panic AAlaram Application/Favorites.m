@@ -169,7 +169,7 @@ static NSMutableArray* favouritesArray;
     NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
     img = [[UIImage alloc]initWithData:data];
     
-    NSData* imageData = UIImagePNGRepresentation(img);
+    NSData* imageData = UIImageJPEGRepresentation(img, 1.0);
     [imagesArray addObject:imageData];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];

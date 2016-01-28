@@ -100,7 +100,17 @@ NSMutableArray *profile;
             self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"hello"] applicationActivities:nil];
             [self presentViewController:self.activityViewController animated:YES completion:nil];
         }
-        else if([CellIdentifier isEqualToString:@"help"])
+        else if([CellIdentifier isEqualToString:@"help"] || [CellIdentifier isEqualToString:@"about"])
+        {
+            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
+        }
+    }
+    
+    else if(indexPath.section == 1)
+    {
+        NSString *CellIdentifier = profile[indexPath.row];
+        
+        if([CellIdentifier isEqualToString:@"system"])
         {
             [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
         }
@@ -147,11 +157,19 @@ NSMutableArray *profile;
         help_systemStatus *h = segue.destinationViewController;
         if(indexPath.section == 0)
         {
-            h.pageName = @"FAQ.php";
+            NSString *CellIdentifier = about[indexPath.row];
+            if([CellIdentifier isEqualToString:@"about"])
+            {
+                h.pageName = @"about.php";
+            }
+            else if([CellIdentifier isEqualToString:@"help"])
+            {
+                h.pageName = @"FAQ.php";
+            }
         }
         else
         {
-            
+            h.pageName = @"system_status.php";
         }
     }
 }

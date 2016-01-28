@@ -80,7 +80,7 @@
             phonenumber.text = number;
         }
     
-        name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.f];
+        name.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.f];
         phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
         phonenumber.textColor = [UIColor grayColor];
     
@@ -137,7 +137,7 @@
         UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 29, 80, 20)];
         if(fullName !=nil)
         {
-            name.text = fullName.capitalizedString;
+            name.text = fullName.uppercaseString;
             phonenumber.text = number;
         }
         
@@ -159,7 +159,6 @@
         imageView.layer.cornerRadius = 20;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         [imageView setClipsToBounds:YES];
-        
         button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         button.frame = CGRectMake(cell.frame.origin.x + 210, 10, 100, 30);
         button.clipsToBounds = YES;

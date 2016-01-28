@@ -187,175 +187,193 @@ static NSArray *PanicToArray;
     if(self.segments.selectedSegmentIndex == 0)
     {
                                                     ////////     Panic From table view      //////////
-        
-        if (cell == nil)
+        if(PanicFromArray.count == 0)
         {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:panicFromIdentifier];
+            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
+            noData.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
+            noData.text = @"No Data to show";
+            [self.view addSubview:noData];
         }
-        
-        (self.segments.subviews)[0].backgroundColor = [UIColor whiteColor];
-        
-        profilePic = [PanicFromArray valueForKey:@"pic"][indexPath.row];
-        name.text = [[PanicFromArray valueForKey:@"username"][indexPath.row] uppercaseString];
-        message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
-        receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
-        type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
-        
-        UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
-        if (retrievedImage == nil) {
-            dispatch_async(kBgQueue, ^{
-                [image_loading startAnimating];
-                NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]]]];
-                
-                UIImage *image;
-                if([[PanicFromArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
-                {
-                    image = [UIImage imageNamed:@"no_image"];
-                }
-                else
-                {
-                    image = [UIImage imageWithData:imgData];
-                }
-                
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-                        if (updateCell)
-                        {
-                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
-                            imageView.image = image;
-                            imageView.layer.cornerRadius = 20;
-                            imageView.contentMode = UIViewContentModeScaleAspectFill;
-                            [imageView setClipsToBounds:YES];
-                            
-                            imagesDictionary[[PanicFromArray valueForKey:@"pic"][indexPath.row]] = image;
-                            [updateCell addSubview:imageView];
-                            [image_loading stopAnimating];
-                        }
-                    });
-                }
-            });
-        }
-        else
-        {
-            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
-            imageView.image = retrievedImage;
-            [cell addSubview:imageView];
-        }
-
-        if(receivedStatus == 0)
-        {
-            if([type isEqualToString:@"P"])
+        else{
+            if (cell == nil)
             {
-                status.text = @"Status: Received";
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:panicFromIdentifier];
+            }
+            
+            (self.segments.subviews)[0].backgroundColor = [UIColor whiteColor];
+            
+            profilePic = [PanicFromArray valueForKey:@"pic"][indexPath.row];
+            name.text = [[PanicFromArray valueForKey:@"username"][indexPath.row] uppercaseString];
+            message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
+            receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
+            type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
+            
+            UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
+            if (retrievedImage == nil) {
+                dispatch_async(kBgQueue, ^{
+                    [image_loading startAnimating];
+                    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]]]];
+                    
+                    UIImage *image;
+                    if([[PanicFromArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
+                    {
+                        image = [UIImage imageNamed:@"no_image"];
+                    }
+                    else
+                    {
+                        image = [UIImage imageWithData:imgData];
+                    }
+                    
+                    if (image) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                            if (updateCell)
+                            {
+                                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
+                                imageView.image = image;
+                                imageView.layer.cornerRadius = 20;
+                                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                                [imageView setClipsToBounds:YES];
+                                
+                                imagesDictionary[[PanicFromArray valueForKey:@"pic"][indexPath.row]] = image;
+                                [updateCell addSubview:imageView];
+                                [image_loading stopAnimating];
+                            }
+                        });
+                    }
+                });
             }
             else
             {
-                status.text = @"Status: Pending";
+                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+                imageView.image = retrievedImage;
+                [cell addSubview:imageView];
             }
+            
+            if(receivedStatus == 0)
+            {
+                if([type isEqualToString:@"P"])
+                {
+                    status.text = @"Status: Received";
+                }
+                else
+                {
+                    status.text = @"Status: Pending";
+                }
+            }
+            else
+            {
+                status.text = @"Status: Received";
+            }
+            
+            calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
+            
+            [cell addSubview:image_loading];
+            [image_loading startAnimating];
+            
         }
-        else
-        {
-            status.text = @"Status: Received";
         }
-        
-        calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
-        
-        [cell addSubview:image_loading];
-        [image_loading startAnimating];
-        
-    }
-    
                                                         /////////////    Panic To Table View     ////////////
     else
     {
         (self.segments.subviews)[1].backgroundColor = [UIColor whiteColor];
         
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:panicToIdentifier];
+        if(PanicToArray.count == 0)
+        {
+            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
+            noData.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
+            noData.text = @"No Data to show";
+            [self.view addSubview:noData];
         }
-        
-        name.text = [[PanicToArray valueForKey:@"username" ][indexPath.row] uppercaseString];
-        profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
-        message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
-        receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
-        type = [PanicToArray valueForKey:@"type"][indexPath.row];
-        
-        UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
-        if (retrievedImage == nil) {
-            dispatch_async(kBgQueue, ^{
-                [image_loading startAnimating];
-                NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]]]];
-                
-                UIImage *image;
-                if([[PanicToArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
-                {
-                    image = [UIImage imageNamed:@"no_image"];
-                }
-                else
-                {
-                    image = [UIImage imageWithData:imgData];
-                }
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-                        if (updateCell)
-                        {
-                            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
-                            imageView.image = image;
-                            imageView.layer.cornerRadius = 20;
-                            imageView.contentMode = UIViewContentModeScaleAspectFill;
-                            [imageView setClipsToBounds:YES];
-                            
-                            imagesDictionary[[PanicToArray valueForKey:@"pic"][indexPath.row]] = image;
-                            [updateCell addSubview:imageView];
-                            [image_loading stopAnimating];
-                        }
-                    });
-                }
-            });
-        }
-        
         else
         {
-            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
-            imageView.image = retrievedImage;
-            [cell addSubview:imageView];
-        }
-
-        if(receivedStatus == 0)
-        {
-            status.text = @"Status: Pending";                               //////// CASE 4 ////////
-            
-            [accept_location setTitle:@"Accept" forState:normal];
-            [accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
-            accept_location.tag = indexPath.row;
-            
-            if([type isEqualToString:@"F"])
-            {
-                [cell addSubview:accept_location];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:panicToIdentifier];
             }
-        }
-        else
-        {
-            if([type isEqualToString:@"F"])                                 //////// CASE 3 ///////
+            
+            name.text = [[PanicToArray valueForKey:@"username" ][indexPath.row] uppercaseString];
+            profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
+            message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
+            receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
+            type = [PanicToArray valueForKey:@"type"][indexPath.row];
+            
+            UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
+            if (retrievedImage == nil) {
+                dispatch_async(kBgQueue, ^{
+                    [image_loading startAnimating];
+                    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]]]];
+                    
+                    UIImage *image;
+                    if([[PanicToArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
+                    {
+                        image = [UIImage imageNamed:@"no_image"];
+                    }
+                    else
+                    {
+                        image = [UIImage imageWithData:imgData];
+                    }
+                    if (image) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                            if (updateCell)
+                            {
+                                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
+                                imageView.image = image;
+                                imageView.layer.cornerRadius = 20;
+                                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                                [imageView setClipsToBounds:YES];
+                                
+                                imagesDictionary[[PanicToArray valueForKey:@"pic"][indexPath.row]] = image;
+                                [updateCell addSubview:imageView];
+                                [image_loading stopAnimating];
+                            }
+                        });
+                    }
+                });
+            }
+            
+            else
             {
-                status.text = @"Status: Sent";
+                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+                imageView.image = retrievedImage;
+                [cell addSubview:imageView];
+            }
+            
+            if(receivedStatus == 0)
+            {
+                status.text = @"Status: Pending";                               //////// CASE 4 ////////
+                
+                [accept_location setTitle:@"Accept" forState:normal];
+                [accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
+                accept_location.tag = indexPath.row;
+                
+                if([type isEqualToString:@"F"])
+                {
+                    [cell addSubview:accept_location];
+                }
             }
             else
             {
-                status.text = @"Status: Received";
+                if([type isEqualToString:@"F"])                                 //////// CASE 3 ///////
+                {
+                    status.text = @"Status: Sent";
+                }
+                else
+                {
+                    status.text = @"Status: Received";
+                }
             }
+            
+            (cell.imageView).frame = CGRectMake(20,20,20,20);
+            calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
+            
+            [cell addSubview:image_loading];
+            [image_loading startAnimating];
         }
-
-        (cell.imageView).frame = CGRectMake(20,20,20,20);
-        calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
-       
-        [cell addSubview:image_loading];
-        [image_loading startAnimating];
     }
+        
     
     if(calculatedDifference == 0) {
         timestamp.text = hourWithMin;
