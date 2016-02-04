@@ -541,8 +541,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: MELANIE kidd (QNEV439LJX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.silversages.panicalaram";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -561,6 +561,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "d5cf8492-ecb9-4f30-a14a-d62650f491b8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -581,8 +582,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: MELANIE kidd (QNEV439LJX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.silversages.panicalaram";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -594,6 +595,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "d5cf8492-ecb9-4f30-a14a-d62650f491b8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -604,8 +606,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Panic",
@@ -617,9 +619,9 @@
 				GCC_PREFIX_HEADER = "Panic AAlaram Application/E Alarm-Prefix.pch";
 				INFOPLIST_FILE = "Panic AAlaram Application/E Alarm-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.panicAlarm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.ealarm;
 				PRODUCT_NAME = "E Alarm";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d5cf8492-ecb9-4f30-a14a-d62650f491b8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -629,8 +631,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Panic",
@@ -642,9 +644,9 @@
 				GCC_PREFIX_HEADER = "Panic AAlaram Application/E Alarm-Prefix.pch";
 				INFOPLIST_FILE = "Panic AAlaram Application/E Alarm-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.panicAlarm;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.ealarm;
 				PRODUCT_NAME = "E Alarm";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d5cf8492-ecb9-4f30-a14a-d62650f491b8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -802,10 +802,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K5-VP-ZGH">
-                                <rect key="frame" x="15" y="192" width="290" height="118"/>
-                                <string key="text">1) INTERNET connectivity is necessary.
-2) Your current location will be used.
-3) COPYRIGHTS Reserved.                               </string>
+                                <rect key="frame" x="15" y="99" width="290" height="225"/>
+                                <mutableString key="text">1 - INTERNET connectivity is necessary.
+2 - Your current location will be used.
+3 - Your privacy matters to us. By using our Services, you agree that E-Alarm can collect and use your information consistent with that policy.
+4 - We try to keep the Services up and running and free of annoyances. But we make no promises that we will succeed.
+5 - We try hard to keep our Services a safe place for all users. But we can’t guarantee it.
+6 - You are responsible for any activity that occurs in your account. So it’s important that you keep your account secure. One way to do that is to select a strong password that you don’t use for any other account.</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -827,7 +830,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqD-K3-4b0">
                                 <rect key="frame" x="124" y="430" width="73" height="30"/>
-                                <state key="normal" title="PROCEED">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -876,26 +879,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YYh-8L-zt6">
-                                <rect key="frame" x="48" y="135" width="225" height="182"/>
-                                <subviews>
-                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="88" placeholderIntrinsicHeight="103" image="profilepic.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYm-Zm-f9b">
-                                        <rect key="frame" x="68" y="10" width="88" height="103"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbE-Gg-egL">
-                                        <rect key="frame" x="72" y="21" width="80" height="80"/>
-                                    </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="       Full Name" minimumFontSize="18" background="textbox.png" disabledBackground="textbox.png" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-oR-INu">
-                                        <rect key="frame" x="0.0" y="121" width="225" height="49"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="coi-0C-pgj" id="jvQ-Xk-xt5"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-lb-26d">
                                 <rect key="frame" x="80" y="366" width="160" height="40"/>
                                 <state key="normal" image="submit.png">
@@ -905,8 +888,9 @@
                                     <action selector="login:" destination="coi-0C-pgj" eventType="touchUpInside" id="SCt-E5-44h"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnU-65-FEX">
-                                <rect key="frame" x="48" y="318" width="213" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnU-65-FEX">
+                                <rect key="frame" x="48" y="318" width="225" height="40"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Upload Image" backgroundImage="uploadTextBox.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -914,6 +898,20 @@
                                     <action selector="upload:" destination="coi-0C-pgj" eventType="touchUpInside" id="Y8n-mb-Hg6"/>
                                 </connections>
                             </button>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="88" placeholderIntrinsicHeight="103" image="profilepic.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYm-Zm-f9b">
+                                <rect key="frame" x="116" y="150" width="88" height="103"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbE-Gg-egL">
+                                <rect key="frame" x="120" y="161" width="80" height="80"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Full Name" minimumFontSize="18" background="textbox.png" disabledBackground="textbox.png" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-oR-INu">
+                                <rect key="frame" x="48" y="261" width="225" height="49"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="coi-0C-pgj" id="jvQ-Xk-xt5"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <connections>
@@ -924,7 +922,6 @@
                     <navigationItem key="navigationItem" id="6SB-Da-rTd"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="animationView" destination="YYh-8L-zt6" id="ofr-bf-7Eh"/>
                         <outlet property="imageView" destination="zbE-Gg-egL" id="OIm-79-A6e"/>
                         <outlet property="insertusername" destination="D1B-oR-INu" id="e70-rP-QL7"/>
                         <outletCollection property="myTextFieldsCollection" destination="D1B-oR-INu" id="tBv-oh-YaH"/>

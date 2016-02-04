@@ -236,11 +236,24 @@ NSArray *DistinctFriendsWhoUseApp;
     NSString *nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
     
-    NSString *friendsNumber = [NSString stringWithFormat:@"%@",numberToAccept];
+    NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",[DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag]];
+    
+    NSDictionary *data = @{
+                           @"alert": msg,
+                           @"name": [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag],
+                           @"number": numberToAccept,
+                           @"sound":@"cheering.caf"
+                           };
     
     PFPush *push = [[PFPush alloc] init];
+    
+    NSString *friendsNumber = @"X_";
+    friendsNumber = [friendsNumber stringByAppendingString:[numberToAccept substringFromIndex:1]];
+
+    
     [push setChannel:friendsNumber];   // channels column in PARSE!
     [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];
+    [push setData:data];
     [push sendPushInBackground];
     
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
@@ -250,33 +263,36 @@ NSArray *DistinctFriendsWhoUseApp;
     
     WebService *acceptRequest = [[WebService alloc] init];
     [acceptRequest FilePath:@"http://fajjemobile.info/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
-    
 }
 
 - (void)addFriend:(id)sender
 {
     button = (UIButton*) sender;
     
-   // NSString *numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
-   // NSString *nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
+    NSString *numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
+    NSString *nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
 
     [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
 
-    NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag],[DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag] );
+    NSString *msg = [NSString stringWithFormat:@"%@ has sent you a friend request",nameToAdd];
     
-//    NSString *friendsNumber = @"03432637576";
-//    
-//    PFPush *push = [[PFPush alloc] init];
-//    [push setChannel:friendsNumber];   // channels column in PARSE!
+    NSDictionary *data = @{
+                           @"alert": msg,
+                           @"name": nameToAdd,
+                           @"number": numberToAdd,
+                           @"sound":@"cheering.caf"
+                           };
     
-   // NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+    NSString *friendsNumber = @"X_"; // is pe notification jati hai
+    friendsNumber = [friendsNumber stringByAppendingString:[numberToAdd substringFromIndex:1]];
+    
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:friendsNumber];   // channels column in PARSE!
 
-   // NSString *message = @"You have been added by ";
-    //message = [message stringByAppendingString:storedName];
     
-//    [push setMessage:message];
-//    
-//    [push sendPushInBackground];
+    [push setMessage:msg];
+    [push setData:data];
+    [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
     [addFriend FilePath:@"http://fajjemobile.info/iospanic/add_friends.php" parameterOne:[DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag] parameterTwo:@""];

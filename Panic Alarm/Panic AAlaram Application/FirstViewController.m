@@ -354,9 +354,9 @@ UIActivityIndicatorView *progress;
 {
     [UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:0.5];
+	[UIView setAnimationDuration:0.3];
 	[UIView setAnimationBeginsFromCurrentState:YES];
-	self.animationView.frame = CGRectMake(self.animationView.frame.origin.x, (self.animationView.frame.origin.y - 50.0), self.animationView.frame.size.width, self.animationView.frame.size.height);
+	self.view.frame = CGRectMake(self.view.frame.origin.x, (self.view.frame.origin.y - 100.0), self.view.frame.size.width, self.view.frame.size.height);
 	[UIView commitAnimations];
 }
 
@@ -364,9 +364,9 @@ UIActivityIndicatorView *progress;
 {
     [UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:0.5];
+	[UIView setAnimationDuration:0.3];
 	[UIView setAnimationBeginsFromCurrentState:YES];
-	self.animationView.frame = CGRectMake(self.animationView.frame.origin.x, (self.animationView.frame.origin.y + 50.0), self.animationView.frame.size.width, self.animationView.frame.size.height);
+	self.view.frame = CGRectMake(self.view.frame.origin.x, (self.view.frame.origin.y + 100.0), self.view.frame.size.width, self.view.frame.size.height);
 	[UIView commitAnimations];
 }
 

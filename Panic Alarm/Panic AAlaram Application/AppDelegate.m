@@ -36,6 +36,21 @@
     }
     
     
+    Terms *a = [[Terms alloc] init];
+    [a fetchContactList];
+    
+    [Parse setApplicationId:@"ydmTMKN3ZJ3UtKXrWipMk8Fd4nUfYfCgVJgb92lB"
+                  clientKey:@"WddesaUPVKyD9H0oMbCikuP0sGR1aqev9HFBjikV"];
+    
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
     
     //username and password
     
@@ -59,29 +74,11 @@
     
     
     
-    Terms *a = [[Terms alloc] init];
-    [a fetchContactList];
     
-    [Parse setApplicationId:@"ydmTMKN3ZJ3UtKXrWipMk8Fd4nUfYfCgVJgb92lB"
-                  clientKey:@"WddesaUPVKyD9H0oMbCikuP0sGR1aqev9HFBjikV"];
-    
-    
-    
-    // Override point for customization after application launch.
-  //  [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
-  //   UIRemoteNotificationTypeAlert|
-   //  UIRemoteNotificationTypeSound];
     
   //  NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+   
     
-    // Create a pointer to the Photo object
-    // NSString *victinName = [notificationPayload objectForKey:@"name"];
-    // NSString *victimNumber = [notificationPayload objectForKey:@"number"];
-    // NSString *msg = [notificationPayload objectForKey:@"alert"];
-
-    
-   // [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     return YES;
 }
@@ -114,31 +111,15 @@
 }
 // PARSE SDK Method.
 
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    //
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    //NSString * phone = [@"a" stringByAppendingString:storedNumber];
-    //[currentInstallation addUniqueObject:"ios"" forKey:@"channels"];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];
 }
 
-- (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
-    
-    //if ( application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground  )
-    //{
-        //opened from a push notification when the app was on background
-      //  NSLog(@"Opened via notification");
-        
-      //self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryBoard" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"contacts"];
-   // }
-    
 }
-
 
 @end

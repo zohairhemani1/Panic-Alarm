@@ -216,15 +216,25 @@ static NSMutableArray* favouritesArray;
     
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
+        
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[favouritesArray valueForKey:@"username"][button.tag]]];
         
+        NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",[favouritesArray valueForKey:@"username"][button.tag]];
+        
+        NSDictionary *data = @{
+                               @"alert": msg,
+                               @"name": [favouritesArray valueForKey:@"username"][button.tag],
+                               @"number": number,
+                               @"sound":@"cheering.caf"
+                               };
+
         PFPush *push = [[PFPush alloc] init];
         NSString *friendsNumber = @"X_";
         friendsNumber = [friendsNumber stringByAppendingString:[number substringFromIndex:1]];
         [push setChannel:friendsNumber];   // channels column in PARSE!
         NSString *FindNotificationMessage = [[favouritesArray valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
-        //[push setData:data];
+        [push setData:data];
         [push sendPushInBackground];
     }
 }

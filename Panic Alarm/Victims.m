@@ -183,7 +183,6 @@ static NSArray *PanicToArray;
     image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
     image_loading.color = [UIColor blackColor];
     
-    
     if(self.segments.selectedSegmentIndex == 0)
     {
                                                     ////////     Panic From table view      //////////
@@ -193,6 +192,7 @@ static NSArray *PanicToArray;
             noData.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
             noData.text = @"No Data to show";
             [self.view addSubview:noData];
+            [cell addSubview:noData];
         }
         else{
             if (cell == nil)
@@ -200,6 +200,7 @@ static NSArray *PanicToArray;
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:panicFromIdentifier];
             }
+            
             
             (self.segments.subviews)[0].backgroundColor = [UIColor whiteColor];
             
@@ -293,7 +294,7 @@ static NSArray *PanicToArray;
                                               reuseIdentifier:panicToIdentifier];
             }
             
-            name.text = [[PanicToArray valueForKey:@"username" ][indexPath.row] uppercaseString];
+            name.text = [[PanicToArray valueForKey:@"username"][indexPath.row] uppercaseString];
             profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
             message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
             receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
@@ -569,16 +570,25 @@ static NSArray *PanicToArray;
         
         if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"])
         {
+            NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[PanicToArray valueForKey:@"username"][accept_location.tag]];
+            
+            NSDictionary *panicData = @{
+                                   @"alert": msg,
+                                   @"name": [PanicToArray valueForKey:@"username"][accept_location.tag],
+                                   @"number": [PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag],
+                                   @"sound":@"cheering.caf"
+                                   };
+            
             [accept_location setTitle:@"Sent" forState:normal];
             accept_location.enabled = false;
             
             NSString *friendsNumber = @"X_";
             friendsNumber = [friendsNumber stringByAppendingString:[[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] substringFromIndex:1]];
+            
             PFPush *push = [[PFPush alloc] init];
-            [push setChannel:friendsNumber];   // channels column in PARSE!
-            FindNotificationMessage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"name"] stringByAppendingString:@" sent his location."];
-            [push setMessage:FindNotificationMessage];
-            //[push setData:data];
+            [push setChannel:friendsNumber];
+            [push setMessage:msg];
+            [push setData:panicData];
             [push sendPushInBackground];
             NSLog(@"1");
         }

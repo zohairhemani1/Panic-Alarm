@@ -194,13 +194,22 @@
     {
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[self.searchResults valueForKey:@"username"][button.tag]]];
         
+        NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",[self.searchResults valueForKey:@"username"][button.tag]];
+        
+        NSDictionary *data = @{
+                               @"alert": msg,
+                               @"name": [self.searchResults valueForKey:@"username"][button.tag],
+                               @"number": number,
+                               @"sound":@"cheering.caf"
+                               };
+        
         NSString *friendsNumber = @"X_";
         friendsNumber = [friendsNumber stringByAppendingString:[number substringFromIndex:1]];
         PFPush *push = [[PFPush alloc] init];
         [push setChannel:friendsNumber];   // channels column in PARSE!
         NSString *FindNotificationMessage = [[self.searchResults valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
-        //[push setData:data];
+        [push setData:data];
         [push sendPushInBackground];
     }
 }
@@ -215,12 +224,20 @@
     NSString *numberToAccept = [self.searchResults valueForKey:@"password"][button.tag];
     NSString *nameToAccept = [self.searchResults valueForKey:@"fullName"][button.tag];
     NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, numberToAccept, nameToAccept);
+
+    NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",[self.searchResults valueForKey:@"fullName"][button.tag]];
     
-    NSString *friendsNumber = [NSString stringWithFormat:@"%@",numberToAccept];
+    NSDictionary *data = @{
+                           @"alert": msg,
+                           @"name": [self.searchResults valueForKey:@"fullName"][button.tag],
+                           @"number": numberToAccept,
+                           @"sound":@"cheering.caf"
+                           };
     
     PFPush *push = [[PFPush alloc] init];
-    [push setChannel:friendsNumber];   // channels column in PARSE!
+    [push setChannel:numberToAccept];   // channels column in PARSE!
     [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];  // Zohair Hemani will be replaced by sharedpreference name.
+    [push setData:data];
     [push sendPushInBackground];
     
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
@@ -239,26 +256,31 @@
 {
     button = (UIButton*) sender;
     
-    // NSString *numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
-    // NSString *nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
+     NSString *numberToAdd = [self.searchResults valueForKey:@"password"][button.tag];
+     NSString *nameToAdd = [self.searchResults valueForKey:@"fullName"][button.tag];
     
     [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
     
-    NSLog(@"Tapped Tag %ld: %@ %@", (long)button.tag, [self.searchResults valueForKey:@"password"][button.tag],[self.searchResults valueForKey:@"fullName"][button.tag] );
+    NSString *msg = [NSString stringWithFormat:@"%@ has sent you friend request",nameToAdd];
     
-    //    NSString *friendsNumber = @"03432637576";
-    //
-    //    PFPush *push = [[PFPush alloc] init];
-    //    [push setChannel:friendsNumber];   // channels column in PARSE!
+    NSDictionary *data = @{
+                           @"alert": msg,
+                           @"name": nameToAdd,
+                           @"number": numberToAdd,
+                           @"sound":@"cheering.caf"
+                           };
+
     
-    // NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:numberToAdd];   // channels column in PARSE!
     
-    // NSString *message = @"You have been added by ";
-    //message = [message stringByAppendingString:storedName];
+    NSString * storedName = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
     
-    //    [push setMessage:message];
-    //
-    //    [push sendPushInBackground];
+    NSString *message = msg;
+    message = [message stringByAppendingString:storedName];
+    [push setMessage:message];
+    [push setData:data];
+    [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
     [addFriend FilePath:@"http://fajjemobile.info/iospanic/add_friends.php" parameterOne:[self.searchResults valueForKey:@"password"][button.tag] parameterTwo:@""];
