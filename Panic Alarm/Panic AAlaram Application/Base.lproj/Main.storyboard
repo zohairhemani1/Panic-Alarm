@@ -802,19 +802,22 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K5-VP-ZGH">
-                                <rect key="frame" x="15" y="99" width="290" height="225"/>
-                                <mutableString key="text">1 - INTERNET connectivity is necessary.
-2 - Your current location will be used.
-3 - Your privacy matters to us. By using our Services, you agree that E-Alarm can collect and use your information consistent with that policy.
-4 - We try to keep the Services up and running and free of annoyances. But we make no promises that we will succeed.
-5 - We try hard to keep our Services a safe place for all users. But we can’t guarantee it.
-6 - You are responsible for any activity that occurs in your account. So it’s important that you keep your account secure. One way to do that is to select a strong password that you don’t use for any other account.</mutableString>
+                                <rect key="frame" x="15" y="65" width="290" height="318"/>
+                                <mutableString key="text">1 - Your current location will be used.
+
+2 - Your privacy matters to us. By using our Services, you agree that E-Alarm can collect and use your information consistent with that policy.
+
+3 - We try to keep the Services up and running and free of annoyances. But we make no promises that we will succeed.
+
+4 - We try hard to keep our Services a safe place for all users. But we can’t guarantee it.
+
+5 - You are responsible for any activity that occurs in your account. So it’s important that you keep your account secure. One way to do that is to select a strong password that you don’t use for any other account.</mutableString>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfn-21-PaS">
-                                <rect key="frame" x="93" y="383" width="28" height="39"/>
+                                <rect key="frame" x="16" y="404" width="15" height="15"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                 <state key="normal" image="checkbox.png">
                                     <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -828,21 +831,15 @@
                                     <action selector="checkboxButton:" destination="TTQ-7Q-FA1" eventType="touchUpInside" id="jPQ-bg-8bv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqD-K3-4b0">
-                                <rect key="frame" x="124" y="430" width="73" height="30"/>
-                                <state key="normal">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqD-K3-4b0">
+                                <rect key="frame" x="80" y="434" width="160" height="40"/>
+                                <state key="normal" image="proceed">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="PROCEED:" destination="TTQ-7Q-FA1" eventType="touchUpInside" id="JhZ-PD-T9V"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yes I agree" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8w-au-MD8">
-                                <rect key="frame" x="144" y="391" width="84" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5dQ-qs-vu2">
                                 <rect key="frame" x="0.0" y="15" width="320" height="44"/>
                                 <color key="barTintColor" red="0.22707666139999999" green="0.086056372320000005" blue="0.33203125" alpha="1" colorSpace="calibratedRGB"/>
@@ -853,6 +850,12 @@
                                     <navigationItem title="Terms And Conditions" id="oua-MS-G8b"/>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I Agree to the Terms and Conditions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8w-au-MD8">
+                                <rect key="frame" x="41" y="401" width="264" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -899,10 +902,10 @@
                                 </connections>
                             </button>
                             <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="88" placeholderIntrinsicHeight="103" image="profilepic.png" translatesAutoresizingMaskIntoConstraints="NO" id="AYm-Zm-f9b">
-                                <rect key="frame" x="116" y="150" width="88" height="103"/>
+                                <rect key="frame" x="106" y="119" width="108" height="123"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbE-Gg-egL">
-                                <rect key="frame" x="120" y="161" width="80" height="80"/>
+                                <rect key="frame" x="110" y="130" width="100" height="100"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Full Name" minimumFontSize="18" background="textbox.png" disabledBackground="textbox.png" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-oR-INu">
                                 <rect key="frame" x="48" y="261" width="225" height="49"/>
@@ -1146,6 +1149,7 @@
         <image name="locationButton" width="270" height="67"/>
         <image name="no_image" width="350" height="350"/>
         <image name="panic_animation4" width="313" height="268"/>
+        <image name="proceed" width="270" height="67"/>
         <image name="profilepic.png" width="200" height="203"/>
         <image name="question" width="100" height="100"/>
         <image name="submit.png" width="272" height="64"/>
