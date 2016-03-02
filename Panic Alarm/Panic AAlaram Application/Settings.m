@@ -97,7 +97,7 @@ NSMutableArray *profile;
         
         if([CellIdentifier isEqualToString:@"tell"])
         {
-            self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"hello"] applicationActivities:nil];
+            self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"I would like to add you on E~Alarm app. You can download the app from here: https://itunes.apple.com/us/app/e-alarm/id1089147886?ls=1&mt=8"] applicationActivities:nil];
             [self presentViewController:self.activityViewController animated:YES completion:nil];
         }
         else if([CellIdentifier isEqualToString:@"help"] || [CellIdentifier isEqualToString:@"about"])

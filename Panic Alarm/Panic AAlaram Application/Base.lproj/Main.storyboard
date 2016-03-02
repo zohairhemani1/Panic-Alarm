@@ -803,7 +803,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K5-VP-ZGH">
                                 <rect key="frame" x="15" y="65" width="290" height="318"/>
-                                <mutableString key="text">1 - Your current location will be used.
+                                <string key="text">1 - Your current location will be used.
 
 2 - Your privacy matters to us. By using our Services, you agree that E-Alarm can collect and use your information consistent with that policy.
 
@@ -811,7 +811,7 @@
 
 4 - We try hard to keep our Services a safe place for all users. But we can’t guarantee it.
 
-5 - You are responsible for any activity that occurs in your account. So it’s important that you keep your account secure. One way to do that is to select a strong password that you don’t use for any other account.</mutableString>
+5 - You are responsible for any activity that occurs in your account. So it’s important that you keep your account secure. One way to do that is to select a strong password that you don’t use for any other account.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
