@@ -12,6 +12,7 @@
 #import "checkInternet.h"
 #import "Constants.h"
 #import <Parse/Parse.h>
+#import "UIImageView+WebCache.h"
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
@@ -25,7 +26,6 @@
     NSString *nameToAdd;
     UIImage *img;
     NSString *profilePic ;
-    NSString *imagePathString ;
     NSURL *imagePathUrl;
     NSData *data ;
     NSString *hourWithMin;
@@ -148,6 +148,7 @@ static NSArray *PanicToArray;
     static NSString *panicToIdentifier = @"second";
     
     NSString *type;
+    NSString *imagePathString;
     UITableViewCell *cell;
     
     UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
@@ -169,7 +170,7 @@ static NSArray *PanicToArray;
     timestamp.font = [UIFont fontWithName:@"HelveticaNeue" size:14.f];
     timestamp.text = @"";
 
-    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(230, 24, 80, 25)];
+    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 26, 80, 22)];
     [accept_location setTitleColor:[UIColor whiteColor] forState:normal];
     accept_location.clipsToBounds = YES;
     accept_location.layer.cornerRadius = 5;
@@ -178,7 +179,7 @@ static NSArray *PanicToArray;
     timestamp.textColor = [UIColor grayColor];
     timestamp.textAlignment = NSTextAlignmentCenter;
     
-    int calculatedDifference;
+    //int calculatedDifference;
     
     image_loading = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(20,20,20,20)];
     image_loading.color = [UIColor blackColor];
@@ -209,48 +210,14 @@ static NSArray *PanicToArray;
             message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
             receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
             type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
+            imagePathString = [NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]];
             
-            UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicFromArray valueForKey:@"pic"][indexPath.row]];
-            if (retrievedImage == nil) {
-                dispatch_async(kBgQueue, ^{
-                    [image_loading startAnimating];
-                    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]]]];
-                    
-                    UIImage *image;
-                    if([[PanicFromArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
-                    {
-                        image = [UIImage imageNamed:@"no_image"];
-                    }
-                    else
-                    {
-                        image = [UIImage imageWithData:imgData];
-                    }
-                    
-                    if (image) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-                            if (updateCell)
-                            {
-                                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
-                                imageView.image = image;
-                                imageView.layer.cornerRadius = 20;
-                                imageView.contentMode = UIViewContentModeScaleAspectFill;
-                                [imageView setClipsToBounds:YES];
-                                
-                                imagesDictionary[[PanicFromArray valueForKey:@"pic"][indexPath.row]] = image;
-                                [updateCell addSubview:imageView];
-                                [image_loading stopAnimating];
-                            }
-                        });
-                    }
-                });
-            }
-            else
-            {
-                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
-                imageView.image = retrievedImage;
-                [cell addSubview:imageView];
-            }
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:imagePathString] placeholderImage:[UIImage imageNamed:@"no_image"] options:SDWebImageCacheMemoryOnly];
+            imageView.layer.cornerRadius = 20;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            [imageView setClipsToBounds:YES];
+            [cell addSubview:imageView];
             
             if(receivedStatus == 0)
             {
@@ -268,10 +235,19 @@ static NSArray *PanicToArray;
                 status.text = @"Status: Received";
             }
             
-            calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
+            //calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicFromArray];
+            
+            NSString *newtimeStamp = [PanicFromArray valueForKey:@"timestamp"][indexPath.row];
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *newDate = [dateFormat dateFromString:newtimeStamp];
+            
+            NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
+            [cell addSubview:image_loading];
+            
+            timestamp.text = [self stringDatePartOf:newDate];
             
             [cell addSubview:image_loading];
-            [image_loading startAnimating];
             
         }
         }
@@ -299,48 +275,16 @@ static NSArray *PanicToArray;
             message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
             receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
             type = [PanicToArray valueForKey:@"type"][indexPath.row];
+            imagePathString = [NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]];
             
-            UIImage *retrievedImage = [imagesDictionary valueForKey:[PanicToArray valueForKey:@"pic"][indexPath.row]];
-            if (retrievedImage == nil) {
-                dispatch_async(kBgQueue, ^{
-                    [image_loading startAnimating];
-                    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]]]];
-                    
-                    UIImage *image;
-                    if([[PanicToArray valueForKey:@"pic"][indexPath.row] isEqualToString:@""])
-                    {
-                        image = [UIImage imageNamed:@"no_image"];
-                    }
-                    else
-                    {
-                        image = [UIImage imageWithData:imgData];
-                    }
-                    if (image) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            UITableViewCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-                            if (updateCell)
-                            {
-                                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10,40,40)];
-                                imageView.image = image;
-                                imageView.layer.cornerRadius = 20;
-                                imageView.contentMode = UIViewContentModeScaleAspectFill;
-                                [imageView setClipsToBounds:YES];
-                                
-                                imagesDictionary[[PanicToArray valueForKey:@"pic"][indexPath.row]] = image;
-                                [updateCell addSubview:imageView];
-                                [image_loading stopAnimating];
-                            }
-                        });
-                    }
-                });
-            }
             
-            else
-            {
-                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
-                imageView.image = retrievedImage;
-                [cell addSubview:imageView];
-            }
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:imagePathString] placeholderImage:[UIImage imageNamed:@"no_image"] options:SDWebImageCacheMemoryOnly];
+            imageView.layer.cornerRadius = 20;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            [imageView setClipsToBounds:YES];
+            [cell addSubview:imageView];
+            
             
             if(receivedStatus == 0)
             {
@@ -368,23 +312,31 @@ static NSArray *PanicToArray;
             }
             
             (cell.imageView).frame = CGRectMake(20,20,20,20);
-            calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
             
+            //calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
+            
+            NSString *newtimeStamp = [PanicToArray valueForKey:@"timestamp"][indexPath.row];
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *newDate = [dateFormat dateFromString:newtimeStamp];
+
+            NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
             [cell addSubview:image_loading];
-            [image_loading startAnimating];
+            
+            timestamp.text = [self stringDatePartOf:newDate];
         }
     }
         
     
-    if(calculatedDifference == 0) {
-        timestamp.text = hourWithMin;
-    }
-    else if(calculatedDifference < 7){
-        timestamp.text = dayCurrent;
-    }
-    else{
-        timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
-    }
+//    if(calculatedDifference == 0) {
+//        timestamp.text = hourWithMin;
+//    }
+//    else if(calculatedDifference < 7){
+//        timestamp.text = dayCurrent;
+//    }
+//    else{
+//        timestamp.text = [NSString stringWithFormat:@"%d",messageDay];
+//    }
     
     [cell addSubview:name];
     [cell addSubview:message];
@@ -395,114 +347,125 @@ static NSArray *PanicToArray;
     return cell;
 }
 
--(int)calculateDifference:(int)index FromArray:(NSArray *)timeFromArray{
-    
-    NSString *dateFromJson = [timeFromArray valueForKey:@"timestamp"][index];
-    NSDate *today = [NSDate date];
-    
-   // NSLog(@"Today: %@",today);
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-   // [dateFormatter setDateFormat: @"EEEE"];
-    
-    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    NSDate * JsonDateFormatted = [dateFormatter dateFromString:dateFromJson];
-    dateFormatter.dateFormat = @"dd";
-    messageDay = [dateFormatter stringFromDate:JsonDateFormatted].intValue;
-    
-    dateFormatter.dateFormat = @"HH:mm";
-    hourWithMin = [dateFormatter stringFromDate:JsonDateFormatted];
-    
-    dateFormatter.dateFormat = @"HH";
-    hour = [dateFormatter stringFromDate:JsonDateFormatted];
-    
-    if(hour.intValue > 12){
-        
-    }
-
-    dateFormatter.dateFormat = @"dd";
-    currentDay = [dateFormatter stringFromDate:today].intValue;
-
-    int difference = messageDay - currentDay;
-    
-   // NSLog(@"the date difference is %d",difference);
-    
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    components.day = difference;
-    
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    
-    NSDate *differeneDay = [gregorian dateByAddingComponents:components toDate:today options:0];
-   // NSLog(@"Difference Day: %@", differeneDay);
-    
-    dayCurrent = [self transformedValue:differeneDay];
-
-    return difference;
-
-}
-- (id)transformedValue:(NSDate *)date
+-(NSString*) stringDatePartOf:(NSDate*)date
 {
-    // Initialize the formatter.
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterShortStyle;
-    formatter.timeStyle = NSDateFormatterNoStyle;
-    
-    // Initialize the calendar and flags.
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit;
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    // Create reference date for supplied date.
-    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
-    comps.hour = 0;
-    comps.minute = 0;
-    comps.second = 0;
-    NSDate *suppliedDate = [calendar dateFromComponents:comps];
-    
-    // Iterate through the eight days (tomorrow, today, and the last six).
-    int i;
-    for (i = -1; i < 7; i++)
-    {
-        // Initialize reference date.
-        comps = [calendar components:unitFlags fromDate:[NSDate date]];
-        comps.hour = 0;
-        comps.minute = 0;
-        comps.second = 0;
-        comps.day = comps.day - i;
-        NSDate *referenceDate = [calendar dateFromComponents:comps];
-        // Get week day (starts at 1).
-        int weekday = [calendar components:unitFlags fromDate:referenceDate].weekday - 1;
-        
-        if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == -1)
-        {
-            // Tomorrow
-            return @"Tomorrow";
-        }
-        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 0)
-        {
-            // Today's time (a la iPhone Mail)
-            formatter.dateStyle = NSDateFormatterNoStyle;
-            formatter.timeStyle = NSDateFormatterShortStyle;
-            //NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
-            return [formatter stringFromDate:date];
-            
-        }
-        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 1)
-        {
-            // Today
-            return @"Yesterday";
-        }
-        else if ([suppliedDate compare:referenceDate] == NSOrderedSame)
-        {
-            // Day of the week
-            NSString *day = formatter.weekdaySymbols[weekday];
-            return day;
-        }
-    }
-    
-    // It's not in those eight days.
-    NSString *defaultDate = [formatter stringFromDate:date];
-    return defaultDate;
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+                                  
+    return [formatter stringFromDate:date];
 }
+
+
+
+
+//-(int)calculateDifference:(int)index FromArray:(NSArray *)timeFromArray{
+//    
+//    NSString *dateFromJson = [timeFromArray valueForKey:@"timestamp"][index];
+//    NSDate *today = [NSDate date];
+//    
+//   // NSLog(@"Today: %@",today);
+//    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//   // [dateFormatter setDateFormat: @"EEEE"];
+//    
+//    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//    NSDate * JsonDateFormatted = [dateFormatter dateFromString:dateFromJson];
+//    dateFormatter.dateFormat = @"dd";
+//    messageDay = [dateFormatter stringFromDate:JsonDateFormatted].intValue;
+//    
+//    dateFormatter.dateFormat = @"HH:mm";
+//    hourWithMin = [dateFormatter stringFromDate:JsonDateFormatted];
+//    
+//    dateFormatter.dateFormat = @"HH";
+//    hour = [dateFormatter stringFromDate:JsonDateFormatted];
+//    
+//    if(hour.intValue > 12){
+//        
+//    }
+//
+//    dateFormatter.dateFormat = @"dd";
+//    currentDay = [dateFormatter stringFromDate:today].intValue;
+//
+//    int difference = messageDay - currentDay;
+//    
+//   // NSLog(@"the date difference is %d",difference);
+//    
+//    NSDateComponents *components = [[NSDateComponents alloc] init];
+//    components.day = difference;
+//    
+//    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    
+//    NSDate *differeneDay = [gregorian dateByAddingComponents:components toDate:today options:0];
+//   // NSLog(@"Difference Day: %@", differeneDay);
+//    
+//    dayCurrent = [self transformedValue:differeneDay];
+//
+//    return difference;
+//
+//}
+//- (id)transformedValue:(NSDate *)date
+//{
+//    // Initialize the formatter.
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateStyle = NSDateFormatterShortStyle;
+//    formatter.timeStyle = NSDateFormatterNoStyle;
+//    
+//    // Initialize the calendar and flags.
+//    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit;
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    
+//    // Create reference date for supplied date.
+//    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
+//    comps.hour = 0;
+//    comps.minute = 0;
+//    comps.second = 0;
+//    NSDate *suppliedDate = [calendar dateFromComponents:comps];
+//    
+//    // Iterate through the eight days (tomorrow, today, and the last six).
+//    int i;
+//    for (i = -1; i < 7; i++)
+//    {
+//        // Initialize reference date.
+//        comps = [calendar components:unitFlags fromDate:[NSDate date]];
+//        comps.hour = 0;
+//        comps.minute = 0;
+//        comps.second = 0;
+//        comps.day = comps.day - i;
+//        NSDate *referenceDate = [calendar dateFromComponents:comps];
+//        // Get week day (starts at 1).
+//        int weekday = [calendar components:unitFlags fromDate:referenceDate].weekday - 1;
+//        
+//        if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == -1)
+//        {
+//            // Tomorrow
+//            return @"Tomorrow";
+//        }
+//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 0)
+//        {
+//            // Today's time (a la iPhone Mail)
+//            formatter.dateStyle = NSDateFormatterNoStyle;
+//            formatter.timeStyle = NSDateFormatterShortStyle;
+//            //NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
+//            return [formatter stringFromDate:date];
+//            
+//        }
+//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 1)
+//        {
+//            // Today
+//            return @"Yesterday";
+//        }
+//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame)
+//        {
+//            // Day of the week
+//            NSString *day = formatter.weekdaySymbols[weekday];
+//            return day;
+//        }
+//    }
+//    
+//    // It's not in those eight days.
+//    NSString *defaultDate = [formatter stringFromDate:date];
+//    return defaultDate;
+//}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -13,6 +13,7 @@
 #import <Parse/Parse.h>
 #import "checkInternet.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImageView+WebCache.h"
 
 @interface Favorites ()
 {
@@ -77,18 +78,49 @@ static NSMutableArray* favouritesArray;
     
     imagesArray = [[NSMutableArray alloc]init];
     
-    UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
+    //UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
     
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
     self.searchController.searchResultsUpdater = self;
     self.searchController.delegate = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x,
                                                        self.searchController.searchBar.frame.origin.y,
                                                        self.searchController.searchBar.frame.size.width, 44.0);
     
     self.favoritesTable.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
     
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString *searchString = searchController.searchBar.text;
+    [self filterContentForSearchText:searchString scope:nil];
+    [self.favoritesTable reloadData];
+}
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    if ([searchText isEqualToString:@""])
+    {
+        self.searchResults = [favouritesArray mutableCopy];
+    }
+    else
+    {
+        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
+        int dictionaryIndex = 0;
+        for (NSDictionary *insideObject in favouritesArray)
+        {
+            dictionaryIndex ++;
+            if ([[insideObject[@"username"] capitalizedString] containsString:[searchText capitalizedString]])
+            {
+                [newSearchResult addObject:insideObject];
+            }
+        }
+        self.searchResults = newSearchResult;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -127,7 +159,7 @@ static NSMutableArray* favouritesArray;
 {
     // NSLog(@"Index: %@ ",indexPath.row);
     static NSString *simpleTableIdentifierr = @"SimpleTableCell";
-    UITableViewCell *cell ;
+    UITableViewCell *cell;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifierr];
@@ -135,23 +167,37 @@ static NSMutableArray* favouritesArray;
 
     storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     NSString *number;
-    
-    if(![[favouritesArray valueForKey:@"friendsnumber"][indexPath.row] isEqualToString:storedNumber])
-        number = [favouritesArray valueForKey:@"friendsnumber"][indexPath.row];
-    else if (![[favouritesArray valueForKey:@"mynumber"][indexPath.row] isEqualToString:storedNumber])
-        number = [favouritesArray valueForKey:@"mynumber"][indexPath.row];
-    else
-        NSLog(@"No Number.");
-    
+    NSString *pic;
     NSString *fullName;
     UILabel *name;
+    UILabel *phonenumber;
     
-    fullName = [favouritesArray valueForKey:@"username"][indexPath.row];
-    
-    NSString *pic = [favouritesArray valueForKey:@"pic"][indexPath.row];
+    if(self.searchController.active)
+    {
+        if(![[self.searchResults valueForKey:@"friendsnumber"][indexPath.row] isEqualToString:storedNumber])
+            number = [self.searchResults valueForKey:@"friendsnumber"][indexPath.row];
+        else if (![[self.searchResults valueForKey:@"mynumber"][indexPath.row] isEqualToString:storedNumber])
+            number = [self.searchResults valueForKey:@"mynumber"][indexPath.row];
+        
+        fullName = [self.searchResults valueForKey:@"username"][indexPath.row];
+        
+        pic = [self.searchResults valueForKey:@"pic"][indexPath.row];
+    }
+    else
+    {
+        if(![[favouritesArray valueForKey:@"friendsnumber"][indexPath.row] isEqualToString:storedNumber])
+            number = [favouritesArray valueForKey:@"friendsnumber"][indexPath.row];
+        else if (![[favouritesArray valueForKey:@"mynumber"][indexPath.row] isEqualToString:storedNumber])
+            number = [favouritesArray valueForKey:@"mynumber"][indexPath.row];
+        
+        fullName = [favouritesArray valueForKey:@"username"][indexPath.row];
+        
+        pic = [favouritesArray valueForKey:@"pic"][indexPath.row];
+    }
     
     name = [[UILabel alloc]initWithFrame:CGRectMake(60, 8, 140, 19)];
-    UILabel *phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 25, 80, 20)];
+    phonenumber = [[UILabel alloc]initWithFrame:CGRectMake(60, 25, 80, 20)];
+    
     if(fullName !=nil)
     {
         name.text = fullName.uppercaseString;
@@ -165,21 +211,18 @@ static NSMutableArray* favouritesArray;
     NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
     
-    NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
-    NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-    img = [[UIImage alloc]initWithData:data];
-    
-    NSData* imageData = UIImageJPEGRepresentation(img, 1.0);
-    [imagesArray addObject:imageData];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+    UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(10,5,40,40); //set these variables as you want
     imageView.layer.cornerRadius = 20;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [imageView setClipsToBounds:YES];
     
-    if (cell.subviews){
-        for (UIView *subview in (cell.contentView).subviews) {
+    [imageView sd_setImageWithURL:[NSURL URLWithString:imagePathString] placeholderImage:[UIImage imageNamed:@"no_image"] options:SDWebImageCacheMemoryOnly];
+    
+    if (cell.subviews)
+    {
+        for (UIView *subview in (cell.contentView).subviews)
+        {
             [subview removeFromSuperview];
         }
     }
@@ -205,25 +248,39 @@ static NSMutableArray* favouritesArray;
     
     storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     NSString *number;
+    NSString *name;
     
-    if(![[favouritesArray valueForKey:@"friendsnumber"][button.tag] isEqualToString:storedNumber])
-        number = [favouritesArray valueForKey:@"friendsnumber"][button.tag];
-    else if (![[favouritesArray valueForKey:@"mynumber"][button.tag] isEqualToString:storedNumber])
-        number = [favouritesArray valueForKey:@"mynumber"][button.tag];
+    if(self.searchController.active)
+    {
+        if(![[self.searchResults valueForKey:@"friendsnumber"][button.tag] isEqualToString:storedNumber])
+            number = [self.searchResults valueForKey:@"friendsnumber"][button.tag];
+        else if (![[self.searchResults valueForKey:@"mynumber"][button.tag] isEqualToString:storedNumber])
+            number = [self.searchResults valueForKey:@"mynumber"][button.tag];
+        
+        name = [self.searchResults valueForKey:@"username"][button.tag];
+    }
+    else
+    {
+        if(![[favouritesArray valueForKey:@"friendsnumber"][button.tag] isEqualToString:storedNumber])
+            number = [favouritesArray valueForKey:@"friendsnumber"][button.tag];
+        else if (![[favouritesArray valueForKey:@"mynumber"][button.tag] isEqualToString:storedNumber])
+            number = [favouritesArray valueForKey:@"mynumber"][button.tag];
+        
+        name = [favouritesArray valueForKey:@"username"][button.tag];
+    }
     
     WebService *FindLocationRest = [[WebService alloc] init];
     favRestJsonArray = [FindLocationRest FilePath:BASEURL FIND_REST parameterOne:@"F" parameterTwo:number parameterThree:FIND_MESSAGE];
     
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
+        [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",name]];
         
-        [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",[favouritesArray valueForKey:@"username"][button.tag]]];
-        
-        NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",[favouritesArray valueForKey:@"username"][button.tag]];
+        NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",name];
         
         NSDictionary *data = @{
                                @"alert": msg,
-                               @"name": [favouritesArray valueForKey:@"username"][button.tag],
+                               @"name": name,
                                @"number": number,
                                @"sound":@"cheering.caf"
                                };
@@ -232,61 +289,61 @@ static NSMutableArray* favouritesArray;
         NSString *friendsNumber = @"X_";
         friendsNumber = [friendsNumber stringByAppendingString:[number substringFromIndex:1]];
         [push setChannel:friendsNumber];   // channels column in PARSE!
-        NSString *FindNotificationMessage = [[favouritesArray valueForKey:@"username"][button.tag] stringByAppendingString:@" is requesting your Location."];
+        NSString *FindNotificationMessage = [name stringByAppendingString:@" is requesting your Location."];
         [push setMessage:FindNotificationMessage];
         [push setData:data];
         [push sendPushInBackground];
     }
 }
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-    NSString *searchString = self.searchController.searchBar.text;
-    
-    [self updateFilteredContentForAirlineName:searchString];
-    
-    // If searchResultsController
-    if (self.searchController.searchResultsController) {
-        
-        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
-        
-        // Present SearchResultsTableViewController as the topViewController
-        SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
-        
-        // Update searchResults
-        vc.searchResults = self.searchResults;
-        vc.searchTableTitle = @"Favourites";
-        vc.classType = @"favourites";
-        // And reload the tableView with the new data
-        [vc.tableView reloadData];
-    }
-}
-
-// Update self.searchResults based on searchString, which is the argument in passed to this method
-- (void)updateFilteredContentForAirlineName:(NSString *)airlineName
-{
-    if (airlineName == nil)
-    {
-        // If empty the search results are the same as the original data
-        self.searchResults = [favouritesArray mutableCopy];
-    }
-    else
-    {
-        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
-        int dictionaryIndex = 0;
-        // Else if the airline's name is
-        for (NSDictionary *airline in favouritesArray)
-        {
-            dictionaryIndex ++;
-            if (([[airline[@"username"] capitalizedString] containsString:airlineName]) || ([[airline[@"username"] uppercaseString] containsString:airlineName]) ||  ([[airline[@"username"] lowercaseString] containsString:airlineName]))
-            {
-                [airline setValue:[imagesArray objectAtIndex:dictionaryIndex-1] forKey:@"imageInNSData"];
-                [newSearchResult addObject:airline];
-            }
-            self.searchResults = newSearchResult;
-        }
-    }
-}
+//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+//{
+//    NSString *searchString = self.searchController.searchBar.text;
+//    
+//    [self updateFilteredContentForAirlineName:searchString];
+//    
+//    // If searchResultsController
+//    if (self.searchController.searchResultsController) {
+//        
+//        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+//        
+//        // Present SearchResultsTableViewController as the topViewController
+//        SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+//        
+//        // Update searchResults
+//        vc.searchResults = self.searchResults;
+//        vc.searchTableTitle = @"Favourites";
+//        vc.classType = @"favourites";
+//        // And reload the tableView with the new data
+//        [vc.tableView reloadData];
+//    }
+//}
+//
+//// Update self.searchResults based on searchString, which is the argument in passed to this method
+//- (void)updateFilteredContentForAirlineName:(NSString *)airlineName
+//{
+//    if (airlineName == nil)
+//    {
+//        // If empty the search results are the same as the original data
+//        self.searchResults = [favouritesArray mutableCopy];
+//    }
+//    else
+//    {
+//        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
+//        int dictionaryIndex = 0;
+//        // Else if the airline's name is
+//        for (NSDictionary *airline in favouritesArray)
+//        {
+//            dictionaryIndex ++;
+//            if (([[airline[@"username"] capitalizedString] containsString:airlineName]) || ([[airline[@"username"] uppercaseString] containsString:airlineName]) ||  ([[airline[@"username"] lowercaseString] containsString:airlineName]))
+//            {
+//                [airline setValue:[imagesArray objectAtIndex:dictionaryIndex-1] forKey:@"imageInNSData"];
+//                [newSearchResult addObject:airline];
+//            }
+//            self.searchResults = newSearchResult;
+//        }
+//    }
+//}
 
 - (void)refreshTable
 {
@@ -355,7 +412,7 @@ static NSMutableArray* favouritesArray;
 
 - (void)didDismissSearchController:(UISearchController *)searchController
 {
-    NSLog(@"search returned");
+    [self.favoritesTable reloadData];
 }
 
 -(void)showAlertBoxWithTitle:(NSString*)title message:(NSString*)message

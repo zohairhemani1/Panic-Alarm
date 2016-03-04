@@ -40,7 +40,8 @@
     NSString *response = [[NSString alloc] initWithBytes:returnData.bytes length:returnData.length encoding:NSUTF8StringEncoding];
     
     NSMutableArray *jsonArray;
-    if (returnData != nil) {
+    if (returnData != nil)
+    {
         jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
     }
    

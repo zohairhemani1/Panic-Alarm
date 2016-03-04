@@ -74,7 +74,7 @@ bool condition=NO;
     [progress bringSubviewToFront:self.view];
     // indicator view end
     
-    [progress startAnimating];
+    //[progress startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
         
@@ -82,7 +82,7 @@ bool condition=NO;
         dispatch_async(dispatch_get_main_queue(), ^{
             
         });
-        [progress stopAnimating];
+        //[progress stopAnimating];
     });
 
     
@@ -115,7 +115,11 @@ bool condition=NO;
             {
                 NSLog(@"Fav Item: %@", list[i]);
                 friendsNumber = @"X_";
-                friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"][i]substringFromIndex:1]];
+                if(![[list valueForKey:@"friendsnumber"][i] isEqualToString:victimNumber])
+                    friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"][i]substringFromIndex:1]];
+                else if (![[list valueForKey:@"mynumber"][i] isEqualToString:victimNumber])
+                    friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"mynumber"][i]substringFromIndex:1]];
+
                 NSLog(@"NO: %@", friendsNumber);
                 NSString *msg = [[victimName capitalizedString] stringByAppendingString:@" is in danger. Please track his location."];
                 

@@ -20,7 +20,5 @@
 @property (weak, nonatomic) IBOutlet UITableView *myTable;
 
 @property (nonatomic, strong) UISearchController *searchController;
-@property (nonatomic, strong) NSMutableArray *searchResults;
-
 @end
 
