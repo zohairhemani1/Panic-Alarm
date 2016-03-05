@@ -20,14 +20,14 @@
 
 @end
 
-@implementation Victims{
-
+@implementation Victims
+{
     UIActivityIndicatorView *image_loading;
     NSString *nameToAdd;
     UIImage *img;
     NSString *profilePic ;
     NSURL *imagePathUrl;
-    NSData *data ;
+    NSData *data;
     NSString *hourWithMin;
     NSString *hour;
     int messageDay;
@@ -125,7 +125,6 @@ static NSArray *PanicToArray;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
@@ -133,11 +132,25 @@ static NSArray *PanicToArray;
 {
     if(self.segments.selectedSegmentIndex == 0)
     {
-        return PanicFromArray.count;
+        if (PanicFromArray.count == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return PanicFromArray.count;
+        }
     }
     else
     {
-        return PanicToArray.count;
+        if (PanicToArray.count == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            return PanicToArray.count;
+        }
     }
 }
 
@@ -186,23 +199,27 @@ static NSArray *PanicToArray;
     
     if(self.segments.selectedSegmentIndex == 0)
     {
+        cell = [[UITableViewCell alloc] init];
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:panicFromIdentifier];
+        }
+        
+        
                                                     ////////     Panic From table view      //////////
+        
+        
         if(PanicFromArray.count == 0)
         {
-            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
-            noData.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
-            noData.text = @"No Data to show";
+            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 150, 15)];
+            noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
+            noData.text = @"No Data to Show";
             [self.view addSubview:noData];
             [cell addSubview:noData];
         }
         else{
-            if (cell == nil)
-            {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:panicFromIdentifier];
-            }
-            
-            
+
             (self.segments.subviews)[0].backgroundColor = [UIColor whiteColor];
             
             profilePic = [PanicFromArray valueForKey:@"pic"][indexPath.row];
@@ -256,20 +273,20 @@ static NSArray *PanicToArray;
     {
         (self.segments.subviews)[1].backgroundColor = [UIColor whiteColor];
         
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:panicToIdentifier];
+        }
         if(PanicToArray.count == 0)
         {
-            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(60, 3, 130, 15)];
-            noData.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.f];
-            noData.text = @"No Data to show";
+            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 150, 15)];
+            noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
+            noData.text = @"No Data to Show";
             [self.view addSubview:noData];
+            [cell addSubview:noData];
         }
         else
         {
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:panicToIdentifier];
-            }
-            
             name.text = [[PanicToArray valueForKey:@"username"][indexPath.row] uppercaseString];
             profilePic = [PanicToArray valueForKey:@"pic"][indexPath.row];
             message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];

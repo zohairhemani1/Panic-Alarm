@@ -17,7 +17,8 @@ BOOL alertTime= YES;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -120,8 +121,9 @@ BOOL alertTime= YES;
 //}
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-    alertTime = YES;
+    if (buttonIndex == 0)
+    {
+        alertTime = YES;
         NSLog(@"pressed");
     }
 }
