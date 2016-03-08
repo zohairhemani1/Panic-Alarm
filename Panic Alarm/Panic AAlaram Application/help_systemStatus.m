@@ -27,6 +27,13 @@
     checkInternetObj = [[checkInternet alloc] init];
     [checkInternetObj viewWillAppear:YES];
     
+    progress = [checkInternetObj indicatorprogress:progress];
+    [self.view addSubview:progress];
+    [progress bringSubviewToFront:self.view];
+
+    [progress startAnimating];
+    self.webView.scrollView.bounces = false;
+    self.webView.delegate = self;
     if([checkInternetObj internetstatus] == true)
     {
         [self.webView loadRequest:[self getURLRequest]];
@@ -47,6 +54,10 @@
     return requestObj;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [progress stopAnimating];
+}
 
 /*
 #pragma mark - Navigation

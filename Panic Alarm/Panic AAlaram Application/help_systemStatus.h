@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface help_systemStatus : UIViewController
+@interface help_systemStatus : UIViewController<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property (strong, nonatomic) NSString *pageName;
