@@ -212,9 +212,16 @@ static NSArray *PanicToArray;
         
         if(PanicFromArray.count == 0)
         {
-            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 150, 15)];
+            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 180, 15)];
             noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
-            noData.text = @"No Data to Show";
+            if(PanicFromArray == nil)
+            {
+                noData.text = @"Loading...";
+            }
+            else
+            {
+                noData.text = @"No Data to Show";
+            }
             [self.view addSubview:noData];
             [cell addSubview:noData];
         }
@@ -279,9 +286,16 @@ static NSArray *PanicToArray;
         }
         if(PanicToArray.count == 0)
         {
-            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 150, 15)];
+            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 180, 15)];
             noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
-            noData.text = @"No Data to Show";
+            if(PanicToArray == nil)
+            {
+                noData.text = @"Loading...";
+            }
+            else
+            {
+                noData.text = @"No Data to Show";
+            }
             [self.view addSubview:noData];
             [cell addSubview:noData];
         }
