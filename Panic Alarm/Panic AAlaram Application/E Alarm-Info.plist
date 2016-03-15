@@ -48,6 +48,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSContactsUsageDescription</key>
+	<string>Your contacts will be used to find out whom you can panic with.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>I need Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -55,11 +57,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>comic-sans-ms.ttf</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

@@ -78,7 +78,6 @@
 		DC9BA0541926639600FEBB5C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9BA0531926639600FEBB5C /* MobileCoreServices.framework */; };
 		DC9BA056192663A100FEBB5C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9BA055192663A100FEBB5C /* QuartzCore.framework */; };
 		DC9BA058192663AA00FEBB5C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9BA057192663AA00FEBB5C /* Security.framework */; };
-		DC9BA05A192663B000FEBB5C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9BA059192663B000FEBB5C /* StoreKit.framework */; };
 		DC9BA05C192663BB00FEBB5C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9BA05B192663BB00FEBB5C /* SystemConfiguration.framework */; };
 		DCC099911928AD1B005694B0 /* FirstTab.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC099901928AD1B005694B0 /* FirstTab.m */; };
 		DCCD76B219169ABE009C6A37 /* panic_button.png in Resources */ = {isa = PBXBuildFile; fileRef = DCCD76B119169ABE009C6A37 /* panic_button.png */; };
@@ -203,7 +202,6 @@
 		DC9BA0531926639600FEBB5C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		DC9BA055192663A100FEBB5C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DC9BA057192663AA00FEBB5C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		DC9BA059192663B000FEBB5C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DC9BA05B192663BB00FEBB5C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DC9D521A19FB9363002779C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		DCC0998F1928AD1B005694B0 /* FirstTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTab.h; sourceTree = "<group>"; };
@@ -226,7 +224,6 @@
 				19196BB719780F4D0070C9D4 /* MediaPlayer.framework in Frameworks */,
 				DC9BA05C192663BB00FEBB5C /* SystemConfiguration.framework in Frameworks */,
 				19E941A91BD679C700705B5C /* Fabric.framework in Frameworks */,
-				DC9BA05A192663B000FEBB5C /* StoreKit.framework in Frameworks */,
 				DC9BA058192663AA00FEBB5C /* Security.framework in Frameworks */,
 				DC9BA056192663A100FEBB5C /* QuartzCore.framework in Frameworks */,
 				DC9BA0541926639600FEBB5C /* MobileCoreServices.framework in Frameworks */,
@@ -352,7 +349,6 @@
 				19196BB81978110F0070C9D4 /* AVFoundation.framework */,
 				19196BB619780F4D0070C9D4 /* MediaPlayer.framework */,
 				DC9BA05B192663BB00FEBB5C /* SystemConfiguration.framework */,
-				DC9BA059192663B000FEBB5C /* StoreKit.framework */,
 				DC9BA057192663AA00FEBB5C /* Security.framework */,
 				DC9BA055192663A100FEBB5C /* QuartzCore.framework */,
 				DC9BA0531926639600FEBB5C /* MobileCoreServices.framework */,
@@ -485,7 +481,10 @@
 						DevelopmentTeam = 3ZL3EV2653;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
 							};
 							com.apple.Maps.iOS = {
 								enabled = 0;
