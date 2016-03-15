@@ -259,7 +259,7 @@ static NSArray *PanicToArray;
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *newDate = [dateFormat dateFromString:newtimeStamp];
             
-            NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
+            //NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
             [cell addSubview:image_loading];
             
             timestamp.text = [self stringDatePartOf:newDate];
@@ -337,7 +337,7 @@ static NSArray *PanicToArray;
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *newDate = [dateFormat dateFromString:newtimeStamp];
 
-            NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
+            //NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
             [cell addSubview:image_loading];
             
             timestamp.text = [self stringDatePartOf:newDate];
