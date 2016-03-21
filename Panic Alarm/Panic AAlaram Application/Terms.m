@@ -48,7 +48,14 @@ bool loadCondition = NO;
     
     if (checkboxSelected == 1)
     {
-        [self performSegueWithIdentifier:@"userLogin" sender:self];
+        if([[[NSUserDefaults standardUserDefaults]valueForKey:@"contactsStatus"]isEqualToString:@"Fetched"])
+        {
+            [self performSegueWithIdentifier:@"userLogin" sender:self];
+        }
+        else
+        {
+            [self contactsPermissionDenied];
+        }
 	}
     else
     {
@@ -107,6 +114,7 @@ bool loadCondition = NO;
         ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
             if (granted)
             {
+                [[NSUserDefaults standardUserDefaults]setValue:@"Fetched" forKey:@"contactsStatus"];
                 // First time access has been granted, add the contact
                 
                 
@@ -121,7 +129,7 @@ bool loadCondition = NO;
     {
         // The user has previously given access, add the contact
         
-        
+        [[NSUserDefaults standardUserDefaults]setValue:@"Fetched" forKey:@"contactsStatus"];
         
         CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
         CFIndex numberOfPeople = ABAddressBookGetPersonCount(addressBook);
@@ -213,6 +221,48 @@ bool loadCondition = NO;
                          }];
     [alert addAction:ok];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)contactsPermissionDenied
+{
+    NSLog(@"Denied contacts access");
+    
+    NSString *alertText;
+    NSString *alertButton;
+    
+    BOOL canOpenSettings = (&UIApplicationOpenSettingsURLString != NULL);
+    if (canOpenSettings)
+    {
+        alertText = @"It looks like your privacy settings are preventing us from accessing your contacts list. You can fix this by doing the following:\n\n1. Click the Settings button below.\n\n2. Find and open E~Alarm in the list.\n\n3. Turn the Contacts switch on.\n\n4. Open this app and try again.";
+        
+        alertButton = @"Settings";
+    }
+    else
+    {
+        alertText = @"It looks like your privacy settings are preventing us from accessing your contacts list. You can fix this by doing the following:\n\n1. Go to Settings.\n\n2. Find and open E~Alarm in the list.\n\n3. Turn the Contacts switch on.\n\n4. Open this app and try again.";
+        
+        alertButton = @"OK";
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Error"
+                          message:alertText
+                          delegate:self
+                          cancelButtonTitle:alertButton
+                          otherButtonTitles:nil];
+    alert.tag = 121;
+    [alert show];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 121)
+    {
+        BOOL canOpenSettings = (&UIApplicationOpenSettingsURLString != NULL);
+        if (canOpenSettings)
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 
 @end
