@@ -166,7 +166,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, tableView.frame.size.width, 18)];
     label.font = [UIFont boldSystemFontOfSize:15];
-    label.text = @"Friends Who Use Panic Alarm";
+    label.text = @"Friends Who Use E~Alarm";
     label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     

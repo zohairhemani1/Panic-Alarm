@@ -10,8 +10,10 @@
 #import "FirstViewController.h"
 #import "SecondViewController.h"
 #import "checkInternet.h"
+#import <DigitsKit/DigitsKit.h>
 
-@interface Terms (){
+@interface Terms ()
+{
     checkInternet *c;
 }
 
@@ -37,6 +39,8 @@ bool loadCondition = NO;
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone.png"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
+    
+    [[Digits sharedInstance]logOut];
     
 }
 
@@ -107,6 +111,7 @@ bool loadCondition = NO;
                 
                 
             } else {
+                
                 // User denied access
                 // Display an alert telling user the contact could not be added
             }

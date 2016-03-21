@@ -10,6 +10,7 @@
 #import "PanicFrom.h"
 #import "checkInternet.h"
 #import "help_systemStatus.h"
+#import <DigitsKit/DigitsKit.h>
 
 @interface Settings (){
     checkInternet *c;
@@ -50,7 +51,7 @@ NSMutableArray *profile;
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     
     about = [[NSMutableArray alloc] initWithObjects:@"about",@"tell",@"help",nil];
-    profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"system",nil];
+    profile = [[NSMutableArray alloc] initWithObjects:@"profile",@"system",@"logout",nil];
     
 }
 
@@ -100,19 +101,24 @@ NSMutableArray *profile;
             self.activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[@"I would like to add you on E~Alarm app. You can download the app from here: https://itunes.apple.com/us/app/e-alarm/id1089147886?ls=1&mt=8"] applicationActivities:nil];
             [self presentViewController:self.activityViewController animated:YES completion:nil];
         }
-        else if([CellIdentifier isEqualToString:@"help"] || [CellIdentifier isEqualToString:@"about"])
-        {
-            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
-        }
+//        else if([CellIdentifier isEqualToString:@"help"])
+//        {
+//            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
+//        }
     }
     
     else if(indexPath.section == 1)
     {
         NSString *CellIdentifier = profile[indexPath.row];
         
-        if([CellIdentifier isEqualToString:@"system"])
+//        if([CellIdentifier isEqualToString:@"system"])
+//        {
+//            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
+//        }
+        
+        if([CellIdentifier isEqualToString:@"logout"])
         {
-            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
+            [self showAlertBox:@"" message:@"Are you sure you want to logout?"];
         }
     }
 }
@@ -148,30 +154,64 @@ NSMutableArray *profile;
     // Dispose of any resources that can be recreated.
 }
 
-- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
-{
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
+//{
+//    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//
+//    if ([segue.identifier isEqualToString:@"help_systemStatus_segue"])
+//    {
+//        help_systemStatus *h = segue.destinationViewController;
+//        if(indexPath.section == 0)
+//        {
+//            NSString *CellIdentifier = about[indexPath.row];
+//            
+//            if([CellIdentifier isEqualToString:@"help"])
+//            {
+//                h.pageName = @"FAQ.php";
+//            }
+//        }
+//        else
+//        {
+//            h.pageName = @"system_status.php";
+//        }
+//    }
+//}
 
-    if ([segue.identifier isEqualToString:@"help_systemStatus_segue"])
-    {
-        help_systemStatus *h = segue.destinationViewController;
-        if(indexPath.section == 0)
-        {
-            NSString *CellIdentifier = about[indexPath.row];
-            if([CellIdentifier isEqualToString:@"about"])
-            {
-                h.pageName = @"about.php";
-            }
-            else if([CellIdentifier isEqualToString:@"help"])
-            {
-                h.pageName = @"FAQ.php";
-            }
-        }
-        else
-        {
-            h.pageName = @"system_status.php";
-        }
-    }
+-(void)showAlertBox:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Yes"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                             [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"loggedIn"];
+                             [[Digits sharedInstance]logOut];
+                             
+                             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                             UIViewController *secondView = [storyboard instantiateViewControllerWithIdentifier:@"termScreen"];
+                             
+                             [self presentViewController:secondView animated:YES completion:nil];
+                             
+                         }];
+    [alert addAction:ok];
+    
+    UIAlertAction* no = [UIAlertAction
+                         actionWithTitle:@"No"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    [alert addAction:no];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

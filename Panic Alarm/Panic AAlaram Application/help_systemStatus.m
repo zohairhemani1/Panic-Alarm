@@ -46,7 +46,7 @@
 
 -(NSURLRequest *)getURLRequest
 {
-    NSString *fullURL = [BASEURL stringByAppendingString:self.pageName];
+    NSString *fullURL = @"http://avialdo.com/";
     NSLog(@"url: %@", fullURL);
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];

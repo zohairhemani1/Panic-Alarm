@@ -14,7 +14,7 @@
 #import <DigitsKit/DigitsKit.h>
 
 @implementation AppDelegate
-
+BOOL contactsFetched;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // setting panicMessage in shared Preferences

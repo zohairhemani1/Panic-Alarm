@@ -49,11 +49,11 @@
 		<true/>
 	</dict>
 	<key>NSContactsUsageDescription</key>
-	<string>Your contacts will be used to find out whom you can panic with.</string>
+	<string>Your contacts will be uploaded on our server to find out whom you can panic with.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>I need Location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Panic Alarm app wants to access your Location</string>
+	<string>E~Alarm app wants to access your Location</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>comic-sans-ms.ttf</string>
