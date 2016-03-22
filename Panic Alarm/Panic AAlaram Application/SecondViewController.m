@@ -20,7 +20,7 @@
     UIButton *button;
     UIActivityIndicatorView *progress;
     NSMutableArray *resultArray;
-    NSArray *searchResults;
+    NSMutableArray *searchResults;
     NSMutableArray *imagesArray;
 }
 
@@ -283,16 +283,23 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         {
             if([[DistinctFriendsWhoUseApp valueForKey:@"password"][i] isEqualToString:[searchResults valueForKey:@"password"][[sender tag]]])
             {
+                [searchResults removeObjectAtIndex:[sender tag]];
                 [DistinctFriendsWhoUseApp removeObjectAtIndex:i];
+                [self.myTable reloadData];
             }
         }
     }
     else
     {
-        [DistinctFriendsWhoUseApp removeObjectAtIndex:[sender tag]];
-        
         numberToAccept = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
         nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
+        
+        if ([DistinctFriendsWhoUseApp isKindOfClass: [NSMutableArray class]])
+        {
+            NSLog(@"hello");
+        }
+        [DistinctFriendsWhoUseApp removeObjectAtIndex:button.tag];
+        [self.myTable reloadData];
     }
 
     
@@ -436,7 +443,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         NSLog(@"An error happened = %@", error);
     }
     
-    DistinctFriendsWhoUseApp = [SecondViewController.friendWhoUseAppStaticFunction copy];
+    DistinctFriendsWhoUseApp = [SecondViewController.friendWhoUseAppStaticFunction mutableCopy];
     
     NSInteger index = DistinctFriendsWhoUseApp.count - 1;
     
