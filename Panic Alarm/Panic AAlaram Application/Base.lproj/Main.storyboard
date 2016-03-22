@@ -525,7 +525,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kuv-8T-w12" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="2606"/>
+            <point key="canvasLocation" x="1226" y="2607"/>
         </scene>
         <!--Avialdo-->
         <scene sceneID="jkB-Nr-G5m">
@@ -553,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YtJ-sa-vxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1746" y="2243"/>
+            <point key="canvasLocation" x="1779" y="2243"/>
         </scene>
         <!--About-->
         <scene sceneID="EXF-Oa-veN">
@@ -585,16 +585,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rad-Vq-sCp">
-                                <rect key="frame" x="16" y="201" width="288" height="230"/>
+                                <rect key="frame" x="16" y="188" width="288" height="256"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="230" id="bDx-vU-fIg"/>
+                                    <constraint firstAttribute="height" constant="256" id="bDx-vU-fIg"/>
                                     <constraint firstAttribute="width" constant="288" id="lMX-qL-dif"/>
                                 </constraints>
-                                <mutableString key="text">What questions do you ask a developer/designer? Timeliness? Amount of bugs? Unique features? A “wow” worthy design? We give them all. Customized and right-sized. That’s right, we do not just develop and design; we make and craft. 
+                                <string key="text">What happens when you are in problem and you want some help from your close freinds and family members. You call them, explain your location and ask for help.
 
-Our services cover a wide array of IT-related activities, which are the center of businesses nowadays. Apple’s developers are pushing the boundaries, Lollipop has got the Google fans excited and the website offers a plethora of services. With so much on offer, we invite you to look through as there is nothing but quality on show and on promise from Avialdo.
+E~Alarm helps in sending your current location to all close friends with a custom message on just one click.
 
-</mutableString>
+Your friends can track your location on map within the app. It also keeps records of all panic you have send and received.
+
+Moreover, you can also ask anyone for their current location just to know where exactly they are.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -620,23 +622,23 @@ Our services cover a wide array of IT-related activities, which are the center o
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6gN-xo-IG5" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="19" id="4PC-Fj-bwf"/>
+                            <constraint firstItem="6gN-xo-IG5" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="6" id="4PC-Fj-bwf"/>
                             <constraint firstItem="MZz-WG-yYY" firstAttribute="top" secondItem="E7o-5k-CwS" secondAttribute="bottom" constant="11" id="Fgh-82-RaT"/>
                             <constraint firstItem="MZz-WG-yYY" firstAttribute="centerX" secondItem="g7o-HE-HF1" secondAttribute="centerX" id="PSy-OL-8NM"/>
                             <constraint firstItem="6gN-xo-IG5" firstAttribute="leading" secondItem="1ro-gb-w2f" secondAttribute="trailing" constant="-56" id="Pqw-UE-Nlf"/>
                             <constraint firstItem="dGe-eb-afT" firstAttribute="leading" secondItem="g7o-HE-HF1" secondAttribute="leading" constant="195" id="U9g-Hu-gWJ"/>
-                            <constraint firstItem="dGe-eb-afT" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="39" id="bQb-jU-M7J"/>
+                            <constraint firstItem="dGe-eb-afT" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="26" id="bQb-jU-M7J"/>
                             <constraint firstItem="1ro-gb-w2f" firstAttribute="centerX" secondItem="g7o-HE-HF1" secondAttribute="centerX" id="fWF-VC-juo"/>
                             <constraint firstItem="rad-Vq-sCp" firstAttribute="centerX" secondItem="g7o-HE-HF1" secondAttribute="centerX" id="gd9-Hg-cgE"/>
-                            <constraint firstItem="1ro-gb-w2f" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="19" id="hpc-tX-aGh"/>
-                            <constraint firstItem="rad-Vq-sCp" firstAttribute="top" secondItem="MZz-WG-yYY" secondAttribute="bottom" constant="19" id="uAt-vr-IdT"/>
+                            <constraint firstItem="1ro-gb-w2f" firstAttribute="top" secondItem="rad-Vq-sCp" secondAttribute="bottom" constant="6" id="hpc-tX-aGh"/>
+                            <constraint firstItem="rad-Vq-sCp" firstAttribute="top" secondItem="MZz-WG-yYY" secondAttribute="bottom" constant="6" id="uAt-vr-IdT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="q54-UW-api"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmR-4O-p3K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="1909"/>
+            <point key="canvasLocation" x="1226" y="1909"/>
         </scene>
         <!--Help-->
         <scene sceneID="A9c-0T-o1V">
@@ -673,7 +675,7 @@ Our services cover a wide array of IT-related activities, which are the center o
                                     <constraint firstAttribute="height" constant="236" id="NyB-WJ-9wI"/>
                                     <constraint firstAttribute="width" constant="288" id="bxs-4Y-qVS"/>
                                 </constraints>
-                                <mutableString key="text">Qs: What happens when i press the E Button ? 
+                                <string key="text">Qs: What happens when i press the E Button ? 
 Ans: A panic notification along with the current location would be sent to all of your friends so they can track your location and help you.
 
 Qs: I am unable to send panic signals when I am not connected to the internet. 
@@ -683,7 +685,7 @@ Qs: How would i know when someone has received my location?
 Ans: You will receive a notification as soon as some one has tracked your location using the application on the map.
 
 
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -807,7 +809,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1H-6e-W2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="3261"/>
+            <point key="canvasLocation" x="1226" y="3325"/>
         </scene>
         <!--Victims-->
         <scene sceneID="q7h-yA-V5q">
@@ -1175,7 +1177,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-196" y="-176"/>
+            <point key="canvasLocation" x="-196" y="-181"/>
         </scene>
         <!--Map-->
         <scene sceneID="9ge-Tl-PY5">
@@ -1378,7 +1380,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="lCr-SQ-VgV"/>
+        <segue reference="h5f-y3-tAl"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
 </document>
