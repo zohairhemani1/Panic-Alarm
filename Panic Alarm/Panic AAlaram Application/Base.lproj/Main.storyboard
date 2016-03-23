@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="TTQ-7Q-FA1">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -11,7 +10,7 @@
         <!--First-->
         <scene sceneID="W3I-pn-N6e">
             <objects>
-                <viewController storyboardIdentifier="login" title="First" id="CZ4-MO-1fc" customClass="FirstTab" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" title="First" id="CZ4-MO-1fc" customClass="Home" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rar-As-Tn1"/>
                         <viewControllerLayoutGuide type="bottom" id="3Bp-cH-Zcr"/>
@@ -354,7 +353,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POJ-1K-vAq">
                                             <rect key="frame" x="45" y="11" width="60" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -530,7 +529,7 @@
         <!--Avialdo-->
         <scene sceneID="jkB-Nr-G5m">
             <objects>
-                <viewController id="Gad-uK-vNa" customClass="help_systemStatus" sceneMemberID="viewController">
+                <viewController id="Gad-uK-vNa" customClass="websiteWebview" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PhL-bF-dCp"/>
                         <viewControllerLayoutGuide type="bottom" id="JGu-s5-Abu"/>
@@ -814,7 +813,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
         <!--Victims-->
         <scene sceneID="q7h-yA-V5q">
             <objects>
-                <tableViewController id="gQ1-yY-bzn" customClass="Victims" sceneMemberID="viewController">
+                <tableViewController id="gQ1-yY-bzn" customClass="Log" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="PuJ-UN-jLL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -919,7 +918,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
         <!--Friends using this app-->
         <scene sceneID="ot8-2e-RuS">
             <objects>
-                <viewController storyboardIdentifier="contacts" title="Friends using this app" id="QUy-BD-bpt" customClass="SecondViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="contacts" title="Friends using this app" id="QUy-BD-bpt" customClass="Contacts" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NRO-a0-oXa"/>
                         <viewControllerLayoutGuide type="bottom" id="Nxw-Bf-zBE"/>
@@ -1088,10 +1087,10 @@ Ans: You will receive a notification as soon as some one has tracked your locati
             </objects>
             <point key="canvasLocation" x="-1708" y="576"/>
         </scene>
-        <!--First View Controller-->
+        <!--Login-->
         <scene sceneID="KNA-UE-p3Z">
             <objects>
-                <viewController storyboardIdentifier="userLogin" id="coi-0C-pgj" customClass="FirstViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="userLogin" id="coi-0C-pgj" customClass="Login" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VVR-DZ-uje"/>
                         <viewControllerLayoutGuide type="bottom" id="HM0-Va-cBe"/>

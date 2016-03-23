@@ -6,11 +6,11 @@
 //  Copyright © 2015 Zohair Hemani - Stanford Assignment. All rights reserved.
 //
 
-#import "help_systemStatus.h"
+#import "websiteWebview.h"
 #import "checkInternet.h"
 #import "Constants.h"
 
-@interface help_systemStatus ()
+@interface websiteWebview ()
 {
     checkInternet *checkInternetObj;
     UIActivityIndicatorView *progress;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation help_systemStatus
+@implementation websiteWebview
 
 - (void)viewDidLoad {
     [super viewDidLoad];

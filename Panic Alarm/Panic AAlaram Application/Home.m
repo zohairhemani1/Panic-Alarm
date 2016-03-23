@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Zohair Hemani - Stanford Assignment. All rights reserved.
 //
 
-#import "FirstTab.h"
+#import "Home.h"
 #import "WebService.h"
-#import "SecondViewController.h"
+#import "Contacts.h"
 #import "checkInternet.h"
 #import  "Favorites.h"
 #import <Parse/Parse.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface FirstTab (){
+@interface Home (){
     checkInternet *c;
     NSString *victimName;
     NSString *victimNumber;
@@ -27,7 +27,7 @@
 @end
 
 UIActivityIndicatorView *progress;
-@implementation FirstTab
+@implementation Home
 
 bool first_time_on_database=YES;
 bool condition=NO;
@@ -135,6 +135,7 @@ bool condition=NO;
                 [push setData:data];
                 [push sendPushInBackground];
             }
+            
             [self PanicVictimRest];
             [progress stopAnimating];
         }
@@ -281,9 +282,9 @@ bool condition=NO;
         NSString *profilePic;
         NSLog(@" friendsToAcceptItem: %@", item);
         
-        for (int i=0; i < (SecondViewController.finalArrayStaticFunction).count; i++)
+        for (int i=0; i < (Contacts.finalArrayStaticFunction).count; i++)
         {
-            phoneNumber = [SecondViewController.finalArrayStaticFunction[i] valueForKeyPath:@"phoneNumber"];
+            phoneNumber = [Contacts.finalArrayStaticFunction[i] valueForKeyPath:@"phoneNumber"];
             NSString *friendsNumberz  = [item valueForKey:@"friendsnumber"];
             profilePic  = [item valueForKey:@"pic"];
             NSString * storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
@@ -291,16 +292,16 @@ bool condition=NO;
             if([[item valueForKey:@"mynumber"] isEqualToString:phoneNumber] && !([[item valueForKey:@"mynumber"] isEqualToString:storedNumber]))
                 
             {
-                fullName = [SecondViewController.finalArrayStaticFunction[i] valueForKey:@"fullName"];
-                phoneNumberToAdd = [SecondViewController.finalArrayStaticFunction[i] valueForKey:@"phoneNumber"];
+                fullName = [Contacts.finalArrayStaticFunction[i] valueForKey:@"fullName"];
+                phoneNumberToAdd = [Contacts.finalArrayStaticFunction[i] valueForKey:@"phoneNumber"];
                 NSLog(@"Accept Contact : %@ %@",fullName,phoneNumber);
                 activate = [item valueForKey:@"activate"];
                 
             }
             else if ([[item valueForKey:@"mynumber"] isEqualToString:storedNumber] && [friendsNumberz isEqualToString:phoneNumber])
             {
-                fullName = [SecondViewController.finalArrayStaticFunction[i] valueForKey:@"fullName"];
-                phoneNumberToAdd = [SecondViewController.finalArrayStaticFunction[i] valueForKey:@"phoneNumber"];
+                fullName = [Contacts.finalArrayStaticFunction[i] valueForKey:@"fullName"];
+                phoneNumberToAdd = [Contacts.finalArrayStaticFunction[i] valueForKey:@"phoneNumber"];
                 NSLog(@"Pending Contact: %@ %@",fullName,phoneNumber);
                 activate = @"00";
             }
@@ -312,7 +313,7 @@ bool condition=NO;
             [item setValue:phoneNumberToAdd forKey:@"phoneNumber"];
             [item setValue:activate forKeyPath:@"activate"];
             [item setValue:profilePic forKey:@"0"];
-            [SecondViewController.friendWhoUseAppStaticFunction addObject:item];
+            [Contacts.friendWhoUseAppStaticFunction addObject:item];
         }
         
     } // ending for loop

@@ -1,12 +1,12 @@
 //
-//  Victims.m
+//  Log.m
 //  Panic Alarm
 //
 //  Created by Zainu Corporation on 18/07/2014.
 //  Copyright (c) 2014 Zohair Hemani - Stanford Assignment. All rights reserved.
 //
 
-#import "Victims.h"
+#import "Log.h"
 #import "PanicFrom.h"
 #import "WebService.h"
 #import "checkInternet.h"
@@ -16,11 +16,11 @@
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
-@interface Victims ()
+@interface Log ()
 
 @end
 
-@implementation Victims
+@implementation Log
 {
     UIActivityIndicatorView *image_loading;
     NSString *nameToAdd;
@@ -516,7 +516,7 @@ static NSArray *PanicToArray;
         NSString *type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
         panic.panicPersonId = indexPath.row;
         
-        if(received == 0 && [type isEqualToString:@"P"])
+        if([type isEqualToString:@"P"])
         {
             panic.canGoToMap = true;
         }

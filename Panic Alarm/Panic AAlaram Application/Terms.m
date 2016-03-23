@@ -7,8 +7,8 @@
 //
 
 #import "Terms.h"
-#import "FirstViewController.h"
-#import "SecondViewController.h"
+#import "Login.h"
+#import "Contacts.h"
 #import "checkInternet.h"
 #import <DigitsKit/DigitsKit.h>
 
@@ -191,7 +191,7 @@ bool loadCondition = NO;
                 [dict setValue:[NSString stringWithFormat:@"%i",i] forKey:@"id"];
                 [dict setValue:result forKey:@"phoneNumber"];
                 [dict setValue:fullName forKeyPath:@"fullName"];
-                [SecondViewController.finalArrayStaticFunction addObject:dict];
+                [Contacts.finalArrayStaticFunction addObject:dict];
             }
         }
     }

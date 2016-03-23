@@ -9,7 +9,7 @@
 #import "PanicFrom.h"
 #import "checkInternet.h"
 #import "Map.h"
-#import "Victims.h"
+#import "Log.h"
 #import "WebService.h"
 #import "Constants.h"
 
@@ -65,10 +65,10 @@ checkInternet *c;
     (self.navigationController.navigationBar).titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //NSLog(@"the panic person id is: %d",self.panicPersonId);
     
-    panicPersonName.text = [[[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId] uppercaseString];
-    profilePic = [[Victims getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
-    self.panicMessage.text = [[Victims getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
-    self.panicNumber.text = [[Victims getPanicFromArray] valueForKey:@"mynumber"][self.panicPersonId];
+    panicPersonName.text = [[[Log getPanicFromArray] valueForKey:@"username"][self.panicPersonId] uppercaseString];
+    profilePic = [[Log getPanicFromArray] valueForKey:@"pic"][self.panicPersonId];
+    self.panicMessage.text = [[Log getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
+    self.panicNumber.text = [[Log getPanicFromArray] valueForKey:@"mynumber"][self.panicPersonId];
     
     imagePathString = @"http://steve-jones.co/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
@@ -82,8 +82,9 @@ checkInternet *c;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
+
 - (IBAction)findLocation:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] !=nil)
@@ -94,7 +95,7 @@ checkInternet *c;
         
         [self performSegueWithIdentifier:@"goToMap" sender:self];
         WebService *locationReceived = [[WebService alloc] init];
-        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:[[Victims getPanicFromArray] valueForKey:@"panicvictim_id"][self.panicPersonId] parameterTwo:[[Victims getPanicFromArray] valueForKey:@"friendsnumber"][self.panicPersonId] parameterThree:locationString];
+        [locationReceived FilePath:BASEURL ACCEPT_LOCATION parameterOne:[[Log getPanicFromArray] valueForKey:@"panicvictim_id"][self.panicPersonId] parameterTwo:[[Log getPanicFromArray] valueForKey:@"friendsnumber"][self.panicPersonId] parameterThree:locationString];
         
         
         //parameter1 : id
@@ -144,10 +145,10 @@ checkInternet *c;
     if ([segue.identifier isEqualToString:@"goToMap"])
     {
         map.panicPersonId = self.panicPersonId;
-        map.destinationLatitude = [[[Victims getPanicFromArray] valueForKey:@"latitude"][self.panicPersonId]floatValue];
-        map.destinationLongitude = [[[Victims getPanicFromArray] valueForKey:@"longitude"][self.panicPersonId]floatValue];
-        map.pinTitle = [[Victims getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
-        map.pinSubtitle = [[Victims getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
+        map.destinationLatitude = [[[Log getPanicFromArray] valueForKey:@"latitude"][self.panicPersonId]floatValue];
+        map.destinationLongitude = [[[Log getPanicFromArray] valueForKey:@"longitude"][self.panicPersonId]floatValue];
+        map.pinTitle = [[Log getPanicFromArray] valueForKey:@"username"][self.panicPersonId];
+        map.pinSubtitle = [[Log getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
     }
 }
 

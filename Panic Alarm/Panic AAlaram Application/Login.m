@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Zohair Hemani - Stanford Assignment. All rights reserved.
 //
 
-#import "FirstViewController.h"
-#import "FirstTab.h"
+#import "Login.h"
+#import "Home.h"
 #import <Parse/Parse.h>
 #import "checkInternet.h"
 #import "Constants.h"
 #import <DigitsKit/DigitsKit.h>
 
-@interface FirstViewController (){
+@interface Login (){
     NSMutableData *_downloadedData;
     UIImage *uploadedimage;
     NSString * storedNumber;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation FirstViewController
+@implementation Login
 UIActivityIndicatorView *progress;
 
 -(IBAction)backgroundTouched:(id)sender

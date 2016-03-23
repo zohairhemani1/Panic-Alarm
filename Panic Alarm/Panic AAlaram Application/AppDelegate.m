@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "Terms.h"
-#import "FirstTab.h"
+#import "Home.h"
 #import <Fabric/Fabric.h>
 #import <DigitsKit/DigitsKit.h>
 

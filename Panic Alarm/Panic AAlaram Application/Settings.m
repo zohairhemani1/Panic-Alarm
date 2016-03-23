@@ -9,8 +9,9 @@
 #import "Settings.h"
 #import "PanicFrom.h"
 #import "checkInternet.h"
-#import "help_systemStatus.h"
+#import "websiteWebview.h"
 #import <DigitsKit/DigitsKit.h>
+#import <Parse/Parse.h>
 
 @interface Settings (){
     checkInternet *c;
@@ -190,6 +191,10 @@ NSMutableArray *profile;
                          handler:^(UIAlertAction * action)
                          {
                              [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                             PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                             currentInstallation.channels = [NSArray array];
+                             [currentInstallation saveEventually];
                              
                              [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"loggedIn"];
                              [[Digits sharedInstance]logOut];

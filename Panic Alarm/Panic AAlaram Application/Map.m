@@ -10,7 +10,7 @@
 #import "Map.h"
 #import <CoreLocation/CoreLocation.h>
 #import "checkInternet.h"
-#import "Victims.h"
+#import "Log.h"
 #define METERS_PER_MILE 1609.344
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 

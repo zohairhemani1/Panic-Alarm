@@ -60,25 +60,26 @@ static NSMutableArray* favouritesArray;
     [self.view addSubview:progress];
     [progress bringSubviewToFront:self.view];
     
-    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
-    dispatch_async(myqueue, ^(void) {
+    if(favouritesArray == nil)
+    {
+        dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+        dispatch_async(myqueue, ^(void) {
         
-        [progress startAnimating];
-        [Favorites favouritesList];
+            [progress startAnimating];
+            [Favorites favouritesList];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Update UI on main queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Update UI on main queue
 
-            [self.favoritesTable reloadData];
-            [progress stopAnimating];
+                [self.favoritesTable reloadData];
+                [progress stopAnimating];
             
-        });
+            });
         
-    });
+        });
+    }
     
     imagesArray = [[NSMutableArray alloc]init];
-    
-    //UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
@@ -157,7 +158,6 @@ static NSMutableArray* favouritesArray;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // NSLog(@"Index: %@ ",indexPath.row);
     static NSString *simpleTableIdentifierr = @"SimpleTableCell";
     UITableViewCell *cell;
     
@@ -303,55 +303,6 @@ static NSMutableArray* favouritesArray;
     }
 }
 
-//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-//{
-//    NSString *searchString = self.searchController.searchBar.text;
-//    
-//    [self updateFilteredContentForAirlineName:searchString];
-//    
-//    // If searchResultsController
-//    if (self.searchController.searchResultsController) {
-//        
-//        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
-//        
-//        // Present SearchResultsTableViewController as the topViewController
-//        SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
-//        
-//        // Update searchResults
-//        vc.searchResults = self.searchResults;
-//        vc.searchTableTitle = @"Favourites";
-//        vc.classType = @"favourites";
-//        // And reload the tableView with the new data
-//        [vc.tableView reloadData];
-//    }
-//}
-//
-//// Update self.searchResults based on searchString, which is the argument in passed to this method
-//- (void)updateFilteredContentForAirlineName:(NSString *)airlineName
-//{
-//    if (airlineName == nil)
-//    {
-//        // If empty the search results are the same as the original data
-//        self.searchResults = [favouritesArray mutableCopy];
-//    }
-//    else
-//    {
-//        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
-//        int dictionaryIndex = 0;
-//        // Else if the airline's name is
-//        for (NSDictionary *airline in favouritesArray)
-//        {
-//            dictionaryIndex ++;
-//            if (([[airline[@"username"] capitalizedString] containsString:airlineName]) || ([[airline[@"username"] uppercaseString] containsString:airlineName]) ||  ([[airline[@"username"] lowercaseString] containsString:airlineName]))
-//            {
-//                [airline setValue:[imagesArray objectAtIndex:dictionaryIndex-1] forKey:@"imageInNSData"];
-//                [newSearchResult addObject:airline];
-//            }
-//            self.searchResults = newSearchResult;
-//        }
-//    }
-//}
-
 - (void)refreshTable
 {
     [self.refresh endRefreshing];
@@ -398,8 +349,6 @@ static NSMutableArray* favouritesArray;
     NSArray * favJson = [[NSArray alloc] init];
     //NSString *storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
     
-    if(favouritesArray == nil)
-    {
         favJson = [favouritesService FilePath:@"http://steve-jones.co/iospanic/favourites.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
         favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
@@ -407,7 +356,7 @@ static NSMutableArray* favouritesArray;
             [favouritesArray addObject:item];
             //NSLog(@" favouritesArray: %@", favouritesArray);
         }
-    }
+    
     return favouritesArray;
 }
 

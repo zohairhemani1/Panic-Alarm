@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  Contacts.h
 //  Panic AAlaram Application
 //
 //  Created by Zohair Hemani on 30/04/2014.
@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import "SearchResultsTableViewController.h"
 
-@interface SecondViewController : UIViewController<ABNewPersonViewControllerDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
+
+@interface Contacts : UIViewController<ABNewPersonViewControllerDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 
 @property UIRefreshControl *refresh;
 + (NSMutableArray *)friendWhoUseAppStaticFunction;

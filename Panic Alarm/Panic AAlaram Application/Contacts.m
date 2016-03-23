@@ -1,19 +1,19 @@
 //
-//  SecondViewController.m
+//  Contacts.m
 //  Panic AAlaram Application
 //
 //  Created by Zohair Hemani on 30/04/2014.
 //  Copyright (c) 2014 Zohair Hemani - Stanford Assignment. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "Contacts.h"
 #import "WebService.h"
 #import <Parse/Parse.h>
 #import "checkInternet.h"
 #import "UIImageView+WebCache.h"
 
 
-@interface SecondViewController ()
+@interface Contacts ()
 {
     checkInternet *c;
     UIRefreshControl *refreshControl;
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation SecondViewController
+@implementation Contacts
 @synthesize myTable;
 
 static NSMutableArray *friendsWhoUseApp;
@@ -86,15 +86,6 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     });
     
     imagesArray = [[NSMutableArray alloc]init];
-    
-//    UITableViewController *tableViewController = [[UITableViewController alloc] init];
-//    tableViewController.tableView = self.myTable;
-//    
-//    refreshControl = [[UIRefreshControl alloc] init];
-//    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-//    tableViewController.refreshControl = refreshControl;
-    
-    //UINavigationController *searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
@@ -207,12 +198,6 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     NSString *imagePathString = @"http://steve-jones.co/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
-//    NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
-//    NSData *data = [[NSData alloc]initWithContentsOfURL:imagePathUrl];
-//    UIImage *img = [[UIImage alloc]initWithData:data];
-//    
-//    NSData* imageData = UIImageJPEGRepresentation(img, 1.0);
-//    [imagesArray addObject:imageData];
 
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(10, 5, 40, 40);
@@ -425,7 +410,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 {
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization
-                        dataWithJSONObject:SecondViewController.finalArrayStaticFunction
+                        dataWithJSONObject:Contacts.finalArrayStaticFunction
                         options:NSJSONWritingPrettyPrinted
                         error:&error];
     if (jsonData.length > 0 &&
@@ -472,7 +457,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         NSLog(@"An error happened = %@", error);
     }
     
-    DistinctFriendsWhoUseApp = [SecondViewController.friendWhoUseAppStaticFunction mutableCopy];
+    DistinctFriendsWhoUseApp = [Contacts.friendWhoUseAppStaticFunction mutableCopy];
     
     NSInteger index = DistinctFriendsWhoUseApp.count - 1;
     
@@ -497,7 +482,6 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (UIImage *)decodeBase64ToImage:(NSString *)strEncodeData {
@@ -505,72 +489,9 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     return [UIImage imageWithData:data];
 }
 
-//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-//{
-//    NSString *searchString = self.searchController.searchBar.text;
-//    [self updateFilteredContentForAirlineName:searchString];
-//    
-//    // If searchResultsController
-//    if (self.searchController.searchResultsController) {
-//        
-//        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
-//        
-//        // Present SearchResultsTableViewController as the topViewController
-//        SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
-//        
-//        // Update searchResults
-//        vc.searchResults = self.searchResults;
-//        vc.searchTableTitle = @"Contacts";
-//        vc.classType = @"contacts";
-//        // And reload the tableView with the new data
-//        [vc.tableView reloadData];
-//    }
-//}
-//
-//
-//// Update self.searchResults based on searchString, which is the argument in passed to this method
-//- (void)updateFilteredContentForAirlineName:(NSString *)airlineName
-//{
-//    if (airlineName == nil)
-//    {
-//        self.searchResults = [DistinctFriendsWhoUseApp mutableCopy];
-//    }
-//    else
-//    {
-//        NSMutableArray *newSearchResult = [[NSMutableArray alloc] init];
-//        int dictionaryIndex = 0;
-//        // Else if the airline's name is
-//        for (NSDictionary *airline in DistinctFriendsWhoUseApp)
-//        {
-//            dictionaryIndex ++;
-//            if (([[airline[@"fullName"] capitalizedString] containsString:airlineName]) || ([[airline[@"fullName"] uppercaseString] containsString:airlineName]) ||  ([[airline[@"fullName"] lowercaseString] containsString:airlineName]))
-//            {
-//                [airline setValue:[imagesArray objectAtIndex:dictionaryIndex-1] forKey:@"imageInNSData"];
-//                [newSearchResult addObject:airline];
-//            }
-//            self.searchResults = newSearchResult;
-//        }
-//    }
-//}
-//
 - (void)didDismissSearchController:(UISearchController *)searchController
 {
     [self.myTable reloadData];
-    
-//    DistinctFriendsWhoUseApp = nil;
-//    [progress startAnimating];
-//    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
-//    
-//    dispatch_async(myqueue, ^(void) {
-//        [self sendingJSONArrayToServer];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            // Update UI on main queue
-//            
-//            [self.myTable reloadData];
-//            [progress stopAnimating];
-//        });
-//    });
 }
 
 - (void)refreshTable

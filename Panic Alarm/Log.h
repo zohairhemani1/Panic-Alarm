@@ -1,5 +1,5 @@
 //
-//  Victims.h
+//  Log.h
 //  Panic Alarm
 //
 //  Created by Zainu Corporation on 18/07/2014.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface Victims : UITableViewController<CLLocationManagerDelegate>
+@interface Log : UITableViewController<CLLocationManagerDelegate>
 
 @property(strong,nonatomic) CLLocationManager * locationManager;
 @property(strong,nonatomic) CLLocation *location;

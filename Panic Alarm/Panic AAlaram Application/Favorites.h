@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import "SearchResultsTableViewController.h"
 
 @interface Favorites : UIViewController<ABNewPersonViewControllerDelegate,UISearchResultsUpdating,UISearchControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate>
 @property UIRefreshControl *refresh;
