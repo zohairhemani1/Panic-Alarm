@@ -282,7 +282,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         
                                         // sending notification work start //
         
-        NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept];
+        NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
         
         NSDictionary *data = @{
                                @"alert": msg,
@@ -298,7 +298,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         
         
         [push setChannel:friendsNumber];
-        [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]]];
+        [push setMessage:msg];
         [push setData:data];
         [push sendPushInBackground];
         

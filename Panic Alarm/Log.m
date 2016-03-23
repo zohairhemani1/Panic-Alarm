@@ -570,7 +570,7 @@ static NSArray *PanicToArray;
         
         if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"])
         {
-            NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[PanicToArray valueForKey:@"username"][accept_location.tag]];
+            NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
             
             NSDictionary *panicData = @{
                                    @"alert": msg,

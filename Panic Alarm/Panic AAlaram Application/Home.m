@@ -105,37 +105,10 @@ bool condition=NO;
     {
         if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] != nil)
         {
-            [progress startAnimating];
-            
-            NSMutableArray* list = [Favorites favouritesList];
             victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
             victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
-            
-            for (int i=0; i<list.count; i++)
-            {
-                NSLog(@"Fav Item: %@", list[i]);
-                friendsNumber = @"X_";
-                if(![[list valueForKey:@"friendsnumber"][i] isEqualToString:victimNumber])
-                    friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"][i]substringFromIndex:1]];
-                else if (![[list valueForKey:@"mynumber"][i] isEqualToString:victimNumber])
-                    friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"mynumber"][i]substringFromIndex:1]];
 
-                NSLog(@"NO: %@", friendsNumber);
-                NSString *msg = [[victimName capitalizedString] stringByAppendingString:@" is in danger. Please track his location."];
-                
-                NSDictionary *data = @{
-                                       @"alert": msg,
-                                       @"name": victimName,
-                                       @"number": victimNumber,
-                                       @"sound":@"cheering.caf"
-                                       };
-                
-                PFPush *push = [[PFPush alloc] init];
-                [push setChannel:friendsNumber];   // channels column in PARSE!
-                [push setData:data];
-                [push sendPushInBackground];
-            }
-            
+            [progress startAnimating];
             [self PanicVictimRest];
             [progress stopAnimating];
         }
@@ -236,8 +209,43 @@ bool condition=NO;
             NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                          encoding:NSUTF8StringEncoding];
             WebService *PanicVictimRestAPI = [[WebService alloc] init];
-            [PanicVictimRestAPI FilePath:@"http://steve-jones.co/iospanic/panicButton.php" parameterOne:jsonString];
+            NSMutableArray *sendingPanicResult = [PanicVictimRestAPI FilePath:@"http://steve-jones.co/iospanic/panicButton.php" parameterOne:jsonString];
+            if ([[sendingPanicResult valueForKey:@"status"]isEqualToString:@"1"])
+            {
+                [self sendingPushToFriends];
+            }
         }
+    }
+}
+
+
+-(void) sendingPushToFriends
+{
+    NSMutableArray* list = [Favorites favouritesList];
+    
+    for (int i=0; i<list.count; i++)
+    {
+        NSLog(@"Fav Item: %@", list[i]);
+        friendsNumber = @"X_";
+        if(![[list valueForKey:@"friendsnumber"][i] isEqualToString:victimNumber])
+            friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"friendsnumber"][i]substringFromIndex:1]];
+        else if (![[list valueForKey:@"mynumber"][i] isEqualToString:victimNumber])
+            friendsNumber = [friendsNumber stringByAppendingString:[[list valueForKey:@"mynumber"][i]substringFromIndex:1]];
+        
+        NSLog(@"NO: %@", friendsNumber);
+        NSString *msg = [[victimName capitalizedString] stringByAppendingString:@" is in danger. Please track his location."];
+        
+        NSDictionary *data = @{
+                               @"alert": msg,
+                               @"name": victimName,
+                               @"number": victimNumber,
+                               @"sound":@"cheering.caf"
+                               };
+        
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:friendsNumber];   // channels column in PARSE!
+        [push setData:data];
+        [push sendPushInBackground];
     }
 }
 
@@ -252,11 +260,6 @@ bool condition=NO;
 
 -(void)fetchingFriendsWhoAdded
 {
-    
-   // [[UITabBar appearance] setSelectionIndicatorImage:
-   //  [UIImage imageNamed:@"selected_tabbaritem.png"]];
-   // [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbarbackground.png"]];
-    
     WebService *myWebservice = [[WebService alloc] init];
     NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://steve-jones.co/iospanic/getFriends.php" parameterOne:@""];
     
