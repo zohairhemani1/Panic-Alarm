@@ -269,6 +269,8 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 {
     button = (UIButton*) sender;
     
+    button.enabled = false;
+    
     NSString *numberToAccept;
     NSString *nameToAccept;
     
@@ -283,36 +285,41 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
     }
     
-    NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept];
     
-    NSDictionary *data = @{
-                           @"alert": msg,
-                           @"name": nameToAccept,
-                           @"number": numberToAccept,
-                           @"sound":@"cheering.caf"
-                           };
-    
-    PFPush *push = [[PFPush alloc] init];
-    
-    NSString *friendsNumber = @"X_";
-    friendsNumber = [friendsNumber stringByAppendingString:[numberToAccept substringFromIndex:1]];
-
-    
-    [push setChannel:friendsNumber];   // channels column in PARSE!
-    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]]];
-    [push setData:data];
-    [push sendPushInBackground];
     
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
-    
-    NSLog(@"Stored Number: %@", storedNumber);
-    NSLog(@"Number To Accept %@", numberToAccept);
     
     WebService *acceptRequest = [[WebService alloc] init];
     NSMutableArray *acceptRequestResultArray = [acceptRequest FilePath:@"http://steve-jones.co/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
     
     if([[acceptRequestResultArray valueForKey:@"status"] isEqualToString: @"1"])
     {
+        
+                                        // sending notification work start //
+        
+        NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept];
+        
+        NSDictionary *data = @{
+                               @"alert": msg,
+                               @"name": nameToAccept,
+                               @"number": numberToAccept,
+                               @"sound":@"cheering.caf"
+                               };
+        
+        PFPush *push = [[PFPush alloc] init];
+        
+        NSString *friendsNumber = @"X_";
+        friendsNumber = [friendsNumber stringByAppendingString:[numberToAccept substringFromIndex:1]];
+        
+        
+        [push setChannel:friendsNumber];
+        [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]]];
+        [push setData:data];
+        [push sendPushInBackground];
+        
+                                        // sending notification work finished //
+        
+        
         if(self.searchController.active)
         {
             for(int i =0; i<DistinctFriendsWhoUseApp.count; i++)
@@ -331,6 +338,10 @@ NSMutableArray *DistinctFriendsWhoUseApp;
             [self.myTable reloadData];
         }
     }
+    else
+    {
+        button.enabled = true;
+    }
 }
 
 - (void)addFriend:(id)sender
@@ -346,59 +357,68 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     {
         numberToAdd = [searchResults valueForKey:@"password"][button.tag];
         nameToAdd = [searchResults valueForKey:@"fullName"][button.tag];
+    }
+    else
+    {
+        numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
+        nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
+    }
+
+
+    WebService *addFriend = [[WebService alloc] init];
+    NSMutableArray *addFriendResultArray = [addFriend FilePath:@"http://steve-jones.co/iospanic/add_friends.php" parameterOne:numberToAdd parameterTwo:@""];
+    
+    if([[addFriendResultArray valueForKey:@"status"] isEqualToString: @"1"])
+    {
         
-        for(int i =0; i<DistinctFriendsWhoUseApp.count; i++)
+        
+                                            // sending notification work start //
+        
+        
+        [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
+        
+        NSString *msg = [NSString stringWithFormat:@"%@ has sent you friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
+        
+        NSDictionary *data = @{
+                               @"alert": msg,
+                               @"name": nameToAdd,
+                               @"number": numberToAdd,
+                               @"sound":@"cheering.caf"
+                               };
+        
+        NSString *friendsNumber = @"X_";
+        friendsNumber = [friendsNumber stringByAppendingString:[numberToAdd substringFromIndex:1]];
+        
+        PFPush *push = [[PFPush alloc] init];
+        
+        [push setChannel:friendsNumber];
+        [push setMessage:msg];
+        [push setData:data];
+        [push sendPushInBackground];
+        
+                                            // sending notification work finished //
+        
+        if(self.searchController.active)
         {
-            if([[DistinctFriendsWhoUseApp valueForKey:@"password"][i] isEqualToString:[searchResults valueForKey:@"password"][[sender tag]]])
+            for(int i =0; i<DistinctFriendsWhoUseApp.count; i++)
             {
-                [[DistinctFriendsWhoUseApp objectAtIndex:i]setValue:@"0" forKey:@"activate"];
-                [[DistinctFriendsWhoUseApp objectAtIndex:i]setValue:@"1" forKey:@"accReq"];
+                if([[DistinctFriendsWhoUseApp valueForKey:@"password"][i] isEqualToString:[searchResults valueForKey:@"password"][[sender tag]]])
+                {
+                    [[DistinctFriendsWhoUseApp objectAtIndex:i]setValue:@"0" forKey:@"activate"];
+                    [[DistinctFriendsWhoUseApp objectAtIndex:i]setValue:@"1" forKey:@"accReq"];
+                }
             }
+        }
+        else
+        {
+            [[DistinctFriendsWhoUseApp objectAtIndex:[sender tag]]setValue:@"0" forKey:@"activate"];
+            [[DistinctFriendsWhoUseApp objectAtIndex:[sender tag]]setValue:@"1" forKey:@"accReq"];
         }
     }
     else
     {
-        [[DistinctFriendsWhoUseApp objectAtIndex:[sender tag]]setValue:@"0" forKey:@"activate"];
-        [[DistinctFriendsWhoUseApp objectAtIndex:[sender tag]]setValue:@"1" forKey:@"accReq"];
-        
-        numberToAdd = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
-        nameToAdd = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
+        button.enabled  = true;
     }
-    
-
-    [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
-
-    NSString *msg = [NSString stringWithFormat:@"%@ has sent you friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
-    
-    NSDictionary *data = @{
-                           @"alert": msg,
-                           @"name": nameToAdd,
-                           @"number": numberToAdd,
-                           @"sound":@"cheering.caf"
-                           };
-    
-    NSString *friendsNumber = @"X_"; // is pe notification jati hai
-    friendsNumber = [friendsNumber stringByAppendingString:[numberToAdd substringFromIndex:1]];
-    
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:friendsNumber];   // channels column in PARSE!
-
-    
-    [push setMessage:msg];
-    [push setData:data];
-    [push sendPushInBackground];
-    
-    WebService *addFriend = [[WebService alloc] init];
-    NSMutableArray *addFriendResultArray = [addFriend FilePath:@"http://steve-jones.co/iospanic/add_friends.php" parameterOne:numberToAdd parameterTwo:@""];
-    if (!addFriendResultArray) {
-        NSLog(@"empty");
-    }
-    else
-    {
-        NSLog(@"not empty");
-    }
-    //NSLog(@"Result array is %@",addFriendResultArray);
-    
 }
 
 -(void)sendingJSONArrayToServer
