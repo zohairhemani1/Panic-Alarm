@@ -246,7 +246,7 @@
     NSLog(@"Number To Accept %@", numberToAccept);
     
     WebService *acceptRequest = [[WebService alloc] init];
-    [acceptRequest FilePath:@"http://fajjemobile.info/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
+    [acceptRequest FilePath:@"http://steve-jones.co/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
     
     //03432637576 will be replaced by shared preference number
     
@@ -283,7 +283,7 @@
     [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
-    [addFriend FilePath:@"http://fajjemobile.info/iospanic/add_friends.php" parameterOne:[self.searchResults valueForKey:@"password"][button.tag] parameterTwo:@""];
+    [addFriend FilePath:@"http://steve-jones.co/iospanic/add_friends.php" parameterOne:[self.searchResults valueForKey:@"password"][button.tag] parameterTwo:@""];
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

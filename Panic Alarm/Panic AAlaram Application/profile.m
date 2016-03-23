@@ -118,7 +118,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         NSLog(@"the name is: %@",self.personName.text);
         NSLog(@"the message is: %@",self.messageText.text);
         WebService *updateMessage = [[WebService alloc] init];
-        NSArray *result = [updateMessage FilePath:@"http://fajjemobile.info/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
+        NSArray *result = [updateMessage FilePath:@"http://steve-jones.co/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
         NSString *status = [result valueForKey:@"success"];
         
         if([status isEqualToString:@"OK"])

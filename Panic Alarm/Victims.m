@@ -104,11 +104,11 @@ static NSArray *PanicToArray;
   }
 
 -(void)callThePanicFromArray{
-    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://fajjemobile.info/iospanic/panicFrom.php" parameterOne:nil]];
+    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://steve-jones.co/iospanic/panicFrom.php" parameterOne:nil]];
 }
 
 -(void)callThePanicToArray{
-    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://fajjemobile.info/iospanic/panicTo.php" parameterOne:nil]];
+    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://steve-jones.co/iospanic/panicTo.php" parameterOne:nil]];
 }
 
 - (IBAction)SegmentAction:(id)sender {
@@ -212,16 +212,19 @@ static NSArray *PanicToArray;
         
         if(PanicFromArray.count == 0)
         {
-            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 180, 15)];
-            noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
+            UILabel *noData;
+            
             if(PanicFromArray == nil)
             {
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 40, 30, 180, 15)];
                 noData.text = @"Loading...";
             }
             else
             {
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 65, 30, 180, 15)];
                 noData.text = @"No Data to Show";
             }
+            noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
             [self.view addSubview:noData];
             [cell addSubview:noData];
         }
@@ -234,7 +237,7 @@ static NSArray *PanicToArray;
             message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
             receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
             type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
-            imagePathString = [NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]];
+            imagePathString = [NSString stringWithFormat:@"http://steve-jones.co/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]];
             
             imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];
             [imageView sd_setImageWithURL:[NSURL URLWithString:imagePathString] placeholderImage:[UIImage imageNamed:@"no_image"] options:SDWebImageCacheMemoryOnly];
@@ -286,16 +289,19 @@ static NSArray *PanicToArray;
         }
         if(PanicToArray.count == 0)
         {
-            UILabel *noData = [[UILabel alloc]initWithFrame:CGRectMake(100, 30, 180, 15)];
-            noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
+            UILabel *noData;
+            
             if(PanicToArray == nil)
             {
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 40, 30, 180, 15)];
                 noData.text = @"Loading...";
             }
             else
             {
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 65, 30, 180, 15)];
                 noData.text = @"No Data to Show";
             }
+            noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
             [self.view addSubview:noData];
             [cell addSubview:noData];
         }
@@ -306,7 +312,7 @@ static NSArray *PanicToArray;
             message.text = [PanicToArray valueForKey:@"pMessage"][indexPath.row];
             receivedStatus = [[PanicToArray valueForKey:@"received"][indexPath.row]intValue];
             type = [PanicToArray valueForKey:@"type"][indexPath.row];
-            imagePathString = [NSString stringWithFormat:@"http://fajjemobile.info/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]];
+            imagePathString = [NSString stringWithFormat:@"http://steve-jones.co/iospanic/assets/upload/%@",[PanicToArray valueForKey:@"pic"][indexPath.row]];
             
             
             imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,5,40,40)];

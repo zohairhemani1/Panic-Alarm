@@ -208,7 +208,7 @@ static NSMutableArray* favouritesArray;
     phonenumber.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.f];
     phonenumber.textColor = [UIColor grayColor];
 
-    NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
+    NSString *imagePathString = @"http://steve-jones.co/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:pic];
     
     UIImageView *imageView = [[UIImageView alloc] init];
@@ -246,6 +246,8 @@ static NSMutableArray* favouritesArray;
 -(void)FindLocation:(id)sender{
     button = (UIButton *) sender;
     
+    button.enabled = false;
+    
     storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     NSString *number;
     NSString *name;
@@ -276,7 +278,7 @@ static NSMutableArray* favouritesArray;
     {
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",name]];
         
-        NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",name];
+        NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
         
         NSDictionary *data = @{
                                @"alert": msg,
@@ -293,6 +295,11 @@ static NSMutableArray* favouritesArray;
         [push setMessage:FindNotificationMessage];
         [push setData:data];
         [push sendPushInBackground];
+        button.enabled = true;
+    }
+    else
+    {
+        button.enabled = true;
     }
 }
 
@@ -378,7 +385,7 @@ static NSMutableArray* favouritesArray;
         NSLog(@"the delete array object is %@",[favouritesArray valueForKey:@"username"][indexPath.row]);
         
         WebService *updateMessage = [[WebService alloc] init];
-        [updateMessage FilePath:@"http://fajjemobile.info/iospanic/deleteFriend.php" parameterOne:[favouritesArray valueForKey:@"mynumber"][indexPath.row] parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][indexPath.row]];
+        [updateMessage FilePath:@"http://steve-jones.co/iospanic/deleteFriend.php" parameterOne:[favouritesArray valueForKey:@"mynumber"][indexPath.row] parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][indexPath.row]];
         
         [favouritesArray removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
@@ -393,7 +400,7 @@ static NSMutableArray* favouritesArray;
     
     if(favouritesArray == nil)
     {
-        favJson = [favouritesService FilePath:@"http://fajjemobile.info/iospanic/favourites.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
+        favJson = [favouritesService FilePath:@"http://steve-jones.co/iospanic/favourites.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
         favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
         {

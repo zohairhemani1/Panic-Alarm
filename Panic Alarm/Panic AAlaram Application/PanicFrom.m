@@ -70,7 +70,7 @@ checkInternet *c;
     self.panicMessage.text = [[Victims getPanicFromArray] valueForKey:@"pMessage"][self.panicPersonId];
     self.panicNumber.text = [[Victims getPanicFromArray] valueForKey:@"mynumber"][self.panicPersonId];
     
-    imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
+    imagePathString = @"http://steve-jones.co/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
     imagePathUrl = [NSURL URLWithString:imagePathString];

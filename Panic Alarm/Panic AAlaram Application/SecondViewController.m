@@ -204,7 +204,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         activate = [DistinctFriendsWhoUseApp valueForKey:@"activate"][indexPath.row];
     }
     
-    NSString *imagePathString = @"http://fajjemobile.info/iospanic/assets/upload/";
+    NSString *imagePathString = @"http://steve-jones.co/iospanic/assets/upload/";
     imagePathString = [imagePathString stringByAppendingString:profilePic];
     
 //    NSURL *imagePathUrl = [NSURL URLWithString:imagePathString];
@@ -241,8 +241,6 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     
     if([activate isKindOfClass:[NSNull class]])
     {
-        NSLog(@"in first condition");
-        
         [button setBackgroundImage:[UIImage imageNamed:@"add_friend"] forState:normal];
         [button addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -278,32 +276,12 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     {
         numberToAccept = [searchResults valueForKey:@"password"][button.tag];
         nameToAccept = [searchResults valueForKey:@"fullName"][button.tag];
-        
-        for(int i =0; i<DistinctFriendsWhoUseApp.count; i++)
-        {
-            if([[DistinctFriendsWhoUseApp valueForKey:@"password"][i] isEqualToString:[searchResults valueForKey:@"password"][[sender tag]]])
-            {
-                [searchResults removeObjectAtIndex:[sender tag]];
-                [DistinctFriendsWhoUseApp removeObjectAtIndex:i];
-                [self.myTable reloadData];
-            }
-        }
     }
     else
     {
         numberToAccept = [DistinctFriendsWhoUseApp valueForKey:@"password"][button.tag];
         nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
-        
-        if ([DistinctFriendsWhoUseApp isKindOfClass: [NSMutableArray class]])
-        {
-            NSLog(@"hello");
-        }
-        [DistinctFriendsWhoUseApp removeObjectAtIndex:button.tag];
-        [self.myTable reloadData];
     }
-
-    
-    [button setHidden:true];
     
     NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept];
     
@@ -321,7 +299,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 
     
     [push setChannel:friendsNumber];   // channels column in PARSE!
-    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",nameToAccept]];
+    [push setMessage:[NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]]];
     [push setData:data];
     [push sendPushInBackground];
     
@@ -331,7 +309,28 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     NSLog(@"Number To Accept %@", numberToAccept);
     
     WebService *acceptRequest = [[WebService alloc] init];
-    [acceptRequest FilePath:@"http://fajjemobile.info/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
+    NSMutableArray *acceptRequestResultArray = [acceptRequest FilePath:@"http://steve-jones.co/iospanic/accept-button.php" parameterOne:storedNumber parameterTwo:numberToAccept];
+    
+    if([[acceptRequestResultArray valueForKey:@"status"] isEqualToString: @"1"])
+    {
+        if(self.searchController.active)
+        {
+            for(int i =0; i<DistinctFriendsWhoUseApp.count; i++)
+            {
+                if([[DistinctFriendsWhoUseApp valueForKey:@"password"][i] isEqualToString:[searchResults valueForKey:@"password"][[sender tag]]])
+                {
+                    [searchResults removeObjectAtIndex:[sender tag]];
+                    [DistinctFriendsWhoUseApp removeObjectAtIndex:i];
+                    [self.myTable reloadData];
+                }
+            }
+        }
+        else
+        {
+            [DistinctFriendsWhoUseApp removeObjectAtIndex:button.tag];
+            [self.myTable reloadData];
+        }
+    }
 }
 
 - (void)addFriend:(id)sender
@@ -340,6 +339,8 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 
     NSString *numberToAdd;
     NSString *nameToAdd;
+    
+    button.enabled = false;
     
     if(self.searchController.active)
     {
@@ -367,7 +368,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 
     [button setBackgroundImage:[UIImage imageNamed:@"req_sent"] forState:normal];
 
-    NSString *msg = [NSString stringWithFormat:@"%@ has sent you a friend request",nameToAdd];
+    NSString *msg = [NSString stringWithFormat:@"%@ has sent you friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
     
     NSDictionary *data = @{
                            @"alert": msg,
@@ -388,7 +389,15 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     [push sendPushInBackground];
     
     WebService *addFriend = [[WebService alloc] init];
-    [addFriend FilePath:@"http://fajjemobile.info/iospanic/add_friends.php" parameterOne:numberToAdd parameterTwo:@""];
+    NSMutableArray *addFriendResultArray = [addFriend FilePath:@"http://steve-jones.co/iospanic/add_friends.php" parameterOne:numberToAdd parameterTwo:@""];
+    if (!addFriendResultArray) {
+        NSLog(@"empty");
+    }
+    else
+    {
+        NSLog(@"not empty");
+    }
+    //NSLog(@"Result array is %@",addFriendResultArray);
     
 }
 
@@ -406,7 +415,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
                                                      encoding:NSUTF8StringEncoding];
 
         WebService *myWebService = [[WebService alloc] init];
-        resultArray = [myWebService FilePath:@"http://fajjemobile.info/iospanic/json-contacts.php" parameterOne:jsonString parameterTwo:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
+        resultArray = [myWebService FilePath:@"http://steve-jones.co/iospanic/json-contacts.php" parameterOne:jsonString parameterTwo:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
         
         if (!resultArray)
         {

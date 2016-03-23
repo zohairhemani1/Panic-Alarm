@@ -88,7 +88,7 @@ UIActivityIndicatorView *progress;
 - (void)downloadItems
 {
     // Download the json file
-    NSURL *jsonFileUrl = [NSURL URLWithString:@"http://fajjemobile.info/iospanic/login.php"];
+    NSURL *jsonFileUrl = [NSURL URLWithString:@"http://steve-jones.co/iospanic/login.php"];
     
     // Create the NSURLConnection
     

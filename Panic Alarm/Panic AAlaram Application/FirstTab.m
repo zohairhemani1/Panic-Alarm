@@ -235,7 +235,7 @@ bool condition=NO;
             NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                          encoding:NSUTF8StringEncoding];
             WebService *PanicVictimRestAPI = [[WebService alloc] init];
-            [PanicVictimRestAPI FilePath:@"http://fajjemobile.info/iospanic/panicButton.php" parameterOne:jsonString];
+            [PanicVictimRestAPI FilePath:@"http://steve-jones.co/iospanic/panicButton.php" parameterOne:jsonString];
         }
     }
 }
@@ -257,7 +257,7 @@ bool condition=NO;
    // [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabbarbackground.png"]];
     
     WebService *myWebservice = [[WebService alloc] init];
-    NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://fajjemobile.info/iospanic/getFriends.php" parameterOne:@""];
+    NSArray *friendsToAcceptArray = [myWebservice FilePath:@"http://steve-jones.co/iospanic/getFriends.php" parameterOne:@""];
     
     // Notification Badge Number //
     NSUInteger notifications = friendsToAcceptArray.count;
