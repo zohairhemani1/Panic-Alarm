@@ -349,6 +349,8 @@ static NSMutableArray* favouritesArray;
     NSArray * favJson = [[NSArray alloc] init];
     //NSString *storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
     
+    if(favouritesArray == nil)
+    {
         favJson = [favouritesService FilePath:@"http://steve-jones.co/iospanic/favourites.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
         favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
@@ -356,6 +358,7 @@ static NSMutableArray* favouritesArray;
             [favouritesArray addObject:item];
             //NSLog(@" favouritesArray: %@", favouritesArray);
         }
+    }
     
     return favouritesArray;
 }

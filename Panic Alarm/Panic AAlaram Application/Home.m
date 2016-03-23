@@ -68,13 +68,11 @@ bool condition=NO;
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
     
-    //this is how you can use the indicator view//
     progress = [c indicatorprogress:progress];
     [self.view addSubview:progress];
     [progress bringSubviewToFront:self.view];
-    // indicator view end
+
     
-    //[progress startAnimating];
     dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(myqueue, ^(void) {
         
@@ -82,10 +80,8 @@ bool condition=NO;
         dispatch_async(dispatch_get_main_queue(), ^{
             
         });
-        //[progress stopAnimating];
     });
-
-    
+ 
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,15 +101,30 @@ bool condition=NO;
     {
         if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] != nil)
         {
-            victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-            victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
-
-            [progress startAnimating];
-            [self PanicVictimRest];
-            [progress stopAnimating];
+            if([CLLocationManager locationServicesEnabled])
+            {
+                if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
+                {
+                    [self showAlertBox:NO title:@"Sorry" message:@"Location services of panic alarm are disabled"];
+                }
+                else
+                {
+                    victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+                    victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
+                    
+                    [progress startAnimating];
+                    [self PanicVictimRest];
+                    [progress stopAnimating];
+                }
+            }
+            else
+            {
+                [self showAlertBox:NO title:@"Sorry" message:@"Location services are disabled"];
+            }
         }
-        else{
-            if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
+        else
+        {
+            if([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
             {
                 UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
@@ -147,10 +158,8 @@ bool condition=NO;
     [self.panic setBackgroundImage:[UIImage imageNamed:@"panic_animation4"] forState:normal];
 }
 
-// Location Manager Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-   // NSLog(@"in location update");
     [manager stopUpdatingLocation];
     CLLocation *location = locations.lastObject;
     
@@ -164,7 +173,9 @@ bool condition=NO;
     }
 }
 
--(void)PanicVictimRest{
+-(void)PanicVictimRest
+{
+    NSLog(@"latitude %@",[NSString stringWithFormat:@"%f",latitude]);
     
     if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
     {
@@ -193,7 +204,6 @@ bool condition=NO;
         [panic_victim_data setValue:victimNumber forKey:@"password"];
         [panic_victim_data setValue:@"P" forKey:@"type"];
         [panic_victim_data setValue: [[NSUserDefaults standardUserDefaults] stringForKey:@"panicMessage"] forKey:@"panicMessage"];
-        //[favouritesObj favouritesArray];
         
         NSArray *PanicVictimDataArray = @[panic_victim_data];
         
@@ -205,7 +215,6 @@ bool condition=NO;
         if (jsonData.length > 0 &&
             error == nil)
         {
-            //NSLog(@"Successfully serialized the dictionary into data = %@", jsonData);
             NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                          encoding:NSUTF8StringEncoding];
             WebService *PanicVictimRestAPI = [[WebService alloc] init];
