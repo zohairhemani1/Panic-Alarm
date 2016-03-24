@@ -54,7 +54,7 @@ bool condition=NO;
     
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager requestAlwaysAuthorization];
-    [self.locationManager startUpdatingLocation];
+    //[self.locationManager startUpdatingLocation];
     
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
     {
@@ -109,12 +109,13 @@ bool condition=NO;
                 }
                 else
                 {
-                    victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-                    victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
-                    
-                    [progress startAnimating];
-                    [self PanicVictimRest];
-                    [progress stopAnimating];
+                    [self.locationManager startUpdatingLocation];
+//                    victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+//                    victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
+//                    
+//                    [progress startAnimating];
+//                    [self PanicVictimRest];
+//                    [progress stopAnimating];
                 }
             }
             else
@@ -166,11 +167,14 @@ bool condition=NO;
     latitude = location.coordinate.latitude;
     longitude = location.coordinate.longitude;
     
-    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
-    {
-        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
-        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
-    }
+    NSLog(@"latitude %@",[NSString stringWithFormat:@"%f",latitude]);
+    NSLog(@"latitude %@",[NSString stringWithFormat:@"%f",longitude]);
+    
+//    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
+//    {
+//        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
+//        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
+//    }
 }
 
 -(void)PanicVictimRest
