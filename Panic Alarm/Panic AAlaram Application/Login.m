@@ -194,15 +194,7 @@ UIActivityIndicatorView *progress;
     NSLog(@"RandomNumber: %i", randomNumber);
     NSString *imageNameRandomNumber = (@(randomNumber)).stringValue;
     fileName = [imageNameRandomNumber stringByAppendingString:@".jpg"];
-    //UIImage *myImage = [UIImage imageNamed:imageNameRandomNumber];
-    //UIImageView *myImageView =[[UIImageView alloc]initWithImage:uploadedimage];
-    //UIView *myView = [[UIView alloc] init];
-    //[myView addSubview:myImageView];
-    /*
-     turning the image into a NSData object
-     getting the image back out of the UIImageView
-     setting the quality to 90
-     */
+
 	NSData *imageData = UIImageJPEGRepresentation(uploadedimage, 0);
 	// setting up the URL to post to
 	NSString *urlString = [BASEURL stringByAppendingString:@"image_upload.php"];
@@ -254,7 +246,6 @@ UIActivityIndicatorView *progress;
     NSLog(@"JsonArrayIs %@", jsonArray);
     
 }
-
 
 - (IBAction)login:(id)sender {
     

@@ -9,17 +9,27 @@
 #import "profile.h"
 #import "WebService.h"
 #import "Constants.h"
+#import "checkInternet.h"
 
 @implementation profile
 {
+    checkInternet *c;
     UIImage *uploadedimage;
     UIView *lineView;
     NSString *fileName;
     bool imagechanged;
+    UIActivityIndicatorView *progress;
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    
+    c = [[checkInternet alloc]init];
+    [c viewWillAppear:YES];
+    progress = [c indicatorprogress:progress];
+    [self.view addSubview:progress];
+    [progress bringSubviewToFront:self.view];
     
     fileName = @"profile.png";
     
@@ -42,9 +52,7 @@
     }
     
     self.personImage.image = img;
-    
     self.messageText.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"panicMessage"];
-    
     self.save.layer.cornerRadius = 5;
     [self.save setClipsToBounds:YES];
     
@@ -115,8 +123,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     else
     {
-        NSLog(@"the name is: %@",self.personName.text);
-        NSLog(@"the message is: %@",self.messageText.text);
+        [progress startAnimating];
+        
         WebService *updateMessage = [[WebService alloc] init];
         NSArray *result = [updateMessage FilePath:@"http://steve-jones.co/iospanic/panicMessage.php" parameterOne:self.messageText.text parameterTwo:self.personName.text];
         NSString *status = [result valueForKey:@"success"];
@@ -127,12 +135,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             {
                 [self uploadImage];
             }
-            [self showAlertBox:NO title:@"Status" message:@"Your Panic message has been updated" ];
+            [self showAlertBox:NO title:@"Status" message:@"Your Panic details has been updated" ];
             [[NSUserDefaults standardUserDefaults ] setValue:self.messageText.text forKey:@"panicMessage"];
             [[NSUserDefaults standardUserDefaults ] setValue:self.personName.text forKey:@"name"];
+            
+            [progress stopAnimating];
         }
         else
         {
+            [progress stopAnimating];
             [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated. Please try again later"];
         }
     }

@@ -22,6 +22,8 @@
     NSMutableArray *resultArray;
     NSMutableArray *searchResults;
     NSMutableArray *imagesArray;
+    NSString *numberToAccept;
+    NSString *nameToAccept;
 }
 
 @end
@@ -252,12 +254,10 @@ NSMutableArray *DistinctFriendsWhoUseApp;
 
 - (void)acceptFriendRequest:(id)sender
 {
+    [progress startAnimating];
+    
     button = (UIButton*) sender;
-    
     button.enabled = false;
-    
-    NSString *numberToAccept;
-    NSString *nameToAccept;
     
     if(self.searchController.active)
     {
@@ -279,31 +279,8 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     
     if([[acceptRequestResultArray valueForKey:@"status"] isEqualToString: @"1"])
     {
-        
-                                        // sending notification work start //
-        
-        NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
-        
-        NSDictionary *data = @{
-                               @"alert": msg,
-                               @"name": nameToAccept,
-                               @"number": numberToAccept,
-                               @"sound":@"cheering.caf"
-                               };
-        
-        PFPush *push = [[PFPush alloc] init];
-        
-        NSString *friendsNumber = @"X_";
-        friendsNumber = [friendsNumber stringByAppendingString:[numberToAccept substringFromIndex:1]];
-        
-        
-        [push setChannel:friendsNumber];
-        [push setMessage:msg];
-        [push setData:data];
-        [push sendPushInBackground];
-        
-                                        // sending notification work finished //
-        
+        [progress stopAnimating];
+        [self sendingPush];
         
         if(self.searchController.active)
         {
@@ -325,18 +302,43 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     }
     else
     {
+        [progress stopAnimating];
         button.enabled = true;
     }
+}
+
+- (void) sendingPush
+{
+    NSString *msg = [NSString stringWithFormat:@"%@ accepted your friend request",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
+    
+    NSDictionary *data = @{
+                           @"alert": msg,
+                           @"name": nameToAccept,
+                           @"number": numberToAccept,
+                           @"sound":@"cheering.caf"
+                           };
+    
+    PFPush *push = [[PFPush alloc] init];
+    
+    NSString *friendsNumber = @"X_";
+    friendsNumber = [friendsNumber stringByAppendingString:[numberToAccept substringFromIndex:1]];
+    
+    
+    [push setChannel:friendsNumber];
+    [push setMessage:msg];
+    [push setData:data];
+    [push sendPushInBackground];
 }
 
 - (void)addFriend:(id)sender
 {
     button = (UIButton*) sender;
+        button.enabled = false;
 
+    [progress startAnimating];
+    
     NSString *numberToAdd;
     NSString *nameToAdd;
-    
-    button.enabled = false;
     
     if(self.searchController.active)
     {
@@ -355,7 +357,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     
     if([[addFriendResultArray valueForKey:@"status"] isEqualToString: @"1"])
     {
-        
+        [progress stopAnimating];
         
                                             // sending notification work start //
         
@@ -402,6 +404,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     }
     else
     {
+        [progress stopAnimating];
         button.enabled  = true;
     }
 }

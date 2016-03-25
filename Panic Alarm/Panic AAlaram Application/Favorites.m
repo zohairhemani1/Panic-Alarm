@@ -228,7 +228,7 @@ static NSMutableArray* favouritesArray;
     }
     
     button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.frame = CGRectMake(cell.frame.origin.x + 210, 10, 100, 30);
+    button.frame = CGRectMake(cell.frame.origin.x + 225, 10, 85, 30);
     button.clipsToBounds = YES;
     button.layer.cornerRadius = 5;
     [button setTitle:@"Find" forState:UIControlStateNormal];
@@ -243,10 +243,12 @@ static NSMutableArray* favouritesArray;
     return cell;
 }
 
--(void)FindLocation:(id)sender{
+-(void)FindLocation:(id)sender
+{
     button = (UIButton *) sender;
-    
     button.enabled = false;
+    
+    [progress startAnimating];
     
     storedNumber = [[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"];
     NSString *number;
@@ -276,6 +278,8 @@ static NSMutableArray* favouritesArray;
     
     if([[favRestJsonArray valueForKey:@"success"] isEqualToString: @"200"])
     {
+        [progress stopAnimating];
+        
         [self showAlertBoxWithTitle:@"Request sent" message:[NSString stringWithFormat:@"Location request to %@ is sent successfully",name]];
         
         NSString *msg = [NSString stringWithFormat:@"%@ has requested your location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
@@ -299,6 +303,7 @@ static NSMutableArray* favouritesArray;
     }
     else
     {
+        [progress stopAnimating];
         button.enabled = true;
     }
 }
@@ -333,13 +338,21 @@ static NSMutableArray* favouritesArray;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        NSLog(@"the delete array object is %@",[favouritesArray valueForKey:@"username"][indexPath.row]);
+        [progress startAnimating];
         
-        WebService *updateMessage = [[WebService alloc] init];
-        [updateMessage FilePath:@"http://steve-jones.co/iospanic/deleteFriend.php" parameterOne:[favouritesArray valueForKey:@"mynumber"][indexPath.row] parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][indexPath.row]];
+        WebService *deleteFriend = [[WebService alloc] init];
+        NSMutableArray *deleteResult = [deleteFriend FilePath:@"http://steve-jones.co/iospanic/deleteFriend.php" parameterOne:[favouritesArray valueForKey:@"mynumber"][indexPath.row] parameterTwo:[favouritesArray valueForKey:@"friendsnumber"][indexPath.row]];
         
-        [favouritesArray removeObjectAtIndex:indexPath.row];
-        [tableView reloadData];
+        if([[deleteResult valueForKey:@"success"] isEqualToString: @"200"])
+        {
+            [favouritesArray removeObjectAtIndex:indexPath.row];
+            [tableView reloadData];
+            [progress stopAnimating];
+        }
+        else
+        {
+            [progress stopAnimating];
+        }
     }
 }
 
@@ -347,16 +360,15 @@ static NSMutableArray* favouritesArray;
 {
     WebService *favouritesService = [[WebService alloc] init];
     NSArray * favJson = [[NSArray alloc] init];
-    //NSString *storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
+    NSString *myNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
     
     if(favouritesArray == nil)
     {
-        favJson = [favouritesService FilePath:@"http://steve-jones.co/iospanic/favourites.php" parameterOne:[[NSUserDefaults standardUserDefaults]valueForKey:@"myPhoneNumber"]];
+        favJson = [favouritesService FilePath:@"http://steve-jones.co/iospanic/favourites.php" parameterOne:myNumber];
         favouritesArray = [[NSMutableArray alloc] init];
         for(NSDictionary *item in favJson)
         {
             [favouritesArray addObject:item];
-            //NSLog(@" favouritesArray: %@", favouritesArray);
         }
     }
     

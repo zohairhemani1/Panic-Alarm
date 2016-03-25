@@ -25,7 +25,7 @@
     UIActivityIndicatorView *image_loading;
     NSString *nameToAdd;
     UIImage *img;
-    NSString *profilePic ;
+    NSString *profilePic;
     NSURL *imagePathUrl;
     NSData *data;
     NSString *hourWithMin;
@@ -40,8 +40,11 @@
     UIButton *accept_location;
     NSString *FindNotificationMessage;
     int receivedStatus;
-    NSMutableDictionary *imagesDictionary;
     UIImageView *imageView;
+    
+    float longitude;
+    float latitude;
+    BOOL sendLocation;
     
 }
 static NSArray *PanicFromArray;
@@ -74,7 +77,7 @@ static NSArray *PanicToArray;
     self.locationManager.delegate = self;
     
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [self.locationManager startUpdatingLocation];
+    [self.locationManager requestAlwaysAuthorization];
     
     c = [[checkInternet alloc]init];
     [c viewWillAppear:YES];
@@ -183,7 +186,7 @@ static NSArray *PanicToArray;
     timestamp.font = [UIFont fontWithName:@"HelveticaNeue" size:14.f];
     timestamp.text = @"";
 
-    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 26, 80, 22)];
+    accept_location = [[UIButton alloc]initWithFrame:CGRectMake(220, 26, 80, 24)];
     [accept_location setTitleColor:[UIColor whiteColor] forState:normal];
     accept_location.clipsToBounds = YES;
     accept_location.layer.cornerRadius = 5;
@@ -216,12 +219,12 @@ static NSArray *PanicToArray;
             
             if(PanicFromArray == nil)
             {
-                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 40, 30, 180, 15)];
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 40, 25, 180, 20)];
                 noData.text = @"Loading...";
             }
             else
             {
-                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 65, 30, 180, 15)];
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 65, 25, 180, 20)];
                 noData.text = @"No Data to Show";
             }
             noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
@@ -277,7 +280,7 @@ static NSArray *PanicToArray;
             [cell addSubview:image_loading];
             
         }
-        }
+    }
                                                         /////////////    Panic To Table View     ////////////
     else
     {
@@ -293,12 +296,12 @@ static NSArray *PanicToArray;
             
             if(PanicToArray == nil)
             {
-                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 40, 30, 180, 15)];
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 40, 25, 180, 20)];
                 noData.text = @"Loading...";
             }
             else
             {
-                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 65, 30, 180, 15)];
+                noData = [[UILabel alloc]initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 65, 25, 180, 20)];
                 noData.text = @"No Data to Show";
             }
             noData.font = [UIFont fontWithName:@"HelveticaNeue" size:17.f];
@@ -513,7 +516,7 @@ static NSArray *PanicToArray;
     if ([segue.identifier isEqualToString:@"FromSegue"])
     {
         int received = [[PanicFromArray valueForKey:@"received"][indexPath.row]intValue];
-        NSString *type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
+        NSString *type = [PanicFromArray valueForKey:@"type"][indexPath.row];
         panic.panicPersonId = indexPath.row;
         
         if([type isEqualToString:@"P"])
@@ -542,87 +545,132 @@ static NSArray *PanicToArray;
 - (void)refreshTable
 {
     [self.refresh endRefreshing];
-    if(self.segments.selectedSegmentIndex == 0)
-    {
-        PanicFromArray = nil;
-        [self callThePanicFromArray];
-    }
-    else
-    {
-        PanicToArray = nil;
-        [self callThePanicToArray];
-    }
     
-    [self.mytable reloadData];
+    [pageLoading startAnimating];
+    dispatch_queue_t myqueue = dispatch_queue_create("myqueue", NULL);
+    
+    dispatch_async(myqueue, ^(void) {
+        if(self.segments.selectedSegmentIndex == 0)
+        {
+            PanicFromArray = nil;
+            [self callThePanicFromArray];
+        }
+        else
+        {
+            PanicToArray = nil;
+            [self callThePanicToArray];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI on main queue
+            
+            [self.mytable reloadData];
+            [pageLoading stopAnimating];
+        });
+    });
+    
 }
 
 -(void)AcceptToSendLocation:(id)sender
 {
-    if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] !=nil)
+    accept_location = (UIButton*) sender;
+    
+    if([CLLocationManager locationServicesEnabled])
+    {
+        if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
+        {
+            [self showLocationPopUp];
+        }
+        else
+        {
+            [pageLoading startAnimating];
+            sendLocation = YES;
+            [self.locationManager startUpdatingLocation];
+        }
+    }
+    else
+    {
+        [self showLocationPopUp];
+    }
+}
+
+-(void) showLocationPopUp
+{
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+        alert.tag=121;
+        [alert show];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [manager stopUpdatingLocation];
+    CLLocation *location = locations.lastObject;
+    
+    if(sendLocation == YES)
+    {
+        sendLocation = NO;
+        latitude = location.coordinate.latitude;
+        longitude = location.coordinate.longitude;
+        
+        [self callWebService];
+        
+        NSLog(@"latitude %f",latitude);
+        NSLog(@"longitude %f",longitude);
+    }
+}
+
+-(void)callWebService
+{
+    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
     {
         NSString *locationString = [NSString stringWithFormat:@"%@,%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"],[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"]];
-        
-        [self.locationManager stopUpdatingLocation];
-        accept_location = (UIButton*) sender;
         
         WebService *AcceptToSendLocationRest = [[WebService alloc] init];
         AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:locationString parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
         
         if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"])
         {
-            NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
-            
-            NSDictionary *panicData = @{
-                                   @"alert": msg,
-                                   @"name": [PanicToArray valueForKey:@"username"][accept_location.tag],
-                                   @"number": [PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag],
-                                   @"sound":@"cheering.caf"
-                                   };
-            
-            [accept_location setTitle:@"Sent" forState:normal];
-            accept_location.enabled = false;
-            
-            NSString *friendsNumber = @"X_";
-            friendsNumber = [friendsNumber stringByAppendingString:[[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] substringFromIndex:1]];
-            
-            PFPush *push = [[PFPush alloc] init];
-            [push setChannel:friendsNumber];
-            [push setMessage:msg];
-            [push setData:panicData];
-            [push sendPushInBackground];
-            NSLog(@"1");
-        }
-        else{
-            NSLog(@"2");
-            // Alert value for key @"error" from acceptToSendLocationJsonArray
-        }
-    }
-    else
-    {
-        NSLog(@"3");
-
-        if([[[UIDevice currentDevice] systemVersion] floatValue]<8.0)
-        {
-            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
+            [pageLoading stopAnimating];
+            [self sendPush];
         }
         else
         {
-            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
-            alert.tag=121;
-            [alert show];
+            [pageLoading stopAnimating];
         }
     }
 }
 
-// Location Manager Delegate Methods
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+-(void)sendPush
 {
-    // NSLog(@"in location update");
-    [manager stopUpdatingLocation];
-    CLLocation *location = locations.lastObject;
-    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forKey:@"latitude"];
-    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forKey:@"longitude"];
+    NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
+    
+    NSDictionary *panicData = @{
+                                @"alert": msg,
+                                @"name": [PanicToArray valueForKey:@"username"][accept_location.tag],
+                                @"number": [PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag],
+                                @"sound":@"cheering.caf"
+                                };
+    
+    [accept_location setTitle:@"Sent" forState:normal];
+    accept_location.enabled = false;
+    
+    NSString *friendsNumber = @"X_";
+    friendsNumber = [friendsNumber stringByAppendingString:[[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] substringFromIndex:1]];
+    
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:friendsNumber];
+    [push setMessage:msg];
+    [push setData:panicData];
+    [push sendPushInBackground];
+
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -630,7 +678,6 @@ static NSArray *PanicToArray;
     if (alertView.tag == 121 && buttonIndex == 1)
     {
         [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
-        [self.locationManager startUpdatingLocation];
     }
 }
 

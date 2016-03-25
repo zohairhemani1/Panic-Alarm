@@ -23,14 +23,13 @@
     float longitude;
     float latitude;
     AVAudioPlayer *player;
+    BOOL sendLocation;
+    UIActivityIndicatorView *progress;
 }
 @end
 
-UIActivityIndicatorView *progress;
-@implementation Home
 
-bool first_time_on_database=YES;
-bool condition=NO;
+@implementation Home
 
 -(IBAction)backgroundTouch:(id)sender
 {
@@ -63,7 +62,6 @@ bool condition=NO;
     
     UIImage *backgroundImage = [UIImage imageNamed:@"background_tabone"];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:backgroundImage];
-    condition=YES;
     
     c= [[checkInternet alloc]init];
     [c viewWillAppear:YES];
@@ -99,48 +97,62 @@ bool condition=NO;
 {
     if([Favorites favouritesList].count>0)
     {
-        if([[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"] != nil)
+        if([CLLocationManager locationServicesEnabled])
         {
-            if([CLLocationManager locationServicesEnabled])
+            if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
             {
-                if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
-                {
-                    [self showAlertBox:NO title:@"Sorry" message:@"Location services of panic alarm are disabled"];
-                }
-                else
-                {
-                    [self.locationManager startUpdatingLocation];
-//                    victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
-//                    victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
-//                    
-//                    [progress startAnimating];
-//                    [self PanicVictimRest];
-//                    [progress stopAnimating];
-                }
+                [self showLocationPopUp];
             }
             else
             {
-                [self showAlertBox:NO title:@"Sorry" message:@"Location services are disabled"];
+                [progress startAnimating];
+                sendLocation = YES;
+                [self.locationManager startUpdatingLocation];
             }
         }
         else
         {
-            if([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
-            {
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
-            else
-            {
-                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
-                alert.tag=121;
-                [alert show];
-            }
-        }
+            [self showLocationPopUp];        }
     }
     else
     {
         [self showAlertBox:NO title:@"ERROR" message:@"You don't have any friends."];
+    }
+}
+
+-(void) showLocationPopUp
+{
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+        alert.tag=121;
+        [alert show];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [manager stopUpdatingLocation];
+    CLLocation *location = locations.lastObject;
+    
+    if(sendLocation == YES)
+    {
+        sendLocation = NO;
+        latitude = location.coordinate.latitude;
+        longitude = location.coordinate.longitude;
+        
+        victimName = [[NSUserDefaults standardUserDefaults] stringForKey:@"name"];
+        victimNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
+        
+        [self PanicSendingApi];
+
+        NSLog(@"latitude %f",latitude);
+        NSLog(@"longitude %f",longitude);
     }
 }
 
@@ -149,7 +161,7 @@ bool condition=NO;
     if (alertView.tag == 121 && buttonIndex == 1)
     {
         [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
-        [self.locationManager startUpdatingLocation];
+        //[self.locationManager startUpdatingLocation];
     }
 }
 
@@ -159,33 +171,10 @@ bool condition=NO;
     [self.panic setBackgroundImage:[UIImage imageNamed:@"panic_animation4"] forState:normal];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+-(void)PanicSendingApi
 {
-    [manager stopUpdatingLocation];
-    CLLocation *location = locations.lastObject;
-    
-    latitude = location.coordinate.latitude;
-    longitude = location.coordinate.longitude;
-    
-    NSLog(@"latitude %@",[NSString stringWithFormat:@"%f",latitude]);
-    NSLog(@"latitude %@",[NSString stringWithFormat:@"%f",longitude]);
-    
-//    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
-//    {
-//        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
-//        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
-//    }
-}
-
--(void)PanicVictimRest
-{
-    NSLog(@"latitude %@",[NSString stringWithFormat:@"%f",latitude]);
-    
     if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
     {
-        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
-        [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
-        
         // Sound and animation work //
         [self.panic setBackgroundImage:[UIImage animatedImageNamed:@"panic_animation" duration:3.0] forState:UIControlStateNormal];
         NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"alarmsound" ofType:@"mp3"];
@@ -200,7 +189,7 @@ bool condition=NO;
                                         repeats:YES];
         // Sound and animation work //
         
-        first_time_on_database = NO;
+        
         NSMutableDictionary *panic_victim_data = [[NSMutableDictionary alloc] init];
         [panic_victim_data setValue:[NSString stringWithFormat:@"%f",latitude] forKey:@"latitude"];
         [panic_victim_data setValue:[NSString stringWithFormat:@"%f",longitude] forKey:@"longitude"];
@@ -225,7 +214,12 @@ bool condition=NO;
             NSMutableArray *sendingPanicResult = [PanicVictimRestAPI FilePath:@"http://steve-jones.co/iospanic/panicButton.php" parameterOne:jsonString];
             if ([[sendingPanicResult valueForKey:@"status"]isEqualToString:@"1"])
             {
+                [progress stopAnimating];
                 [self sendingPushToFriends];
+            }
+            else
+            {
+                [progress stopAnimating];
             }
         }
     }
