@@ -44,8 +44,11 @@
     {
         jsonArray = [NSJSONSerialization JSONObjectWithData: returnData options: NSJSONReadingMutableContainers error: &err];
     }
-   
-    NSLog(@"%@",response);
+    else
+    {
+        NSLog(@"internet not working");
+    }
+    
     NSLog(@"JsonArray %@", jsonArray);
     //[NSURLConnection connectionWithRequest:request delegate:self];
     // return response;

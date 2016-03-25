@@ -133,9 +133,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         {
             if(self.personImage.image != nil && imagechanged == true)
             {
+                imagechanged = false;
                 [self uploadImage];
             }
-            [self showAlertBox:NO title:@"Status" message:@"Your Panic details has been updated" ];
+            [self showAlertBox:NO title:@"Status" message:@"Your Panic details has been updated"];
             [[NSUserDefaults standardUserDefaults ] setValue:self.messageText.text forKey:@"panicMessage"];
             [[NSUserDefaults standardUserDefaults ] setValue:self.personName.text forKey:@"name"];
             
@@ -143,8 +144,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         }
         else
         {
+            [self showAlertBox:NO title:@"Internet Issue" message:@"It seems your Internet connection is Down"];
             [progress stopAnimating];
-            [self showAlertBox:NO title:@"Status" message:@"Your Panic message could not be updated. Please try again later"];
         }
     }
 }

@@ -219,6 +219,7 @@
             }
             else
             {
+                [self showAlertBox:NO title:@"Internet Issue" message:@"It seems your Internet connection is Down"];
                 [progress stopAnimating];
             }
         }

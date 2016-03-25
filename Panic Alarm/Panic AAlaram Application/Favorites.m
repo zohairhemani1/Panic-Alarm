@@ -303,6 +303,7 @@ static NSMutableArray* favouritesArray;
     }
     else
     {
+        [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
         [progress stopAnimating];
         button.enabled = true;
     }
@@ -351,6 +352,7 @@ static NSMutableArray* favouritesArray;
         }
         else
         {
+            [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
             [progress stopAnimating];
         }
     }
@@ -365,11 +367,18 @@ static NSMutableArray* favouritesArray;
     if(favouritesArray == nil)
     {
         favJson = [favouritesService FilePath:@"http://steve-jones.co/iospanic/favourites.php" parameterOne:myNumber];
-        favouritesArray = [[NSMutableArray alloc] init];
-        for(NSDictionary *item in favJson)
-        {
-            [favouritesArray addObject:item];
+        if (!favJson) {
+            
         }
+        else
+        {
+            favouritesArray = [[NSMutableArray alloc] init];
+            for(NSDictionary *item in favJson)
+            {
+                [favouritesArray addObject:item];
+            }
+        }
+        
     }
     
     return favouritesArray;

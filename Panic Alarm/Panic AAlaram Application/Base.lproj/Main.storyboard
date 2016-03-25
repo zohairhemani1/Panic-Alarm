@@ -340,9 +340,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="cmD-3u-xJg" kind="push" id="1m9-B1-Ypt"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="logout" id="gbR-Il-Enn">
                                 <rect key="frame" x="0.0" y="306" width="320" height="44"/>
@@ -371,6 +368,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="settingsTable" destination="F5a-nO-lCo" id="6EH-Mt-RhO"/>
+                        <segue destination="Gad-uK-vNa" kind="push" identifier="statusSegue" id="ReU-iH-qsy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4g0-4s-ffo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,7 +390,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fz3-Dz-LPV">
                                 <rect key="frame" x="20" y="90" width="280" height="403"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="QzD-23-gvU">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="QzD-23-gvU">
                                         <rect key="frame" x="15" y="27" width="70" height="70"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beh-ed-ZHb">
@@ -413,6 +411,7 @@
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8L5-H3-Mum">
                                         <rect key="frame" x="15" y="145" width="265" height="30"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="kBv-dC-tqh"/>
                                         </constraints>
@@ -442,6 +441,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QtT-hz-Bge">
                                         <rect key="frame" x="20" y="264" width="240" height="83"/>
                                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="83" id="4H7-bc-rwH"/>
                                         </constraints>
@@ -525,7 +525,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kuv-8T-w12" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="2607"/>
+            <point key="canvasLocation" x="1779" y="3161"/>
         </scene>
         <!--Avialdo-->
         <scene sceneID="jkB-Nr-G5m">
@@ -608,7 +608,7 @@ Moreover, you can also ask anyone for their current location just to know where 
                                     <constraint firstAttribute="width" constant="56" id="Dwt-pY-Yql"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="Gad-uK-vNa" kind="push" id="h5f-y3-tAl"/>
+                                    <action selector="aboutButtonClicked:" destination="Jmm-UL-zyb" eventType="touchUpInside" id="SYl-c6-DPw"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dGe-eb-afT">
@@ -635,6 +635,9 @@ Moreover, you can also ask anyone for their current location just to know where 
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="q54-UW-api"/>
+                    <connections>
+                        <segue destination="Gad-uK-vNa" kind="push" identifier="avialdoSegue" id="hnZ-fS-2I5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmR-4O-p3K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -697,7 +700,8 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                                     <constraint firstAttribute="height" constant="21" id="m0u-04-Uuu"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="Gad-uK-vNa" kind="push" id="lCr-SQ-VgV"/>
+                                    <action selector="aboutButtonClicked:" destination="8TN-VC-BgE" eventType="touchUpInside" id="gHb-Jv-ul9"/>
+                                    <segue destination="Gad-uK-vNa" kind="push" identifier="avialdoSegue" id="Fdi-rP-w9V"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lwe-Jd-HBx">
@@ -732,23 +736,23 @@ Ans: You will receive a notification as soon as some one has tracked your locati
         <!--System Status-->
         <scene sceneID="Ogt-nw-Ryg">
             <objects>
-                <viewController id="cmD-3u-xJg" customClass="About" sceneMemberID="viewController">
+                <viewController id="cmD-3u-xJg" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4j5-mg-mOV"/>
                         <viewControllerLayoutGuide type="bottom" id="f6U-iL-GF0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IOO-hx-yai">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="panic_animation4" translatesAutoresizingMaskIntoConstraints="NO" id="vXr-oa-vFy">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="panic_animation4" translatesAutoresizingMaskIntoConstraints="NO" id="vXr-oa-vFy">
                                 <rect key="frame" x="94" y="75" width="133" height="107"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="133" id="Trr-wE-yJE"/>
                                     <constraint firstAttribute="height" constant="107" id="VrN-cr-QPr"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyrights © 2016 Avialdo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9B-LF-2eh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Copyrights © 2016 Avialdo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9B-LF-2eh">
                                 <rect key="frame" x="70" y="450" width="181" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="EsD-TI-EJl"/>
@@ -758,7 +762,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBh-Iz-Mg5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBh-Iz-Mg5">
                                 <rect key="frame" x="16" y="281" width="288" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="288" id="aOq-lr-LRG"/>
@@ -772,17 +776,17 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydb-Kk-e5C">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydb-Kk-e5C">
                                 <rect key="frame" x="195" y="450" width="56" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="56" id="sko-Z2-VlR"/>
                                     <constraint firstAttribute="height" constant="21" id="vCy-RK-Uhq"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="Gad-uK-vNa" kind="push" id="Eua-c1-kzG"/>
+                                    <action selector="aboutButtonClicked:" destination="cmD-3u-xJg" eventType="touchUpInside" id="Aup-Zy-PAQ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DT3-XN-Ghj">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DT3-XN-Ghj">
                                 <rect key="frame" x="195" y="470" width="56" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -809,7 +813,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1H-6e-W2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="3325"/>
+            <point key="canvasLocation" x="1234" y="3141"/>
         </scene>
         <!--Victims-->
         <scene sceneID="q7h-yA-V5q">
@@ -834,7 +838,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                             </connections>
                         </segmentedControl>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myvictims" rowHeight="60" id="Fx5-G0-8EK">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myvictims" rowHeight="60" id="Fx5-G0-8EK">
                                 <rect key="frame" x="0.0" y="116" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fx5-G0-8EK" id="1Vd-Um-Jho">
@@ -845,11 +849,11 @@ Ans: You will receive a notification as soon as some one has tracked your locati
                                     <segue destination="bDD-yR-M17" kind="push" identifier="FromSegue" id="PfP-iB-NaI"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="second" rowHeight="60" id="2Ou-5I-fDW">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="second" rowHeight="60" id="2Ou-5I-fDW">
                                 <rect key="frame" x="0.0" y="176" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Ou-5I-fDW" id="TSG-Rg-IuN">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1380,7 +1384,7 @@ Ans: You will receive a notification as soon as some one has tracked your locati
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="h5f-y3-tAl"/>
+        <segue reference="ReU-iH-qsy"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
 </document>

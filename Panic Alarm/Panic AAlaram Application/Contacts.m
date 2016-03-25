@@ -270,8 +270,6 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         nameToAccept = [DistinctFriendsWhoUseApp valueForKey:@"fullName"][button.tag];
     }
     
-    
-    
     NSString * storedNumber = [[NSUserDefaults standardUserDefaults] valueForKey:@"myPhoneNumber"];
     
     WebService *acceptRequest = [[WebService alloc] init];
@@ -302,6 +300,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     }
     else
     {
+        [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
         [progress stopAnimating];
         button.enabled = true;
     }
@@ -404,6 +403,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     }
     else
     {
+        [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
         [progress stopAnimating];
         button.enabled  = true;
     }
@@ -427,6 +427,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         
         if (!resultArray)
         {
+            [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
             NSLog(@"Error parsing JSON: %@", error);
         }
         else
@@ -514,6 +515,24 @@ NSMutableArray *DistinctFriendsWhoUseApp;
             [progress stopAnimating];
         });
     });
+}
+
+-(void)showAlertBoxWithTitle:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

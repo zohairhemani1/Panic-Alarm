@@ -107,11 +107,20 @@ static NSArray *PanicToArray;
   }
 
 -(void)callThePanicFromArray{
-    PanicFromArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://steve-jones.co/iospanic/panicFrom.php" parameterOne:nil]];
+    PanicFromArray = [panicFromRestObj FilePath:@"http://steve-jones.co/iospanic/panicFrom.php" parameterOne:nil];
+    
+    if(!PanicFromArray)
+    {
+        [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
+    }
 }
 
 -(void)callThePanicToArray{
-    PanicToArray = [[NSArray alloc] initWithArray:[panicFromRestObj FilePath:@"http://steve-jones.co/iospanic/panicTo.php" parameterOne:nil]];
+    PanicToArray = [panicFromRestObj FilePath:@"http://steve-jones.co/iospanic/panicTo.php" parameterOne:nil];
+    if(!PanicToArray)
+    {
+        [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
+    }
 }
 
 - (IBAction)SegmentAction:(id)sender {
@@ -238,7 +247,7 @@ static NSArray *PanicToArray;
             profilePic = [PanicFromArray valueForKey:@"pic"][indexPath.row];
             name.text = [[PanicFromArray valueForKey:@"username"][indexPath.row] uppercaseString];
             message.text =[PanicFromArray valueForKey:@"pMessage" ][indexPath.row];
-            receivedStatus = [[PanicFromArray valueForKey:@"received" ][indexPath.row]intValue];
+            receivedStatus = [[PanicFromArray valueForKey:@"received"][indexPath.row]intValue];
             type = [PanicFromArray valueForKey:@"type" ][indexPath.row];
             imagePathString = [NSString stringWithFormat:@"http://steve-jones.co/iospanic/assets/upload/%@",[PanicFromArray valueForKey:@"pic"][indexPath.row]];
             
@@ -328,7 +337,7 @@ static NSArray *PanicToArray;
             
             if(receivedStatus == 0)
             {
-                status.text = @"Status: Pending";                               //////// CASE 4 ////////
+                status.text = @"Status: Pending";                      //////// CASE 4 ////////
                 
                 [accept_location setTitle:@"Accept" forState:normal];
                 [accept_location addTarget:self action:@selector(AcceptToSendLocation:) forControlEvents:UIControlEventTouchUpInside];
@@ -341,7 +350,7 @@ static NSArray *PanicToArray;
             }
             else
             {
-                if([type isEqualToString:@"F"])                                 //////// CASE 3 ///////
+                if([type isEqualToString:@"F"])                        //////// CASE 3 ///////
                 {
                     status.text = @"Status: Sent";
                 }
@@ -353,14 +362,11 @@ static NSArray *PanicToArray;
             
             (cell.imageView).frame = CGRectMake(20,20,20,20);
             
-            //calculatedDifference = [self calculateDifference:indexPath.row FromArray:PanicToArray];
-            
             NSString *newtimeStamp = [PanicToArray valueForKey:@"timestamp"][indexPath.row];
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *newDate = [dateFormat dateFromString:newtimeStamp];
 
-            //NSLog(@"the date is %@",[self stringDatePartOf:newDate]);
             [cell addSubview:image_loading];
             
             timestamp.text = [self stringDatePartOf:newDate];
@@ -387,126 +393,160 @@ static NSArray *PanicToArray;
     return cell;
 }
 
+-(void)AcceptToSendLocation:(id)sender
+{
+    accept_location = (UIButton*) sender;
+    
+    if([CLLocationManager locationServicesEnabled])
+    {
+        if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
+        {
+            [self showLocationPopUp];
+        }
+        else
+        {
+            [pageLoading startAnimating];
+            sendLocation = YES;
+            [self.locationManager startUpdatingLocation];
+        }
+    }
+    else
+    {
+        [self showLocationPopUp];
+    }
+}
+
+-(void) showLocationPopUp
+{
+    if([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+        alert.tag=121;
+        [alert show];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [manager stopUpdatingLocation];
+    CLLocation *location = locations.lastObject;
+    
+    if(sendLocation == YES)
+    {
+        sendLocation = NO;
+        latitude = location.coordinate.latitude;
+        longitude = location.coordinate.longitude;
+        
+        [self callWebService];
+        
+        NSLog(@"latitude %f",latitude);
+        NSLog(@"longitude %f",longitude);
+    }
+}
+
+-(void)callWebService
+{
+    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
+    {
+        NSString *locationString = [NSString stringWithFormat:@"%f,%f",latitude,longitude];
+        
+        WebService *AcceptToSendLocationRest = [[WebService alloc] init];
+        AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:locationString parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
+        
+        if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"])
+        {
+            //here
+            
+            [pageLoading stopAnimating];
+            [self sendPush];
+        }
+        else
+        {
+            [self showAlertBoxWithTitle:@"Internet Issue" message:@"It seems your Internet connection is Down"];
+            [pageLoading stopAnimating];
+        }
+    }
+}
+
+-(void)sendPush
+{
+    NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
+    
+    NSDictionary *panicData = @{
+                                @"alert": msg,
+                                @"name": [PanicToArray valueForKey:@"username"][accept_location.tag],
+                                @"number": [PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag],
+                                @"sound":@"cheering.caf"
+                                };
+    
+    [accept_location setHidden:true];
+    accept_location.enabled = false;
+    
+    [[PanicToArray objectAtIndex:accept_location.tag]setValue:@"1" forKey:@"received"];
+    [self.mytable reloadData];
+    
+    
+    //[PanicToArray setValue:@"1" forKey:@"received"];
+    //[[PanicToArray valueForKey:@"received"][indexPath.row]
+    
+    NSString *friendsNumber = @"X_";
+    friendsNumber = [friendsNumber stringByAppendingString:[[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] substringFromIndex:1]];
+    
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:friendsNumber];
+    [push setMessage:msg];
+    [push setData:panicData];
+    [push sendPushInBackground];
+
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 121 && buttonIndex == 1)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.segments.selectedSegmentIndex == 0)
+    {
+        [self performSegueWithIdentifier:@"FromSegue" sender:self];
+    }
+}
+
+-(void)showAlertBoxWithTitle:(NSString*)title message:(NSString*)message
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:title
+                                  message:message
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Okay"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 -(NSString*) stringDatePartOf:(NSDate*)date
 {
     NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-                                  
+    
     return [formatter stringFromDate:date];
 }
-
-
-
-
-//-(int)calculateDifference:(int)index FromArray:(NSArray *)timeFromArray{
-//    
-//    NSString *dateFromJson = [timeFromArray valueForKey:@"timestamp"][index];
-//    NSDate *today = [NSDate date];
-//    
-//   // NSLog(@"Today: %@",today);
-//    
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//   // [dateFormatter setDateFormat: @"EEEE"];
-//    
-//    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-//    NSDate * JsonDateFormatted = [dateFormatter dateFromString:dateFromJson];
-//    dateFormatter.dateFormat = @"dd";
-//    messageDay = [dateFormatter stringFromDate:JsonDateFormatted].intValue;
-//    
-//    dateFormatter.dateFormat = @"HH:mm";
-//    hourWithMin = [dateFormatter stringFromDate:JsonDateFormatted];
-//    
-//    dateFormatter.dateFormat = @"HH";
-//    hour = [dateFormatter stringFromDate:JsonDateFormatted];
-//    
-//    if(hour.intValue > 12){
-//        
-//    }
-//
-//    dateFormatter.dateFormat = @"dd";
-//    currentDay = [dateFormatter stringFromDate:today].intValue;
-//
-//    int difference = messageDay - currentDay;
-//    
-//   // NSLog(@"the date difference is %d",difference);
-//    
-//    NSDateComponents *components = [[NSDateComponents alloc] init];
-//    components.day = difference;
-//    
-//    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-//    
-//    NSDate *differeneDay = [gregorian dateByAddingComponents:components toDate:today options:0];
-//   // NSLog(@"Difference Day: %@", differeneDay);
-//    
-//    dayCurrent = [self transformedValue:differeneDay];
-//
-//    return difference;
-//
-//}
-//- (id)transformedValue:(NSDate *)date
-//{
-//    // Initialize the formatter.
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    formatter.dateStyle = NSDateFormatterShortStyle;
-//    formatter.timeStyle = NSDateFormatterNoStyle;
-//    
-//    // Initialize the calendar and flags.
-//    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit;
-//    NSCalendar *calendar = [NSCalendar currentCalendar];
-//    
-//    // Create reference date for supplied date.
-//    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
-//    comps.hour = 0;
-//    comps.minute = 0;
-//    comps.second = 0;
-//    NSDate *suppliedDate = [calendar dateFromComponents:comps];
-//    
-//    // Iterate through the eight days (tomorrow, today, and the last six).
-//    int i;
-//    for (i = -1; i < 7; i++)
-//    {
-//        // Initialize reference date.
-//        comps = [calendar components:unitFlags fromDate:[NSDate date]];
-//        comps.hour = 0;
-//        comps.minute = 0;
-//        comps.second = 0;
-//        comps.day = comps.day - i;
-//        NSDate *referenceDate = [calendar dateFromComponents:comps];
-//        // Get week day (starts at 1).
-//        int weekday = [calendar components:unitFlags fromDate:referenceDate].weekday - 1;
-//        
-//        if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == -1)
-//        {
-//            // Tomorrow
-//            return @"Tomorrow";
-//        }
-//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 0)
-//        {
-//            // Today's time (a la iPhone Mail)
-//            formatter.dateStyle = NSDateFormatterNoStyle;
-//            formatter.timeStyle = NSDateFormatterShortStyle;
-//            //NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
-//            return [formatter stringFromDate:date];
-//            
-//        }
-//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 1)
-//        {
-//            // Today
-//            return @"Yesterday";
-//        }
-//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame)
-//        {
-//            // Day of the week
-//            NSString *day = formatter.weekdaySymbols[weekday];
-//            return day;
-//        }
-//    }
-//    
-//    // It's not in those eight days.
-//    NSString *defaultDate = [formatter stringFromDate:date];
-//    return defaultDate;
-//}
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -571,121 +611,117 @@ static NSArray *PanicToArray;
     
 }
 
--(void)AcceptToSendLocation:(id)sender
-{
-    accept_location = (UIButton*) sender;
-    
-    if([CLLocationManager locationServicesEnabled])
-    {
-        if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusDenied)
-        {
-            [self showLocationPopUp];
-        }
-        else
-        {
-            [pageLoading startAnimating];
-            sendLocation = YES;
-            [self.locationManager startUpdatingLocation];
-        }
-    }
-    else
-    {
-        [self showLocationPopUp];
-    }
-}
 
--(void) showLocationPopUp
-{
-    if([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
-    {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-    }
-    else
-    {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"This app does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
-        alert.tag=121;
-        [alert show];
-    }
-}
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    [manager stopUpdatingLocation];
-    CLLocation *location = locations.lastObject;
-    
-    if(sendLocation == YES)
-    {
-        sendLocation = NO;
-        latitude = location.coordinate.latitude;
-        longitude = location.coordinate.longitude;
-        
-        [self callWebService];
-        
-        NSLog(@"latitude %f",latitude);
-        NSLog(@"longitude %f",longitude);
-    }
-}
 
--(void)callWebService
-{
-    if(!([[NSString stringWithFormat:@"%f",longitude] isEqualToString:@"0.000000"]))
-    {
-        NSString *locationString = [NSString stringWithFormat:@"%@,%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"latitude"],[[NSUserDefaults standardUserDefaults]valueForKey:@"longitude"]];
-        
-        WebService *AcceptToSendLocationRest = [[WebService alloc] init];
-        AcceptToSendLocationJsonArray = [AcceptToSendLocationRest FilePath:BASEURL ACCEPT_TO_SEND_LOCATION parameterOne:[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] parameterTwo:locationString parameterThree:[PanicToArray valueForKey:@"id"][accept_location.tag]];
-        
-        if([[AcceptToSendLocationJsonArray valueForKey:@"success"] isEqualToString:@"200"])
-        {
-            [pageLoading stopAnimating];
-            [self sendPush];
-        }
-        else
-        {
-            [pageLoading stopAnimating];
-        }
-    }
-}
+//-(int)calculateDifference:(int)index FromArray:(NSArray *)timeFromArray{
+//
+//    NSString *dateFromJson = [timeFromArray valueForKey:@"timestamp"][index];
+//    NSDate *today = [NSDate date];
+//
+//   // NSLog(@"Today: %@",today);
+//
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//   // [dateFormatter setDateFormat: @"EEEE"];
+//
+//    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+//    NSDate * JsonDateFormatted = [dateFormatter dateFromString:dateFromJson];
+//    dateFormatter.dateFormat = @"dd";
+//    messageDay = [dateFormatter stringFromDate:JsonDateFormatted].intValue;
+//
+//    dateFormatter.dateFormat = @"HH:mm";
+//    hourWithMin = [dateFormatter stringFromDate:JsonDateFormatted];
+//
+//    dateFormatter.dateFormat = @"HH";
+//    hour = [dateFormatter stringFromDate:JsonDateFormatted];
+//
+//    if(hour.intValue > 12){
+//
+//    }
+//
+//    dateFormatter.dateFormat = @"dd";
+//    currentDay = [dateFormatter stringFromDate:today].intValue;
+//
+//    int difference = messageDay - currentDay;
+//
+//   // NSLog(@"the date difference is %d",difference);
+//
+//    NSDateComponents *components = [[NSDateComponents alloc] init];
+//    components.day = difference;
+//
+//    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//
+//    NSDate *differeneDay = [gregorian dateByAddingComponents:components toDate:today options:0];
+//   // NSLog(@"Difference Day: %@", differeneDay);
+//
+//    dayCurrent = [self transformedValue:differeneDay];
+//
+//    return difference;
+//
+//}
+//- (id)transformedValue:(NSDate *)date
+//{
+//    // Initialize the formatter.
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    formatter.dateStyle = NSDateFormatterShortStyle;
+//    formatter.timeStyle = NSDateFormatterNoStyle;
+//
+//    // Initialize the calendar and flags.
+//    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit;
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//
+//    // Create reference date for supplied date.
+//    NSDateComponents *comps = [calendar components:unitFlags fromDate:date];
+//    comps.hour = 0;
+//    comps.minute = 0;
+//    comps.second = 0;
+//    NSDate *suppliedDate = [calendar dateFromComponents:comps];
+//
+//    // Iterate through the eight days (tomorrow, today, and the last six).
+//    int i;
+//    for (i = -1; i < 7; i++)
+//    {
+//        // Initialize reference date.
+//        comps = [calendar components:unitFlags fromDate:[NSDate date]];
+//        comps.hour = 0;
+//        comps.minute = 0;
+//        comps.second = 0;
+//        comps.day = comps.day - i;
+//        NSDate *referenceDate = [calendar dateFromComponents:comps];
+//        // Get week day (starts at 1).
+//        int weekday = [calendar components:unitFlags fromDate:referenceDate].weekday - 1;
+//
+//        if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == -1)
+//        {
+//            // Tomorrow
+//            return @"Tomorrow";
+//        }
+//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 0)
+//        {
+//            // Today's time (a la iPhone Mail)
+//            formatter.dateStyle = NSDateFormatterNoStyle;
+//            formatter.timeStyle = NSDateFormatterShortStyle;
+//            //NSLog(@"the current dat is %@",[formatter stringFromDate:date]);
+//            return [formatter stringFromDate:date];
+//
+//        }
+//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame && i == 1)
+//        {
+//            // Today
+//            return @"Yesterday";
+//        }
+//        else if ([suppliedDate compare:referenceDate] == NSOrderedSame)
+//        {
+//            // Day of the week
+//            NSString *day = formatter.weekdaySymbols[weekday];
+//            return day;
+//        }
+//    }
+//
+//    // It's not in those eight days.
+//    NSString *defaultDate = [formatter stringFromDate:date];
+//    return defaultDate;
+//}
 
--(void)sendPush
-{
-    NSString *msg = [NSString stringWithFormat:@"%@ has sent you his location",[[NSUserDefaults standardUserDefaults]valueForKey:@"username"]];
-    
-    NSDictionary *panicData = @{
-                                @"alert": msg,
-                                @"name": [PanicToArray valueForKey:@"username"][accept_location.tag],
-                                @"number": [PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag],
-                                @"sound":@"cheering.caf"
-                                };
-    
-    [accept_location setTitle:@"Sent" forState:normal];
-    accept_location.enabled = false;
-    
-    NSString *friendsNumber = @"X_";
-    friendsNumber = [friendsNumber stringByAppendingString:[[PanicToArray valueForKeyPath:@"friendsnumber"][accept_location.tag] substringFromIndex:1]];
-    
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:friendsNumber];
-    [push setMessage:msg];
-    [push setData:panicData];
-    [push sendPushInBackground];
 
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == 121 && buttonIndex == 1)
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(self.segments.selectedSegmentIndex == 0)
-    {
-        [self performSegueWithIdentifier:@"FromSegue" sender:self];
-    }
-}
 @end

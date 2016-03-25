@@ -112,10 +112,10 @@ NSMutableArray *profile;
     {
         NSString *CellIdentifier = profile[indexPath.row];
         
-//        if([CellIdentifier isEqualToString:@"system"])
-//        {
-//            [self performSegueWithIdentifier:@"help_systemStatus_segue" sender:self];
-//        }
+        if([CellIdentifier isEqualToString:@"system"])
+        {
+            [self performSegueWithIdentifier:@"statusSegue" sender:self];
+        }
         
         if([CellIdentifier isEqualToString:@"logout"])
         {
@@ -155,28 +155,14 @@ NSMutableArray *profile;
     // Dispose of any resources that can be recreated.
 }
 
-//- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
-//{
-//    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//
-//    if ([segue.identifier isEqualToString:@"help_systemStatus_segue"])
-//    {
-//        help_systemStatus *h = segue.destinationViewController;
-//        if(indexPath.section == 0)
-//        {
-//            NSString *CellIdentifier = about[indexPath.row];
-//            
-//            if([CellIdentifier isEqualToString:@"help"])
-//            {
-//                h.pageName = @"FAQ.php";
-//            }
-//        }
-//        else
-//        {
-//            h.pageName = @"system_status.php";
-//        }
-//    }
-//}
+- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
+{
+    if ([segue.identifier isEqualToString:@"statusSegue"])
+    {
+        websiteWebview *w = segue.destinationViewController;
+        w.pageName = @"http://fajjemobile.info/iospanic/system_status.php";
+    }
+}
 
 -(void)showAlertBox:(NSString*)title message:(NSString*)message
 {
