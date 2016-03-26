@@ -112,7 +112,8 @@
         }
         else
         {
-            [self showLocationPopUp];        }
+            [self showLocationPopUp];
+        }
     }
     else
     {
@@ -280,7 +281,7 @@
     }
     else
     {
-        NSString* notifications_string = [NSString stringWithFormat:@"%i", notifications];
+        NSString* notifications_string = [NSString stringWithFormat:@"%lu", (unsigned long)notifications];
         self.tabBarController.tabBar.items[1].badgeValue = notifications_string;
     }
 

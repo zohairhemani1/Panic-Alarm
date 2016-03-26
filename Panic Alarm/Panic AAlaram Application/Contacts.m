@@ -81,6 +81,7 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         dispatch_async(dispatch_get_main_queue(), ^{
             // Update UI on main queue
             
+            [self.tabBarController.tabBar.items[1] setBadgeValue:nil];
             [self.myTable reloadData];
             [progress stopAnimating];
         });
@@ -237,6 +238,8 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         if (accReq != nil && [accReq isEqual: @"0"]) {
             [button setBackgroundImage:[UIImage imageNamed:@"accept_friend"] forState:normal];
             [button addTarget:self action:@selector(acceptFriendRequest:) forControlEvents:UIControlEventTouchUpInside];
+            
+            self.tabBarController.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarController.tabBar.items[1].badgeValue intValue] + 1];
 
         }
         else if (accReq != nil && [accReq isEqual: @"1"])
@@ -277,6 +280,14 @@ NSMutableArray *DistinctFriendsWhoUseApp;
     
     if([[acceptRequestResultArray valueForKey:@"status"] isEqualToString: @"1"])
     {
+        
+        self.tabBarController.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarController.tabBar.items[1].badgeValue intValue] - 1];
+        
+        if([self.tabBarController.tabBar.items[1].badgeValue intValue] == 0)
+        {
+            [self.tabBarController.tabBar.items[1] setBadgeValue:nil];
+        }
+            
         [progress stopAnimating];
         [self sendingPush];
         
@@ -510,6 +521,8 @@ NSMutableArray *DistinctFriendsWhoUseApp;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // Update UI on main queue
+            
+            [self.tabBarController.tabBar.items[1] setBadgeValue:nil];
             
             [self.myTable reloadData];
             [progress stopAnimating];
