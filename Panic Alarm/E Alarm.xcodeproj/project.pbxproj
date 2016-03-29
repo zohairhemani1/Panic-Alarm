@@ -31,6 +31,8 @@
 		193F45161C8974F300EEC392 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 193F45061C8974F300EEC392 /* UIView+WebCacheOperation.m */; };
 		193F45191C89759200EEC392 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 193F45171C89756E00EEC392 /* ImageIO.framework */; };
 		19404F1C1BEC91FF00664583 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19404F1B1BEC91FF00664583 /* NSDataAdditions.m */; };
+		194884001CAA85DA009B5D2A /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194883FF1CAA85DA009B5D2A /* WatchConnectivity.framework */; };
+		194884021CAA85E2009B5D2A /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194884011CAA85E2009B5D2A /* WatchKit.framework */; };
 		194A06D91926A50900AA7654 /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = 194A06D81926A50900AA7654 /* Terms.m */; };
 		194A06DE1926A65900AA7654 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DA1926A65900AA7654 /* checkbox-checked.png */; };
 		194A06DF1926A65900AA7654 /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DB1926A65900AA7654 /* checkbox-checked@2x.png */; };
@@ -38,6 +40,14 @@
 		194A06E11926A65900AA7654 /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 194A06DD1926A65900AA7654 /* checkbox@2x.png */; };
 		1980BDD319AB752C008B58A0 /* profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1980BDD219AB752C008B58A0 /* profile.m */; };
 		1988D74D1C1B16E3000034D9 /* websiteWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = 1988D74C1C1B16E3000034D9 /* websiteWebview.m */; };
+		19C617261CA96ECB0006D4D6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C617241CA96ECB0006D4D6 /* Interface.storyboard */; };
+		19C617281CA96ECB0006D4D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19C617271CA96ECB0006D4D6 /* Assets.xcassets */; };
+		19C6172F1CA96ECB0006D4D6 /* e watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 19C6172E1CA96ECB0006D4D6 /* e watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		19C617371CA96ECB0006D4D6 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C617361CA96ECB0006D4D6 /* InterfaceController.m */; };
+		19C6173A1CA96ECB0006D4D6 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C617391CA96ECB0006D4D6 /* ExtensionDelegate.m */; };
+		19C6173D1CA96ECB0006D4D6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C6173C1CA96ECB0006D4D6 /* NotificationController.m */; };
+		19C6173F1CA96ECB0006D4D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19C6173E1CA96ECB0006D4D6 /* Assets.xcassets */; };
+		19C617431CA96ECB0006D4D6 /* e watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 19C617221CA96ECB0006D4D6 /* e watch.app */; };
 		19C746CB19795F2500192C88 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C746CA19795F2500192C88 /* Log.m */; };
 		19D0A696196DDFEE00CB68F3 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D0A695196DDFEE00CB68F3 /* Settings.m */; };
 		19D2D698191F7D14007A27F2 /* Favorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D2D697191F7D14007A27F2 /* Favorites.m */; };
@@ -85,11 +95,53 @@
 		DCE6BDA81916C2420067B846 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE6BDA61916C2420067B846 /* AddressBookUI.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		19C617301CA96ECB0006D4D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC5A8C381910ECB00058F7C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19C6172D1CA96ECB0006D4D6;
+			remoteInfo = "e watch Extension";
+		};
+		19C617411CA96ECB0006D4D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC5A8C381910ECB00058F7C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19C617211CA96ECB0006D4D6;
+			remoteInfo = "e watch";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		19C617491CA96ECB0006D4D6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				19C6172F1CA96ECB0006D4D6 /* e watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19C6174B1CA96ECB0006D4D6 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				19C617431CA96ECB0006D4D6 /* e watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1905FE3B1983910700C76BA0 /* About.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
 		1905FE3C1983910700C76BA0 /* About.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = About.m; sourceTree = "<group>"; };
 		190C92881958B12E00AD92CF /* checkbox-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-pressed.png"; sourceTree = "<group>"; };
-		19196BB419780DC00070C9D4 /* alarmsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alarmsound.mp3; sourceTree = "<group>"; };
+		19196BB419780DC00070C9D4 /* alarmsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alarmsound.mp3; path = "../Panic AAlaram Application/alarmsound.mp3"; sourceTree = "<group>"; };
 		19196BB619780F4D0070C9D4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		19196BB81978110F0070C9D4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1934EC331923F6D200F6CEC3 /* tabbarbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbarbackground.png; sourceTree = SOURCE_ROOT; };
@@ -129,6 +181,10 @@
 		193F45171C89756E00EEC392 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		19404F1A1BEC91FF00664583 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		19404F1B1BEC91FF00664583 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
+		194883FF1CAA85DA009B5D2A /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
+		194884011CAA85E2009B5D2A /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
+		194884031CAA8FC3009B5D2A /* e watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "e watch.entitlements"; sourceTree = "<group>"; };
+		194884041CAA8FE6009B5D2A /* e watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "e watch Extension.entitlements"; sourceTree = "<group>"; };
 		194A06D71926A50900AA7654 /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		194A06D81926A50900AA7654 /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		194A06DA1926A65900AA7654 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = SOURCE_ROOT; };
@@ -139,6 +195,20 @@
 		1980BDD219AB752C008B58A0 /* profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = profile.m; sourceTree = "<group>"; };
 		1988D74B1C1B16E3000034D9 /* websiteWebview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = websiteWebview.h; sourceTree = "<group>"; };
 		1988D74C1C1B16E3000034D9 /* websiteWebview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = websiteWebview.m; sourceTree = "<group>"; };
+		19C617221CA96ECB0006D4D6 /* e watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "e watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19C617251CA96ECB0006D4D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		19C617271CA96ECB0006D4D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		19C617291CA96ECB0006D4D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19C6172E1CA96ECB0006D4D6 /* e watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "e watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19C617341CA96ECB0006D4D6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		19C617351CA96ECB0006D4D6 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		19C617361CA96ECB0006D4D6 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		19C617381CA96ECB0006D4D6 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		19C617391CA96ECB0006D4D6 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
+		19C6173B1CA96ECB0006D4D6 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		19C6173C1CA96ECB0006D4D6 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		19C6173E1CA96ECB0006D4D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		19C617401CA96ECB0006D4D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19C746C919795F2500192C88 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = ../Log.h; sourceTree = "<group>"; };
 		19C746CA19795F2500192C88 /* Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = ../Log.m; sourceTree = "<group>"; };
 		19D0A694196DDFEE00CB68F3 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -209,10 +279,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		19C6172B1CA96ECB0006D4D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC5A8C3D1910ECB00058F7C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				194884021CAA85E2009B5D2A /* WatchKit.framework in Frameworks */,
+				194884001CAA85DA009B5D2A /* WatchConnectivity.framework in Frameworks */,
 				193F45191C89759200EEC392 /* ImageIO.framework in Frameworks */,
 				19196BB91978110F0070C9D4 /* AVFoundation.framework in Frameworks */,
 				19196BB719780F4D0070C9D4 /* MediaPlayer.framework in Frameworks */,
@@ -279,11 +358,89 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		19C617231CA96ECB0006D4D6 /* e watch */ = {
+			isa = PBXGroup;
+			children = (
+				194884031CAA8FC3009B5D2A /* e watch.entitlements */,
+				19196BB419780DC00070C9D4 /* alarmsound.mp3 */,
+				19C617241CA96ECB0006D4D6 /* Interface.storyboard */,
+				19C617271CA96ECB0006D4D6 /* Assets.xcassets */,
+				19C617291CA96ECB0006D4D6 /* Info.plist */,
+			);
+			path = "e watch";
+			sourceTree = "<group>";
+		};
+		19C617321CA96ECB0006D4D6 /* e watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				194884041CAA8FE6009B5D2A /* e watch Extension.entitlements */,
+				19C617351CA96ECB0006D4D6 /* InterfaceController.h */,
+				19C617361CA96ECB0006D4D6 /* InterfaceController.m */,
+				19C617381CA96ECB0006D4D6 /* ExtensionDelegate.h */,
+				19C617391CA96ECB0006D4D6 /* ExtensionDelegate.m */,
+				19C6173B1CA96ECB0006D4D6 /* NotificationController.h */,
+				19C6173C1CA96ECB0006D4D6 /* NotificationController.m */,
+				19C6173E1CA96ECB0006D4D6 /* Assets.xcassets */,
+				19C617401CA96ECB0006D4D6 /* Info.plist */,
+				19C617331CA96ECB0006D4D6 /* Supporting Files */,
+			);
+			path = "e watch Extension";
+			sourceTree = "<group>";
+		};
+		19C617331CA96ECB0006D4D6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				19C617341CA96ECB0006D4D6 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		19C6174D1CA9838C0006D4D6 /* iosApp */ = {
+			isa = PBXGroup;
+			children = (
+				DC9D521A19FB9363002779C1 /* Constants.h */,
+				DCCD76B519169D72009C6A37 /* WebService.h */,
+				DCCD76B619169D72009C6A37 /* WebService.m */,
+				DC5A8C521910ECB00058F7C2 /* AppDelegate.h */,
+				DC5A8C531910ECB00058F7C2 /* AppDelegate.m */,
+				19DBA63A193036E800BFD9CB /* Reachability.h */,
+				19DBA63B193036E800BFD9CB /* Reachability.m */,
+				19DBA63C193036E800BFD9CB /* checkInternet.h */,
+				19DBA63D193036E800BFD9CB /* checkInternet.m */,
+				194A06D71926A50900AA7654 /* Terms.h */,
+				194A06D81926A50900AA7654 /* Terms.m */,
+				DC5A8C581910ECB00058F7C2 /* Login.h */,
+				DC5A8C591910ECB00058F7C2 /* Login.m */,
+				DCC0998F1928AD1B005694B0 /* Home.h */,
+				DCC099901928AD1B005694B0 /* Home.m */,
+				DC5A8C5B1910ECB00058F7C2 /* Contacts.h */,
+				DC5A8C5C1910ECB00058F7C2 /* Contacts.m */,
+				19D2D696191F7D14007A27F2 /* Favorites.h */,
+				19D2D697191F7D14007A27F2 /* Favorites.m */,
+				19C746C919795F2500192C88 /* Log.h */,
+				19C746CA19795F2500192C88 /* Log.m */,
+				19FB7027196732CE00032AA7 /* PanicFrom.h */,
+				19FB7028196732CE00032AA7 /* PanicFrom.m */,
+				19F593E5192734DD0090BE79 /* Map.h */,
+				19F593E6192734DD0090BE79 /* Map.m */,
+				19D0A694196DDFEE00CB68F3 /* Settings.h */,
+				19D0A695196DDFEE00CB68F3 /* Settings.m */,
+				1988D74B1C1B16E3000034D9 /* websiteWebview.h */,
+				1988D74C1C1B16E3000034D9 /* websiteWebview.m */,
+				1905FE3B1983910700C76BA0 /* About.h */,
+				1905FE3C1983910700C76BA0 /* About.m */,
+				1980BDD119AB752C008B58A0 /* profile.h */,
+				1980BDD219AB752C008B58A0 /* profile.m */,
+				19E941AD1BD67ECF00705B5C /* digitsVerification.h */,
+				19E941AE1BD67ECF00705B5C /* digitsVerification.m */,
+			);
+			name = iosApp;
+			sourceTree = "<group>";
+		};
 		19D00756191109FB008EB620 /* images */ = {
 			isa = PBXGroup;
 			children = (
 				190C92881958B12E00AD92CF /* checkbox-pressed.png */,
-				19196BB419780DC00070C9D4 /* alarmsound.mp3 */,
 				19F593E91927383F0090BE79 /* setupEdit.png */,
 				19F593EA1927383F0090BE79 /* stopAlert.png */,
 				194A06DA1926A65900AA7654 /* checkbox-checked.png */,
@@ -323,6 +480,8 @@
 				19E941A81BD679C700705B5C /* TwitterCore.framework */,
 				DC5A8C491910ECB00058F7C2 /* Panic AAlaram Application */,
 				DC5A8C6B1910ECB00058F7C2 /* Panic AAlaram ApplicationTests */,
+				19C617231CA96ECB0006D4D6 /* e watch */,
+				19C617321CA96ECB0006D4D6 /* e watch Extension */,
 				DC5A8C421910ECB00058F7C2 /* Frameworks */,
 				DC5A8C411910ECB00058F7C2 /* Products */,
 			);
@@ -332,6 +491,8 @@
 			isa = PBXGroup;
 			children = (
 				DC5A8C401910ECB00058F7C2 /* E Alarm.app */,
+				19C617221CA96ECB0006D4D6 /* e watch.app */,
+				19C6172E1CA96ECB0006D4D6 /* e watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +500,8 @@
 		DC5A8C421910ECB00058F7C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				194884011CAA85E2009B5D2A /* WatchKit.framework */,
+				194883FF1CAA85DA009B5D2A /* WatchConnectivity.framework */,
 				193F45171C89756E00EEC392 /* ImageIO.framework */,
 				19196BB81978110F0070C9D4 /* AVFoundation.framework */,
 				19196BB619780F4D0070C9D4 /* MediaPlayer.framework */,
@@ -364,46 +527,11 @@
 		DC5A8C491910ECB00058F7C2 /* Panic AAlaram Application */ = {
 			isa = PBXGroup;
 			children = (
+				19C6174D1CA9838C0006D4D6 /* iosApp */,
 				19D00756191109FB008EB620 /* images */,
-				19DBA6401930489300BFD9CB /* Fonts */,
-				DC5A8C551910ECB00058F7C2 /* Main.storyboard */,
-				DC9D521A19FB9363002779C1 /* Constants.h */,
-				DCCD76B519169D72009C6A37 /* WebService.h */,
-				DCCD76B619169D72009C6A37 /* WebService.m */,
-				DC5A8C521910ECB00058F7C2 /* AppDelegate.h */,
-				DC5A8C531910ECB00058F7C2 /* AppDelegate.m */,
-				19DBA63A193036E800BFD9CB /* Reachability.h */,
-				19DBA63B193036E800BFD9CB /* Reachability.m */,
-				19DBA63C193036E800BFD9CB /* checkInternet.h */,
-				19DBA63D193036E800BFD9CB /* checkInternet.m */,
-				194A06D71926A50900AA7654 /* Terms.h */,
-				194A06D81926A50900AA7654 /* Terms.m */,
-				DC5A8C581910ECB00058F7C2 /* Login.h */,
-				DC5A8C591910ECB00058F7C2 /* Login.m */,
-				DCC0998F1928AD1B005694B0 /* Home.h */,
-				DCC099901928AD1B005694B0 /* Home.m */,
-				DC5A8C5B1910ECB00058F7C2 /* Contacts.h */,
-				DC5A8C5C1910ECB00058F7C2 /* Contacts.m */,
-				19D2D696191F7D14007A27F2 /* Favorites.h */,
-				19D2D697191F7D14007A27F2 /* Favorites.m */,
-				19C746C919795F2500192C88 /* Log.h */,
-				19C746CA19795F2500192C88 /* Log.m */,
-				19FB7027196732CE00032AA7 /* PanicFrom.h */,
-				19FB7028196732CE00032AA7 /* PanicFrom.m */,
-				19F593E5192734DD0090BE79 /* Map.h */,
-				19F593E6192734DD0090BE79 /* Map.m */,
-				19D0A694196DDFEE00CB68F3 /* Settings.h */,
-				19D0A695196DDFEE00CB68F3 /* Settings.m */,
-				1988D74B1C1B16E3000034D9 /* websiteWebview.h */,
-				1988D74C1C1B16E3000034D9 /* websiteWebview.m */,
-				1905FE3B1983910700C76BA0 /* About.h */,
-				1905FE3C1983910700C76BA0 /* About.m */,
-				1980BDD119AB752C008B58A0 /* profile.h */,
-				1980BDD219AB752C008B58A0 /* profile.m */,
-				19E941AD1BD67ECF00705B5C /* digitsVerification.h */,
-				19E941AE1BD67ECF00705B5C /* digitsVerification.m */,
-				DC5A8C5E1910ECB00058F7C2 /* Images.xcassets */,
 				DC5A8C4A1910ECB00058F7C2 /* Supporting Files */,
+				DC5A8C551910ECB00058F7C2 /* Main.storyboard */,
+				DC5A8C5E1910ECB00058F7C2 /* Images.xcassets */,
 			);
 			path = "Panic AAlaram Application";
 			sourceTree = "<group>";
@@ -411,6 +539,7 @@
 		DC5A8C4A1910ECB00058F7C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				19DBA6401930489300BFD9CB /* Fonts */,
 				DC5A8C4B1910ECB00058F7C2 /* E Alarm-Info.plist */,
 				DC5A8C4C1910ECB00058F7C2 /* InfoPlist.strings */,
 				DC5A8C4F1910ECB00058F7C2 /* main.m */,
@@ -440,6 +569,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		19C617211CA96ECB0006D4D6 /* e watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19C6174A1CA96ECB0006D4D6 /* Build configuration list for PBXNativeTarget "e watch" */;
+			buildPhases = (
+				19C617201CA96ECB0006D4D6 /* Resources */,
+				19C617491CA96ECB0006D4D6 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				19C617311CA96ECB0006D4D6 /* PBXTargetDependency */,
+			);
+			name = "e watch";
+			productName = "e watch";
+			productReference = 19C617221CA96ECB0006D4D6 /* e watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		19C6172D1CA96ECB0006D4D6 /* e watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19C617481CA96ECB0006D4D6 /* Build configuration list for PBXNativeTarget "e watch Extension" */;
+			buildPhases = (
+				19C6172A1CA96ECB0006D4D6 /* Sources */,
+				19C6172B1CA96ECB0006D4D6 /* Frameworks */,
+				19C6172C1CA96ECB0006D4D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "e watch Extension";
+			productName = "e watch Extension";
+			productReference = 19C6172E1CA96ECB0006D4D6 /* e watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		DC5A8C3F1910ECB00058F7C2 /* E Alarm */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC5A8C751910ECB00058F7C2 /* Build configuration list for PBXNativeTarget "E Alarm" */;
@@ -448,10 +611,12 @@
 				DC5A8C3D1910ECB00058F7C2 /* Frameworks */,
 				DC5A8C3E1910ECB00058F7C2 /* Resources */,
 				19E941A41BD6796000705B5C /* ShellScript */,
+				19C6174B1CA96ECB0006D4D6 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				19C617421CA96ECB0006D4D6 /* PBXTargetDependency */,
 			);
 			name = "E Alarm";
 			productName = "Panic AAlaram Application";
@@ -467,6 +632,24 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Zohair Hemani - Stanford Assignment";
 				TargetAttributes = {
+					19C617211CA96ECB0006D4D6 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 3ZL3EV2653;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					19C6172D1CA96ECB0006D4D6 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 3ZL3EV2653;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					DC5A8C3F1910ECB00058F7C2 = {
 						DevelopmentTeam = 3ZL3EV2653;
 						SystemCapabilities = {
@@ -497,11 +680,30 @@
 			projectRoot = "";
 			targets = (
 				DC5A8C3F1910ECB00058F7C2 /* E Alarm */,
+				19C617211CA96ECB0006D4D6 /* e watch */,
+				19C6172D1CA96ECB0006D4D6 /* e watch Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		19C617201CA96ECB0006D4D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19C617281CA96ECB0006D4D6 /* Assets.xcassets in Resources */,
+				19C617261CA96ECB0006D4D6 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		19C6172C1CA96ECB0006D4D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19C6173F1CA96ECB0006D4D6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC5A8C3E1910ECB00058F7C2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -549,6 +751,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		19C6172A1CA96ECB0006D4D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19C6173A1CA96ECB0006D4D6 /* ExtensionDelegate.m in Sources */,
+				19C617371CA96ECB0006D4D6 /* InterfaceController.m in Sources */,
+				19C6173D1CA96ECB0006D4D6 /* NotificationController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC5A8C3C1910ECB00058F7C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -593,7 +805,28 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		19C617311CA96ECB0006D4D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19C6172D1CA96ECB0006D4D6 /* e watch Extension */;
+			targetProxy = 19C617301CA96ECB0006D4D6 /* PBXContainerItemProxy */;
+		};
+		19C617421CA96ECB0006D4D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19C617211CA96ECB0006D4D6 /* e watch */;
+			targetProxy = 19C617411CA96ECB0006D4D6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		19C617241CA96ECB0006D4D6 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19C617251CA96ECB0006D4D6 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		DC5A8C4C1910ECB00058F7C2 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -621,6 +854,106 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		19C617441CA96ECB0006D4D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "e watch/e watch.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = e_watch_Extension;
+				INFOPLIST_FILE = "e watch/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.ealarm.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		19C617451CA96ECB0006D4D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "e watch/e watch.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cloud12 Apps, LLC (QC2G57K64X)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = e_watch_Extension;
+				INFOPLIST_FILE = "e watch/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.ealarm.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Release;
+		};
+		19C617461CA96ECB0006D4D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "e watch Extension/e watch Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "e watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.ealarm.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		19C617471CA96ECB0006D4D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = "e watch Extension/e watch Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "e watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.avialdo.ealarm.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Release;
+		};
 		DC5A8C731910ECB00058F7C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -752,6 +1085,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		19C617481CA96ECB0006D4D6 /* Build configuration list for PBXNativeTarget "e watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19C617461CA96ECB0006D4D6 /* Debug */,
+				19C617471CA96ECB0006D4D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19C6174A1CA96ECB0006D4D6 /* Build configuration list for PBXNativeTarget "e watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19C617441CA96ECB0006D4D6 /* Debug */,
+				19C617451CA96ECB0006D4D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DC5A8C3B1910ECB00058F7C2 /* Build configuration list for PBXProject "E Alarm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
